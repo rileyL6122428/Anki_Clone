@@ -12,16 +12,16 @@ Anki is a clone of AnkiApp, a flashcard app. The mvp of this project includes th
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
 - [ ] The minimally necessary features for an AnkiApp-inspired site:
-        1) deck and flashcard creation
-        2) D&F editing
-        3) D&F viewing (with stat lists and graphs)
-        4) D&F deleting
-        5) Deck reviews with recaps
-        6) browse and import public decks.
-        7) add audio to flashcards (not MVP)
-        8) add tagging to decks (not MVP)
-        9) add fancy text editing for flashcards (not MVP)
-        10) add keyboard shortcuts to website (not MVP)
+      -  1) deck and flashcard creation
+      -  2) D&F editing
+      -  3) D&F viewing (with stat lists and graphs)
+      -  4) D&F deleting
+      -  5) Deck reviews with recaps
+      -  6) browse and import public decks.
+      -  7) add audio to flashcards (not MVP)
+      -  8) add tagging to decks (not MVP)
+      -  9) add fancy text editing for flashcards (not MVP)
+      -  10) add keyboard shortcuts to website (not MVP)
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
@@ -39,7 +39,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
 
-[views]: ./docs/views.md
+[views]: ./docs/my_wireframes.md
 [components]: ./docs/components.md
 [flux-cycles]: ./docs/flux-cycles.md
 [api-endpoints]: ./docs/api-endpoints.md
