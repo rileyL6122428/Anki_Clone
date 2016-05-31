@@ -56,6 +56,7 @@
 	var hashHistory = ReactRouter.hashHistory;
 	//COMPONENTS
 	var AuthForm = __webpack_require__(229);
+	var Dashboard = __webpack_require__(255);
 	
 	//TESTING ONLY
 	UserStore = __webpack_require__(230);
@@ -71,7 +72,7 @@
 	      React.createElement(
 	        'header',
 	        null,
-	        'Anki_Clone_Test'
+	        'Test'
 	      ),
 	      this.props.children
 	    );
@@ -84,7 +85,8 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
-	    React.createElement(Route, { path: 'auth', component: AuthForm })
+	    React.createElement(Route, { path: 'auth', component: AuthForm }),
+	    React.createElement(Route, { path: 'dashboard', component: Dashboard })
 	  )
 	);
 	
@@ -25874,9 +25876,193 @@
 
 /***/ },
 /* 229 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-
+	var React = __webpack_require__(1);
+	var UserActions = __webpack_require__(252);
+	var UserStore = __webpack_require__(230);
+	
+	//TODO NEXT UP: actually log in
+	
+	var AuthForm = React.createClass({
+	  displayName: 'AuthForm',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    return {
+	      currentPage: "greeting",
+	      formType: "Sign up",
+	      username: "",
+	      password: "",
+	      passwordConfirm: ""
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    debugger;
+	    this.token = UserStore.addListener(this.redirectLoggedInUser);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.token.remove();
+	  },
+	
+	  redirectLoggedInUser: function () {
+	    debugger;
+	    if (UserStore.currentUser) {
+	      this.context.router.push("/dashboard");
+	    }
+	  },
+	
+	  greeting: function () {
+	    if (this.state.currentPage !== "greeting") {
+	      return;
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Welcome Statement'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.toSignUp },
+	        'Sign up'
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'button',
+	        { onClick: this.toLogIn },
+	        'Log in'
+	      ),
+	      React.createElement('br', null)
+	    );
+	  },
+	
+	  toSignUp: function (e) {
+	    e.preventDefault();
+	    this.setState({ currentPage: "form", formType: "Sign up" });
+	  },
+	
+	  toLogIn: function (e) {
+	    e.preventDefault();
+	    this.setState({ currentPage: "form", formType: "Log in" });
+	  },
+	
+	  form: function () {
+	    if (this.state.currentPage !== "form") {
+	      return;
+	    }
+	
+	    var submitText = this.state.formType;
+	    var submitCB = submitText === "Log in" ? this._loginCB : this._signUpCB;
+	
+	    var extraPasswordInput = React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'label',
+	        null,
+	        'Confirm Password:',
+	        React.createElement('input', { type: 'text', onChange: this._confirmPasswordChange })
+	      ),
+	      React.createElement('br', null)
+	    );
+	
+	    if (submitText === "Log in") {
+	      extraPasswordInput = React.createElement('div', null);
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Username:',
+	          React.createElement('input', { type: 'text', onChange: this._usernameChange })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Password:',
+	          React.createElement('input', { type: 'text', onChange: this._passwordChange })
+	        ),
+	        React.createElement('br', null),
+	        extraPasswordInput,
+	        React.createElement(
+	          'button',
+	          { onClick: this._cancelCB },
+	          'Cancel'
+	        ),
+	        React.createElement('input', { type: 'submit', value: submitText })
+	      )
+	    );
+	  },
+	
+	  _usernameChange: function (e) {
+	    var newUsername = e.target.value;
+	    this.setState({ username: newUsername });
+	  },
+	
+	  _passwordChange: function (e) {
+	    var newPassword = e.target.value;
+	    this.setState({ password: newPassword });
+	  },
+	
+	  _confirmPasswordChange: function (e) {
+	    var newPasswordConfirm = e.target.value;
+	    this.setState({ passwordConfirm: newPasswordConfirm });
+	  },
+	
+	  _cancelCB: function (e) {
+	    e.preventDefault();
+	    this.setState({ currentPage: "greeting" });
+	  },
+	
+	  _loginCB: function (e) {
+	    e.preventDefault();
+	    UserActions.login({
+	      username: this.state.username,
+	      password: this.state.password
+	    });
+	  },
+	
+	  _signUpCB: function (e) {
+	    e.preventDefault();
+	    UserActions.signup({
+	      username: this.state.username,
+	      password: this.state.password
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Anki_Clone'
+	      ),
+	      this.greeting(),
+	      this.form()
+	    );
+	  }
+	});
+	
+	module.exports = AuthForm;
 
 /***/ },
 /* 230 */
@@ -32793,6 +32979,26 @@
 	};
 	
 	module.exports = UserApiUtil;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Dashboard = React.createClass({
+	  displayName: 'Dashboard',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'this is the dashboard'
+	    );
+	  }
+	});
+	
+	module.exports = Dashboard;
 
 /***/ }
 /******/ ]);

@@ -10,6 +10,7 @@ var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 //COMPONENTS
 var AuthForm = require('./components/auth/auth_form');
+var Dashboard = require('./components/dashboard/dashboard');
 
 //TESTING ONLY
 UserStore = require('./stores/user_store');
@@ -19,7 +20,7 @@ var App = React.createClass({
   render: function (){
     return(
       <div>
-        <header>Anki_Clone_Test</header>
+        <header>Test</header>
         {this.props.children}
       </div>
     );
@@ -30,6 +31,7 @@ var Router = (
   <Router history={hashHistory} >
     <Route path='/' component={App}>
       <Route path='auth' component={AuthForm} />
+      <Route path='dashboard' component={Dashboard} />
     </Route>
   </Router>
 )
