@@ -12,6 +12,8 @@ var hashHistory = ReactRouter.hashHistory;
 var AuthForm = require('./components/auth/auth_form');
 var Dashboard = require('./components/dashboard/dashboard');
 
+var UserStore = require('./stores/user_store');
+
 //TESTING ONLY
 UserStore = require('./stores/user_store');
 UserActions = require('./actions/user_actions');
@@ -28,12 +30,27 @@ var App = React.createClass({
 
 var Router = (
   <Router history={hashHistory} >
-    <Route path='/' component={App}>
+    <Route path='/' component={App} >
+      <IndexRoute component={AuthForm} onEnter={directUser}/>
       <Route path='auth' component={AuthForm} />
-      <Route path='dashboard' component={Dashboard} />
+      <Route path='dashboard' component={Dashboard} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )
+
+function directUser(nextState, replace, asyncDoneCallback) {
+  if(UserStore.currentUser()) {
+    replace('/dashboard');
+  } else {
+    replace('/auth');
+  }
+  asyncDoneCallback();
+}
+
+function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
+  if( !UserStore.currentUser() ) { replace('/auth'); }
+  asyncDoneCallback();
+}
 
 document.addEventListener('DOMContentLoaded', function(){
   var root = document.getElementById('content');

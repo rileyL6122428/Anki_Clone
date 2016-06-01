@@ -58,6 +58,8 @@
 	var AuthForm = __webpack_require__(229);
 	var Dashboard = __webpack_require__(258);
 	
+	var UserStore = __webpack_require__(237);
+	
 	//TESTING ONLY
 	UserStore = __webpack_require__(237);
 	UserActions = __webpack_require__(230);
@@ -80,10 +82,27 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
+	    React.createElement(IndexRoute, { component: AuthForm, onEnter: directUser }),
 	    React.createElement(Route, { path: 'auth', component: AuthForm }),
-	    React.createElement(Route, { path: 'dashboard', component: Dashboard })
+	    React.createElement(Route, { path: 'dashboard', component: Dashboard, onEnter: _ensureLoggedIn })
 	  )
 	);
+	
+	function directUser(nextState, replace, asyncDoneCallback) {
+	  if (UserStore.currentUser()) {
+	    replace('/dashboard');
+	  } else {
+	    replace('/auth');
+	  }
+	  asyncDoneCallback();
+	}
+	
+	function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
+	  if (!UserStore.currentUser()) {
+	    replace('/auth');
+	  }
+	  asyncDoneCallback();
+	}
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var root = document.getElementById('content');
