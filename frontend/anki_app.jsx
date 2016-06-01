@@ -20,7 +20,6 @@ var App = React.createClass({
   render: function (){
     return(
       <div>
-        <header>Test</header>
         {this.props.children}
       </div>
     );

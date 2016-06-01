@@ -2,7 +2,10 @@ var React = require('react');
 var UserActions = require('../../actions/user_actions');
 var UserStore = require('../../stores/user_store');
 
-//TODO NEXT UP: actually log in
+//COMPONENT
+var ErrorMessage = require('./error_message');
+var AForm = require('./form');
+var Greeting = require('./greeting.jsx');
 
 var AuthForm = React.createClass({
 
@@ -11,41 +14,26 @@ var AuthForm = React.createClass({
   },
 
   getInitialState: function () {
-    return({
-       currentPage: "greeting",
-       formType: "Sign up",
-       username: "",
-       password: "",
-       passwordConfirm: ""
-     })
+    return({ currentPage: "greeting", formType: "Sign up", authErrors: false })
   },
 
   componentDidMount: function () {
-    debugger
-    this.token = UserStore.addListener(this.redirectLoggedInUser)
+    this.token = UserStore.addListener(this._handleChange)
   },
 
   componentWillUnmount: function () {
     this.token.remove();
   },
 
-  redirectLoggedInUser: function () {
-    debugger
-    if(UserStore.currentUser) { this.context.router.push("/dashboard"); }
+  _handleChange: function () {
+
+    if(UserStore.currentUser()) { this.context.router.push("/dashboard"); }
+    if(UserStore.errors()) {this.setState({authErrors: true})}
   },
 
-  greeting: function () {
-    if(this.state.currentPage !== "greeting"){
-      return;
-    }
-
-    return (
-      <div>
-        <h3>Welcome Statement</h3>
-        <button onClick={this.toSignUp}>Sign up</button><br/>
-        <button onClick={this.toLogIn}>Log in</button><br/>
-      </div>
-    );
+  _cancelCB: function(e){
+    e.preventDefault();
+    this.setState({currentPage: "greeting"});
   },
 
   toSignUp: function (e) {
@@ -58,85 +46,25 @@ var AuthForm = React.createClass({
     this.setState({currentPage: "form", formType: "Log in" });
   },
 
-  form: function () {
-    if(this.state.currentPage !== "form") { return; }
-
-    var submitText = this.state.formType;
-    var submitCB = (submitText === "Log in") ? this._loginCB : this._signUpCB;
-
-    var extraPasswordInput = (
-      <div>
-        <label>Confirm Password:
-          <input type="text" onChange={this._confirmPasswordChange}/>
-        </label>
-        <br/>
-      </div>
-    );
-
-    if(submitText === "Log in") { extraPasswordInput = <div></div>; }
-
-    return(
-      <div>
-        <form onSubmit={submitCB}>
-          <label>Username:
-            <input type="text" onChange={this._usernameChange}/>
-          </label>
-          <br/>
-          <label>Password:
-            <input type="text" onChange={this._passwordChange}/>
-          </label>
-          <br/>
-          {extraPasswordInput}
-          <button onClick={this._cancelCB}>Cancel</button>
-          <input type="submit" value={submitText}/>
-        </form>
-      </div>
-    );
-  },
-
-  _usernameChange: function (e) {
-    var newUsername = e.target.value
-    this.setState({ username: newUsername })
-  },
-
-  _passwordChange: function (e) {
-    var newPassword = e.target.value
-    this.setState({ password: newPassword })
-  },
-
-  _confirmPasswordChange: function (e) {
-    var newPasswordConfirm = e.target.value
-    this.setState({ passwordConfirm: newPasswordConfirm })
-  },
-
-  _cancelCB: function(e){
+  acknowledgeErrorCB: function (e) {
     e.preventDefault();
-    this.setState({currentPage: "greeting"});
-  },
-
-  _loginCB: function(e) {
-    e.preventDefault();
-    UserActions.login({
-      username: this.state.username,
-      password: this.state.password
-    });
-
-  },
-
-  _signUpCB: function (e) {
-    e.preventDefault();
-    UserActions.signup({
-      username: this.state.username,
-      password: this.state.password
-    });
+    this.setState({ authErrors: false })
   },
 
   render: function () {
     return(
-      <div>
-        <h1>Anki_Clone</h1>
-        {this.greeting()}
-        {this.form()}
+      <div className="auth">
+        <h1>AnkiClone</h1>
+        <Greeting showing={ this.state.currentPage === "greeting" }
+                  toSignUpCB={this.toSignUp}
+                  toLogInCB={this.toLogIn} />
+        <ErrorMessage hitAnError={this.state.authErrors}
+                      acknowledgeErrorCB={this.acknowledgeErrorCB}
+                      formType={this.state.formType}/>
+        <AForm
+          showing={ this.state.currentPage === "form" }
+          formType={this.state.formType}
+          cancelCB={this._cancelCB} />
       </div>
     );
   }
