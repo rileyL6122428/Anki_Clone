@@ -6,7 +6,7 @@ class Api::FlashcardsController < ApplicationController
     @flashcard.review_total = 0;
 
     if @flashcard.save
-      render 'api/cards/show'
+      render 'api/flashcards/show'
     else
       @errors = @flashcard.errors.full_messages
       render 'api/shared/error', status: 422
@@ -14,15 +14,15 @@ class Api::FlashcardsController < ApplicationController
   end
 
   def index
-    @cards = Flashcard.where(deck_id: params[:deck_id])
-    render 'api/cards/index'
+    @flashcards = Flashcard.where(deck_id: params[:deck_id])
+    render 'api/flashcards/index'
   end
 
   def update
     @flashcard = Flashcard.find(params[:id])
 
     if @flashcard.update(flashcard_params)
-      render 'api/cards/show'
+      render 'api/flashcards/show'
     else
       @errors = @flashcard.errors.full_messages
       render 'api/shared/error', status: 422
@@ -33,7 +33,7 @@ class Api::FlashcardsController < ApplicationController
     @flashcard = Flashcard.find(params[:id])
 
     if @flashcard.destroy
-      render 'api/cards/show'
+      render 'api/flashcards/show'
     else
       @errors = @flashcard.errors.full_messages
       render 'api/shared/error', status: 422
@@ -43,8 +43,8 @@ class Api::FlashcardsController < ApplicationController
   def show
     @flashcard = Flashcard.find(params[:id])
 
-    if !@flashcard.empty?
-      render 'api/cards/show'
+    if @flashcard
+      render 'api/flashcards/show'
     else
       @errors = @flashcard.errors.full_messages
       render 'api/shared/error', status: 422
@@ -53,6 +53,6 @@ class Api::FlashcardsController < ApplicationController
 
   private
   def flashcard_params
-    params.require(:flashcards).permit(:front, :back)
+    params.require(:flashcard).permit(:front, :back)
   end
 end
