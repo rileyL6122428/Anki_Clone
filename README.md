@@ -1,6 +1,6 @@
 # AnkiClone
 
-[Heroku link]
+[Heroku link][heroku]
 
 [heroku]: https://anki-clone.herokuapp.com/#/auth?_k=2sv0x7
 
