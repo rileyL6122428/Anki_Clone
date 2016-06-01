@@ -1,4 +1,4 @@
-# FresherNote
+# AnkiClone
 
 [Heroku link]
 
@@ -24,7 +24,7 @@ Anki is a clone of AnkiApp, a flashcard app. The mvp of this project includes th
       -  10) add keyboard shortcuts to website (not MVP)
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
-- [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
+- [ ] A production README, replacing this README
 
 ## Product Goals and Priorities
 

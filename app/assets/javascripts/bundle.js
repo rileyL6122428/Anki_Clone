@@ -33171,6 +33171,7 @@
 	  displayName: 'DashboardFooter',
 	
 	  render: function () {
+	    //TODO replace links with proper routes
 	    return React.createElement(
 	      'div',
 	      null,
@@ -33178,6 +33179,21 @@
 	        Link,
 	        { to: '/dashboard' },
 	        'Dashboard'
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: '/dashboard' },
+	        'Decks'
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: '/dashboard' },
+	        'New Deck'
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: '/dashboard' },
+	        'Import Deck'
 	      ),
 	      React.createElement(
 	        Link,
