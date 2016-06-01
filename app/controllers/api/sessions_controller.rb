@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
       params[:user][:username],
       params[:user][:password]
     )
-
+    byebug
 		if @user
 			login_user!(@user)
 			render "api/users/show"

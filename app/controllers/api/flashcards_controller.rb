@@ -18,7 +18,7 @@ class Api::FlashcardsController < ApplicationController
     render 'api/cards/index'
   end
 
-  def edit
+  def update
     @flashcard = Flashcard.find(params[:id])
 
     if @flashcard.update(flashcard_params)

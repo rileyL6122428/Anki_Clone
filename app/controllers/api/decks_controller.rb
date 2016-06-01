@@ -2,6 +2,9 @@ class Api::DecksController < ApplicationController
   def create
     @deck = Deck.new(deck_params)
     @deck.review_total = 0;
+    # TODO change the following lookup to rely on current_user.id after
+    # you have set up your front end
+    @deck.owner_id = params[:current_user_id]
     if @deck.save
       render 'api/decks/show'
     else
@@ -11,11 +14,13 @@ class Api::DecksController < ApplicationController
   end
 
   def index
-    @decks = Deck.where(deck_id: current_user.id)
+    # TODO change the following lookup to rely on current_user.id after
+    # you have set up your front end
+    @decks = Deck.where(owner_id: params[:current_user_id])
     render 'api/decks/index'
   end
 
-  def edit
+  def update
     @deck = Deck.find(params[:id])
     if @deck.update(deck_params)
       render 'api/decks/show'
@@ -37,7 +42,7 @@ class Api::DecksController < ApplicationController
 
   def show
     @deck = Deck.find(params[:id])
-    if !@deck.empty?
+    if @deck
       render 'api/decks/show'
     else
       @errors = @deck.errors.full_messages

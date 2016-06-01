@@ -12,4 +12,5 @@ class Deck < ActiveRecord::Base
     foreign_key: :deck_id,
     class_name: "Flashcard"
   )
+  
 end
