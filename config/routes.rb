@@ -4,8 +4,10 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy, :show]
     resources :decks, only: [:create, :destroy, :index, :update]
     resources :decks, only: [:show] do
-      resources :flashcards, only: [:create, :destroy, :index, :show, :update]
+      resources :flashcards, only: [:index]
     end
+
+    resources :flashcards, only: [:show, :update, :create, :destroy]
   end
 
   root "static_pages#root"

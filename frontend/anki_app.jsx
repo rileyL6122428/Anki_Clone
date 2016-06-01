@@ -19,6 +19,8 @@ var userActions = require('./actions/user_actions')
 //TESTING ONLY
 window.DeckStore = require('./stores/deck_store');
 window.DeckActions = require('./actions/deck_actions');
+window.FlashcardStore = require('./stores/flashcard_store');
+window.FlashcardActions = require('./actions/flashcard_actions');
 window.UserStore = require('./stores/user_store');
 window.UserActions = require('./actions/user_actions');
 

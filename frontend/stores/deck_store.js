@@ -27,7 +27,6 @@ var receiveDecks = function (decks) {
 }
 
 var receiveADeck = function (deck) {
-  debugger
   _decks[deck.id] = deck;
 }
 

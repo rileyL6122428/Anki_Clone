@@ -65,6 +65,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(261);
 	window.DeckActions = __webpack_require__(262);
+	window.FlashcardStore = __webpack_require__(268);
+	window.FlashcardActions = __webpack_require__(265);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	
@@ -33275,7 +33277,6 @@
 	};
 	
 	var receiveADeck = function (deck) {
-	  debugger;
 	  _decks[deck.id] = deck;
 	};
 	
@@ -33411,6 +33412,177 @@
 	    });
 	  }
 	};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FlashcardApiUtil = __webpack_require__(266);
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    FlashcardApiUtil.fetchFlashcards(deckId);
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    FlashcardApiUtil.fetchAFlashcard(id);
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    FlashcardApiUtil.createFlashcard(flashcard, deckId);
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    FlashcardApiUtil.editFlashcard(flashcard);
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    FlashcardApiUtil.destroyFlashcard(id);
+	  }
+	};
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(267);
+	
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    $.ajax({
+	      url: "/api/decks/" + deckId + "/flashcards",
+	      type: "GET",
+	      success: function (flashcards) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARDS,
+	          flashcards: flashcards
+	        });
+	      }
+	    });
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'GET',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    $.ajax({
+	      url: 'api/flashcards',
+	      type: 'POST',
+	      data: { flashcard: flashcard, deck_id: deckId },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    $.ajax({
+	      url: 'api/flashcards/' + flashcard.id,
+	      type: 'PATCH',
+	      data: { flashcard: flashcard },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'DELETE',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.REMOVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 267 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_FLASHCARDS: "RECEIVE_FLASHCARDS",
+	  RECEIVE_FLASHCARD: "RECEIVE_FLASHCARD",
+	  REMOVE_FLASHCARD: "REMOVE_FLASHCARD"
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(267);
+	
+	var FlashcardStore = new Store(AppDispatcher);
+	var _flashcards = {};
+	
+	FlashcardStore.all = function () {
+	  var flashcards = [];
+	
+	  for (var id in _flashcards) {
+	    flashcards.push(_flashcards[id]);
+	  }
+	  return flashcards;
+	};
+	
+	FlashcardStore.find = function (id) {
+	  if (_flashcards[id]) {
+	    return $.extend({}, _flashcards[id]);
+	  }
+	};
+	
+	var receiveFlashcards = function (flashcards) {
+	  _flashcards = {};
+	
+	  flashcards.forEach(function (flashcard) {
+	    _flashcards[flashcard.id] = flashcard;
+	  });
+	};
+	
+	var receiveAFlashcard = function (flashcard) {
+	  _flashcards[flashcard.id] = flashcard;
+	};
+	
+	var removeFlashcard = function (flashcard) {
+	  delete _flashcards[flashcard.id];
+	};
+	
+	FlashcardStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FlashcardConstants.RECEIVE_FLASHCARDS:
+	      receiveFlashcards(payload.flashcards);
+	      break;
+	    case FlashcardConstants.RECEIVE_FLASHCARD:
+	      receiveAFlashcard(payload.flashcard);
+	      break;
+	    case FlashcardConstants.REMOVE_FLASHCARD:
+	      removeFlashcard(payload.flashcard);
+	      break;
+	  }
+	};
+	
+	module.exports = FlashcardStore;
 
 /***/ }
 /******/ ]);
