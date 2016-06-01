@@ -11,12 +11,14 @@ var hashHistory = ReactRouter.hashHistory;
 //COMPONENTS
 var AuthForm = require('./components/auth/auth_form');
 var Dashboard = require('./components/dashboard/dashboard');
+var ProfilePage = require('./components/profile/profile_page');
 
 var UserStore = require('./stores/user_store');
+var userActions = require('./actions/user_actions')
 
 //TESTING ONLY
-UserStore = require('./stores/user_store');
-UserActions = require('./actions/user_actions');
+window.UserStore = require('./stores/user_store');
+window.UserActions = require('./actions/user_actions');
 
 var App = React.createClass({
   render: function (){
@@ -28,12 +30,19 @@ var App = React.createClass({
   }
 });
 
+var dummyIndex = React.createClass({
+  render: function (){
+    return<div></div>
+  }
+})
+
 var Router = (
   <Router history={hashHistory} >
     <Route path='/' component={App} >
-      <IndexRoute component={AuthForm} onEnter={directUser}/>
+      <IndexRoute  onEnter={directUser}/>
       <Route path='auth' component={AuthForm} />
       <Route path='dashboard' component={Dashboard} onEnter={_ensureLoggedIn} />
+      <Route path='profile' component={ProfilePage} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )
@@ -48,8 +57,13 @@ function directUser(nextState, replace, asyncDoneCallback) {
 }
 
 function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
-  if( !UserStore.currentUser() ) { replace('/auth'); }
-  asyncDoneCallback();
+  UserActions.fetchCurrentUser();
+  var token = UserStore.addListener(function(){
+
+    if( !UserStore.currentUser() ) { replace('/auth'); }
+    token.remove();
+    asyncDoneCallback();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function(){

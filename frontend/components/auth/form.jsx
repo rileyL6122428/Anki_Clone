@@ -75,7 +75,7 @@ var AForm = React.createClass({
           <br/><br/>
           {confirmPasswordInput}
           <button id="cancel" onClick={this.props.cancelCB}>Cancel</button>
-          <input disabled={this.state.password !== this.state.passwordConfirm}
+          <input disabled={this.state.password !== this.state.passwordConfirm && this.props.formType === "Sign up"}
                  type="submit"
                  id="submit"
                  value={submitText}/>

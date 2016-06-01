@@ -57,12 +57,14 @@
 	//COMPONENTS
 	var AuthForm = __webpack_require__(229);
 	var Dashboard = __webpack_require__(258);
+	var ProfilePage = __webpack_require__(260);
 	
 	var UserStore = __webpack_require__(237);
+	var userActions = __webpack_require__(230);
 	
 	//TESTING ONLY
-	UserStore = __webpack_require__(237);
-	UserActions = __webpack_require__(230);
+	window.UserStore = __webpack_require__(237);
+	window.UserActions = __webpack_require__(230);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -76,15 +78,24 @@
 	  }
 	});
 	
+	var dummyIndex = React.createClass({
+	  displayName: 'dummyIndex',
+	
+	  render: function () {
+	    return React.createElement('div', null);
+	  }
+	});
+	
 	var Router = React.createElement(
 	  Router,
 	  { history: hashHistory },
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
-	    React.createElement(IndexRoute, { component: AuthForm, onEnter: directUser }),
+	    React.createElement(IndexRoute, { onEnter: directUser }),
 	    React.createElement(Route, { path: 'auth', component: AuthForm }),
-	    React.createElement(Route, { path: 'dashboard', component: Dashboard, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'dashboard', component: Dashboard, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'profile', component: ProfilePage, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -98,10 +109,15 @@
 	}
 	
 	function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
-	  if (!UserStore.currentUser()) {
-	    replace('/auth');
-	  }
-	  asyncDoneCallback();
+	  UserActions.fetchCurrentUser();
+	  var token = UserStore.addListener(function () {
+	
+	    if (!UserStore.currentUser()) {
+	      replace('/auth');
+	    }
+	    token.remove();
+	    asyncDoneCallback();
+	  });
 	}
 	
 	document.addEventListener('DOMContentLoaded', function () {
@@ -33056,7 +33072,7 @@
 	          { id: "cancel", onClick: this.props.cancelCB },
 	          "Cancel"
 	        ),
-	        React.createElement("input", { disabled: this.state.password !== this.state.passwordConfirm,
+	        React.createElement("input", { disabled: this.state.password !== this.state.passwordConfirm && this.props.formType === "Sign up",
 	          type: "submit",
 	          id: "submit",
 	          value: submitText })
@@ -33119,6 +33135,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Footer = __webpack_require__(259);
 	
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
@@ -33127,12 +33144,99 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      'this is the dashboard'
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Dashboard'
+	      ),
+	      React.createElement(Footer, null)
 	    );
 	  }
 	});
 	
 	module.exports = Dashboard;
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var DashboardFooter = React.createClass({
+	  displayName: 'DashboardFooter',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        Link,
+	        { to: '/dashboard' },
+	        'Dashboard'
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: '/profile' },
+	        'Profile'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = DashboardFooter;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Footer = __webpack_require__(259);
+	var UserActions = __webpack_require__(230);
+	var UserStore = __webpack_require__(237);
+	var ProfilePage = React.createClass({
+	  displayName: 'ProfilePage',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  logoutCB: function (e) {
+	    e.preventDefault();
+	    UserActions.logout();
+	    this.context.router.push('auth');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Profile'
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'list_left' },
+	        'Username'
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'list_right' },
+	        UserStore.currentUser().username
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.logoutCB },
+	        'Log Out'
+	      ),
+	      React.createElement(Footer, null)
+	    );
+	  }
+	});
+	
+	module.exports = ProfilePage;
 
 /***/ }
 /******/ ]);

@@ -1,8 +1,14 @@
 var React = require('react');
+var Footer = require('../shared/dashboard_footer');
 
 var Dashboard = React.createClass({
   render: function () {
-    return(<div>this is the dashboard</div>)
+    return(
+      <div>
+        <h1>Dashboard</h1>
+        <Footer/>
+      </div>
+    );
   }
 });
 

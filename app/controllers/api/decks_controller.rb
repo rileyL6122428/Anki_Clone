@@ -1,0 +1,2 @@
+class DecksController < ApplicationController
+end
