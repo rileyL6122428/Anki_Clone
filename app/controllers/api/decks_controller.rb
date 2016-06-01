@@ -4,7 +4,8 @@ class Api::DecksController < ApplicationController
     @deck.review_total = 0;
     # TODO change the following lookup to rely on current_user.id after
     # you have set up your front end
-    @deck.owner_id = params[:current_user_id]
+    # @deck.owner_id = params[:current_user_id]
+    @deck.owner_id = current_user.id
     if @deck.save
       render 'api/decks/show'
     else
@@ -16,7 +17,8 @@ class Api::DecksController < ApplicationController
   def index
     # TODO change the following lookup to rely on current_user.id after
     # you have set up your front end
-    @decks = Deck.where(owner_id: params[:current_user_id])
+    # @decks = Deck.where(owner_id: params[:current_user_id])
+    @decks = Deck.where(owner_id: current_user.id)
     render 'api/decks/index'
   end
 

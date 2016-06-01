@@ -17,6 +17,8 @@ var UserStore = require('./stores/user_store');
 var userActions = require('./actions/user_actions')
 
 //TESTING ONLY
+window.DeckStore = require('./stores/deck_store');
+window.DeckActions = require('./actions/deck_actions');
 window.UserStore = require('./stores/user_store');
 window.UserActions = require('./actions/user_actions');
 

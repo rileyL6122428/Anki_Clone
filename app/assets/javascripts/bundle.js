@@ -63,6 +63,8 @@
 	var userActions = __webpack_require__(230);
 	
 	//TESTING ONLY
+	window.DeckStore = __webpack_require__(261);
+	window.DeckActions = __webpack_require__(262);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	
@@ -33237,6 +33239,178 @@
 	});
 	
 	module.exports = ProfilePage;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var DeckConstants = __webpack_require__(263);
+	
+	var DeckStore = new Store(AppDispatcher);
+	var _decks = {};
+	
+	DeckStore.all = function () {
+	  var decks = [];
+	
+	  for (var id in _decks) {
+	    decks.push(_decks[id]);
+	  }
+	  return decks;
+	};
+	
+	DeckStore.find = function (id) {
+	  if (_decks[id]) {
+	    return $.extend({}, _decks[id]);
+	  }
+	};
+	
+	var receiveDecks = function (decks) {
+	  _decks = {};
+	
+	  decks.forEach(function (deck) {
+	    _decks[deck.id] = deck;
+	  });
+	};
+	
+	var receiveADeck = function (deck) {
+	  debugger;
+	  _decks[deck.id] = deck;
+	};
+	
+	var removeDeck = function (deck) {
+	  delete _decks[deck.id];
+	};
+	
+	DeckStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case DeckConstants.RECEIVE_DECKS:
+	      receiveDecks(payload.decks);
+	      break;
+	    case DeckConstants.RECEIVE_DECK:
+	      receiveADeck(payload.deck);
+	      break;
+	    case DeckConstants.REMOVE_DECK:
+	      removeDeck(payload.deck);
+	      break;
+	  }
+	};
+	
+	module.exports = DeckStore;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DeckApiUtil = __webpack_require__(264);
+	module.exports = {
+	  fetchDecks: function () {
+	    DeckApiUtil.fetchDecks();
+	  },
+	
+	  fetchADeck: function (id) {
+	    DeckApiUtil.fetchADeck(id);
+	  },
+	
+	  createDeck: function (deck) {
+	    DeckApiUtil.createDeck(deck);
+	  },
+	
+	  editDeck: function (deck) {
+	    DeckApiUtil.editDeck(deck);
+	  },
+	
+	  destroyDeck: function (id) {
+	    DeckApiUtil.destroyDeck(id);
+	  }
+	};
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_DECKS: "RECEIVE_DECKS",
+	  RECEIVE_DECK: "RECEIVE_DECK",
+	  REMOVE_DECK: "REMOVE_DECK"
+	};
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DeckConstants = __webpack_require__(263);
+	var AppDispatcher = __webpack_require__(233);
+	
+	module.exports = {
+	  fetchDecks: function () {
+	    $.ajax({
+	      url: "/api/decks",
+	      type: "GET",
+	      success: function (decks) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECKS,
+	          decks: decks
+	        });
+	      }
+	    });
+	  },
+	
+	  fetchADeck: function (id) {
+	    $.ajax({
+	      url: 'api/decks/' + id,
+	      type: 'GET',
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  createDeck: function (deck) {
+	    $.ajax({
+	      url: 'api/decks',
+	      type: 'POST',
+	      data: { deck: deck },
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  editDeck: function (deck) {
+	    $.ajax({
+	      url: 'api/decks/' + deck.id,
+	      type: 'PATCH',
+	      data: { deck: deck },
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  destroyDeck: function (id) {
+	    $.ajax({
+	      url: 'api/decks/' + id,
+	      type: 'DELETE',
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.REMOVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);
