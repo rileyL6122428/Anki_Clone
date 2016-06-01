@@ -1,8 +1,8 @@
 # FresherNote
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
+[Heroku link]
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://anki-clone.herokuapp.com/#/auth?_k=2sv0x7
 
 ## Minimum Viable Product
 
