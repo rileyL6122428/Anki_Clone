@@ -28,7 +28,6 @@ var AuthForm = React.createClass({
   _handleChange: function () {
 
     if(UserStore.currentUser()) { this.context.router.push("/dashboard"); }
-    debugger
     if(UserStore.errors()) {this.setState({authErrors: true})}
   },
 

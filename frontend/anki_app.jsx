@@ -12,6 +12,7 @@ var hashHistory = ReactRouter.hashHistory;
 var AuthForm = require('./components/auth/auth_form');
 var Dashboard = require('./components/dashboard/dashboard');
 var ProfilePage = require('./components/profile/profile_page');
+var UserDecks = require('./components/user_decks/user_decks');
 
 var UserStore = require('./stores/user_store');
 var userActions = require('./actions/user_actions')
@@ -47,6 +48,7 @@ var Router = (
       <Route path='auth' component={AuthForm} />
       <Route path='dashboard' component={Dashboard} onEnter={_ensureLoggedIn} />
       <Route path='profile' component={ProfilePage} onEnter={_ensureLoggedIn} />
+      <Route path='decks' component={UserDecks} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )

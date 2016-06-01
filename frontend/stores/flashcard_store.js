@@ -24,14 +24,17 @@ var receiveFlashcards = function (flashcards) {
   flashcards.forEach(function(flashcard) {
     _flashcards[flashcard.id] = flashcard;
   });
+  FlashcardStore.__emitChange();
 }
 
 var receiveAFlashcard = function (flashcard) {
   _flashcards[flashcard.id] = flashcard;
+  FlashcardStore.__emitChange();
 }
 
 var removeFlashcard = function(flashcard){
   delete _flashcards[flashcard.id];
+  FlashcardStore.__emitChange();
 }
 
  FlashcardStore.__onDispatch = function (payload) {

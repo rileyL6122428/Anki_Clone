@@ -24,14 +24,17 @@ var receiveDecks = function (decks) {
   decks.forEach(function(deck) {
     _decks[deck.id] = deck;
   });
+  DeckStore.__emitChange();
 }
 
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
+  DeckStore.__emitChange();
 }
 
 var removeDeck = function(deck){
   delete _decks[deck.id];
+  DeckStore.__emitChange();
 }
 
  DeckStore.__onDispatch = function (payload) {

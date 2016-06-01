@@ -7,7 +7,7 @@ var DashboardFooter = React.createClass({
     return(
       <div>
         <Link to="/dashboard">Dashboard</Link>
-        <Link to="/dashboard">Decks</Link>
+        <Link to="/decks">Decks</Link>
         <Link to="/dashboard">New Deck</Link>
         <Link to="/dashboard">Import Deck</Link>
         <Link to="/profile">Profile</Link>

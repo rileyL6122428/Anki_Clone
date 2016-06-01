@@ -2,7 +2,6 @@ var React = require('react');
 
 var DashboardDisplay = React.createClass({
   render: function () {
-    debugger
     return (
       <div>
       <h4>REVIEWS</h4>
