@@ -5,15 +5,16 @@ var Link = require('react-router').Link;
 
 var DeckShow = React.createClass({
   render: function () {
+    var arrow = "<";
     return(
-      <div>
+      <div className="DeckShow">
         <h1>
-          <Link to="/decks">To Decks</Link>
-          <p>Deck</p>
+          <Link to="/decks" className="BackLink">{arrow}</Link>
+          <p className="Title">Deck</p>
         </h1>
 
-        <Content/>
-        <Options/>
+        <Content deckId={this.props.params.id}/>
+        <Options />
       </div>
     );
   }

@@ -16,7 +16,6 @@ var DeckIndex = React.createClass({
 
   deckStoreCB: function () {
     this.setState({ decks: DeckStore.all() });
-    debugger
   },
 
   componentWillUnmount: function () {
@@ -31,6 +30,7 @@ var DeckIndex = React.createClass({
           this.state.decks.map(function(deck){
             return(
               <DeckIndexItem key={deck.id}
+                             id={deck.id}
                              name={deck.name}
                              totalCards={"insertTotalCards"}
                              grade={"insertGrade"} />

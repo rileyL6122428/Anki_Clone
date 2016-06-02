@@ -4,17 +4,13 @@ var DeckStore = require('../../stores/deck_store');
 
 var Form = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function () {
     return({ name: "", description: "" });
   },
-
-  // componentDidMount: function () {
-  //   this.listenerToken = DeckStore.addListener(deckStoreCB);
-  // },
-  //
-  // componentWillUnmount: function () {
-  //
-  // },
 
   changeName: function (e) {
     var newName = e.target.value

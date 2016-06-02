@@ -1,0 +1,2 @@
+1 how to get access to params for the purpose of fetching the correct deck from
+the store in my deck show (It might be caused by pushing to hash history)

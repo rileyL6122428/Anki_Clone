@@ -68,8 +68,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(267);
 	window.DeckActions = __webpack_require__(269);
-	window.FlashcardStore = __webpack_require__(279);
-	window.FlashcardActions = __webpack_require__(281);
+	window.FlashcardStore = __webpack_require__(278);
+	window.FlashcardActions = __webpack_require__(280);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	
@@ -33469,7 +33469,6 @@
 	
 	  deckStoreCB: function () {
 	    this.setState({ decks: DeckStore.all() });
-	    debugger;
 	  },
 	
 	  componentWillUnmount: function () {
@@ -33483,6 +33482,7 @@
 	      null,
 	      this.state.decks.map(function (deck) {
 	        return React.createElement(DeckIndexItem, { key: deck.id,
+	          id: deck.id,
 	          name: deck.name,
 	          totalCards: "insertTotalCards",
 	          grade: "insertGrade" });
@@ -33542,6 +33542,7 @@
 	var receiveADeck = function (deck) {
 	  _decks[deck.id] = deck;
 	  DeckStore.__emitChange();
+	  //TODO refactor this into a callback in the new deck form
 	  hashHistory.push('/decks/' + deck.id);
 	};
 	
@@ -33684,6 +33685,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
 	
 	var DeckIndexItem = React.createClass({
 	  displayName: 'DeckIndexItem',
@@ -33694,19 +33696,23 @@
 	      'li',
 	      null,
 	      React.createElement(
-	        'h5',
-	        null,
-	        this.props.name
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.props.totalCards
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.props.grade
+	        Link,
+	        { to: "decks/" + this.props.id },
+	        React.createElement(
+	          'h5',
+	          null,
+	          this.props.name
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.totalCards
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.grade
+	        )
 	      )
 	    );
 	  }
@@ -33749,17 +33755,13 @@
 	  displayName: 'Form',
 	
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
 	    return { name: "", description: "" };
 	  },
-	
-	  // componentDidMount: function () {
-	  //   this.listenerToken = DeckStore.addListener(deckStoreCB);
-	  // },
-	  //
-	  // componentWillUnmount: function () {
-	  //
-	  // },
 	
 	  changeName: function (e) {
 	    var newName = e.target.value;
@@ -33846,31 +33848,32 @@
 
 	var React = __webpack_require__(1);
 	var Content = __webpack_require__(276);
-	var Options = __webpack_require__(283);
+	var Options = __webpack_require__(277);
 	var Link = __webpack_require__(168).Link;
 	
 	var DeckShow = React.createClass({
 	  displayName: 'DeckShow',
 	
 	  render: function () {
+	    var arrow = "<";
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'DeckShow' },
 	      React.createElement(
 	        'h1',
 	        null,
 	        React.createElement(
 	          Link,
-	          { to: '/decks' },
-	          'To Decks'
+	          { to: '/decks', className: 'BackLink' },
+	          arrow
 	        ),
 	        React.createElement(
 	          'p',
-	          null,
+	          { className: 'Title' },
 	          'Deck'
 	        )
 	      ),
-	      React.createElement(Content, null),
+	      React.createElement(Content, { deckId: this.props.params.id }),
 	      React.createElement(Options, null)
 	    );
 	  }
@@ -33883,14 +33886,56 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(277);
-	var History = __webpack_require__(278);
+	var Info = __webpack_require__(282);
+	var History = __webpack_require__(283);
+	var DeckStore = __webpack_require__(267);
+	var DeckActions = __webpack_require__(269);
 	
 	var Content = React.createClass({
 	  displayName: 'Content',
 	
+	
+	  getInitialState: function () {
+	    return { deck: null };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = DeckStore.addListener(this.storeCB);
+	    DeckActions.fetchDecks();
+	  },
+	
+	  storeCB: function () {
+	    this.setState({ deck: DeckStore.find(parseInt(this.props.deckId)) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
 	  render: function () {
-	    return React.createElement('div', null);
+	    var deckName;
+	    if (this.state.deck) {
+	      deckName = this.state.deck.name;
+	    } else {
+	      deckName = "";
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'ShowContent' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        deckName
+	      ),
+	      React.createElement(Info, null),
+	      React.createElement(History, null),
+	      React.createElement('div', { className: 'ClearSet' }),
+	      React.createElement(
+	        'button',
+	        { className: 'Review' },
+	        'Review'
+	      )
+	    );
 	  }
 	});
 	
@@ -33901,40 +33946,66 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
 	
-	var Info = React.createClass({
-	  displayName: 'Info',
+	//TODO set link destinations to proper destinations
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
 	
 	  render: function () {
-	    return React.createElement('div', null);
+	    return React.createElement(
+	      'div',
+	      { className: 'Options' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Options'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Deck Info'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Cards'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Remove'
+	          )
+	        )
+	      )
+	    );
 	  }
 	});
 	
-	module.exports = Info;
+	module.exports = Options;
 
 /***/ },
 /* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	
-	var History = React.createClass({
-	  displayName: 'History',
-	
-	  render: function () {
-	    return React.createElement('div', null);
-	  }
-	});
-	
-	module.exports = History;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(280);
+	var FlashcardConstants = __webpack_require__(279);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -33990,7 +34061,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -34000,10 +34071,10 @@
 	};
 
 /***/ },
-/* 281 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(282);
+	var FlashcardApiUtil = __webpack_require__(281);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -34027,11 +34098,11 @@
 	};
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(280);
+	var FlashcardConstants = __webpack_require__(279);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -34103,20 +34174,136 @@
 	};
 
 /***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Info = React.createClass({
+	  displayName: "Info",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "DeckInfo" },
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Info"
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "div",
+	          null,
+	          "insertTotal"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Total Cards"
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "div",
+	          null,
+	          "insert%"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Grade"
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        "gradeByCardGraph"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Info;
+
+/***/ },
 /* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Options = React.createClass({
-	  displayName: 'Options',
+	var History = React.createClass({
+	  displayName: "History",
 	
 	  render: function () {
-	    return React.createElement('div', null);
+	    return React.createElement(
+	      "div",
+	      { className: "DeckHistory" },
+	      React.createElement(
+	        "h3",
+	        null,
+	        "History"
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement(
+	            "p",
+	            null,
+	            "Reviews Today"
+	          ),
+	          React.createElement(
+	            "p",
+	            null,
+	            "Insert Total"
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement(
+	            "p",
+	            null,
+	            "Reviews per Day (average)"
+	          ),
+	          React.createElement(
+	            "p",
+	            null,
+	            "Insert Total"
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement(
+	            "p",
+	            null,
+	            "Total number of Review"
+	          ),
+	          React.createElement(
+	            "p",
+	            null,
+	            "Insert Total"
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        "Insert weekly breakdown of Reviews"
+	      )
+	    );
 	  }
 	});
 	
-	module.exports = Options;
+	module.exports = History;
 
 /***/ }
 /******/ ]);

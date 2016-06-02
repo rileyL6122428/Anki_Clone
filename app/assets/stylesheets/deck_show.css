@@ -1,0 +1,104 @@
+.DeckShow {
+  width: 100%;
+  height: 100%;
+}
+
+.DeckShow h1 {
+  background-color: #f8f8f8;
+  height: 45px;
+
+  margin: 0px;
+
+  border-bottom: 1px solid #ddd;
+
+  height: 100%;
+}
+
+.DeckShow .BackLink {
+
+  padding-left: 5px;
+
+  color: #25A3FC;
+
+  text-decoration: none;
+
+  float: left;
+}
+
+.DeckShow .Title {
+  display: block;
+  width: 100px;
+
+  color: rgb(68, 68, 68);
+
+  margin: auto;
+
+}
+
+.DeckShow h2 {
+  text-align: center;
+  margin: 0px;
+
+  background-color: #E5E5E5;
+  color: #616161;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.DeckInfo {
+  color: red;
+
+  display: block;
+  float: left;
+
+  height: 300px;
+}
+
+.ShowContent {
+  display: block;
+  width: 70%;
+/*TODO */
+  float: left;
+}
+
+.DeckHistory {
+  color: blue;
+
+  display: block;
+  float: right;
+
+  height: 300px;
+}
+
+.ClearSet {
+  display: block;
+  clear: both;
+}
+
+.Review {
+  width: 400px;
+  float: center;
+  color: blue;
+
+  margin: auto;
+}
+
+.Options {
+  float: right;
+
+  display: block;
+
+  background:  #f8f8f8;
+  height: 600px;
+
+  width: 30%;
+}
+
+.Options h3 {
+  text-align: center;
+
+}
+
+.Options li {
+  list-style-type: none;
+}

@@ -6,6 +6,7 @@ var hashHistory = require('react-router').hashHistory
 var DeckStore = new Store(AppDispatcher);
 var _decks = {};
 
+
 DeckStore.all = function () {
   var decks = [];
 
@@ -31,7 +32,9 @@ var receiveDecks = function (decks) {
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
   DeckStore.__emitChange();
+  //TODO refactor this into a callback in the new deck form
   hashHistory.push('/decks/'+deck.id);
+
 }
 
 var removeDeck = function(deck){
