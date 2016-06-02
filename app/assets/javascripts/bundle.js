@@ -33447,14 +33447,18 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Parent-Component' },
 	      React.createElement(
 	        'h1',
 	        null,
 	        'My Decks '
 	      ),
 	      React.createElement(SearchBar, null),
-	      React.createElement(DeckIndex, null),
+	      React.createElement(
+	        'div',
+	        { className: 'Overflow-Test' },
+	        React.createElement(DeckIndex, null)
+	      ),
 	      React.createElement(Footer, null)
 	    );
 	  }
@@ -33474,13 +33478,13 @@
 	  render: function () {
 	    return React.createElement(
 	      "div",
-	      null,
+	      { className: "Search-Container" },
 	      React.createElement(
 	        "label",
-	        null,
-	        " Search through your decks:",
-	        React.createElement("input", { type: "text" })
-	      )
+	        { "for": "deck-search" },
+	        " Search:"
+	      ),
+	      React.createElement("input", { id: "deck-search", type: "text" })
 	    );
 	  }
 	});
@@ -33521,7 +33525,7 @@
 	
 	    var deckList = React.createElement(
 	      'div',
-	      null,
+	      { className: 'Wrapper' },
 	      this.state.decks.map(function (deck) {
 	        return React.createElement(DeckIndexItem, { key: deck.id,
 	          id: deck.id,
@@ -33735,11 +33739,11 @@
 	  //TODO wrap contents in link to deck show
 	  render: function () {
 	    return React.createElement(
-	      'li',
-	      null,
+	      Link,
+	      { to: "decks/" + this.props.id },
 	      React.createElement(
-	        Link,
-	        { to: "decks/" + this.props.id },
+	        'li',
+	        { className: 'Deck-Index-Item' },
 	        React.createElement(
 	          'h5',
 	          null,

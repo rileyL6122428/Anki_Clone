@@ -1,0 +1,64 @@
+.Wrapper{
+
+  position: absolute;
+  height: 200px;
+  overflow-y: scroll;
+  height: 100%;
+  height: calc(100% - 155px);
+  width: 100%;
+
+
+}
+
+.Deck-Index-Item {
+  display: block;
+  float: left;
+  width: 45%;
+  height: 90px;
+
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-bottom: 2px solid gray;
+  border-right: 2px solid gray;
+
+  margin: 10px 20px;
+}
+
+.Deck-Index-Item h5 {
+  margin: 10px 5px;
+}
+
+.Deck-Index-Item p {
+  float: left;
+
+  display: block;
+
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.Search-Container label {
+  display: block;
+  width: 6%;
+  height: 40px;
+  float: left;
+}
+
+.Search-Container input {
+  display: block;
+  width: 92%;
+
+}
+
+.Search-Container {
+  display: block;
+
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  padding: 10px 0px;
+
+  width: 100%;
+}

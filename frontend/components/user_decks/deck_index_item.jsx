@@ -5,13 +5,15 @@ var DeckIndexItem = React.createClass({
   //TODO wrap contents in link to deck show
   render: function () {
     return(
-        <li>
-          <Link to={"decks/" + this.props.id}>
+      <Link to={"decks/" + this.props.id}>
+        <li className="Deck-Index-Item">
+
             <h5>{this.props.name}</h5>
             <p>{this.props.totalCards}</p>
             <p>{this.props.grade}</p>
-          </Link>
+
         </li>
+        </Link>
     )
   }
 });

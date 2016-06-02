@@ -25,7 +25,7 @@ var DeckIndex = React.createClass({
   render: function () {
 
     var deckList = (
-      <div>
+      <div className="Wrapper">
         {
           this.state.decks.map(function(deck){
             return(

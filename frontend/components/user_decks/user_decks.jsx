@@ -6,10 +6,12 @@ var Footer = require('../shared/dashboard_footer');
 var UserDecks = React.createClass({
   render: function(){
     return(
-      <div>
+      <div className="Parent-Component">
         <h1>My Decks </h1>
         <SearchBar />
+        <div className="Overflow-Test">
         <DeckIndex />
+        </div>
         <Footer />
       </div>
     )
