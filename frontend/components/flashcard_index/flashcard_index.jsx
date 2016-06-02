@@ -5,9 +5,6 @@ var Link = require('react-router').Link;
 
 var FlashcardIndex = React.createClass({
 
-  // getInitialState: function () {
-  //   return({deckId: this.props.params.id});
-  // },
 
   render: function(){
 

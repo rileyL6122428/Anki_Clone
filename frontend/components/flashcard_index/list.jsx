@@ -24,6 +24,7 @@ var FlashcardIndex = React.createClass({
 
   render: function () {
     var list = "";
+    var deckId = this.props.deckId;
     if(this.state.flashcards.length !== 0) {
 
       var list = (
@@ -32,9 +33,11 @@ var FlashcardIndex = React.createClass({
           this.state.flashcards.map(function(flashcard){
             return(
               <FlashcardIndexItem key={flashcard.id}
-              id={flashcard.id}
+              cardId={flashcard.id}
+              key={flashcard.id}
               front={flashcard.front}
-              grade={"insertGrade"} />
+              grade={"insertGrade"}
+              deckId={deckId} />
             );
           })
         }

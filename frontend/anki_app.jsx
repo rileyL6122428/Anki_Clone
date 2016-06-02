@@ -17,6 +17,7 @@ var NewDeck = require('./components/new_deck/new_deck');
 var DeckShow = require('./components/deck_show/deck_show');
 var EditDeck = require('./components/edit_deck/edit_deck');
 var FlashcardIndex = require('./components/flashcard_index/flashcard_index.jsx');
+var FlashcardShow = require('./components/flashcard_show/flashcard_show');
 
 var UserStore = require('./stores/user_store');
 var userActions = require('./actions/user_actions')
@@ -57,6 +58,7 @@ var Router = (
       <Route path='decks/:id' component={DeckShow} onEnter={_ensureLoggedIn} />
       <Route path='edit-deck/:id' component={EditDeck} onEnter={_ensureLoggedIn} />
       <Route path='decks/:id/flashcards' component={FlashcardIndex} onEnter={_ensureLoggedIn} />
+      <Route path='decks/:id/flashcards/:cardId' component={FlashcardShow} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )

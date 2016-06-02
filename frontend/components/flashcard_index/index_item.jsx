@@ -5,7 +5,7 @@ var FlashcardIndexItem = React.createClass({
   render: function () {
     //TODO change the following link such that it goes to the flashcard show page
     return(
-      <Link to={"/dashboard"}>
+      <Link to={"/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId}>
         <li className="Flashcard-Index-Item">
             <p>{this.props.grade}</p>
             <h5>{this.props.front}</h5>

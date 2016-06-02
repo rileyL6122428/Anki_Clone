@@ -63,6 +63,7 @@
 	var DeckShow = __webpack_require__(275);
 	var EditDeck = __webpack_require__(280);
 	var FlashcardIndex = __webpack_require__(287);
+	var FlashcardShow = __webpack_require__(291);
 	
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
@@ -109,7 +110,8 @@
 	    React.createElement(Route, { path: 'new-deck', component: NewDeck, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id', component: DeckShow, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'edit-deck/:id', component: EditDeck, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'decks/:id/flashcards', component: FlashcardIndex, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'decks/:id/flashcards', component: FlashcardIndex, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId', component: FlashcardShow, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -34518,10 +34520,6 @@
 	  displayName: 'FlashcardIndex',
 	
 	
-	  // getInitialState: function () {
-	  //   return({deckId: this.props.params.id});
-	  // },
-	
 	  render: function () {
 	
 	    return React.createElement(
@@ -34610,6 +34608,7 @@
 	
 	  render: function () {
 	    var list = "";
+	    var deckId = this.props.deckId;
 	    if (this.state.flashcards.length !== 0) {
 	
 	      var list = React.createElement(
@@ -34617,9 +34616,11 @@
 	        { className: 'Wrapper' },
 	        this.state.flashcards.map(function (flashcard) {
 	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
-	            id: flashcard.id,
+	            cardId: flashcard.id,
+	            key: flashcard.id,
 	            front: flashcard.front,
-	            grade: "insertGrade" });
+	            grade: "insertGrade",
+	            deckId: deckId });
 	        })
 	      );
 	    }
@@ -34652,7 +34653,7 @@
 	    //TODO change the following link such that it goes to the flashcard show page
 	    return React.createElement(
 	      Link,
-	      { to: "/dashboard" },
+	      { to: "/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId },
 	      React.createElement(
 	        'li',
 	        { className: 'Flashcard-Index-Item' },
@@ -34672,6 +34673,213 @@
 	});
 	
 	module.exports = FlashcardIndexItem;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardStore = __webpack_require__(283);
+	var Link = __webpack_require__(168).Link;
+	var Preview = __webpack_require__(292);
+	var Info = __webpack_require__(293);
+	var Options = __webpack_require__(294);
+	
+	var FlashcardShow = React.createClass({
+	  displayName: 'FlashcardShow',
+	
+	  //TODO go back and make it so the store fetches on load
+	  getInitialState: function () {
+	    return { card: FlashcardStore.find(this.props.params.cardId) };
+	  },
+	
+	  render: function () {
+	    var arrow = "<";
+	    var cards_url = "/decks/" + this.props.params.id + "/flashcards";
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: cards_url },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Card'
+	        ),
+	        React.createElement(Preview, { card: this.state.card }),
+	        React.createElement(Info, { card: this.state.card }),
+	        React.createElement(Options, { cardId: this.props.params.cardId, deckId: this.props.params.id })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardShow;
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Preview = React.createClass({
+	  displayName: 'Preview',
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.card.front
+	      ),
+	      React.createElement('div', { className: 'Divider' }),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.card.back
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Preview;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Info = React.createClass({
+	  displayName: "Info",
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "h4",
+	        null,
+	        "INFO"
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Total number of Reviews"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            this.props.card.review_total
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Grade"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            this.props.card.grade
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Info;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	var FlashcardActions = __webpack_require__(285);
+	var FlashcardStore = __webpack_require__(283);
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  flashcardStoreCB: function () {
+	    var deckId = this.props.deckId;
+	    this.context.router.push("/decks/" + deckId + "/flashcards");
+	  },
+	
+	  destroyCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.destroyFlashcard(this.props.cardId);
+	  },
+	
+	  render: function () {
+	    //TODO set link to actually go to card edit
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: "/decks/" + this.props.deckId },
+	            'Edit'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            'button',
+	            { onClick: this.destroyCB },
+	            'Destroy'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Options;
 
 /***/ }
 /******/ ]);
