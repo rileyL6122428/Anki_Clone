@@ -3,22 +3,25 @@ var React = require('react');
 var DashboardInfo = React.createClass({
   render: function(){
     return(
-      <div>
+      <div className="Info">
         <h4>INFO</h4>
         <ul>
           <li>
-            <p>Reviews Today</p>
-            <p>Insert Reviews Done Today</p>
+            <p className="StatTitle">Reviews Today</p>
+            <p className="Stat">Insert Reviews Done Today</p>
+            <div className="ClearSet" />
           </li>
 
           <li>
-            <p>Reviews per Day (Average)</p>
-            <p>Insert Reviews Per Day</p>
+            <p className="StatTitle">Reviews per Day (Average)</p>
+            <p className="Stat">Insert Reviews Per Day</p>
+            <div className="ClearSet" />
           </li>
 
           <li>
-            <p>Total Number of Reviews</p>
-            <p>Insert Total Number of Reviews</p>
+            <p className="StatTitle">Total Number of Reviews</p>
+            <p className="Stat">Insert Total Number of Reviews</p>
+            <div className="ClearSet" />
           </li>
 
         </ul>

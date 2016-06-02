@@ -1,0 +1,120 @@
+.NewDeck {
+  position: absolute;;
+  height: 100%;
+  width: 100%;
+
+
+
+  text-align: left;
+  background-color: #FFFFFF;
+}
+
+.NewDeck .Header {
+  display: black;
+  background-color: #f8f8f8;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.NewDeck .Header h1 {
+  text-align: center;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.NewDeck .Header .Cancel {
+  float: left;
+  color: red;
+  text-decoration: none;
+}
+
+.NewDeck .Form {
+  color: #25A3FC;
+  display: block;
+  width: 80%;
+  margin: auto;
+}
+
+.NewDeck .Form h4 {
+  position: relative;
+  margin: auto;
+  width: 60%;
+
+  margin-top: 10px;
+}
+
+
+.NewDeck input[type=text] {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+
+  display: block;
+  margin: 0;
+  width: 100%;
+
+  padding-left: 10px;
+
+  border-bottom: 1px solid gray;
+
+  background-color: rgba(0,0,0,0);
+  color: black;
+
+  font-size: 20px;
+
+  padding-top: 20px
+}
+
+.NewDeck input[type=text]:focus {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  outline: 0;
+
+
+  border-bottom: 1px solid #25A3FC;
+}
+
+
+
+
+/*.NewDeck .Form .NameInput {
+
+}*/
+
+.NewDeck .Form label {
+  display: block;
+  margin: auto;
+  width: 60%;
+}
+
+
+.NewDeck .Form .Save {
+
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 90px;
+
+  text-align: center;
+
+
+  width: 100%;
+
+  /*line-height: 50px;*/
+
+  float: center;
+  background-color: #FFFFFF;
+  opacity: .9;
+
+  border-top: 2px solid #25A3FC;
+
+  color: #25A3FC;
+  font-size: 20px;
+
+  margin: auto;
+
+}

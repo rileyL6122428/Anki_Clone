@@ -1,0 +1,50 @@
+h1 {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  background-color: #f8f8f8;
+  display: block;
+
+  border-bottom: 1px solid #ddd;
+
+  height: 50px;
+}
+
+li .StatTitle {
+  float: left;
+}
+li .Stat {
+  float: right;
+    /*padding-right: 5px;*/
+}
+
+li {
+  list-style-type: none;
+  border-bottom: 1px solid gray;
+  width: 90%;
+  margin: auto;
+}
+
+.Parent-Component{
+  background-color: #f8f8f8;
+
+  display: block;
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.Cancel-Logout-Button {
+
+  background-color: rgba(255,0,0,0);
+  border: none;
+  outline: none;
+  color: red;
+
+}
+
+p.Stat{
+  /*padding-right: 5px;*/
+}

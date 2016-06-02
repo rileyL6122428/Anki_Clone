@@ -35,9 +35,10 @@ var Content = React.createClass({
       <div className="ShowContent">
         <h2>{deckName}</h2>
         <Info />
+        <div className="Divider"></div>
         <History />
         <div className="ClearSet" />
-        <button className="Review">Review</button>
+        <button className="Review"><div className="buttonText">Review</div></button>
       </div>
     );
   }

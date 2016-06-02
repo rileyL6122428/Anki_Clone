@@ -5,7 +5,7 @@ var DashboardContent = require('./dashboard_content');
 var Dashboard = React.createClass({
   render: function () {
     return(
-      <div>
+      <div className="DashBoard">
         <h1>Dashboard</h1>
         <DashboardContent />
         <Footer/>

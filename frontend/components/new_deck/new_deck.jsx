@@ -5,7 +5,7 @@ var Header = require('./header');
 var NewDeck = React.createClass({
   render: function () {
     return(
-      <div>
+      <div className="NewDeck">
         <Header/>
         <Form/>
       </div>

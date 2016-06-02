@@ -34,19 +34,22 @@ var Form = React.createClass({
 
   render: function () {
     return(
-      <div>
+      <div className="Form">
+        <h4>Info</h4>
         <form onSubmit={this.submitCB}>
           <label>Name
-            <input type="text" onChange={this.changeName} />
+            <br/>
+            <input type="text" onChange={this.changeName} className="NameInput" />
           </label>
           <br/>
 
           <label>Description
-            <input type="text" onChange={this.changeDescription} />
+            <br/>
+            <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
           </label>
           <br/>
 
-          <input type="submit" value="Save" />
+          <input type="submit" value="Save" className="Save" />
 
         </form>
 

@@ -4,8 +4,8 @@ var Link = require('react-router').Link;
 var Header = React.createClass({
   render: function() {
     return(
-      <div>
-        <Link to="/dashboard">Cancel</Link>
+      <div className="Header">
+        <Link to="/dashboard" className="Cancel">Cancel</Link>
         <h1>New Deck</h1>
       </div>
     );

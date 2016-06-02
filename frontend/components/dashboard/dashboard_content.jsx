@@ -6,9 +6,10 @@ var DashboardContent = React.createClass({
 
   render: function () {
     return(
-      <div>
+      <div className="Content">
       <DashboardInfo />
       <DashboardDisplay />
+      <div className="ClearSet" />
       </div>
     );
   }

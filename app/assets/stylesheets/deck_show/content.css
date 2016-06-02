@@ -1,0 +1,98 @@
+.ShowContent {
+  display: block;
+  position: relative;
+  background-color: purple;
+  width: calc(100% - 275px);
+  height: 100%;
+
+  padding: 0px 3px 0px 0px;
+
+  background-color: #FFFFFF;
+/*TODO */
+  float: left;
+}
+
+.ShowContent h3 {
+  color: #616161;
+  background-color: #F5F5F5;
+
+  border: 1px solid #ddd;
+}
+
+.DeckInfo {
+  /*color: red;*/
+
+  display: block;
+  float: left;
+  width: 48%;
+
+  padding-right: 20px;
+
+  height: 100%;
+}
+
+.DeckHistory {
+  /*color: blue;*/
+
+  display: block;
+  float: right;
+
+  padding-right: 10px;
+
+  height: 100%;
+  width: 49%;
+}
+.Divider {
+  display: block;
+  float: left;
+  width: 1px;
+  height: 96%;
+
+  padding-left: 15px;
+  padding-right: 0px;
+
+  padding: 0px;
+
+  background-color: #ddd;
+}
+
+.ClearSet {
+  display: block;
+  clear: both;
+}
+
+.Review {
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 100px;
+
+  text-align: center;
+
+
+  width: 100%;
+
+  /*line-height: 50px;*/
+
+  float: center;
+  background-color: #FFFFFF;
+  opacity: .9;
+  border-color: #25A3FC;
+
+  border-left: 0px;
+
+  margin: auto;
+}
+
+.buttonText {
+  position: relative;
+
+  color: #25A3FC;
+  font-size: 20px;
+  padding-bottom: 40px;
+
+  text-align: center;
+  vertical-align: middle;
+}

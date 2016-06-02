@@ -1,0 +1,88 @@
+.DashBoard {
+
+  text-align: center;
+}
+
+.DashBoard h1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  background-color: #f8f8f8;
+  display: block;
+
+  border-bottom: 1px solid #ddd;
+
+  height: 50px;
+}
+
+.DashBoard .Content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+
+.DashBoard .Info {
+
+  width: 50%;
+  height: 100%;
+
+  float: left;
+
+}
+
+ h4 {
+  color: #616161;
+  background-color: #F5F5F5;
+  margin: 10px;
+
+  border: 1px solid #ddd;
+}
+
+.DashBoard .Info li {
+  list-style-type: none;
+}
+
+.DashBoard .Info li .StatTitle {
+  float: left;
+}
+
+.DashBoard .Info li .Stat {
+  float: right;
+}
+
+.DashBoard .Display {
+  text-align: center;
+
+  width: 50%;
+  height: 100%;
+
+  float: right;
+}
+
+.Footer {
+  color: black;
+  background-color: rgba(248,248,248,0.95);
+  border-top: 1px solid #DDDDDD;
+
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 69px;
+
+  text-align: center;
+
+
+  width: 100%;
+}
+
+.Footer li {
+  list-style-type: none;
+  float: left;
+  border-bottom: none;
+
+  width: 20%;
+}

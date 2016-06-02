@@ -1,0 +1,21 @@
+.Options {
+  float: right;
+  position: absolute;
+
+  right: 0;
+
+
+  background:  #f8f8f8;
+  height: 100%;
+
+  width: 275px;
+}
+
+.Options h3 {
+  text-align: center;
+
+}
+
+.Options li {
+  list-style-type: none;
+}

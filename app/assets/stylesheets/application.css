@@ -16,6 +16,8 @@
 
  html {
    /*background-image: url(sky1.png)*/
+   height: 100%;
+   width: 100%;
  }
 
  .auth {

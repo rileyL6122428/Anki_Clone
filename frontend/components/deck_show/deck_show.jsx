@@ -13,8 +13,11 @@ var DeckShow = React.createClass({
           <p className="Title">Deck</p>
         </h1>
 
-        <Content deckId={this.props.params.id}/>
-        <Options />
+        <div className="BelowHeader">
+          <Content deckId={this.props.params.id}/>
+          <Options />
+          <div className="ClearSet" />
+        </div>
       </div>
     );
   }

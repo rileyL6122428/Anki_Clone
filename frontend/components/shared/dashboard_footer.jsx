@@ -5,12 +5,14 @@ var DashboardFooter = React.createClass({
   render: function () {
     //TODO replace links with proper routes
     return(
-      <div>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/decks">Decks</Link>
-        <Link to="/new-deck">New Deck</Link>
-        <Link to="/dashboard">Import Deck</Link>
-        <Link to="/profile">Profile</Link>
+      <div className="Footer">
+        <ul>
+          <li><Link to="/dashboard">Dashboard</Link></li>
+          <li><Link to="/decks">Decks</Link></li>
+          <li><Link to="/new-deck">New Deck</Link></li>
+          <li><Link to="/dashboard">Import Deck</Link></li>
+          <li><Link to="/profile">Profile</Link></li>
+        </ul>
       </div>
     );
   }

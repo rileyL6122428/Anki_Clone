@@ -68,8 +68,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(267);
 	window.DeckActions = __webpack_require__(269);
-	window.FlashcardStore = __webpack_require__(278);
-	window.FlashcardActions = __webpack_require__(280);
+	window.FlashcardStore = __webpack_require__(280);
+	window.FlashcardActions = __webpack_require__(282);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	
@@ -33154,7 +33154,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'DashBoard' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -33182,31 +33182,55 @@
 	    //TODO replace links with proper routes
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Footer' },
 	      React.createElement(
-	        Link,
-	        { to: '/dashboard' },
-	        'Dashboard'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/decks' },
-	        'Decks'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/new-deck' },
-	        'New Deck'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/dashboard' },
-	        'Import Deck'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/profile' },
-	        'Profile'
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Dashboard'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/decks' },
+	            'Decks'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/new-deck' },
+	            'New Deck'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Import Deck'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/profile' },
+	            'Profile'
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -33229,9 +33253,10 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Content' },
 	      React.createElement(DashboardInfo, null),
-	      React.createElement(DashboardDisplay, null)
+	      React.createElement(DashboardDisplay, null),
+	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
 	});
@@ -33245,61 +33270,64 @@
 	var React = __webpack_require__(1);
 	
 	var DashboardInfo = React.createClass({
-	  displayName: 'DashboardInfo',
+	  displayName: "DashboardInfo",
 	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      null,
+	      "div",
+	      { className: "Info" },
 	      React.createElement(
-	        'h4',
+	        "h4",
 	        null,
-	        'INFO'
+	        "INFO"
 	      ),
 	      React.createElement(
-	        'ul',
+	        "ul",
 	        null,
 	        React.createElement(
-	          'li',
+	          "li",
 	          null,
 	          React.createElement(
-	            'p',
-	            null,
-	            'Reviews Today'
+	            "p",
+	            { className: "StatTitle" },
+	            "Reviews Today"
 	          ),
 	          React.createElement(
-	            'p',
-	            null,
-	            'Insert Reviews Done Today'
-	          )
+	            "p",
+	            { className: "Stat" },
+	            "Insert Reviews Done Today"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        ),
 	        React.createElement(
-	          'li',
+	          "li",
 	          null,
 	          React.createElement(
-	            'p',
-	            null,
-	            'Reviews per Day (Average)'
+	            "p",
+	            { className: "StatTitle" },
+	            "Reviews per Day (Average)"
 	          ),
 	          React.createElement(
-	            'p',
-	            null,
-	            'Insert Reviews Per Day'
-	          )
+	            "p",
+	            { className: "Stat" },
+	            "Insert Reviews Per Day"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        ),
 	        React.createElement(
-	          'li',
+	          "li",
 	          null,
 	          React.createElement(
-	            'p',
-	            null,
-	            'Total Number of Reviews'
+	            "p",
+	            { className: "StatTitle" },
+	            "Total Number of Reviews"
 	          ),
 	          React.createElement(
-	            'p',
-	            null,
-	            'Insert Total Number of Reviews'
-	          )
+	            "p",
+	            { className: "Stat" },
+	            "Insert Total Number of Reviews"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        )
 	      )
 	    );
@@ -33315,21 +33343,21 @@
 	var React = __webpack_require__(1);
 	
 	var DashboardDisplay = React.createClass({
-	  displayName: 'DashboardDisplay',
+	  displayName: "DashboardDisplay",
 	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      null,
+	      "div",
+	      { className: "Display" },
 	      React.createElement(
-	        'h4',
+	        "h4",
 	        null,
-	        'REVIEWS'
+	        "REVIEWS"
 	      ),
 	      React.createElement(
-	        'div',
+	        "div",
 	        null,
-	        'Insert reviews for the week graph here'
+	        "Insert reviews for the week graph here"
 	      )
 	    );
 	  }
@@ -33362,25 +33390,39 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Profile Parent-Component' },
 	      React.createElement(
 	        'h1',
 	        null,
 	        'Profile'
 	      ),
 	      React.createElement(
-	        'p',
-	        { className: 'list_left' },
-	        'Username'
+	        'h4',
+	        null,
+	        'Account'
 	      ),
 	      React.createElement(
-	        'p',
-	        { className: 'list_right' },
-	        UserStore.currentUser().username
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            'p',
+	            { className: 'StatTitle' },
+	            'Username'
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'Stat' },
+	            UserStore.currentUser().username
+	          ),
+	          React.createElement('div', { className: 'ClearSet' })
+	        )
 	      ),
 	      React.createElement(
 	        'button',
-	        { onClick: this.logoutCB },
+	        { onClick: this.logoutCB, className: 'Cancel-Logout-Button' },
 	        'Log Out'
 	      ),
 	      React.createElement(Footer, null)
@@ -33734,7 +33776,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'NewDeck' },
 	      React.createElement(Header, null),
 	      React.createElement(Form, null)
 	    );
@@ -33786,7 +33828,12 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Form' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
 	      React.createElement(
 	        'form',
 	        { onSubmit: this.submitCB },
@@ -33794,17 +33841,19 @@
 	          'label',
 	          null,
 	          'Name',
-	          React.createElement('input', { type: 'text', onChange: this.changeName })
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeName, className: 'NameInput' })
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
 	          null,
 	          'Description',
-	          React.createElement('input', { type: 'text', onChange: this.changeDescription })
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeDescription, className: 'DescriptionInput' })
 	        ),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Save' })
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
 	      )
 	    );
 	  }
@@ -33825,10 +33874,10 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Header' },
 	      React.createElement(
 	        Link,
-	        { to: '/dashboard' },
+	        { to: '/dashboard', className: 'Cancel' },
 	        'Cancel'
 	      ),
 	      React.createElement(
@@ -33848,7 +33897,7 @@
 
 	var React = __webpack_require__(1);
 	var Content = __webpack_require__(276);
-	var Options = __webpack_require__(277);
+	var Options = __webpack_require__(279);
 	var Link = __webpack_require__(168).Link;
 	
 	var DeckShow = React.createClass({
@@ -33873,8 +33922,13 @@
 	          'Deck'
 	        )
 	      ),
-	      React.createElement(Content, { deckId: this.props.params.id }),
-	      React.createElement(Options, null)
+	      React.createElement(
+	        'div',
+	        { className: 'BelowHeader' },
+	        React.createElement(Content, { deckId: this.props.params.id }),
+	        React.createElement(Options, null),
+	        React.createElement('div', { className: 'ClearSet' })
+	      )
 	    );
 	  }
 	});
@@ -33886,8 +33940,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(282);
-	var History = __webpack_require__(283);
+	var Info = __webpack_require__(277);
+	var History = __webpack_require__(278);
 	var DeckStore = __webpack_require__(267);
 	var DeckActions = __webpack_require__(269);
 	
@@ -33928,12 +33982,17 @@
 	        deckName
 	      ),
 	      React.createElement(Info, null),
+	      React.createElement('div', { className: 'Divider' }),
 	      React.createElement(History, null),
 	      React.createElement('div', { className: 'ClearSet' }),
 	      React.createElement(
 	        'button',
 	        { className: 'Review' },
-	        'Review'
+	        React.createElement(
+	          'div',
+	          { className: 'buttonText' },
+	          'Review'
+	        )
 	      )
 	    );
 	  }
@@ -33943,238 +34002,6 @@
 
 /***/ },
 /* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	//TODO set link destinations to proper destinations
-	
-	var Options = React.createClass({
-	  displayName: 'Options',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Options' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Options'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Deck Info'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Cards'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Remove'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Options;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(238).Store;
-	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(279);
-	
-	var FlashcardStore = new Store(AppDispatcher);
-	var _flashcards = {};
-	
-	FlashcardStore.all = function () {
-	  var flashcards = [];
-	
-	  for (var id in _flashcards) {
-	    flashcards.push(_flashcards[id]);
-	  }
-	  return flashcards;
-	};
-	
-	FlashcardStore.find = function (id) {
-	  if (_flashcards[id]) {
-	    return $.extend({}, _flashcards[id]);
-	  }
-	};
-	
-	var receiveFlashcards = function (flashcards) {
-	  _flashcards = {};
-	
-	  flashcards.forEach(function (flashcard) {
-	    _flashcards[flashcard.id] = flashcard;
-	  });
-	  FlashcardStore.__emitChange();
-	};
-	
-	var receiveAFlashcard = function (flashcard) {
-	  _flashcards[flashcard.id] = flashcard;
-	  FlashcardStore.__emitChange();
-	};
-	
-	var removeFlashcard = function (flashcard) {
-	  delete _flashcards[flashcard.id];
-	  FlashcardStore.__emitChange();
-	};
-	
-	FlashcardStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case FlashcardConstants.RECEIVE_FLASHCARDS:
-	      receiveFlashcards(payload.flashcards);
-	      break;
-	    case FlashcardConstants.RECEIVE_FLASHCARD:
-	      receiveAFlashcard(payload.flashcard);
-	      break;
-	    case FlashcardConstants.REMOVE_FLASHCARD:
-	      removeFlashcard(payload.flashcard);
-	      break;
-	  }
-	};
-	
-	module.exports = FlashcardStore;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_FLASHCARDS: "RECEIVE_FLASHCARDS",
-	  RECEIVE_FLASHCARD: "RECEIVE_FLASHCARD",
-	  REMOVE_FLASHCARD: "REMOVE_FLASHCARD"
-	};
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var FlashcardApiUtil = __webpack_require__(281);
-	module.exports = {
-	  fetchFlashcards: function (deckId) {
-	    FlashcardApiUtil.fetchFlashcards(deckId);
-	  },
-	
-	  fetchAFlashcard: function (id) {
-	    FlashcardApiUtil.fetchAFlashcard(id);
-	  },
-	
-	  createFlashcard: function (flashcard, deckId) {
-	    FlashcardApiUtil.createFlashcard(flashcard, deckId);
-	  },
-	
-	  editFlashcard: function (flashcard) {
-	    FlashcardApiUtil.editFlashcard(flashcard);
-	  },
-	
-	  destroyFlashcard: function (id) {
-	    FlashcardApiUtil.destroyFlashcard(id);
-	  }
-	};
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(279);
-	
-	module.exports = {
-	  fetchFlashcards: function (deckId) {
-	    $.ajax({
-	      url: "/api/decks/" + deckId + "/flashcards",
-	      type: "GET",
-	      success: function (flashcards) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARDS,
-	          flashcards: flashcards
-	        });
-	      }
-	    });
-	  },
-	
-	  fetchAFlashcard: function (id) {
-	    $.ajax({
-	      url: 'api/flashcards/' + id,
-	      type: 'GET',
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  createFlashcard: function (flashcard, deckId) {
-	    $.ajax({
-	      url: 'api/flashcards',
-	      type: 'POST',
-	      data: { flashcard: flashcard, deck_id: deckId },
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  editFlashcard: function (flashcard) {
-	    $.ajax({
-	      url: 'api/flashcards/' + flashcard.id,
-	      type: 'PATCH',
-	      data: { flashcard: flashcard },
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  destroyFlashcard: function (id) {
-	    $.ajax({
-	      url: 'api/flashcards/' + id,
-	      type: 'DELETE',
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.REMOVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34231,7 +34058,7 @@
 	module.exports = Info;
 
 /***/ },
-/* 283 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34304,6 +34131,238 @@
 	});
 	
 	module.exports = History;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	//TODO set link destinations to proper destinations
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Options' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Options'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Edit Deck'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Cards'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Remove'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Options;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(281);
+	
+	var FlashcardStore = new Store(AppDispatcher);
+	var _flashcards = {};
+	
+	FlashcardStore.all = function () {
+	  var flashcards = [];
+	
+	  for (var id in _flashcards) {
+	    flashcards.push(_flashcards[id]);
+	  }
+	  return flashcards;
+	};
+	
+	FlashcardStore.find = function (id) {
+	  if (_flashcards[id]) {
+	    return $.extend({}, _flashcards[id]);
+	  }
+	};
+	
+	var receiveFlashcards = function (flashcards) {
+	  _flashcards = {};
+	
+	  flashcards.forEach(function (flashcard) {
+	    _flashcards[flashcard.id] = flashcard;
+	  });
+	  FlashcardStore.__emitChange();
+	};
+	
+	var receiveAFlashcard = function (flashcard) {
+	  _flashcards[flashcard.id] = flashcard;
+	  FlashcardStore.__emitChange();
+	};
+	
+	var removeFlashcard = function (flashcard) {
+	  delete _flashcards[flashcard.id];
+	  FlashcardStore.__emitChange();
+	};
+	
+	FlashcardStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FlashcardConstants.RECEIVE_FLASHCARDS:
+	      receiveFlashcards(payload.flashcards);
+	      break;
+	    case FlashcardConstants.RECEIVE_FLASHCARD:
+	      receiveAFlashcard(payload.flashcard);
+	      break;
+	    case FlashcardConstants.REMOVE_FLASHCARD:
+	      removeFlashcard(payload.flashcard);
+	      break;
+	  }
+	};
+	
+	module.exports = FlashcardStore;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_FLASHCARDS: "RECEIVE_FLASHCARDS",
+	  RECEIVE_FLASHCARD: "RECEIVE_FLASHCARD",
+	  REMOVE_FLASHCARD: "REMOVE_FLASHCARD"
+	};
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FlashcardApiUtil = __webpack_require__(283);
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    FlashcardApiUtil.fetchFlashcards(deckId);
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    FlashcardApiUtil.fetchAFlashcard(id);
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    FlashcardApiUtil.createFlashcard(flashcard, deckId);
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    FlashcardApiUtil.editFlashcard(flashcard);
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    FlashcardApiUtil.destroyFlashcard(id);
+	  }
+	};
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(281);
+	
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    $.ajax({
+	      url: "/api/decks/" + deckId + "/flashcards",
+	      type: "GET",
+	      success: function (flashcards) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARDS,
+	          flashcards: flashcards
+	        });
+	      }
+	    });
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'GET',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    $.ajax({
+	      url: 'api/flashcards',
+	      type: 'POST',
+	      data: { flashcard: flashcard, deck_id: deckId },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    $.ajax({
+	      url: 'api/flashcards/' + flashcard.id,
+	      type: 'PATCH',
+	      data: { flashcard: flashcard },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'DELETE',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.REMOVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

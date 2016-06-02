@@ -1,0 +1,10 @@
+.Profile{
+  
+}
+
+.Profile button {
+  display: block;
+  margin: auto;
+
+  font-size: 20px;
+}
