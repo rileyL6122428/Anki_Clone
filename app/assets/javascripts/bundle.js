@@ -61,6 +61,7 @@
 	var UserDecks = __webpack_require__(264);
 	var NewDeck = __webpack_require__(272);
 	var DeckShow = __webpack_require__(275);
+	var EditDeck = __webpack_require__(284);
 	
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
@@ -105,7 +106,8 @@
 	    React.createElement(Route, { path: 'profile', component: ProfilePage, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks', component: UserDecks, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'new-deck', component: NewDeck, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'decks/:id', component: DeckShow, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'decks/:id', component: DeckShow, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'edit-deck/:id', component: EditDeck, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -33930,7 +33932,7 @@
 	        'div',
 	        { className: 'BelowHeader' },
 	        React.createElement(Content, { deckId: this.props.params.id }),
-	        React.createElement(Options, null),
+	        React.createElement(Options, { deckId: this.props.params.id }),
 	        React.createElement('div', { className: 'ClearSet' })
 	      )
 	    );
@@ -34165,7 +34167,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/dashboard' },
+	            { to: "/edit-deck/" + this.props.deckId },
 	            'Edit Deck'
 	          )
 	        ),
@@ -34367,6 +34369,140 @@
 	    });
 	  }
 	};
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(285);
+	var Header = __webpack_require__(286);
+	
+	var EditDeck = React.createClass({
+	  displayName: 'EditDeck',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'EditDeck' },
+	      React.createElement(Header, { deckId: this.props.params.id }),
+	      React.createElement(Form, { deckId: this.props.params.id })
+	    );
+	  }
+	});
+	
+	module.exports = EditDeck;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DeckActions = __webpack_require__(269);
+	var DeckStore = __webpack_require__(267);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  getInitialState: function () {
+	    var deck = DeckStore.find(this.props.deckId);
+	    return { name: deck.name, description: deck.description };
+	  },
+	
+	  changeName: function (e) {
+	    var newName = e.target.value;
+	    this.setState({ name: newName });
+	  },
+	
+	  changeDescription: function (e) {
+	    var newDescription = e.target.value;
+	    this.setState({ description: newDescription });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    DeckActions.editDeck({
+	      name: this.state.name,
+	      description: this.state.description,
+	      id: this.props.deckId
+	    });
+	
+	    //TODO redirect to deck show with callback in Deck store
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeName,
+	            value: this.state.name,
+	            className: 'NameInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Description',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeDescription,
+	            value: this.state.description,
+	            className: 'DescriptionInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var Header = React.createClass({
+	  displayName: 'Header',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Header' },
+	      React.createElement(
+	        Link,
+	        { to: "/decks/" + this.props.deckId, className: 'Cancel' },
+	        'Cancel'
+	      ),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Edit Deck'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Header;
 
 /***/ }
 /******/ ]);

@@ -1,4 +1,4 @@
-.EditDeck {
+.NewDeck {
   position: absolute;;
   height: 100%;
   width: 100%;
@@ -7,34 +7,34 @@
   background-color: #FFFFFF;
 }
 
-.EditDeck .Header {
+.NewDeck .Header {
   display: black;
   background-color: #f8f8f8;
 
   border-bottom: 1px solid #ddd;
 }
 
-.EditDeck .Header h1 {
+.NewDeck .Header h1 {
   text-align: center;
   padding-top: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.EditDeck .Header .Cancel {
+.NewDeck .Header .Cancel {
   float: left;
   color: red;
   text-decoration: none;
 }
 
-.EditDeck .Form {
+.NewDeck .Form {
   color: #25A3FC;
   display: block;
   width: 80%;
   margin: auto;
 }
 
-.EditDeck .Form h4 {
+.NewDeck .Form h4 {
   position: relative;
   margin: auto;
   width: 60%;
@@ -43,7 +43,7 @@
 }
 
 
-.EditDeck input[type=text] {
+.NewDeck input[type=text] {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
@@ -64,7 +64,7 @@
   padding-top: 20px
 }
 
-.EditDeck input[type=text]:focus {
+.NewDeck input[type=text]:focus {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
@@ -75,20 +75,14 @@
 }
 
 
-
-
-/*.EditDeck .Form .NameInput {
-
-}*/
-
-.EditDeck .Form label {
+.NewDeck .Form label {
   display: block;
   margin: auto;
   width: 60%;
 }
 
 
-.EditDeck .Form .Save {
+.NewDeck .Form .Save {
 
   position: absolute;
 

@@ -11,7 +11,7 @@ var Options = React.createClass ({
         <h3>Options</h3>
         <ul>
           <li>
-            <Link to="/dashboard">Edit Deck</Link>
+            <Link to={"/edit-deck/" + this.props.deckId}>Edit Deck</Link>
           </li>
 
           <li>
