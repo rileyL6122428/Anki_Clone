@@ -13,6 +13,8 @@ var AuthForm = require('./components/auth/auth_form');
 var Dashboard = require('./components/dashboard/dashboard');
 var ProfilePage = require('./components/profile/profile_page');
 var UserDecks = require('./components/user_decks/user_decks');
+var NewDeck = require('./components/new_deck/new_deck');
+var DeckShow = require('./components/deck_show/deck_show');
 
 var UserStore = require('./stores/user_store');
 var userActions = require('./actions/user_actions')
@@ -49,6 +51,8 @@ var Router = (
       <Route path='dashboard' component={Dashboard} onEnter={_ensureLoggedIn} />
       <Route path='profile' component={ProfilePage} onEnter={_ensureLoggedIn} />
       <Route path='decks' component={UserDecks} onEnter={_ensureLoggedIn} />
+      <Route path='new-deck' component={NewDeck} onEnter={_ensureLoggedIn} />
+      <Route path='decks/:id' component={DeckShow} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )

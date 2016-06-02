@@ -1,6 +1,7 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher');
 var DeckConstants = require('../constants/deck_constants');
+var hashHistory = require('react-router').hashHistory
 
 var DeckStore = new Store(AppDispatcher);
 var _decks = {};
@@ -30,6 +31,7 @@ var receiveDecks = function (decks) {
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
   DeckStore.__emitChange();
+  hashHistory.push('/decks/'+deck.id);
 }
 
 var removeDeck = function(deck){
