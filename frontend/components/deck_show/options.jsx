@@ -15,7 +15,7 @@ var Options = React.createClass ({
           </li>
 
           <li>
-            <Link to="/dashboard">Cards</Link>
+            <Link to={"/decks/" + this.props.deckId + "/flashcards"}>Cards</Link>
           </li>
 
           <li>

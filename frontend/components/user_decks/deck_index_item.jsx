@@ -2,7 +2,6 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 var DeckIndexItem = React.createClass({
-  //TODO wrap contents in link to deck show
   render: function () {
     return(
       <Link to={"decks/" + this.props.id}>
