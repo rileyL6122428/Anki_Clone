@@ -34714,7 +34714,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Flashcard-Show Parent-Component' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -34727,11 +34727,17 @@
 	          'p',
 	          null,
 	          'Card'
-	        ),
-	        React.createElement(Preview, { card: this.state.card }),
+	        )
+	      ),
+	      React.createElement('div', { className: 'ClearSet' }),
+	      React.createElement(Preview, { card: this.state.card }),
+	      React.createElement(
+	        'div',
+	        { className: 'Not-Preview' },
 	        React.createElement(Info, { card: this.state.card }),
 	        React.createElement(Options, { cardId: this.props.params.cardId, deckId: this.props.params.id })
-	      )
+	      ),
+	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
 	});
@@ -34745,21 +34751,20 @@
 	var React = __webpack_require__(1);
 	
 	var Preview = React.createClass({
-	  displayName: 'Preview',
+	  displayName: "Preview",
 	
 	  render: function () {
 	
 	    return React.createElement(
-	      'div',
-	      null,
+	      "div",
+	      { className: "Preview" },
 	      React.createElement(
-	        'p',
+	        "p",
 	        null,
 	        this.props.card.front
 	      ),
-	      React.createElement('div', { className: 'Divider' }),
 	      React.createElement(
-	        'p',
+	        "p",
 	        null,
 	        this.props.card.back
 	      )
@@ -34782,7 +34787,7 @@
 	
 	    return React.createElement(
 	      "div",
-	      null,
+	      { className: "Info" },
 	      React.createElement(
 	        "h4",
 	        null,
@@ -34869,7 +34874,7 @@
 	    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Options' },
 	      React.createElement(
 	        'ul',
 	        null,

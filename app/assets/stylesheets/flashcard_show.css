@@ -1,0 +1,80 @@
+.Flashcard-Show {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+  .Flashcard-Show h1 {
+    display: block;
+    width: 100%;
+    height: 50px;
+  }
+
+.Flashcard-Show h1 a {
+  color: rgb(37, 163, 252);
+  width: 5%;
+  float: left;
+  text-decoration: none;
+}
+
+.Flashcard-Show h1 p {
+  color: rgb(68, 68, 68);
+  margin: 0px;
+  padding: 0px;
+  width: 90%;
+  float: left;
+}
+
+/*NOTE up to this far uncommented is going swell*/
+
+.Flashcard-Show .Preview{
+  display: block;
+  position: relative;
+  height: 100%;
+  width:45%;
+  float: left;
+}
+
+.Flashcard-Show .Preview p {
+  text-align: center;
+  display: block;
+  height:40%;
+  width: 100%;
+}
+
+.Flashcard-Show .Not-Preview{
+  display: block;
+  height: 100%;
+  width:45%;
+  float: right;
+}
+
+.Flashcard-Show .Not-Preview .Info {
+  display: block;
+  width: 100%;
+  height:45%;
+  border: 0px;
+  float:none;
+}
+
+/*need to keep float none for this block*/
+.Flashcard-Show .Not-Preview .Options {
+  display: block;
+  width: 50%;
+  height: 45%;
+  border: 0px;
+  float:none;
+}
+
+.Flashcard-Show .Not-Preview .Options li {
+  border-bottom: 0px;
+}
+
+.Flashcard-Show .Not-Preview a {
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Show .Not-Preview button {
+  color: red;
+}

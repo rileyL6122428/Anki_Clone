@@ -4,9 +4,8 @@ var Preview = React.createClass({
   render: function () {
 
     return(
-      <div>
+      <div className="Preview">
         <p>{ this.props.card.front }</p>
-        <div className='Divider' />
         <p>{ this.props.card.back }</p>
       </div>
     );

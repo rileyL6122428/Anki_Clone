@@ -17,14 +17,21 @@ var FlashcardShow = React.createClass({
     var cards_url = ("/decks/" + this.props.params.id + "/flashcards");
 
     return(
-      <div>
+      <div className="Flashcard-Show Parent-Component">
         <h1>
           <Link to={ cards_url }>{ arrow }</Link>
           <p>Card</p>
-          <Preview card={ this.state.card }/>
+        </h1>
+        <div className="ClearSet" />
+
+        <Preview card={ this.state.card }/>
+        <div className="Not-Preview">
           <Info card={ this.state.card }/>
           <Options cardId={ this.props.params.cardId } deckId={ this.props.params.id }/>
-        </h1>
+        </div>
+
+        <div className="ClearSet" />
+
       </div>
     );
   }

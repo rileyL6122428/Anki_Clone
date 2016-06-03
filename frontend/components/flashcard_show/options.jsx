@@ -32,7 +32,7 @@ var Options = React.createClass({
     var cardId = this.props.cardId;
     var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
     return(
-      <div>
+      <div className="Options">
         <ul>
           <li>
             <Link to={editDeckUrl}>Edit</Link>
