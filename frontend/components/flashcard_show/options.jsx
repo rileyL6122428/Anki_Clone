@@ -28,12 +28,14 @@ var Options = React.createClass({
   },
 
   render: function () {
-    //TODO set link to actually go to card edit
+    var deckId = this.props.deckId;
+    var cardId = this.props.cardId;
+    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
     return(
       <div>
         <ul>
           <li>
-            <Link to={"/decks/" + this.props.deckId}>Edit</Link>
+            <Link to={editDeckUrl}>Edit</Link>
           </li>
 
           <li>

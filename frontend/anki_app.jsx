@@ -18,6 +18,8 @@ var DeckShow = require('./components/deck_show/deck_show');
 var EditDeck = require('./components/edit_deck/edit_deck');
 var FlashcardIndex = require('./components/flashcard_index/flashcard_index.jsx');
 var FlashcardShow = require('./components/flashcard_show/flashcard_show');
+var NewFlashcard = require('./components/new_card/new_card');
+var EditFlashcard = require('./components/edit_flashcard/edit_flashcard');
 
 var UserStore = require('./stores/user_store');
 var userActions = require('./actions/user_actions')
@@ -46,6 +48,9 @@ var dummyIndex = React.createClass({
   }
 })
 
+//TODO route a onEnter callback for the auth route that takes the user to
+// to the dashboard if they have already logged in
+
 var Router = (
   <Router history={hashHistory} >
     <Route path='/' component={App} >
@@ -59,6 +64,8 @@ var Router = (
       <Route path='edit-deck/:id' component={EditDeck} onEnter={_ensureLoggedIn} />
       <Route path='decks/:id/flashcards' component={FlashcardIndex} onEnter={_ensureLoggedIn} />
       <Route path='decks/:id/flashcards/:cardId' component={FlashcardShow} onEnter={_ensureLoggedIn} />
+      <Route path='decks/:id/new-flashcards' component={NewFlashcard} onEnter={_ensureLoggedIn} />
+      <Route path='decks/:id/flashcards/:cardId/edit' component={EditFlashcard} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )

@@ -1,5 +1,6 @@
 var React = require('react');
 var FlashcardStore = require('../../stores/flashcard_store');
+var FlashcardActions = require('../../actions/flashcard_actions');
 var Link = require('react-router').Link;
 var Preview = require('./preview');
 var Info = require('./info');

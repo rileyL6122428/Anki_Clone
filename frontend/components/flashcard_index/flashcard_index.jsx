@@ -11,8 +11,9 @@ var FlashcardIndex = React.createClass({
     return(
       <div className="Parent-Component">
         <h1>
-          <Link to={"/decks/" + this.props.params.id }>Back</Link>
+          <Link to={ "/decks/" + this.props.params.id }>Back</Link>
           <p>Cards</p>
+          <Link to={ "/decks/" + this.props.params.id + "/new-flashcards"}>New</Link>
         </h1>
         <SearchBar />
         <div className="Overflow-Test">

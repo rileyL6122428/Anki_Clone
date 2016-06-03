@@ -62,8 +62,10 @@
 	var NewDeck = __webpack_require__(272);
 	var DeckShow = __webpack_require__(275);
 	var EditDeck = __webpack_require__(280);
-	var FlashcardIndex = __webpack_require__(287);
+	var FlashcardIndex = __webpack_require__(283);
 	var FlashcardShow = __webpack_require__(291);
+	var NewFlashcard = __webpack_require__(295);
+	var EditFlashcard = __webpack_require__(298);
 	
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
@@ -71,8 +73,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(267);
 	window.DeckActions = __webpack_require__(269);
-	window.FlashcardStore = __webpack_require__(283);
-	window.FlashcardActions = __webpack_require__(285);
+	window.FlashcardStore = __webpack_require__(286);
+	window.FlashcardActions = __webpack_require__(288);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	
@@ -96,6 +98,9 @@
 	  }
 	});
 	
+	//TODO route a onEnter callback for the auth route that takes the user to
+	// to the dashboard if they have already logged in
+	
 	var Router = React.createElement(
 	  Router,
 	  { history: hashHistory },
@@ -111,7 +116,9 @@
 	    React.createElement(Route, { path: 'decks/:id', component: DeckShow, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'edit-deck/:id', component: EditDeck, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/flashcards', component: FlashcardIndex, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId', component: FlashcardShow, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId', component: FlashcardShow, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'decks/:id/new-flashcards', component: NewFlashcard, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId/edit', component: EditFlashcard, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -34337,9 +34344,146 @@
 /* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
+	var SearchBar = __webpack_require__(284);
+	var List = __webpack_require__(285);
+	var Link = __webpack_require__(168).Link;
+	
+	var FlashcardIndex = React.createClass({
+	  displayName: 'FlashcardIndex',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Parent-Component' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: "/decks/" + this.props.params.id },
+	          'Back'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Cards'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: "/decks/" + this.props.params.id + "/new-flashcards" },
+	          'New'
+	        )
+	      ),
+	      React.createElement(SearchBar, null),
+	      React.createElement(
+	        'div',
+	        { className: 'Overflow-Test' },
+	        React.createElement(List, { deckId: this.props.params.id })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardIndex;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var FlashcardsSearchBar = React.createClass({
+	  displayName: "FlashcardsSearchBar",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "Search-Container" },
+	      React.createElement(
+	        "label",
+	        { "for": "deck-search" },
+	        " Search:"
+	      ),
+	      React.createElement("input", { id: "deck-search", type: "text" })
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardsSearchBar;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardStore = __webpack_require__(286);
+	var FlashcardActions = __webpack_require__(288);
+	var FlashcardIndexItem = __webpack_require__(290);
+	
+	var FlashcardIndex = React.createClass({
+	  displayName: 'FlashcardIndex',
+	
+	
+	  getInitialState: function () {
+	    return { flashcards: [] };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    FlashcardActions.fetchFlashcards(this.props.deckId);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ flashcards: FlashcardStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	    var list = "";
+	    var deckId = this.props.deckId;
+	    if (this.state.flashcards.length !== 0) {
+	
+	      var list = React.createElement(
+	        'div',
+	        { className: 'Wrapper' },
+	        this.state.flashcards.map(function (flashcard) {
+	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
+	            cardId: flashcard.id,
+	            key: flashcard.id,
+	            front: flashcard.front,
+	            grade: "insertGrade",
+	            deckId: deckId });
+	        })
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        list
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardIndex;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(284);
+	var FlashcardConstants = __webpack_require__(287);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -34395,7 +34539,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 284 */
+/* 287 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -34405,10 +34549,10 @@
 	};
 
 /***/ },
-/* 285 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(286);
+	var FlashcardApiUtil = __webpack_require__(289);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -34432,11 +34576,11 @@
 	};
 
 /***/ },
-/* 286 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(284);
+	var FlashcardConstants = __webpack_require__(287);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -34508,138 +34652,6 @@
 	};
 
 /***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(288);
-	var List = __webpack_require__(289);
-	var Link = __webpack_require__(168).Link;
-	
-	var FlashcardIndex = React.createClass({
-	  displayName: 'FlashcardIndex',
-	
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'Parent-Component' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: "/decks/" + this.props.params.id },
-	          'Back'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Cards'
-	        )
-	      ),
-	      React.createElement(SearchBar, null),
-	      React.createElement(
-	        'div',
-	        { className: 'Overflow-Test' },
-	        React.createElement(List, { deckId: this.props.params.id })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardIndex;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var FlashcardsSearchBar = React.createClass({
-	  displayName: "FlashcardsSearchBar",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "Search-Container" },
-	      React.createElement(
-	        "label",
-	        { "for": "deck-search" },
-	        " Search:"
-	      ),
-	      React.createElement("input", { id: "deck-search", type: "text" })
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardsSearchBar;
-
-/***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(283);
-	var FlashcardActions = __webpack_require__(285);
-	var FlashcardIndexItem = __webpack_require__(290);
-	
-	var FlashcardIndex = React.createClass({
-	  displayName: 'FlashcardIndex',
-	
-	
-	  getInitialState: function () {
-	    return { flashcards: [] };
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	    FlashcardActions.fetchFlashcards(this.props.deckId);
-	  },
-	
-	  flashcardStoreCB: function () {
-	    this.setState({ flashcards: FlashcardStore.all() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  render: function () {
-	    var list = "";
-	    var deckId = this.props.deckId;
-	    if (this.state.flashcards.length !== 0) {
-	
-	      var list = React.createElement(
-	        'div',
-	        { className: 'Wrapper' },
-	        this.state.flashcards.map(function (flashcard) {
-	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
-	            cardId: flashcard.id,
-	            key: flashcard.id,
-	            front: flashcard.front,
-	            grade: "insertGrade",
-	            deckId: deckId });
-	        })
-	      );
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'ul',
-	        null,
-	        list
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardIndex;
-
-/***/ },
 /* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34679,7 +34691,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(283);
+	var FlashcardStore = __webpack_require__(286);
+	var FlashcardActions = __webpack_require__(288);
 	var Link = __webpack_require__(168).Link;
 	var Preview = __webpack_require__(292);
 	var Info = __webpack_require__(293);
@@ -34819,8 +34832,8 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(285);
-	var FlashcardStore = __webpack_require__(283);
+	var FlashcardActions = __webpack_require__(288);
+	var FlashcardStore = __webpack_require__(286);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -34849,7 +34862,9 @@
 	  },
 	
 	  render: function () {
-	    //TODO set link to actually go to card edit
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
 	    return React.createElement(
 	      'div',
 	      null,
@@ -34861,7 +34876,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: "/decks/" + this.props.deckId },
+	            { to: editDeckUrl },
 	            'Edit'
 	          )
 	        ),
@@ -34880,6 +34895,296 @@
 	});
 	
 	module.exports = Options;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(296);
+	var HeaderWithBack = __webpack_require__(297);
+	var Link = __webpack_require__(168).Link;
+	
+	NewCard = React.createClass({
+	  displayName: 'NewCard',
+	
+	
+	  render: function () {
+	    var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(HeaderWithBack, { title: 'New Card', url: deckIndexUrl }),
+	      React.createElement(Form, { deckId: this.props.params.id })
+	    );
+	  }
+	});
+	
+	module.exports = NewCard;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardActions = __webpack_require__(288);
+	var FlashcardStore = __webpack_require__(286);
+	var Preview = __webpack_require__(292);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  getInitialState: function () {
+	    return { front: "", back: "", cardSaved: false };
+	  },
+	
+	  componentDidMount: function () {
+	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ front: "", back: "", cardSaved: true });
+	    setTimeout(this.turnOffFlash, 3000);
+	  },
+	
+	  turnOffFlash: function () {
+	    this.setState({ cardSaved: false });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.eventToken.remove();
+	  },
+	
+	  changeFront: function (e) {
+	    var newFront = e.target.value;
+	    this.setState({ front: newFront });
+	  },
+	
+	  changeBack: function (e) {
+	    var newBack = e.target.value;
+	    this.setState({ back: newBack });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.createFlashcard({
+	      front: this.state.front,
+	      back: this.state.back
+	    }, this.props.deckId);
+	  },
+	
+	  render: function () {
+	
+	    var flash = "";
+	
+	    if (this.state.cardSaved) {
+	      flash = React.createElement(
+	        'div',
+	        { className: 'Flash' },
+	        'Card Saved'
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      flash,
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Front',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeFront, className: 'FrontInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Back',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeBack, className: 'BackInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      ),
+	      React.createElement(Preview, { card: this.state })
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	HeaderWithBack = React.createClass({
+	  displayName: 'HeaderWithBack',
+	
+	  render: function () {
+	    var arrow = "<";
+	    return React.createElement(
+	      'div',
+	      { className: 'Header-With-Arrow' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: this.props.url },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.title
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = HeaderWithBack;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(299);
+	var HeaderWithBack = __webpack_require__(297);
+	var Link = __webpack_require__(168).Link;
+	
+	EditCard = React.createClass({
+	  displayName: 'EditCard',
+	
+	
+	  render: function () {
+	    var deckId = this.props.params.id;
+	    var cardId = this.props.params.cardId;
+	    var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(HeaderWithBack, { title: 'Edit Card', url: cardShowUrl }),
+	      React.createElement(Form, { deckId: deckId, cardId: cardId })
+	    );
+	  }
+	});
+	
+	module.exports = EditCard;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardActions = __webpack_require__(288);
+	var FlashcardStore = __webpack_require__(286);
+	var Preview = __webpack_require__(292);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    var card = FlashcardStore.find(this.props.cardId);
+	
+	    return { front: card.front, back: card.back };
+	  },
+	
+	  componentDidMount: function () {
+	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.eventToken.remove();
+	  },
+	
+	  changeFront: function (e) {
+	    var newFront = e.target.value;
+	    this.setState({ front: newFront });
+	  },
+	
+	  changeBack: function (e) {
+	    var newBack = e.target.value;
+	    this.setState({ back: newBack });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.editFlashcard({
+	      front: this.state.front,
+	      back: this.state.back,
+	      id: this.props.cardId
+	    });
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Front',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeFront,
+	            className: 'FrontInput',
+	            value: this.state.front })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Back',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeBack,
+	            className: 'BackInput',
+	            value: this.state.back })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      ),
+	      React.createElement(Preview, { card: this.state })
+	    );
+	  }
+	});
+	
+	module.exports = Form;
 
 /***/ }
 /******/ ]);

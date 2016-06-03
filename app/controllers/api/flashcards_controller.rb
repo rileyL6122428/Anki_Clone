@@ -1,7 +1,6 @@
 class Api::FlashcardsController < ApplicationController
   def create
     @flashcard = Flashcard.new(flashcard_params)
-    byebug
     @flashcard.deck_id = params[:deck_id]
     @flashcard.grade = 0;
     @flashcard.review_total = 0;
