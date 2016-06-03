@@ -57,17 +57,19 @@ var Form = React.createClass({
     return(
       <div className="Form">
         { flash }
-        <h4>Info</h4>
         <form onSubmit={this.submitCB}>
-          <label>Front
-            <br/>
-            <input type="text" onChange={this.changeFront} className="FrontInput" />
+          <h4>Front</h4>
+          <label>
+            <textarea type="text"
+                      onChange={this.changeFront}
+                      className="FrontInput" />
           </label>
-          <br/>
 
-          <label>Back
-            <br/>
-            <input type="text" onChange={this.changeBack} className="BackInput" />
+          <h4>Back</h4>
+          <label>
+            <textarea type="text"
+                      onChange={this.changeBack}
+                      className="BackInput" />
           </label>
           <br/>
 
@@ -76,7 +78,7 @@ var Form = React.createClass({
         </form>
 
         <Preview card={this.state}/>
-
+        <div className="ClearSet" />
       </div>
     )
   }

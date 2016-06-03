@@ -10,6 +10,7 @@ HeaderWithBack = React.createClass({
           <Link to={this.props.url} >{ arrow }</Link>
           <p>{ this.props.title }</p>
         </h1>
+        <div className="ClearSet" />
       </div>
     );
   }

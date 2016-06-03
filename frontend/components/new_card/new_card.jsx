@@ -8,7 +8,7 @@ NewCard = React.createClass({
   render: function () {
     var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
     return(
-      <div>
+      <div className="Flashcard-Edit Parent-Component">
         <HeaderWithBack title="New Card" url={deckIndexUrl} />
         <Form deckId={this.props.params.id}/>
       </div>

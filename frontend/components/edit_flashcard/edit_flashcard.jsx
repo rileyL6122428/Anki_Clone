@@ -10,7 +10,7 @@ EditCard = React.createClass({
     var cardId = this.props.params.cardId;
     var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
     return(
-      <div>
+      <div className="Flashcard-Edit Parent-Component">
         <HeaderWithBack title="Edit Card" url={cardShowUrl} />
         <Form deckId={ deckId } cardId={ cardId }/>
       </div>

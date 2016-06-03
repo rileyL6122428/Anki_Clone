@@ -14,8 +14,10 @@
 .ShowContent h3 {
   color: #616161;
   background-color: #F5F5F5;
-
+  margin: 0px;
   border: 1px solid #ddd;
+
+  height: 18px;
 }
 
 .DeckInfo {
@@ -40,15 +42,6 @@
 
   height: 100%;
   width: 48%;
-}
-
-.DeckHistory ul {
-  padding-left: 0px;
-}
-
-.DeckHistory li {
-  padding: 0px;
-  margin: 0px;
 }
 
 .Divider {

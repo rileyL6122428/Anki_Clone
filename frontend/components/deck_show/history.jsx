@@ -4,22 +4,25 @@ var History = React.createClass ({
   render: function () {
     return(
       <div className="DeckHistory">
-        <h3>History</h3>
-        <ul>
+        <h4 className="Stat-Header">History</h4>
+        <ul className="Stat-List">
 
-        <li>
-         <p>Reviews Today</p>
-         <p>Insert Total</p>
+        <li className="Statistic">
+         <p className="StatTitle">Reviews Today</p>
+         <p className="Stat">Insert Total</p>
+         <div className="ClearSet" />
         </li>
 
-        <li>
-          <p>Reviews per Day (average)</p>
-          <p>Insert Total</p>
+        <li className="Statistic">
+          <p className="StatTitle">Reviews per Day (average)</p>
+          <p className="Stat">Insert Total</p>
+          <div className="ClearSet" />
         </li>
 
-        <li>
-          <p>Total number of Review</p>
-          <p>Insert Total</p>
+        <li className="Statistic">
+          <p className="StatTitle">Total number of Review</p>
+          <p className="Stat">Insert Total</p>
+          <div className="ClearSet" />
         </li>
 
         </ul>

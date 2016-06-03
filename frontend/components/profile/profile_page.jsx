@@ -18,9 +18,9 @@ var ProfilePage = React.createClass({
       <div className="Profile Parent-Component">
         <h1>Profile</h1>
 
-        <h4>Account</h4>
-        <ul>
-          <li>
+        <h4 className="Stat-Header">Account</h4>
+        <ul className="Stat-List">
+          <li className="Statistic">
             <p className="StatTitle">Username</p>
             <p className="Stat">{UserStore.currentUser().username}</p>
             <div className="ClearSet" />

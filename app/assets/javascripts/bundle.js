@@ -33411,15 +33411,15 @@
 	      ),
 	      React.createElement(
 	        'h4',
-	        null,
+	        { className: 'Stat-Header' },
 	        'Account'
 	      ),
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'Stat-List' },
 	        React.createElement(
 	          'li',
-	          null,
+	          { className: 'Statistic' },
 	          React.createElement(
 	            'p',
 	            { className: 'StatTitle' },
@@ -34089,54 +34089,57 @@
 	      "div",
 	      { className: "DeckHistory" },
 	      React.createElement(
-	        "h3",
-	        null,
+	        "h4",
+	        { className: "Stat-Header" },
 	        "History"
 	      ),
 	      React.createElement(
 	        "ul",
-	        null,
+	        { className: "Stat-List" },
 	        React.createElement(
 	          "li",
-	          null,
+	          { className: "Statistic" },
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "StatTitle" },
 	            "Reviews Today"
 	          ),
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "Stat" },
 	            "Insert Total"
-	          )
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
+	          { className: "Statistic" },
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "StatTitle" },
 	            "Reviews per Day (average)"
 	          ),
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "Stat" },
 	            "Insert Total"
-	          )
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
+	          { className: "Statistic" },
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "StatTitle" },
 	            "Total number of Review"
 	          ),
 	          React.createElement(
 	            "p",
-	            null,
+	            { className: "Stat" },
 	            "Insert Total"
-	          )
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
 	        )
 	      ),
 	      React.createElement(
@@ -34761,12 +34764,21 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        this.props.card.front
+	        React.createElement(
+	          "div",
+	          { className: "Front" },
+	          this.props.card.front
+	        )
 	      ),
+	      React.createElement("div", { className: "Preview-Divider" }),
 	      React.createElement(
 	        "p",
 	        null,
-	        this.props.card.back
+	        React.createElement(
+	          "div",
+	          { className: "Back" },
+	          this.props.card.back
+	        )
 	      )
 	    );
 	  }
@@ -34790,15 +34802,15 @@
 	      { className: "Info" },
 	      React.createElement(
 	        "h4",
-	        null,
+	        { className: "Stat-Header" },
 	        "INFO"
 	      ),
 	      React.createElement(
 	        "ul",
-	        null,
+	        { className: "Stat-List" },
 	        React.createElement(
 	          "li",
-	          null,
+	          { className: "Statistic" },
 	          React.createElement(
 	            "p",
 	            { className: "StatTitle" },
@@ -34813,7 +34825,7 @@
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
+	          { className: "Statistic" },
 	          React.createElement(
 	            "p",
 	            { className: "StatTitle" },
@@ -34876,26 +34888,14 @@
 	      'div',
 	      { className: 'Options' },
 	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: editDeckUrl },
-	            'Edit'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'button',
-	            { onClick: this.destroyCB },
-	            'Destroy'
-	          )
-	        )
+	        Link,
+	        { to: editDeckUrl },
+	        'Edit'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.destroyCB },
+	        'Destroy'
 	      )
 	    );
 	  }
@@ -34920,7 +34920,7 @@
 	    var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Flashcard-Edit Parent-Component' },
 	      React.createElement(HeaderWithBack, { title: 'New Card', url: deckIndexUrl }),
 	      React.createElement(Form, { deckId: this.props.params.id })
 	    );
@@ -34998,32 +34998,37 @@
 	      { className: 'Form' },
 	      flash,
 	      React.createElement(
-	        'h4',
-	        null,
-	        'Info'
-	      ),
-	      React.createElement(
 	        'form',
 	        { onSubmit: this.submitCB },
 	        React.createElement(
-	          'label',
+	          'h4',
 	          null,
-	          'Front',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeFront, className: 'FrontInput' })
+	          'Front'
 	        ),
-	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
 	          null,
-	          'Back',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeBack, className: 'BackInput' })
+	          React.createElement('textarea', { type: 'text',
+	            onChange: this.changeFront,
+	            className: 'FrontInput' })
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Back'
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('textarea', { type: 'text',
+	            onChange: this.changeBack,
+	            className: 'BackInput' })
 	        ),
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
 	      ),
-	      React.createElement(Preview, { card: this.state })
+	      React.createElement(Preview, { card: this.state }),
+	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
 	});
@@ -35058,7 +35063,8 @@
 	          null,
 	          this.props.title
 	        )
-	      )
+	      ),
+	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
 	});
@@ -35084,7 +35090,7 @@
 	    var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Flashcard-Edit Parent-Component' },
 	      React.createElement(HeaderWithBack, { title: 'Edit Card', url: cardShowUrl }),
 	      React.createElement(Form, { deckId: deckId, cardId: cardId })
 	    );
@@ -35155,30 +35161,30 @@
 	      'div',
 	      { className: 'Form' },
 	      React.createElement(
-	        'h4',
-	        null,
-	        'Info'
-	      ),
-	      React.createElement(
 	        'form',
 	        { onSubmit: this.submitCB },
 	        React.createElement(
+	          'h4',
+	          null,
+	          'Front'
+	        ),
+	        React.createElement(
 	          'label',
 	          null,
-	          'Front',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
+	          React.createElement('textarea', {
 	            onChange: this.changeFront,
 	            className: 'FrontInput',
 	            value: this.state.front })
 	        ),
-	        React.createElement('br', null),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Back'
+	        ),
 	        React.createElement(
 	          'label',
 	          null,
-	          'Back',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
+	          React.createElement('textarea', {
 	            onChange: this.changeBack,
 	            className: 'BackInput',
 	            value: this.state.back })
@@ -35186,7 +35192,8 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
 	      ),
-	      React.createElement(Preview, { card: this.state })
+	      React.createElement(Preview, { card: this.state }),
+	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
 	});

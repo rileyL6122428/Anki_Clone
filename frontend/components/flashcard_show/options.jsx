@@ -33,16 +33,8 @@ var Options = React.createClass({
     var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
     return(
       <div className="Options">
-        <ul>
-          <li>
             <Link to={editDeckUrl}>Edit</Link>
-          </li>
-
-          <li>
             <button onClick={this.destroyCB}>Destroy</button>
-          </li>
-
-        </ul>
       </div>
     );
   }

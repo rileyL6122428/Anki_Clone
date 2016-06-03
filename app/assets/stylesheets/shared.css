@@ -11,15 +11,25 @@ h1 {
   height: 50px;
 }
 
+h4.Stat-Header{
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+
+ul.Stat-List {
+  padding: 0px;
+}
+
+
 li .StatTitle {
   float: left;
 }
 li .Stat {
   float: right;
-    /*padding-right: 5px;*/
 }
 
-li {
+li.Statistic {
   list-style-type: none;
   border-bottom: 1px solid gray;
   width: 90%;
@@ -54,4 +64,30 @@ p.Stat{
 .Overflow-Test {
   /*height: 100%;
   overflow: hidden;*/
+}
+
+.Header-With-Arrow {
+
+}
+
+.Header-With-Arrow h1 {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+.Header-With-Arrow h1 a {
+color: rgb(37, 163, 252);
+width: 5%;
+float: left;
+text-decoration: none;
+}
+
+.Header-With-Arrow h1 p {
+color: rgb(68, 68, 68);
+margin-top: 0px;
+margin-bottom: 0px;
+padding: 0px;
+width: 90%;
+float: left;
 }

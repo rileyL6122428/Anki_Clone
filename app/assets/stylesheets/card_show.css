@@ -26,55 +26,82 @@
   float: left;
 }
 
-/*NOTE up to this far uncommented is going swell*/
-
 .Flashcard-Show .Preview{
   display: block;
   position: relative;
   height: 100%;
-  width:45%;
+  width:50%;
+
   float: left;
+  text-align: center;
+
+  border-right: 1px solid #ddd;
 }
 
 .Flashcard-Show .Preview p {
+  position: relative;
   text-align: center;
   display: block;
   height:40%;
   width: 100%;
 }
 
+.Flashcard-Show .Preview .Front {
+  display: block;
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width:100%;
+
+}
+
+div.Preview-Divider {
+  display: block;
+  height: 1px;
+  background-color: #ddd;
+  width: 94%;
+  margin: auto;
+}
+
+
 .Flashcard-Show .Not-Preview{
   display: block;
   height: 100%;
-  width:45%;
+  width:49%;
   float: right;
 }
 
 .Flashcard-Show .Not-Preview .Info {
   display: block;
   width: 100%;
-  height:45%;
+  height:35%;
   border: 0px;
   float:none;
 }
 
-/*need to keep float none for this block*/
 .Flashcard-Show .Not-Preview .Options {
   display: block;
-  width: 50%;
-  height: 45%;
+  width: 45%;
+  height: 65%;
   border: 0px;
-  float:none;
-}
 
-.Flashcard-Show .Not-Preview .Options li {
-  border-bottom: 0px;
 }
 
 .Flashcard-Show .Not-Preview a {
+  display: block;
   color: rgb(37, 163, 252);
+  float: left;
+  margin-left: 30%;
+  text-decoration: none;
 }
 
 .Flashcard-Show .Not-Preview button {
+  display: block;
   color: red;
+  float:right;
+  margin-right: 30%;
+  outline: none;
+  border: 0;
+
+  background-color: #f8f8f8;
 }
