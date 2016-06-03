@@ -33757,20 +33757,25 @@
 	        'li',
 	        { className: 'Deck-Index-Item' },
 	        React.createElement(
-	          'h5',
-	          null,
-	          this.props.name
+	          'div',
+	          { className: 'Left-Side-Content' },
+	          React.createElement(
+	            'h5',
+	            null,
+	            this.props.name
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.totalCards
+	          )
 	        ),
 	        React.createElement(
 	          'p',
-	          null,
-	          this.props.totalCards
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
+	          { className: 'Grade' },
 	          this.props.grade
-	        )
+	        ),
+	        React.createElement('div', { className: 'ClearSet' })
 	      )
 	    );
 	  }

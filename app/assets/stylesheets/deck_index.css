@@ -1,3 +1,7 @@
+.Flashcard-Index {
+  background-color: #FFFFFF;
+}
+
 .Wrapper{
 
   position: absolute;
@@ -6,8 +10,7 @@
   height: 100%;
   height: calc(100% - 155px);
   width: 100%;
-
-
+  background-color: #FFFFFF;
 }
 
 .Deck-Index-Item {
@@ -15,6 +18,7 @@
   float: left;
   width: 45%;
   height: 90px;
+
 
   border-top: 1px solid gray;
   border-left: 1px solid gray;
@@ -24,19 +28,36 @@
   margin: 10px 20px;
 }
 
+.Deck-Index-Item .Left-Side-Content {
+  display: block;
+  float: left;
+}
+
 .Deck-Index-Item h5 {
-  margin: 10px 5px;
+  display: block;
+  width: 50%;
+  margin: 0px;
+  /*float:left;*/
+  /*margin: 10px 5px;*/
 }
 
 .Deck-Index-Item p {
-  float: left;
-
   display: block;
+  width: 25%;
 
-  height: 30px;
-  margin-right: 10px;
+  margin: 0px;
+
+  /*height: 30px;*/
+  /*margin-right: 10px;
   margin-bottom: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 10px;*/
+}
+
+.Deck-Index-Item p.Grade {
+  display: block;
+  width: 25%;
+  float: right;
+  margin: 0px;
 }
 
 .Search-Container label {
@@ -54,6 +75,8 @@
 
 .Search-Container {
   display: block;
+
+  background-color: #f8f8f8;
 
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
