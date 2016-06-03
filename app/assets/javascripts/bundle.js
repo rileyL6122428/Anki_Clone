@@ -33914,6 +33914,7 @@
 	var React = __webpack_require__(1);
 	var Content = __webpack_require__(276);
 	var Options = __webpack_require__(279);
+	var DeckHistory = __webpack_require__(278);
 	var Link = __webpack_require__(168).Link;
 	
 	var DeckShow = React.createClass({
@@ -33942,6 +33943,7 @@
 	        'div',
 	        { className: 'BelowHeader' },
 	        React.createElement(Content, { deckId: this.props.params.id }),
+	        React.createElement(DeckHistory, null),
 	        React.createElement(Options, { deckId: this.props.params.id }),
 	        React.createElement('div', { className: 'ClearSet' })
 	      )
@@ -34210,7 +34212,6 @@
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 	var React = __webpack_require__(1);
 	var Form = __webpack_require__(281);
 	var Header = __webpack_require__(282);

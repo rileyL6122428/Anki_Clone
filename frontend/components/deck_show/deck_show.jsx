@@ -1,6 +1,7 @@
 var React = require('react');
 var Content = require('./content');
 var Options = require('./options');
+var DeckHistory = require('./history');
 var Link = require('react-router').Link;
 
 var DeckShow = React.createClass({
@@ -15,6 +16,7 @@ var DeckShow = React.createClass({
 
         <div className="BelowHeader">
           <Content deckId={this.props.params.id}/>
+          <DeckHistory />
           <Options deckId={this.props.params.id} />
           <div className="ClearSet" />
         </div>

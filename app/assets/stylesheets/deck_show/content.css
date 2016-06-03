@@ -1,7 +1,6 @@
 .ShowContent {
   display: block;
   position: relative;
-  background-color: purple;
   width: calc(100% - 275px);
   height: 100%;
 
@@ -25,35 +24,47 @@
   display: block;
   float: left;
   width: 48%;
+  margin: auto;
 
-  padding-right: 20px;
+  /*padding-right: 20px;*/
 
   height: 100%;
 }
 
 .DeckHistory {
-  /*color: blue;*/
 
   display: block;
   float: right;
 
-  padding-right: 10px;
+  margin: auto;
 
   height: 100%;
-  width: 49%;
+  width: 48%;
 }
+
+.DeckHistory ul {
+  padding-left: 0px;
+}
+
+.DeckHistory li {
+  padding: 0px;
+  margin: 0px;
+}
+
 .Divider {
   display: block;
   float: left;
-  width: 1px;
+  width: 2%;
   height: 96%;
+  border-right: 1px solid #ddd;
 
-  padding-left: 15px;
-  padding-right: 0px;
+  margin: auto;
+  /*padding-left: 15px;
+  padding-right: 0px;*/
 
   padding: 0px;
 
-  background-color: #ddd;
+  background-color: #FFFFFF;
 }
 
 .ClearSet {
