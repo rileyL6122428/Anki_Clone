@@ -34355,17 +34355,17 @@
 	
 	
 	  render: function () {
-	
+	    var arrow = "<";
 	    return React.createElement(
 	      'div',
-	      { className: 'Parent-Component' },
+	      { className: 'Parent-Component Flashcard-Index' },
 	      React.createElement(
 	        'h1',
 	        null,
 	        React.createElement(
 	          Link,
-	          { to: "/decks/" + this.props.params.id },
-	          'Back'
+	          { to: "/decks/" + this.props.params.id, className: 'Header-Link' },
+	          arrow
 	        ),
 	        React.createElement(
 	          'p',
@@ -34374,9 +34374,10 @@
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: "/decks/" + this.props.params.id + "/new-flashcards" },
+	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link' },
 	          'New'
-	        )
+	        ),
+	        React.createElement('div', { className: 'ClearSet' })
 	      ),
 	      React.createElement(SearchBar, null),
 	      React.createElement(
@@ -34466,7 +34467,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'List-Div' },
 	      React.createElement(
 	        'ul',
 	        null,
@@ -34678,7 +34679,7 @@
 	        React.createElement(
 	          'h5',
 	          null,
-	          this.props.front
+	          this.props.front.slice(0, 12)
 	        )
 	      )
 	    );

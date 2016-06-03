@@ -46,7 +46,7 @@ var FlashcardIndex = React.createClass({
     }
 
     return(
-      <div>
+      <div className="List-Div">
         <ul>
           {list}
         </ul>

@@ -8,7 +8,7 @@ var FlashcardIndexItem = React.createClass({
       <Link to={"/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId}>
         <li className="Flashcard-Index-Item">
             <p>{this.props.grade}</p>
-            <h5>{this.props.front}</h5>
+            <h5>{this.props.front.slice(0,12)}</h5>
         </li>
       </Link>
     )

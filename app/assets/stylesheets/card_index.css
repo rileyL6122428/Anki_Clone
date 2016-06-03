@@ -1,0 +1,134 @@
+.Flashcard-Index {
+
+}
+
+.Flashcard-Index h1{
+  display: block;
+  width: 100%;
+  margin: 0px;
+  float: left;
+}
+
+.Flashcard-Index a.Header-Link{
+  float: left;
+  width: 7%;
+  text-decoration: none;
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Index p{
+  width: 80%;
+  float: left;
+  display: block;
+  margin: 0px;
+
+  color: rgb(68, 68, 68);
+}
+
+/*.Flashcard-Index ul {
+  display: block;
+  height: 100px;
+  width: 100%;
+}
+
+.Flashcard-Index .Wrapper{
+
+  position: absolute;
+  height: 200px;
+  overflow-y: scroll;
+  height: 100%;
+  height: calc(100% - 1px);
+  width: 100%;
+
+
+}
+
+.Flashcard-Index-Item{
+  width: 50px;
+}*/
+
+/*COPIED CODE STARTS HERE*/
+
+.Wrapper{
+
+  position: absolute;
+  height: 200px;
+  overflow-y: scroll;
+  height: 100%;
+  height: calc(100% - 155px);
+  width: 100%;
+
+
+}
+
+.Flashcard-Index-Item {
+  display: block;
+  float: left;
+  width: 100px;
+  height: 90px;
+
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-bottom: 2px solid gray;
+  border-right: 2px solid gray;
+
+  border-radius: 5px;
+
+  color: black;
+
+  margin: 10px 20px;
+}
+
+.Flashcard-Index-Item h5 {
+  display: block;
+  width: 103px;
+  /*margin: 10px 5px;*/
+  margin: 0px;
+  /*float: none;*/
+  height: 59px;
+  float: center;
+  text-align: center;
+}
+
+.Flashcard-Index-Item p {
+  float: none;
+
+  display: block;
+
+  height: 30px;
+  margin: 0px;
+  color: white;
+  background-color: purple;
+  width: 100%;
+  border-top: 1px solid purple;
+  border-right: 1px solid purple;
+  border-left: 1px solid purple;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  text-align: right;
+}
+
+.Search-Container label {
+  display: block;
+  width: 6%;
+  height: 40px;
+  float: left;
+}
+
+.Search-Container input {
+  display: block;
+  width: 92%;
+}
+
+.Search-Container {
+  display: block;
+
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  padding: 10px 0px;
+
+  width: 100%;
+}
