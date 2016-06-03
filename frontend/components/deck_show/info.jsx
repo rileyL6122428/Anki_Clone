@@ -7,11 +7,11 @@ var Info = React.createClass ({
         <h3>Info</h3>
         <div>
           <div>insertTotal</div>
-          <p>Total Cards</p>
+          <p>{ this.props.cardTotal }</p>
         </div>
 
         <div>
-          <div>insert%</div>
+          <div>{ this.props.grade }%</div>
           <p>Grade</p>
         </div>
 

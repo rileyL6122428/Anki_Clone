@@ -2,9 +2,7 @@ class Api::DecksController < ApplicationController
   def create
     @deck = Deck.new(deck_params)
     @deck.review_total = 0;
-    # TODO change the following lookup to rely on current_user.id after
-    # you have set up your front end
-    # @deck.owner_id = params[:current_user_id]
+    @deck.grade = 0;
     @deck.owner_id = current_user.id
     if @deck.save
       render 'api/decks/show'

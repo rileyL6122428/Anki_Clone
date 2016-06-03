@@ -33990,11 +33990,15 @@
 	  },
 	
 	  render: function () {
-	    var deckName;
+	    var deckName, cardTotal, grade;
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
+	      cardTotal = this.state.deck.cardTotal;
+	      grade = this.state.deck.grade;
 	    } else {
 	      deckName = "";
+	      cardTotal = 0;
+	      grade = 0;
 	    }
 	    return React.createElement(
 	      'div',
@@ -34004,7 +34008,8 @@
 	        null,
 	        deckName
 	      ),
-	      React.createElement(Info, null),
+	      React.createElement(Info, { cardTotal: cardTotal,
+	        grade: grade }),
 	      React.createElement('div', { className: 'Divider' }),
 	      React.createElement(History, null),
 	      React.createElement('div', { className: 'ClearSet' }),
@@ -34052,7 +34057,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          "Total Cards"
+	          this.props.cardTotal
 	        )
 	      ),
 	      React.createElement(
@@ -34061,7 +34066,8 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          "insert%"
+	          this.props.grade,
+	          "%"
 	        ),
 	        React.createElement(
 	          "p",

@@ -1,5 +1,5 @@
 class Deck < ActiveRecord::Base
-  validates :name, :description, :owner_id, :review_total, presence: true
+  validates :name, :description, :owner_id, :review_total, :grade, presence: true
 
   belongs_to(
     :user,
@@ -12,5 +12,5 @@ class Deck < ActiveRecord::Base
     foreign_key: :deck_id,
     class_name: "Flashcard"
   )
-  
+
 end

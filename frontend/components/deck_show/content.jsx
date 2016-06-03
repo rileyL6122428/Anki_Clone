@@ -25,16 +25,21 @@ var Content = React.createClass({
   },
 
   render: function () {
-    var deckName;
+    var deckName, cardTotal, grade;
     if(this.state.deck) {
       deckName = this.state.deck.name;
+      cardTotal = this.state.deck.cardTotal;
+      grade = this.state.deck.grade;
     } else {
       deckName = "";
+      cardTotal = 0;
+      grade = 0;
     }
     return(
       <div className="ShowContent">
         <h2>{deckName}</h2>
-        <Info />
+        <Info cardTotal={cardTotal}
+              grade={grade}/>
         <div className="Divider"></div>
         <History />
         <div className="ClearSet" />

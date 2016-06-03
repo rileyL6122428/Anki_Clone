@@ -6,6 +6,7 @@ class Api::FlashcardsController < ApplicationController
     @flashcard.review_total = 0;
 
     if @flashcard.save
+      update_decks_card_total
       render 'api/flashcards/show'
     else
       @errors = @flashcard.errors.full_messages
@@ -54,5 +55,10 @@ class Api::FlashcardsController < ApplicationController
   private
   def flashcard_params
     params.require(:flashcard).permit(:front, :back)
+  end
+
+  def update_decks_card_total
+    @deck = Deck.find(params[:deck_id])
+    @deck.update(card_total: @deck.card_total + 1)
   end
 end

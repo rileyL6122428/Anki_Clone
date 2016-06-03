@@ -8,6 +8,8 @@ Name        | string    | not null
 description | text      | not null
 owner_id    | integer   | not null, foreign key (references users), indexed
 review_total| integer   | not null,
+card_total  | integer   |
+grade       | float     | 
 
 
 ## Flashcards
