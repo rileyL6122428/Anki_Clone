@@ -9,7 +9,7 @@ var Info = React.createClass({
       <ul className="Stat-List">
         <li className="Statistic">
           <p className="StatTitle">Total number of Reviews</p>
-          <p className="Stat">{ this.props.card.review_total }</p>
+          <p className="Stat">{ this.props.card.reviewTotal }</p>
           <div className="ClearSet" />
         </li>
 

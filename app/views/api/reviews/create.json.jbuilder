@@ -1,11 +1,15 @@
 
 json.review do
   json.flashcards do
-    json.array! @flashcards, :id, :grade, :review_total
+    json.array! @flashcards do |card|
+      json.id card.id
+      json.grade card.grade
+      json.reviewTotal card.review_total
+    end
   end
   json.deck do
     json.id @deck.id
     json.grade @deck.grade
-    json.review_total @deck.review_total
+    json.reviewTotal @deck.review_total
   end
 end

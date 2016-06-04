@@ -13,7 +13,7 @@ var Content = React.createClass({
 
   componentDidMount: function (){
     this.listenerToken = DeckStore.addListener(this.storeCB)
-    DeckActions.fetchDecks();
+    DeckActions.fetchADeck(parseInt(this.props.deckId));
   },
 
   storeCB: function () {

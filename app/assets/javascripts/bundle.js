@@ -63,9 +63,9 @@
 	var DeckShow = __webpack_require__(275);
 	var EditDeck = __webpack_require__(280);
 	var FlashcardIndex = __webpack_require__(283);
-	var FlashcardShow = __webpack_require__(291);
-	var NewFlashcard = __webpack_require__(295);
-	var EditFlashcard = __webpack_require__(298);
+	var FlashcardShow = __webpack_require__(292);
+	var NewFlashcard = __webpack_require__(296);
+	var EditFlashcard = __webpack_require__(299);
 	
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
@@ -74,9 +74,10 @@
 	window.DeckStore = __webpack_require__(267);
 	window.DeckActions = __webpack_require__(269);
 	window.FlashcardStore = __webpack_require__(286);
-	window.FlashcardActions = __webpack_require__(288);
+	window.FlashcardActions = __webpack_require__(289);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
+	window.ReviewActions = __webpack_require__(302);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -33569,6 +33570,7 @@
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
 	var DeckConstants = __webpack_require__(268);
+	var ReviewConstants = __webpack_require__(301);
 	var hashHistory = __webpack_require__(168).hashHistory;
 	
 	var DeckStore = new Store(AppDispatcher);
@@ -33601,12 +33603,19 @@
 	var receiveADeck = function (deck) {
 	  _decks[deck.id] = deck;
 	  DeckStore.__emitChange();
-	  //TODO refactor this into a callback in the new deck form
+	  //TODO refactor this into a callback in the new deck form, if possible
 	  hashHistory.push('/decks/' + deck.id);
 	};
 	
 	var removeDeck = function (deck) {
 	  delete _decks[deck.id];
+	  DeckStore.__emitChange();
+	};
+	
+	var receiveReviewResults = function (deck) {
+	  var deckToUpdate = _decks[deck.id];
+	  deckToUpdate["reviewTotal"] += 1;
+	  deckToUpdate["grade"] = deck.grade;
 	  DeckStore.__emitChange();
 	};
 	
@@ -33620,6 +33629,10 @@
 	      break;
 	    case DeckConstants.REMOVE_DECK:
 	      removeDeck(payload.deck);
+	      break;
+	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
+	      debugger;
+	      receiveReviewResults(payload.summary.review.deck);
 	      break;
 	  }
 	};
@@ -33978,7 +33991,7 @@
 	
 	  componentDidMount: function () {
 	    this.listenerToken = DeckStore.addListener(this.storeCB);
-	    DeckActions.fetchDecks();
+	    DeckActions.fetchADeck(parseInt(this.props.deckId));
 	  },
 	
 	  storeCB: function () {
@@ -34436,8 +34449,8 @@
 
 	var React = __webpack_require__(1);
 	var FlashcardStore = __webpack_require__(286);
-	var FlashcardActions = __webpack_require__(288);
-	var FlashcardIndexItem = __webpack_require__(290);
+	var FlashcardActions = __webpack_require__(289);
+	var FlashcardIndexItem = __webpack_require__(291);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -34500,6 +34513,8 @@
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
 	var FlashcardConstants = __webpack_require__(287);
+	var ReviewConstants = __webpack_require__(301);
+	var Util = __webpack_require__(288);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -34517,6 +34532,41 @@
 	  if (_flashcards[id]) {
 	    return $.extend({}, _flashcards[id]);
 	  }
+	};
+	
+	FlashcardStore.drawCards = function (total) {
+	  var cards = [];
+	  var gradeInts = [0, 50, 60, 70, 80, 90, 100];
+	  debugger;
+	  for (var i = 0; i < gradeInts.length - 1; i++) {
+	    var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1]);
+	
+	    for (var j = 0; j < shuffledCards.length; j++) {
+	      if (cards.length === total || cards.length === storeSize()) {
+	        return cards;
+	      }
+	
+	      cards.push(shuffledCards[j]);
+	    }
+	  }
+	
+	  return cards;
+	};
+	//TODO undo window, for testing only
+	window.shuffledFlashcardsByGrade = function (lower, upper) {
+	  var flashcards = [];
+	
+	  for (var id in _flashcards) {
+	    if (_flashcards[id].grade >= lower && _flashcards[id].grade <= upper) {
+	      flashcards.push(_flashcards[id]);
+	    }
+	  }
+	
+	  return Util.shuffle(flashcards);
+	};
+	
+	var storeSize = function () {
+	  return Object.keys(_flashcards).length;
 	};
 	
 	var receiveFlashcards = function (flashcards) {
@@ -34538,6 +34588,16 @@
 	  FlashcardStore.__emitChange();
 	};
 	
+	var receiveReviewResults = function (flashcards) {
+	  flashcards.forEach(function (card) {
+	    var flashcardToUpdate = _flashcards[card.id];
+	    flashcardToUpdate["grade"] = card.grade;
+	    flashcardToUpdate["reviewTotal"] += 1;
+	  });
+	
+	  FlashcardStore.__emitChange();
+	};
+	
 	FlashcardStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case FlashcardConstants.RECEIVE_FLASHCARDS:
@@ -34548,6 +34608,9 @@
 	      break;
 	    case FlashcardConstants.REMOVE_FLASHCARD:
 	      removeFlashcard(payload.flashcard);
+	      break;
+	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
+	      receiveReviewResults(payload.summary.review.flashcards);
 	      break;
 	  }
 	};
@@ -34566,9 +34629,54 @@
 
 /***/ },
 /* 288 */
+/***/ function(module, exports) {
+
+	var Util = {
+	  shuffle: function (cards) {
+	    var cardsWithSeeds = {};
+	    for (var i = 0; i < cards.length; i++) {
+	      cardsWithSeeds[Math.random()] = cards[i];
+	    }
+	
+	    var orderedSeeds = Util.quickSort(Object.keys(cardsWithSeeds));
+	    var shuffledCards = [];
+	    for (var i = 0; i < orderedSeeds.length; i++) {
+	      var nextCard = cardsWithSeeds[orderedSeeds[i]];
+	
+	      shuffledCards.push(nextCard);
+	    }
+	
+	    return shuffledCards;
+	  },
+	
+	  quickSort: function (arr) {
+	    if (arr.length <= 1) {
+	      return arr;
+	    }
+	
+	    var pivot = arr[0];
+	    var lessThanPivot = [];
+	    var greaterThanPivot = [];
+	
+	    for (var i = 1; i < arr.length; i++) {
+	      if (arr[i] < pivot) {
+	        lessThanPivot.push(arr[i]);
+	      } else {
+	        greaterThanPivot.push(arr[i]);
+	      }
+	    }
+	
+	    return Util.quickSort(lessThanPivot).concat(pivot).concat(Util.quickSort(greaterThanPivot));
+	  }
+	};
+	
+	module.exports = Util;
+
+/***/ },
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(289);
+	var FlashcardApiUtil = __webpack_require__(290);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -34592,7 +34700,7 @@
 	};
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
@@ -34668,7 +34776,7 @@
 	};
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34703,16 +34811,16 @@
 	module.exports = FlashcardIndexItem;
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var FlashcardStore = __webpack_require__(286);
-	var FlashcardActions = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(289);
 	var Link = __webpack_require__(168).Link;
-	var Preview = __webpack_require__(292);
-	var Info = __webpack_require__(293);
-	var Options = __webpack_require__(294);
+	var Preview = __webpack_require__(293);
+	var Info = __webpack_require__(294);
+	var Options = __webpack_require__(295);
 	
 	var FlashcardShow = React.createClass({
 	  displayName: 'FlashcardShow',
@@ -34759,7 +34867,7 @@
 	module.exports = FlashcardShow;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34798,7 +34906,7 @@
 	module.exports = Preview;
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34830,7 +34938,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            this.props.card.review_total
+	            this.props.card.reviewTotal
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        ),
@@ -34857,12 +34965,12 @@
 	module.exports = Info;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(289);
 	var FlashcardStore = __webpack_require__(286);
 	
 	var Options = React.createClass({
@@ -34915,12 +35023,12 @@
 	module.exports = Options;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(296);
-	var HeaderWithBack = __webpack_require__(297);
+	var Form = __webpack_require__(297);
+	var HeaderWithBack = __webpack_require__(298);
 	var Link = __webpack_require__(168).Link;
 	
 	NewCard = React.createClass({
@@ -34941,13 +35049,13 @@
 	module.exports = NewCard;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(289);
 	var FlashcardStore = __webpack_require__(286);
-	var Preview = __webpack_require__(292);
+	var Preview = __webpack_require__(293);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -35047,7 +35155,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35083,12 +35191,12 @@
 	module.exports = HeaderWithBack;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(299);
-	var HeaderWithBack = __webpack_require__(297);
+	var Form = __webpack_require__(300);
+	var HeaderWithBack = __webpack_require__(298);
 	var Link = __webpack_require__(168).Link;
 	
 	EditCard = React.createClass({
@@ -35111,13 +35219,13 @@
 	module.exports = EditCard;
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(289);
 	var FlashcardStore = __webpack_require__(286);
-	var Preview = __webpack_require__(292);
+	var Preview = __webpack_require__(293);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -35210,6 +35318,52 @@
 	});
 	
 	module.exports = Form;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY"
+	};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewApiUtil = __webpack_require__(303);
+	
+	module.exports = {
+	  logReview: function (reviewSummary) {
+	    ReviewApiUtil.create(reviewSummary);
+	  }
+	};
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var ReviewConstants = __webpack_require__(301);
+	
+	module.exports = {
+	  create: function (reviewSummary) {
+	    $.ajax({
+	      url: "/api/reviews",
+	      type: "POST",
+	      data: {
+	        deck_id: reviewSummary.deck_id,
+	        review_grades: reviewSummary.review_grades
+	      },
+	      success: function (reviewSummary) {
+	        AppDispatcher.dispatch({
+	          actionType: ReviewConstants.RECEIVE_REVIEW_SUMMARY,
+	          summary: reviewSummary
+	        });
+	      }
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);
