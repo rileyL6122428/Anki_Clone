@@ -28,7 +28,7 @@ var Recap =  React.createClass({
           </ul>
         </div>
 
-        <button onClick={this.props.continueCB}>Continue</button>
+        <button className="Normal-Button" onClick={this.props.continueCB}>Continue</button>
       </div>
     );
   }

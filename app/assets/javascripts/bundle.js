@@ -35424,7 +35424,9 @@
 	    e.preventDefault();
 	
 	    this.context.router.push("/decks/" + this.props.params.id);
-	    this.shipGrades();
+	    if (!this._reviewSummaryEmpty()) {
+	      this.shipGrades();
+	    }
 	    this.resetReviewState();
 	  },
 	
@@ -35457,6 +35459,10 @@
 	    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
 	  },
 	
+	  _reviewSummaryEmpty: function () {
+	    return Object.keys(this.state.reviewSummary).length === 0;
+	  },
+	
 	  render: function () {
 	    var arrow = "<";
 	    var title = "Review";
@@ -35472,7 +35478,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'Parent-Component Review' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -35578,7 +35584,7 @@
 	      ),
 	      React.createElement(
 	        "button",
-	        { onClick: this.props.continueCB },
+	        { className: "Normal-Button", onClick: this.props.continueCB },
 	        "Continue"
 	      )
 	    );
@@ -35594,24 +35600,26 @@
 	var React = __webpack_require__(1);
 	
 	var Front = React.createClass({
-	  displayName: 'Front',
+	  displayName: "Front",
 	
 	  render: function () {
 	    if (!this.props.showing) {
-	      return React.createElement('div', null);
+	      return React.createElement("div", null);
 	    }
 	    return React.createElement(
-	      'div',
-	      null,
+	      "div",
+	      { className: "Front" },
+	      React.createElement("div", { className: "Spacer" }),
 	      React.createElement(
-	        'div',
-	        null,
+	        "div",
+	        { className: "Card-Front" },
 	        this.props.cardFront
 	      ),
+	      React.createElement("div", { className: "Spacer" }),
 	      React.createElement(
-	        'button',
-	        { onClick: this.props.flipCB },
-	        'Flip'
+	        "button",
+	        { className: "Normal-Button", onClick: this.props.flipCB },
+	        "Flip"
 	      )
 	    );
 	  }

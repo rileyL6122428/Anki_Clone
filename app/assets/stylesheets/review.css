@@ -1,0 +1,87 @@
+.Review {
+  opacity: 1;
+  text-align: center;
+}
+
+.Review h1 {
+  display: block;
+  position: relative;
+}
+
+.Review .Title {
+  display: block;
+
+  /*float: left;*/
+  margin: auto;
+
+}
+
+.Review button {
+  display: block;
+  float: left;
+  width: 5%;
+}
+
+.Review h6 {
+  color: #616161;
+  background-color: #E5E5E5;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  height: 28px;
+
+  font-size: 24px;
+}
+
+.Review .Front {
+  display: block;
+  height: calc(100% - 170px);
+}
+
+.Review .Card-Front {
+  display: block;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  height: 10%;
+}
+
+.Review .Spacer {
+  display: block;
+  height: 45%;
+}
+
+
+.Review .Normal-Button {
+
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 90px;
+
+  text-align: center;
+
+
+  width: 100%;
+
+  /*line-height: 50px;*/
+
+  float: center;
+  background-color: #FFFFFF;
+  opacity: .9;
+
+  border-top: 2px solid #25A3FC;
+
+  color: #25A3FC;
+  font-size: 20px;
+
+  margin: auto;
+
+}

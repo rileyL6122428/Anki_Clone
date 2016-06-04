@@ -39,7 +39,7 @@ var Review =  React.createClass({
     e.preventDefault();
 
     this.context.router.push("/decks/" + this.props.params.id);
-    this.shipGrades();
+    if (!this._reviewSummaryEmpty()) { this.shipGrades(); }
     this.resetReviewState();
   },
 
@@ -70,6 +70,10 @@ var Review =  React.createClass({
     this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
   },
 
+  _reviewSummaryEmpty: function() {
+    return (Object.keys(this.state.reviewSummary).length === 0);
+  },
+
   render: function () {
     var arrow = "<"
     var title = "Review";
@@ -82,10 +86,11 @@ var Review =  React.createClass({
     if(this.state.cardIdx === 10) { title = "Recap"; }
 
     return (
-      <div>
+      <div className="Parent-Component Review">
         <h1>
           <button onClick={this.backArrowCB} className="BackLink">{ arrow }</button>
           <p className="Title">{ title }</p>
+
         </h1>
 
         <h6>{ this.state.deckName }</h6>
