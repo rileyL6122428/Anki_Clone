@@ -16,8 +16,14 @@
 
 }
 
-.Review button {
+.Review h1 button {
   display: block;
+  color: #25A3FC;
+  background: none;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
   float: left;
   width: 5%;
 }
@@ -56,22 +62,50 @@
   height: 45%;
 }
 
+/*.Review .Preview {
+  display: block;
+  height: 100%;
+}*/
+
+.Flipped {
+  height: calc(100% - 220px);
+}
+
+.Flipped .Preview{
+  display: block;
+  height: 50%;
+  font-size: 18px;
+}
+
+.Flipped p{
+  height: 100%;
+  position: relative;
+}
+
+.Flipped div.Front {
+  /*height: 100%;*/
+  position: absolute;
+  bottom: 0;
+  right: 5%;
+  /*margin: auto;*/
+  width:90%;
+  margin-bottom: 20px;
+}
+
+.Flipped div.Back {
+  height: 100%;
+}
 
 .Review .Normal-Button {
-
   position: absolute;
 
   bottom: 0;
   left:0;
   right: 0;
   height: 90px;
-
   text-align: center;
 
-
   width: 100%;
-
-  /*line-height: 50px;*/
 
   float: center;
   background-color: #FFFFFF;
@@ -84,4 +118,49 @@
 
   margin: auto;
 
+}
+
+.Flipped .Buttons {
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 90px;
+  text-align: center;
+  width: 100%;
+
+  float: center;
+  background-color: #FFFFFF;
+  opacity: .9;
+}
+
+.Flipped button {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  background: none;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-top: 3px solid;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+button.Fail {
+ color: rgb(229, 64, 40);
+
+}
+
+button.Hard {
+  color: rgb(241, 141, 5);
+}
+
+button.Good {
+  color: rgb(0, 161, 203);
+}
+
+button.Easy {
+  color: rgb(97, 174, 36);
 }
