@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY"
+}
