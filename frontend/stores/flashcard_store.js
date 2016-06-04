@@ -23,7 +23,7 @@ FlashcardStore.find = function (id) {
 FlashcardStore.drawCards = function(total) {
   var cards = [];
   var gradeInts = [0,50,60,70,80,90,100];
-  debugger
+
   for(var i = 0; i < gradeInts.length - 1; i++){
     var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1])
 
@@ -37,7 +37,7 @@ FlashcardStore.drawCards = function(total) {
   return cards;
 }
 //TODO undo window, for testing only
-window.shuffledFlashcardsByGrade = function (lower, upper) {
+shuffledFlashcardsByGrade = function (lower, upper) {
   var flashcards = [];
 
   for(var id in _flashcards) {
@@ -79,7 +79,6 @@ var receiveReviewResults = function (flashcards) {
     flashcardToUpdate["grade"] = card.grade;
     flashcardToUpdate["reviewTotal"] += 1;
   })
-
   FlashcardStore.__emitChange();
 }
 

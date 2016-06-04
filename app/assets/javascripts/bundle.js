@@ -66,7 +66,9 @@
 	var FlashcardShow = __webpack_require__(292);
 	var NewFlashcard = __webpack_require__(296);
 	var EditFlashcard = __webpack_require__(299);
+	var Review = __webpack_require__(304);
 	
+	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
 	
@@ -119,7 +121,8 @@
 	    React.createElement(Route, { path: 'decks/:id/flashcards', component: FlashcardIndex, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId', component: FlashcardShow, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/new-flashcards', component: NewFlashcard, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId/edit', component: EditFlashcard, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId/edit', component: EditFlashcard, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'decks/:id/review', component: Review, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -33631,7 +33634,6 @@
 	      removeDeck(payload.deck);
 	      break;
 	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
-	      debugger;
 	      receiveReviewResults(payload.summary.review.deck);
 	      break;
 	  }
@@ -33985,6 +33987,10 @@
 	  displayName: 'Content',
 	
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
 	    return { deck: null };
 	  },
@@ -34002,8 +34008,14 @@
 	    this.listenerToken.remove();
 	  },
 	
+	  reviewCB: function (e) {
+	    e.preventDefault();
+	    this.context.router.push("/decks/" + this.state.deck.id + "/review");
+	  },
+	
 	  render: function () {
 	    var deckName, cardTotal, grade;
+	
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
 	      cardTotal = this.state.deck.cardTotal;
@@ -34013,6 +34025,7 @@
 	      cardTotal = 0;
 	      grade = 0;
 	    }
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'ShowContent' },
@@ -34028,7 +34041,7 @@
 	      React.createElement('div', { className: 'ClearSet' }),
 	      React.createElement(
 	        'button',
-	        { className: 'Review' },
+	        { className: 'Review', onClick: this.reviewCB },
 	        React.createElement(
 	          'div',
 	          { className: 'buttonText' },
@@ -34537,7 +34550,7 @@
 	FlashcardStore.drawCards = function (total) {
 	  var cards = [];
 	  var gradeInts = [0, 50, 60, 70, 80, 90, 100];
-	  debugger;
+	
 	  for (var i = 0; i < gradeInts.length - 1; i++) {
 	    var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1]);
 	
@@ -34553,7 +34566,7 @@
 	  return cards;
 	};
 	//TODO undo window, for testing only
-	window.shuffledFlashcardsByGrade = function (lower, upper) {
+	shuffledFlashcardsByGrade = function (lower, upper) {
 	  var flashcards = [];
 	
 	  for (var id in _flashcards) {
@@ -34594,7 +34607,6 @@
 	    flashcardToUpdate["grade"] = card.grade;
 	    flashcardToUpdate["reviewTotal"] += 1;
 	  });
-	
 	  FlashcardStore.__emitChange();
 	};
 	
@@ -35364,6 +35376,292 @@
 	    });
 	  }
 	};
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Recap = __webpack_require__(305);
+	var Front = __webpack_require__(306);
+	var Flipped = __webpack_require__(307);
+	var FlashcardStore = __webpack_require__(286);
+	var FlashcardActions = __webpack_require__(289);
+	var ReviewActions = __webpack_require__(302);
+	var DeckStore = __webpack_require__(267);
+	
+	var Review = React.createClass({
+	  displayName: 'Review',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    return {
+	      cardIdx: 0,
+	      flipped: false,
+	      reviewSummary: {},
+	      deckName: DeckStore.find(this.props.params.id).name
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    FlashcardActions.fetchFlashcards(this.props.params.id);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ cards: FlashcardStore.drawCards(10) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  backArrowCB: function (e) {
+	    e.preventDefault();
+	
+	    this.context.router.push("/decks/" + this.props.params.id);
+	    this.shipGrades();
+	    this.resetReviewState();
+	  },
+	
+	  flipCB: function () {
+	    this.setState({ flipped: true });
+	  },
+	
+	  gradeCB: function (grade) {
+	    var cardId = this.state.cards[this.state.cardIdx].id;
+	    this.state.reviewSummary[cardId] = grade;
+	    if (this.state.cardIdx === 9) {
+	      this.shipGrades();
+	    }
+	    console.log(this.state.reviewSummary);
+	    this.setState({ cardIdx: this.state.cardIdx + 1, flipped: false });
+	  },
+	
+	  continueCB: function () {
+	    this.resetReviewState();
+	  },
+	
+	  shipGrades: function () {
+	    ReviewActions.logReview({
+	      deck_id: this.props.params.id,
+	      review_grades: this.state.reviewSummary
+	    });
+	  },
+	
+	  resetReviewState: function () {
+	    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
+	  },
+	
+	  render: function () {
+	    var arrow = "<";
+	    var title = "Review";
+	    var cardFront = "";
+	    var cardBack = "";
+	    if (this.state.cards && this.state.cardIdx < 10) {
+	      cardFront = this.state.cards[this.state.cardIdx].front;
+	      cardBack = this.state.cards[this.state.cardIdx].back;
+	    }
+	    if (this.state.cardIdx === 10) {
+	      title = "Recap";
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.backArrowCB, className: 'BackLink' },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'Title' },
+	          title
+	        )
+	      ),
+	      React.createElement(
+	        'h6',
+	        null,
+	        this.state.deckName
+	      ),
+	      React.createElement(Front, { showing: this.state.cardIdx < 10 && !this.state.flipped,
+	        cardFront: cardFront,
+	        flipCB: this.flipCB }),
+	      React.createElement(Flipped, { showing: this.state.cardIdx < 10 && this.state.flipped,
+	        cardFront: cardFront,
+	        cardBack: cardBack,
+	        gradeCB: this.gradeCB }),
+	      React.createElement(Recap, { showing: this.state.cardIdx === 10,
+	        continueCB: this.continueCB })
+	    );
+	  }
+	});
+	
+	module.exports = Review;
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Recap = React.createClass({
+	  displayName: "Recap",
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement("div", null);
+	    }
+	
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "div",
+	        { className: "Review-Grade" },
+	        React.createElement(
+	          "div",
+	          null,
+	          "Insert Grade Graph Here"
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "Review-Info" },
+	        React.createElement(
+	          "h4",
+	          { className: "Stat-Header" },
+	          "Info"
+	        ),
+	        React.createElement(
+	          "ul",
+	          { className: "Stat-List" },
+	          React.createElement(
+	            "li",
+	            { className: "Statistic" },
+	            React.createElement(
+	              "p",
+	              { className: "StatTitle" },
+	              "Reviews per Day (average)"
+	            ),
+	            React.createElement(
+	              "p",
+	              { className: "Stat" },
+	              "Insert Total"
+	            ),
+	            React.createElement("div", { className: "ClearSet" })
+	          ),
+	          React.createElement(
+	            "li",
+	            { className: "Statistic" },
+	            React.createElement(
+	              "p",
+	              { className: "StatTitle" },
+	              "Reviews Today"
+	            ),
+	            React.createElement(
+	              "p",
+	              { className: "Stat" },
+	              "Insert Total"
+	            ),
+	            React.createElement("div", { className: "ClearSet" })
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "button",
+	        { onClick: this.props.continueCB },
+	        "Continue"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Recap;
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Front = React.createClass({
+	  displayName: 'Front',
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement('div', null);
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        this.props.cardFront
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.flipCB },
+	        'Flip'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Front;
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Preview = __webpack_require__(293);
+	
+	var Flipped = React.createClass({
+	  displayName: 'Flipped',
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement('div', null);
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Preview, { card: { front: this.props.cardFront, back: this.props.cardBack } }),
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.gradeCB.bind(null, 0) },
+	        'Fail'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.gradeCB.bind(null, 35) },
+	        'Hard'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.gradeCB.bind(null, 70) },
+	        'Good'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.gradeCB.bind(null, 100) },
+	        'Easy'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Flipped;
 
 /***/ }
 /******/ ]);

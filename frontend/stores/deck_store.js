@@ -62,7 +62,6 @@ var receiveReviewResults = function (deck) {
        removeDeck(payload.deck);
        break;
      case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
-     debugger
        receiveReviewResults(payload.summary.review.deck);
        break;
    }

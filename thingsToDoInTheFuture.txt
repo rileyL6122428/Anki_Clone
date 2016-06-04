@@ -1,0 +1,3 @@
+fill in crit from Reviewer
+have initial state not default to empty in certain pages in order to load faster (like in deck show)
+remove columns whose results can be derived from queries

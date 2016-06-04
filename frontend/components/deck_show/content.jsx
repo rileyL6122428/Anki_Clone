@@ -6,6 +6,9 @@ var DeckActions = require('../../actions/deck_actions');
 
 var Content = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
 
   getInitialState: function() {
     return({ deck: null })
@@ -24,17 +27,25 @@ var Content = React.createClass({
     this.listenerToken.remove();
   },
 
+  reviewCB: function (e) {
+    e.preventDefault();
+    this.context.router.push("/decks/" + this.state.deck.id + "/review");
+  },
+
   render: function () {
     var deckName, cardTotal, grade;
+
     if(this.state.deck) {
       deckName = this.state.deck.name;
       cardTotal = this.state.deck.cardTotal;
       grade = this.state.deck.grade;
+
     } else {
       deckName = "";
       cardTotal = 0;
       grade = 0;
     }
+
     return(
       <div className="ShowContent">
         <h2>{deckName}</h2>
@@ -43,7 +54,9 @@ var Content = React.createClass({
         <div className="Divider"></div>
         <History />
         <div className="ClearSet" />
-        <button className="Review"><div className="buttonText">Review</div></button>
+        <button className="Review" onClick={this.reviewCB}>
+          <div className="buttonText">Review</div>
+        </button>
       </div>
     );
   }
