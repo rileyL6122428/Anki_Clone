@@ -7,7 +7,10 @@ var ReviewActions = require('../../actions/review_actions');
 var DashboardContent = React.createClass({
 
   getInitialState: function () {
-    return({ dayTotals: ReviewStore.allByWeekDay() });
+    return({
+      dayTotals: ReviewStore.allByWeekDay(),
+      lifeTotal: ReviewStore.lifeTotal()
+    });
   },
 
   componentDidMount: function () {
@@ -16,7 +19,10 @@ var DashboardContent = React.createClass({
   },
 
   reviewStoreCB: function () {
-    this.setState({ dayTotals: ReviewStore.allByWeekDay() });
+    this.setState({
+      dayTotals: ReviewStore.allByWeekDay(),
+      lifeTotal: ReviewStore.lifeTotal()
+    });
   },
 
   componentWillUnmount: function () {
@@ -26,7 +32,8 @@ var DashboardContent = React.createClass({
   render: function () {
     return(
       <div className="Content">
-        <DashboardInfo dayTotals={ this.state.dayTotals } />
+        <DashboardInfo dayTotals={ this.state.dayTotals }
+                       lifeTotal = { this.state.lifeTotal} />
         <DashboardDisplay dayTotals={ this.state.dayTotals }/>
         <div className="ClearSet" />
       </div>

@@ -2,6 +2,9 @@ var React = require('react');
 
 var Test = React.createClass({
   render: function (){
+    var percentages = this.props.modifiedPercentages;
+    var barTotals = this.props.barTotals;
+    var barLabels = this.props.barLabels;
     return(
       <div className="Test-Graph">
 
@@ -9,76 +12,76 @@ var Test = React.createClass({
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.sunModifiedPercentage + "%"} }>
+                 style={{height: percentages[0] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.sunModifiedPercentage) + "%"}}>
-                <num>{this.props.sunTotal}</num>
+              <wrapper style={{height: (100 - percentages[0]) + "%"}}>
+                <num>{ barTotals[0] }</num>
               </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.monModifiedPercentage + "%"} }>
+                 style={{height: percentages[1] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.monModifiedPercentage) + "%"}}>
-                <num>{this.props.monTotal}</num>
+              <wrapper style={{height: (100 - percentages[1]) + "%"}}>
+                <num>{ barTotals[1] }</num>
                 </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.tueModifiedPercentage + "%"} }>
+                 style={{height: percentages[2] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.tueModifiedPercentage) + "%"}}>
-                <num>{this.props.tueTotal}</num>
+              <wrapper style={{height: (100 - percentages[2]) + "%"}}>
+                <num>{ barTotals[2] }</num>
                 </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.wedModifiedPercentage + "%"} }>
+                 style={{height: percentages[3] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.wedModifiedPercentage) + "%"}}>
-                <num>{this.props.wedTotal}</num>
+              <wrapper style={{height: (100 - percentages[3]) + "%"}}>
+                <num>{ barTotals[3] }</num>
                 </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.thuModifiedPercentage + "%"} }>
+                 style={{height: percentages[4] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.thuModifiedPercentage) + "%"}}>
-                <num>{this.props.thuTotal}</num>
+              <wrapper style={{height: (100 - percentages[4]) + "%"}}>
+                <num>{ barTotals[4] }</num>
                 </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.friModifiedPercentage + "%"} }>
+                 style={{height: percentages[5] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.friModifiedPercentage) + "%"}}>
-                <num>{this.props.friTotal}</num>
+              <wrapper style={{height: (100 - percentages[5]) + "%"}}>
+                <num>{ barTotals[5] }</num>
                 </wrapper>
             </div>
 
             <div>
               <p className="Bar"
-                 style={{height: this.props.satModifiedPercentage + "%"} }>
+                 style={{height: percentages[6] + "%"} }>
               </p>
-              <wrapper style={{height: (100 - this.props.satModifiedPercentage) + "%"}}>
-                <num>{this.props.satTotal}</num>
+              <wrapper style={{height: (100 - percentages[6]) + "%"}}>
+                <num>{ barTotals[6] }</num>
                 </wrapper>
             </div>
           </div>
 
           <div className="Labels group">
-            <div>Sun</div>
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
+            <div>{ barLabels[0] }</div>
+            <div>{ barLabels[1] }</div>
+            <div>{ barLabels[2] }</div>
+            <div>{ barLabels[3] }</div>
+            <div>{ barLabels[4] }</div>
+            <div>{ barLabels[5] }</div>
+            <div>{ barLabels[6] }</div>
           </div>
 
     </div>

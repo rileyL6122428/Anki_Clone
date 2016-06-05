@@ -30,7 +30,7 @@ var DashboardInfo = React.createClass({
 
           <li>
             <p className="StatTitle">Total Number of Reviews</p>
-            <p className="Stat">Insert Total Number of Reviews</p>
+            <p className="Stat">{ this.props.lifeTotal }</p>
             <div className="ClearSet" />
           </li>
 

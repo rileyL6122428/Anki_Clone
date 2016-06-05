@@ -7,6 +7,8 @@ var _reviews = {};   // NOTE, only holds reviews made in the past week
 var _reviewTotal = 0; // NOTE, actually holds users total reviews
                      //      (since account creation)
 
+ReviewStore.lifeTotal = function () { return _reviewTotal; }
+
 ReviewStore.all = function () {
   var reviews = [];
 
@@ -36,7 +38,6 @@ ReviewStore.find = function (id) {
 var receiveReviews = function (reviewInfo) {
   _reviewTotal = reviewInfo.total
   _reviews = {};
-  debugger
   reviewInfo.reviews.forEach(function(review) {
     _reviews[review.id] = {createdAt: new Date (review.createdAt)};
   });

@@ -24,19 +24,21 @@ var DashboardDisplay = React.createClass({
   },
 
   render: function () {
-    var dayTotals = this.props.dayTotals
-    var percentages = this.calculateModifiedPercentages();
     return (
       <div className="Display">
       <h4>REVIEWS</h4>
       <TestGraph
-          sunTotal={dayTotals[0]} sunModifiedPercentage = {percentages[0]}
-          monTotal={dayTotals[1]} monModifiedPercentage = {percentages[1]}
-          tueTotal={dayTotals[2]} tueModifiedPercentage = {percentages[2]}
-          wedTotal={dayTotals[3]} wedModifiedPercentage = {percentages[3]}
-          thuTotal={dayTotals[4]} thuModifiedPercentage = {percentages[4]}
-          friTotal={dayTotals[5]} friModifiedPercentage = {percentages[5]}
-          satTotal={dayTotals[6]} satModifiedPercentage = {percentages[6]} />
+          modifiedPercentages={this.calculateModifiedPercentages()}
+          barTotals={this.props.dayTotals}
+          barLabels={[
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+          ]} />
       </div>
 
     );

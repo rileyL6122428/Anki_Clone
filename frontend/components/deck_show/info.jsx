@@ -1,4 +1,5 @@
 var React = require('react');
+var GradeGraph = require('../graphs/test');
 
 var Info = React.createClass ({
   render: function () {
@@ -15,10 +16,10 @@ var Info = React.createClass ({
           <p>Grade</p>
         </div>
 
-        <div>gradeByCardGraph</div>
       </div>
     );
   }
 })
 
 module.exports = Info;
+// <GradeGraph />
