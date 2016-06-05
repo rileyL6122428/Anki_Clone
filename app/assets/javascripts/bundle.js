@@ -33358,24 +33358,30 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var TestGraph = __webpack_require__(309);
+	//TODO add a review store that gets data on store stuff
 	
 	var DashboardDisplay = React.createClass({
-	  displayName: "DashboardDisplay",
+	  displayName: 'DashboardDisplay',
+	
 	
 	  render: function () {
 	    return React.createElement(
-	      "div",
-	      { className: "Display" },
+	      'div',
+	      { className: 'Display' },
 	      React.createElement(
-	        "h4",
+	        'h4',
 	        null,
-	        "REVIEWS"
+	        'REVIEWS'
 	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        "Insert reviews for the week graph here"
-	      )
+	      React.createElement(TestGraph, {
+	        sunTotal: 2, sunModPercentage: 16,
+	        monTotal: 5, monModPercentage: 40,
+	        tueTotal: 7, tueModPercentage: 56,
+	        wedTotal: 4, wedModPercentage: 32,
+	        thuTotal: 2, thuModPercentage: 16,
+	        friTotal: 10, friModPercentage: 80,
+	        satTotal: 3, satModPercentage: 24 })
 	    );
 	  }
 	
@@ -35678,6 +35684,196 @@
 	    });
 	  }
 	};
+
+/***/ },
+/* 308 */,
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Test = React.createClass({
+	  displayName: "Test",
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "Test-Graph" },
+	      React.createElement(
+	        "div",
+	        { className: "Bars group" },
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.sunModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.sunModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.sunTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.monModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.monModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.monTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.tueModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.tueModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.tueTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.wedModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.wedModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.wedTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.thuModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.thuModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.thuTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.friModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.friModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.friTotal
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          React.createElement(
+	            "p",
+	            { className: "Bar", style: { height: this.props.satModPercentage + "%" } },
+	            "test"
+	          ),
+	          React.createElement(
+	            "wrapper",
+	            { style: { height: 100 - this.props.satModPercentage + "%" } },
+	            React.createElement(
+	              "num",
+	              null,
+	              this.props.satTotal
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "Labels group" },
+	        React.createElement(
+	          "div",
+	          null,
+	          "Sun"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Mon"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Tue"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Wed"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Thu"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Fri"
+	        ),
+	        React.createElement(
+	          "div",
+	          null,
+	          "Sat"
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Test;
 
 /***/ }
 /******/ ]);
