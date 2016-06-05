@@ -1,7 +1,17 @@
 var React = require('react');
 
 var DashboardInfo = React.createClass({
+
+  calcReviewsPerDay: function () {
+    var total = 0;
+    this.props.dayTotals.forEach(function(dayTotal){
+      total += dayTotal;
+    });
+    return (total / 7);
+  },
+
   render: function(){
+    var reviewsPerDay = this.calcReviewsPerDay();
     return(
       <div className="Info">
         <h4>INFO</h4>
@@ -14,7 +24,7 @@ var DashboardInfo = React.createClass({
 
           <li>
             <p className="StatTitle">Reviews per Day (Average)</p>
-            <p className="Stat">Insert Reviews Per Day</p>
+            <p className="Stat">{ reviewsPerDay }</p>
             <div className="ClearSet" />
           </li>
 

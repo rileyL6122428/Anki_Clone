@@ -35,6 +35,7 @@ window.FlashcardActions = require('./actions/flashcard_actions');
 window.UserStore = require('./stores/user_store');
 window.UserActions = require('./actions/user_actions');
 window.ReviewActions = require('./actions/review_actions');
+window.ReviewStore = require('./stores/review_store');
 
 var App = React.createClass({
   render: function (){

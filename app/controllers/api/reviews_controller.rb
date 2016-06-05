@@ -1,5 +1,12 @@
 class Api::ReviewsController < ApplicationController
 
+  def index
+    @reviews = current_user.reviews
+
+    # decks = current_user.decks
+    render "api/reviews/index"
+  end
+
   def create
     review = Review.new(deck_id: params[:deck_id])
 
@@ -11,6 +18,8 @@ class Api::ReviewsController < ApplicationController
       render "api/shared/errors"
     end
   end
+
+
 
   private
 

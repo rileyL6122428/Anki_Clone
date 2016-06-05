@@ -80,6 +80,7 @@
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(307);
+	window.ReviewStore = __webpack_require__(309);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -33262,17 +33263,36 @@
 	var React = __webpack_require__(1);
 	var DashboardInfo = __webpack_require__(261);
 	var DashboardDisplay = __webpack_require__(262);
+	var ReviewStore = __webpack_require__(309);
+	var ReviewActions = __webpack_require__(307);
 	
 	var DashboardContent = React.createClass({
 	  displayName: 'DashboardContent',
 	
 	
+	  getInitialState: function () {
+	    return { dayTotals: ReviewStore.allByWeekDay() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = ReviewStore.addListener(this.reviewStoreCB);
+	    ReviewActions.fetchReviews();
+	  },
+	
+	  reviewStoreCB: function () {
+	    this.setState({ dayTotals: ReviewStore.allByWeekDay() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      { className: 'Content' },
-	      React.createElement(DashboardInfo, null),
-	      React.createElement(DashboardDisplay, null),
+	      React.createElement(DashboardInfo, { dayTotals: this.state.dayTotals }),
+	      React.createElement(DashboardDisplay, { dayTotals: this.state.dayTotals }),
 	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
@@ -33289,7 +33309,17 @@
 	var DashboardInfo = React.createClass({
 	  displayName: "DashboardInfo",
 	
+	
+	  calcReviewsPerDay: function () {
+	    var total = 0;
+	    this.props.dayTotals.forEach(function (dayTotal) {
+	      total += dayTotal;
+	    });
+	    return total / 7;
+	  },
+	
 	  render: function () {
+	    var reviewsPerDay = this.calcReviewsPerDay();
 	    return React.createElement(
 	      "div",
 	      { className: "Info" },
@@ -33327,7 +33357,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            "Insert Reviews Per Day"
+	            reviewsPerDay
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        ),
@@ -33365,7 +33395,32 @@
 	  displayName: 'DashboardDisplay',
 	
 	
+	  calculateModifiedPercentages: function () {
+	    var max = 0;
+	    this.props.dayTotals.forEach(function (dayTotal) {
+	      if (max < dayTotal) {
+	        max = dayTotal;
+	      }
+	    });
+	
+	    if (max === 0) {
+	      return [4, 4, 4, 4, 4, 4, 4];
+	    }
+	
+	    var percentages = [];
+	    //NOTE the modified percentage caps at 80 percent
+	    //     this is a result of the way bars are configues in the graph
+	    this.props.dayTotals.forEach(function (dayTotal) {
+	      var percentage = dayTotal / max * 80;
+	      percentage < 4 ? percentages.push(4) : percentages.push(percentage);
+	    });
+	
+	    return percentages;
+	  },
+	
 	  render: function () {
+	    var dayTotals = this.props.dayTotals;
+	    var percentages = this.calculateModifiedPercentages();
 	    return React.createElement(
 	      'div',
 	      { className: 'Display' },
@@ -33375,13 +33430,13 @@
 	        'REVIEWS'
 	      ),
 	      React.createElement(TestGraph, {
-	        sunTotal: 2, sunModPercentage: 16,
-	        monTotal: 5, monModPercentage: 40,
-	        tueTotal: 7, tueModPercentage: 56,
-	        wedTotal: 4, wedModPercentage: 32,
-	        thuTotal: 2, thuModPercentage: 16,
-	        friTotal: 10, friModPercentage: 80,
-	        satTotal: 3, satModPercentage: 24 })
+	        sunTotal: dayTotals[0], sunModifiedPercentage: percentages[0],
+	        monTotal: dayTotals[1], monModifiedPercentage: percentages[1],
+	        tueTotal: dayTotals[2], tueModifiedPercentage: percentages[2],
+	        wedTotal: dayTotals[3], wedModifiedPercentage: percentages[3],
+	        thuTotal: dayTotals[4], thuModifiedPercentage: percentages[4],
+	        friTotal: dayTotals[5], friModifiedPercentage: percentages[5],
+	        satTotal: dayTotals[6], satModifiedPercentage: percentages[6] })
 	    );
 	  }
 	
@@ -33399,7 +33454,6 @@
 	  displayName: "Test",
 	
 	  render: function () {
-	
 	    return React.createElement(
 	      "div",
 	      { className: "Test-Graph" },
@@ -33409,14 +33463,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.sunModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.sunModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.sunModPercentage + "%" } },
+	            { style: { height: 100 - this.props.sunModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33427,14 +33478,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.monModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.monModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.monModPercentage + "%" } },
+	            { style: { height: 100 - this.props.monModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33445,14 +33493,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.tueModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.tueModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.tueModPercentage + "%" } },
+	            { style: { height: 100 - this.props.tueModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33463,14 +33508,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.wedModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.wedModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.wedModPercentage + "%" } },
+	            { style: { height: 100 - this.props.wedModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33481,14 +33523,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.thuModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.thuModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.thuModPercentage + "%" } },
+	            { style: { height: 100 - this.props.thuModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33499,14 +33538,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.friModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.friModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.friModPercentage + "%" } },
+	            { style: { height: 100 - this.props.friModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33517,14 +33553,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement(
-	            "p",
-	            { className: "Bar", style: { height: this.props.satModPercentage + "%" } },
-	            "test"
-	          ),
+	          React.createElement("p", { className: "Bar",
+	            style: { height: this.props.satModifiedPercentage + "%" } }),
 	          React.createElement(
 	            "wrapper",
-	            { style: { height: 100 - this.props.satModPercentage + "%" } },
+	            { style: { height: 100 - this.props.satModifiedPercentage + "%" } },
 	            React.createElement(
 	              "num",
 	              null,
@@ -33851,7 +33884,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY"
+	  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY",
+	  RECEIVE_REVIEWS: "RECEIVE_REVIEWS"
 	};
 
 /***/ },
@@ -35847,6 +35881,9 @@
 	module.exports = {
 	  logReview: function (reviewSummary) {
 	    ReviewApiUtil.create(reviewSummary);
+	  },
+	  fetchReviews: function () {
+	    ReviewApiUtil.fetchReviews();
 	  }
 	};
 
@@ -35873,8 +35910,80 @@
 	        });
 	      }
 	    });
+	  },
+	
+	  fetchReviews: function () {
+	    $.ajax({
+	      url: "/api/reviews",
+	      type: "GET",
+	      success: function (reviews) {
+	        AppDispatcher.dispatch({
+	          actionType: ReviewConstants.RECEIVE_REVIEWS,
+	          reviews: reviews
+	        });
+	      }
+	    });
 	  }
 	};
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var ReviewConstants = __webpack_require__(270);
+	
+	var ReviewStore = new Store(AppDispatcher);
+	var _reviews = {}; // NOTE, only holds reviews made in the past week
+	var reviewTotal = 0; // NOTE, actually holds users total reviews
+	//      (since account creation)
+	
+	ReviewStore.all = function () {
+	  var reviews = [];
+	
+	  for (var id in _reviews) {
+	    reviews.push(_reviews[id]);
+	  }
+	
+	  return reviews;
+	};
+	
+	ReviewStore.allByWeekDay = function () {
+	  // NOTE (idx 0 corresponds to sundeay total, idx 1 to Monday, ect...)
+	  var dayTotals = [0, 0, 0, 0, 0, 0, 0];
+	
+	  for (var id in _reviews) {
+	    dayTotals[_reviews[id].createdAt.getDay()] += 1;
+	  }
+	
+	  return dayTotals;
+	};
+	
+	ReviewStore.find = function (id) {
+	  if (_reviews[id]) {
+	    return $.extend({}, _reviews[id]);
+	  }
+	};
+	
+	var receiveReviews = function (reviews) {
+	  _reviews = {};
+	
+	  reviews.forEach(function (review) {
+	    _reviews[review.id] = { createdAt: new Date(review.createdAt) };
+	  });
+	  ReviewStore.__emitChange();
+	};
+	
+	ReviewStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ReviewConstants.RECEIVE_REVIEWS:
+	      receiveReviews(payload.reviews);
+	      break;
+	  }
+	};
+	
+	module.exports = ReviewStore;
 
 /***/ }
 /******/ ]);

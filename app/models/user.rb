@@ -14,6 +14,12 @@ class User < ActiveRecord::Base
     class_name: "Deck"
   )
 
+  has_many(
+   :reviews,
+   through: :decks,
+   source: :reviews
+ )
+
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
 

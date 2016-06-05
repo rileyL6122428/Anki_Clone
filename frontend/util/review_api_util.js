@@ -17,5 +17,18 @@ module.exports = {
         })
       }
     })
-  }
+  },
+
+  fetchReviews: function () {
+    $.ajax({
+      url: "/api/reviews",
+      type: "GET",
+      success: function(reviews){
+        AppDispatcher.dispatch({
+          actionType: ReviewConstants.RECEIVE_REVIEWS,
+          reviews: reviews
+        })
+      }
+    })
+  },
 };

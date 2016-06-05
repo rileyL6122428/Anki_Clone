@@ -2,38 +2,72 @@ var React = require('react');
 
 var Test = React.createClass({
   render: function (){
-
     return(
       <div className="Test-Graph">
 
           <div className="Bars group">
+
             <div>
-              <p className="Bar" style={{height: this.props.sunModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.sunModPercentage) + "%"}}><num>{this.props.sunTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.sunModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.sunModifiedPercentage) + "%"}}>
+                <num>{this.props.sunTotal}</num>
+              </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.monModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.monModPercentage) + "%"}}><num>{this.props.monTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.monModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.monModifiedPercentage) + "%"}}>
+                <num>{this.props.monTotal}</num>
+                </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.tueModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.tueModPercentage) + "%"}}><num>{this.props.tueTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.tueModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.tueModifiedPercentage) + "%"}}>
+                <num>{this.props.tueTotal}</num>
+                </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.wedModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.wedModPercentage) + "%"}}><num>{this.props.wedTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.wedModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.wedModifiedPercentage) + "%"}}>
+                <num>{this.props.wedTotal}</num>
+                </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.thuModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.thuModPercentage) + "%"}}><num>{this.props.thuTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.thuModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.thuModifiedPercentage) + "%"}}>
+                <num>{this.props.thuTotal}</num>
+                </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.friModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.friModPercentage) + "%"}}><num>{this.props.friTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.friModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.friModifiedPercentage) + "%"}}>
+                <num>{this.props.friTotal}</num>
+                </wrapper>
             </div>
+
             <div>
-              <p className="Bar" style={{height: this.props.satModPercentage + "%"} }>test</p>
-              <wrapper style={{height: (100 - this.props.satModPercentage) + "%"}}><num>{this.props.satTotal}</num></wrapper>
+              <p className="Bar"
+                 style={{height: this.props.satModifiedPercentage + "%"} }>
+              </p>
+              <wrapper style={{height: (100 - this.props.satModifiedPercentage) + "%"}}>
+                <num>{this.props.satTotal}</num>
+                </wrapper>
             </div>
           </div>
 
@@ -46,7 +80,6 @@ var Test = React.createClass({
             <div>Fri</div>
             <div>Sat</div>
           </div>
-
 
     </div>
     );
