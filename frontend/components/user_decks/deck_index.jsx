@@ -32,8 +32,8 @@ var DeckIndex = React.createClass({
               <DeckIndexItem key={deck.id}
                              id={deck.id}
                              name={deck.name}
-                             totalCards={"insertTotalCards"}
-                             grade={"insertGrade"} />
+                             totalCards={deck.cardTotal}
+                             grade={deck.grade} />
             );
           })
         }

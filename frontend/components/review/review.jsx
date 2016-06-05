@@ -18,7 +18,8 @@ var Review =  React.createClass({
       cardIdx: 0,
       flipped: false,
       reviewSummary: {},
-      deckName: DeckStore.find(this.props.params.id).name
+      deckName: DeckStore.find(this.props.params.id).name,
+      cards: ["loading"]
     });
   },
 
@@ -79,11 +80,12 @@ var Review =  React.createClass({
     var title = "Review";
     var cardFront = "";
     var cardBack = "";
-    if (this.state.cards && this.state.cardIdx < 10) {
+    var cardTotal = this.state.cards.length
+    if (this.state.cards && this.state.cardIdx < cardTotal) {
       cardFront = this.state.cards[this.state.cardIdx].front;
       cardBack = this.state.cards[this.state.cardIdx].back;
     }
-    if(this.state.cardIdx === 10) { title = "Recap"; }
+    if(this.state.cardIdx === cardTotal) { title = "Recap"; }
 
     return (
       <div className="Parent-Component Review">
@@ -95,16 +97,16 @@ var Review =  React.createClass({
 
         <h6>{ this.state.deckName }</h6>
 
-        <Front   showing={ this.state.cardIdx < 10 && !this.state.flipped }
+        <Front   showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
                  cardFront={ cardFront }
                  flipCB={ this.flipCB }/>
 
-        <Flipped showing={ this.state.cardIdx < 10 && this.state.flipped }
+               <Flipped showing={ this.state.cardIdx < cardTotal && this.state.flipped }
                  cardFront={ cardFront }
                  cardBack={ cardBack }
                  gradeCB={ this.gradeCB }/>
 
-        <Recap   showing={ this.state.cardIdx === 10 }
+               <Recap   showing={ this.state.cardIdx === cardTotal }
                  continueCB={this.continueCB}/>
 
       </div>

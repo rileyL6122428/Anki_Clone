@@ -17,7 +17,6 @@ class Api::ReviewsController < ApplicationController
   def update_card_and_deck_grades
     reviewed_deck = Deck.find(params[:deck_id])
     deck_cards = reviewed_deck.cards
-    # byebug
     cards = cards_to_be_graded(deck_cards)
     new_grades = grade_update_hash(cards)
 
@@ -32,7 +31,6 @@ class Api::ReviewsController < ApplicationController
   def grade_update_hash(cards)
     grades = {}
     review_grades = params[:review_grades]
-    # byebug
     cards.each do |card|
       grades[card.id] = {
         "grade" => card.compute_new_grade(review_grades[card.id.to_s].to_f),

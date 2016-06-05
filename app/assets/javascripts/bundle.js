@@ -57,29 +57,29 @@
 	//COMPONENTS
 	var AuthForm = __webpack_require__(229);
 	var Dashboard = __webpack_require__(258);
-	var ProfilePage = __webpack_require__(263);
-	var UserDecks = __webpack_require__(264);
-	var NewDeck = __webpack_require__(273);
-	var DeckShow = __webpack_require__(276);
-	var EditDeck = __webpack_require__(281);
-	var FlashcardIndex = __webpack_require__(284);
-	var FlashcardShow = __webpack_require__(293);
-	var NewFlashcard = __webpack_require__(297);
-	var EditFlashcard = __webpack_require__(300);
-	var Review = __webpack_require__(302);
+	var ProfilePage = __webpack_require__(264);
+	var UserDecks = __webpack_require__(265);
+	var NewDeck = __webpack_require__(274);
+	var DeckShow = __webpack_require__(277);
+	var EditDeck = __webpack_require__(282);
+	var FlashcardIndex = __webpack_require__(285);
+	var FlashcardShow = __webpack_require__(294);
+	var NewFlashcard = __webpack_require__(298);
+	var EditFlashcard = __webpack_require__(301);
+	var Review = __webpack_require__(303);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
 	var userActions = __webpack_require__(230);
 	
 	//TESTING ONLY
-	window.DeckStore = __webpack_require__(267);
-	window.DeckActions = __webpack_require__(270);
-	window.FlashcardStore = __webpack_require__(287);
-	window.FlashcardActions = __webpack_require__(290);
+	window.DeckStore = __webpack_require__(268);
+	window.DeckActions = __webpack_require__(271);
+	window.FlashcardStore = __webpack_require__(288);
+	window.FlashcardActions = __webpack_require__(291);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
-	window.ReviewActions = __webpack_require__(306);
+	window.ReviewActions = __webpack_require__(307);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -33358,7 +33358,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TestGraph = __webpack_require__(309);
+	var TestGraph = __webpack_require__(263);
 	//TODO add a review store that gets data on store stuff
 	
 	var DashboardDisplay = React.createClass({
@@ -33391,2303 +33391,6 @@
 
 /***/ },
 /* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Footer = __webpack_require__(259);
-	var UserActions = __webpack_require__(230);
-	var UserStore = __webpack_require__(237);
-	var ProfilePage = React.createClass({
-	  displayName: 'ProfilePage',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  logoutCB: function (e) {
-	    e.preventDefault();
-	    UserActions.logout();
-	    this.context.router.push('auth');
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Profile Parent-Component' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Profile'
-	      ),
-	      React.createElement(
-	        'h4',
-	        { className: 'Stat-Header' },
-	        'Account'
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'Stat-List' },
-	        React.createElement(
-	          'li',
-	          { className: 'Statistic' },
-	          React.createElement(
-	            'p',
-	            { className: 'StatTitle' },
-	            'Username'
-	          ),
-	          React.createElement(
-	            'p',
-	            { className: 'Stat' },
-	            UserStore.currentUser().username
-	          ),
-	          React.createElement('div', { className: 'ClearSet' })
-	        )
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.logoutCB, className: 'Cancel-Logout-Button' },
-	        'Log Out'
-	      ),
-	      React.createElement(Footer, null)
-	    );
-	  }
-	});
-	
-	module.exports = ProfilePage;
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(265);
-	var DeckIndex = __webpack_require__(266);
-	var Footer = __webpack_require__(259);
-	
-	var UserDecks = React.createClass({
-	  displayName: 'UserDecks',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Parent-Component' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        'My Decks '
-	      ),
-	      React.createElement(SearchBar, null),
-	      React.createElement(
-	        'div',
-	        { className: 'Overflow-Test' },
-	        React.createElement(DeckIndex, null)
-	      ),
-	      React.createElement(Footer, null)
-	    );
-	  }
-	});
-	
-	module.exports = UserDecks;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var DecksSearchBar = React.createClass({
-	  displayName: "DecksSearchBar",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "Search-Container" },
-	      React.createElement(
-	        "label",
-	        { "for": "deck-search" },
-	        " Search:"
-	      ),
-	      React.createElement("input", { id: "deck-search", type: "text" })
-	    );
-	  }
-	});
-	
-	module.exports = DecksSearchBar;
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var DeckStore = __webpack_require__(267);
-	var DeckActions = __webpack_require__(270);
-	var DeckIndexItem = __webpack_require__(272);
-	
-	var DeckIndex = React.createClass({
-	  displayName: 'DeckIndex',
-	
-	
-	  getInitialState: function () {
-	    return { decks: DeckStore.all() };
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = DeckStore.addListener(this.deckStoreCB);
-	    DeckActions.fetchDecks();
-	  },
-	
-	  deckStoreCB: function () {
-	    this.setState({ decks: DeckStore.all() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  render: function () {
-	
-	    var deckList = React.createElement(
-	      'div',
-	      { className: 'Wrapper' },
-	      this.state.decks.map(function (deck) {
-	        return React.createElement(DeckIndexItem, { key: deck.id,
-	          id: deck.id,
-	          name: deck.name,
-	          totalCards: "insertTotalCards",
-	          grade: "insertGrade" });
-	      })
-	    );
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'ul',
-	        null,
-	        deckList
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = DeckIndex;
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(238).Store;
-	var AppDispatcher = __webpack_require__(233);
-	var DeckConstants = __webpack_require__(268);
-	var ReviewConstants = __webpack_require__(269);
-	var hashHistory = __webpack_require__(168).hashHistory;
-	
-	var DeckStore = new Store(AppDispatcher);
-	var _decks = {};
-	
-	DeckStore.all = function () {
-	  var decks = [];
-	
-	  for (var id in _decks) {
-	    decks.push(_decks[id]);
-	  }
-	  return decks;
-	};
-	
-	DeckStore.find = function (id) {
-	  if (_decks[id]) {
-	    return $.extend({}, _decks[id]);
-	  }
-	};
-	
-	var receiveDecks = function (decks) {
-	  _decks = {};
-	
-	  decks.forEach(function (deck) {
-	    _decks[deck.id] = deck;
-	  });
-	  DeckStore.__emitChange();
-	};
-	
-	var receiveADeck = function (deck) {
-	  _decks[deck.id] = deck;
-	  DeckStore.__emitChange();
-	  //TODO refactor this into a callback in the new deck form, if possible
-	  hashHistory.push('/decks/' + deck.id);
-	};
-	
-	var removeDeck = function (deck) {
-	  delete _decks[deck.id];
-	  DeckStore.__emitChange();
-	};
-	
-	var receiveReviewResults = function (deck) {
-	  var deckToUpdate = _decks[deck.id];
-	  deckToUpdate["reviewTotal"] += 1;
-	  deckToUpdate["grade"] = deck.grade;
-	  DeckStore.__emitChange();
-	};
-	
-	DeckStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case DeckConstants.RECEIVE_DECKS:
-	      receiveDecks(payload.decks);
-	      break;
-	    case DeckConstants.RECEIVE_DECK:
-	      receiveADeck(payload.deck);
-	      break;
-	    case DeckConstants.REMOVE_DECK:
-	      removeDeck(payload.deck);
-	      break;
-	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
-	      receiveReviewResults(payload.summary.review.deck);
-	      break;
-	  }
-	};
-	
-	module.exports = DeckStore;
-
-/***/ },
-/* 268 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_DECKS: "RECEIVE_DECKS",
-	  RECEIVE_DECK: "RECEIVE_DECK",
-	  REMOVE_DECK: "REMOVE_DECK"
-	};
-
-/***/ },
-/* 269 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY"
-	};
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DeckApiUtil = __webpack_require__(271);
-	module.exports = {
-	  fetchDecks: function () {
-	    DeckApiUtil.fetchDecks();
-	  },
-	
-	  fetchADeck: function (id) {
-	    DeckApiUtil.fetchADeck(id);
-	  },
-	
-	  createDeck: function (deck) {
-	    DeckApiUtil.createDeck(deck);
-	  },
-	
-	  editDeck: function (deck) {
-	    DeckApiUtil.editDeck(deck);
-	  },
-	
-	  destroyDeck: function (id) {
-	    DeckApiUtil.destroyDeck(id);
-	  }
-	};
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DeckConstants = __webpack_require__(268);
-	var AppDispatcher = __webpack_require__(233);
-	
-	module.exports = {
-	  fetchDecks: function () {
-	    $.ajax({
-	      url: "/api/decks",
-	      type: "GET",
-	      success: function (decks) {
-	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.RECEIVE_DECKS,
-	          decks: decks
-	        });
-	      }
-	    });
-	  },
-	
-	  fetchADeck: function (id) {
-	    $.ajax({
-	      url: 'api/decks/' + id,
-	      type: 'GET',
-	      success: function (deck) {
-	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.RECEIVE_DECK,
-	          deck: deck
-	        });
-	      }
-	    });
-	  },
-	
-	  createDeck: function (deck) {
-	    $.ajax({
-	      url: 'api/decks',
-	      type: 'POST',
-	      data: { deck: deck },
-	      success: function (deck) {
-	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.RECEIVE_DECK,
-	          deck: deck
-	        });
-	      }
-	    });
-	  },
-	
-	  editDeck: function (deck) {
-	    $.ajax({
-	      url: 'api/decks/' + deck.id,
-	      type: 'PATCH',
-	      data: { deck: deck },
-	      success: function (deck) {
-	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.RECEIVE_DECK,
-	          deck: deck
-	        });
-	      }
-	    });
-	  },
-	
-	  destroyDeck: function (id) {
-	    $.ajax({
-	      url: 'api/decks/' + id,
-	      type: 'DELETE',
-	      success: function (deck) {
-	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.REMOVE_DECK,
-	          deck: deck
-	        });
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	var DeckIndexItem = React.createClass({
-	  displayName: 'DeckIndexItem',
-	
-	  render: function () {
-	    return React.createElement(
-	      Link,
-	      { to: "decks/" + this.props.id },
-	      React.createElement(
-	        'li',
-	        { className: 'Deck-Index-Item' },
-	        React.createElement(
-	          'div',
-	          { className: 'Left-Side-Content' },
-	          React.createElement(
-	            'h5',
-	            null,
-	            this.props.name
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            this.props.totalCards
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          { className: 'Grade' },
-	          this.props.grade
-	        ),
-	        React.createElement('div', { className: 'ClearSet' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = DeckIndexItem;
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Form = __webpack_require__(274);
-	var Header = __webpack_require__(275);
-	
-	var NewDeck = React.createClass({
-	  displayName: 'NewDeck',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'NewDeck' },
-	      React.createElement(Header, null),
-	      React.createElement(Form, null)
-	    );
-	  }
-	});
-	
-	module.exports = NewDeck;
-
-/***/ },
-/* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var DeckActions = __webpack_require__(270);
-	var DeckStore = __webpack_require__(267);
-	
-	var Form = React.createClass({
-	  displayName: 'Form',
-	
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  getInitialState: function () {
-	    return { name: "", description: "" };
-	  },
-	
-	  changeName: function (e) {
-	    var newName = e.target.value;
-	    this.setState({ name: newName });
-	  },
-	
-	  changeDescription: function (e) {
-	    var newDescription = e.target.value;
-	    this.setState({ description: newDescription });
-	  },
-	
-	  submitCB: function (e) {
-	    e.preventDefault();
-	    DeckActions.createDeck({
-	      name: this.state.name,
-	      description: this.state.description
-	    });
-	
-	    //TODO redirect to deck show with callback in Deck store
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Form' },
-	      React.createElement(
-	        'h4',
-	        null,
-	        'Info'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.submitCB },
-	        React.createElement(
-	          'label',
-	          null,
-	          'Name',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeName, className: 'NameInput' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Description',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeDescription, className: 'DescriptionInput' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Form;
-
-/***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	var Header = React.createClass({
-	  displayName: 'Header',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Header' },
-	      React.createElement(
-	        Link,
-	        { to: '/dashboard', className: 'Cancel' },
-	        'Cancel'
-	      ),
-	      React.createElement(
-	        'h1',
-	        null,
-	        'New Deck'
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Header;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Content = __webpack_require__(277);
-	var Options = __webpack_require__(280);
-	var DeckHistory = __webpack_require__(279);
-	var Link = __webpack_require__(168).Link;
-	
-	var DeckShow = React.createClass({
-	  displayName: 'DeckShow',
-	
-	  render: function () {
-	    var arrow = "<";
-	    return React.createElement(
-	      'div',
-	      { className: 'DeckShow' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: '/decks', className: 'BackLink' },
-	          arrow
-	        ),
-	        React.createElement(
-	          'p',
-	          { className: 'Title' },
-	          'Deck'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'BelowHeader' },
-	        React.createElement(Content, { deckId: this.props.params.id }),
-	        React.createElement(DeckHistory, null),
-	        React.createElement(Options, { deckId: this.props.params.id }),
-	        React.createElement('div', { className: 'ClearSet' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = DeckShow;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Info = __webpack_require__(278);
-	var History = __webpack_require__(279);
-	var DeckStore = __webpack_require__(267);
-	var DeckActions = __webpack_require__(270);
-	
-	var Content = React.createClass({
-	  displayName: 'Content',
-	
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  getInitialState: function () {
-	    return { deck: null };
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = DeckStore.addListener(this.storeCB);
-	    DeckActions.fetchADeck(parseInt(this.props.deckId));
-	  },
-	
-	  storeCB: function () {
-	    this.setState({ deck: DeckStore.find(parseInt(this.props.deckId)) });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  reviewCB: function (e) {
-	    e.preventDefault();
-	    this.context.router.push("/decks/" + this.state.deck.id + "/review");
-	  },
-	
-	  render: function () {
-	    var deckName, cardTotal, grade;
-	
-	    if (this.state.deck) {
-	      deckName = this.state.deck.name;
-	      cardTotal = this.state.deck.cardTotal;
-	      grade = this.state.deck.grade;
-	    } else {
-	      deckName = "";
-	      cardTotal = 0;
-	      grade = 0;
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'ShowContent' },
-	      React.createElement(
-	        'h2',
-	        null,
-	        deckName
-	      ),
-	      React.createElement(Info, { cardTotal: cardTotal,
-	        grade: grade }),
-	      React.createElement('div', { className: 'Divider' }),
-	      React.createElement(History, null),
-	      React.createElement('div', { className: 'ClearSet' }),
-	      React.createElement(
-	        'button',
-	        { className: 'Review', onClick: this.reviewCB },
-	        React.createElement(
-	          'div',
-	          { className: 'buttonText' },
-	          'Review'
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Content;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Info = React.createClass({
-	  displayName: "Info",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "DeckInfo" },
-	      React.createElement(
-	        "h3",
-	        null,
-	        "Info"
-	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        React.createElement(
-	          "div",
-	          null,
-	          "insertTotal"
-	        ),
-	        React.createElement(
-	          "p",
-	          null,
-	          this.props.cardTotal
-	        )
-	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        React.createElement(
-	          "div",
-	          null,
-	          this.props.grade,
-	          "%"
-	        ),
-	        React.createElement(
-	          "p",
-	          null,
-	          "Grade"
-	        )
-	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        "gradeByCardGraph"
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Info;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var History = React.createClass({
-	  displayName: "History",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "DeckHistory" },
-	      React.createElement(
-	        "h4",
-	        { className: "Stat-Header" },
-	        "History"
-	      ),
-	      React.createElement(
-	        "ul",
-	        { className: "Stat-List" },
-	        React.createElement(
-	          "li",
-	          { className: "Statistic" },
-	          React.createElement(
-	            "p",
-	            { className: "StatTitle" },
-	            "Reviews Today"
-	          ),
-	          React.createElement(
-	            "p",
-	            { className: "Stat" },
-	            "Insert Total"
-	          ),
-	          React.createElement("div", { className: "ClearSet" })
-	        ),
-	        React.createElement(
-	          "li",
-	          { className: "Statistic" },
-	          React.createElement(
-	            "p",
-	            { className: "StatTitle" },
-	            "Reviews per Day (average)"
-	          ),
-	          React.createElement(
-	            "p",
-	            { className: "Stat" },
-	            "Insert Total"
-	          ),
-	          React.createElement("div", { className: "ClearSet" })
-	        ),
-	        React.createElement(
-	          "li",
-	          { className: "Statistic" },
-	          React.createElement(
-	            "p",
-	            { className: "StatTitle" },
-	            "Total number of Review"
-	          ),
-	          React.createElement(
-	            "p",
-	            { className: "Stat" },
-	            "Insert Total"
-	          ),
-	          React.createElement("div", { className: "ClearSet" })
-	        )
-	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        "Insert weekly breakdown of Reviews"
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = History;
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	//TODO set link destinations to proper destinations
-	
-	var Options = React.createClass({
-	  displayName: 'Options',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Options' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Options'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: "/edit-deck/" + this.props.deckId },
-	            'Edit Deck'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: "/decks/" + this.props.deckId + "/flashcards" },
-	            'Cards'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Remove'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Options;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Form = __webpack_require__(282);
-	var Header = __webpack_require__(283);
-	
-	var EditDeck = React.createClass({
-	  displayName: 'EditDeck',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'EditDeck' },
-	      React.createElement(Header, { deckId: this.props.params.id }),
-	      React.createElement(Form, { deckId: this.props.params.id })
-	    );
-	  }
-	});
-	
-	module.exports = EditDeck;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var DeckActions = __webpack_require__(270);
-	var DeckStore = __webpack_require__(267);
-	
-	var Form = React.createClass({
-	  displayName: 'Form',
-	
-	
-	  getInitialState: function () {
-	    var deck = DeckStore.find(this.props.deckId);
-	    return { name: deck.name, description: deck.description };
-	  },
-	
-	  changeName: function (e) {
-	    var newName = e.target.value;
-	    this.setState({ name: newName });
-	  },
-	
-	  changeDescription: function (e) {
-	    var newDescription = e.target.value;
-	    this.setState({ description: newDescription });
-	  },
-	
-	  submitCB: function (e) {
-	    e.preventDefault();
-	    DeckActions.editDeck({
-	      name: this.state.name,
-	      description: this.state.description,
-	      id: this.props.deckId
-	    });
-	
-	    //TODO redirect to deck show with callback in Deck store
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Form' },
-	      React.createElement(
-	        'h4',
-	        null,
-	        'Info'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.submitCB },
-	        React.createElement(
-	          'label',
-	          null,
-	          'Name',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            onChange: this.changeName,
-	            value: this.state.name,
-	            className: 'NameInput' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Description',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            onChange: this.changeDescription,
-	            value: this.state.description,
-	            className: 'DescriptionInput' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Form;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	var Header = React.createClass({
-	  displayName: 'Header',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Header' },
-	      React.createElement(
-	        Link,
-	        { to: "/decks/" + this.props.deckId, className: 'Cancel' },
-	        'Cancel'
-	      ),
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Edit Deck'
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Header;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(285);
-	var List = __webpack_require__(286);
-	var Link = __webpack_require__(168).Link;
-	
-	var FlashcardIndex = React.createClass({
-	  displayName: 'FlashcardIndex',
-	
-	
-	  render: function () {
-	    var arrow = "<";
-	    return React.createElement(
-	      'div',
-	      { className: 'Parent-Component Flashcard-Index' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: "/decks/" + this.props.params.id, className: 'Header-Link' },
-	          arrow
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Cards'
-	        ),
-	        React.createElement(
-	          Link,
-	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link' },
-	          'New'
-	        ),
-	        React.createElement('div', { className: 'ClearSet' })
-	      ),
-	      React.createElement(SearchBar, null),
-	      React.createElement(
-	        'div',
-	        { className: 'Overflow-Test' },
-	        React.createElement(List, { deckId: this.props.params.id })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardIndex;
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var FlashcardsSearchBar = React.createClass({
-	  displayName: "FlashcardsSearchBar",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "Search-Container" },
-	      React.createElement(
-	        "label",
-	        { "for": "deck-search" },
-	        " Search:"
-	      ),
-	      React.createElement("input", { id: "deck-search", type: "text" })
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardsSearchBar;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(287);
-	var FlashcardActions = __webpack_require__(290);
-	var FlashcardIndexItem = __webpack_require__(292);
-	
-	var FlashcardIndex = React.createClass({
-	  displayName: 'FlashcardIndex',
-	
-	
-	  getInitialState: function () {
-	    return { flashcards: [] };
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	    FlashcardActions.fetchFlashcards(this.props.deckId);
-	  },
-	
-	  flashcardStoreCB: function () {
-	    this.setState({ flashcards: FlashcardStore.all() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  render: function () {
-	    var list = "";
-	    var deckId = this.props.deckId;
-	    if (this.state.flashcards.length !== 0) {
-	
-	      var list = React.createElement(
-	        'div',
-	        { className: 'Wrapper' },
-	        this.state.flashcards.map(function (flashcard) {
-	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
-	            cardId: flashcard.id,
-	            key: flashcard.id,
-	            front: flashcard.front,
-	            grade: "insertGrade",
-	            deckId: deckId });
-	        })
-	      );
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'List-Div' },
-	      React.createElement(
-	        'ul',
-	        null,
-	        list
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardIndex;
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(238).Store;
-	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(288);
-	var ReviewConstants = __webpack_require__(269);
-	var Util = __webpack_require__(289);
-	
-	var FlashcardStore = new Store(AppDispatcher);
-	var _flashcards = {};
-	
-	FlashcardStore.all = function () {
-	  var flashcards = [];
-	
-	  for (var id in _flashcards) {
-	    flashcards.push(_flashcards[id]);
-	  }
-	  return flashcards;
-	};
-	
-	FlashcardStore.find = function (id) {
-	  if (_flashcards[id]) {
-	    return $.extend({}, _flashcards[id]);
-	  }
-	};
-	
-	FlashcardStore.drawCards = function (total) {
-	  var cards = [];
-	  var gradeInts = [0, 50, 60, 70, 80, 90, 100];
-	
-	  for (var i = 0; i < gradeInts.length - 1; i++) {
-	    var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1]);
-	
-	    for (var j = 0; j < shuffledCards.length; j++) {
-	      if (cards.length === total || cards.length === storeSize()) {
-	        return cards;
-	      }
-	
-	      cards.push(shuffledCards[j]);
-	    }
-	  }
-	
-	  return cards;
-	};
-	//TODO undo window, for testing only
-	shuffledFlashcardsByGrade = function (lower, upper) {
-	  var flashcards = [];
-	
-	  for (var id in _flashcards) {
-	    if (_flashcards[id].grade >= lower && _flashcards[id].grade <= upper) {
-	      flashcards.push(_flashcards[id]);
-	    }
-	  }
-	
-	  return Util.shuffle(flashcards);
-	};
-	
-	var storeSize = function () {
-	  return Object.keys(_flashcards).length;
-	};
-	
-	var receiveFlashcards = function (flashcards) {
-	  _flashcards = {};
-	
-	  flashcards.forEach(function (flashcard) {
-	    _flashcards[flashcard.id] = flashcard;
-	  });
-	  FlashcardStore.__emitChange();
-	};
-	
-	var receiveAFlashcard = function (flashcard) {
-	  _flashcards[flashcard.id] = flashcard;
-	  FlashcardStore.__emitChange();
-	};
-	
-	var removeFlashcard = function (flashcard) {
-	  delete _flashcards[flashcard.id];
-	  FlashcardStore.__emitChange();
-	};
-	
-	var receiveReviewResults = function (flashcards) {
-	  flashcards.forEach(function (card) {
-	    var flashcardToUpdate = _flashcards[card.id];
-	    flashcardToUpdate["grade"] = card.grade;
-	    flashcardToUpdate["reviewTotal"] += 1;
-	  });
-	  FlashcardStore.__emitChange();
-	};
-	
-	FlashcardStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case FlashcardConstants.RECEIVE_FLASHCARDS:
-	      receiveFlashcards(payload.flashcards);
-	      break;
-	    case FlashcardConstants.RECEIVE_FLASHCARD:
-	      receiveAFlashcard(payload.flashcard);
-	      break;
-	    case FlashcardConstants.REMOVE_FLASHCARD:
-	      removeFlashcard(payload.flashcard);
-	      break;
-	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
-	      receiveReviewResults(payload.summary.review.flashcards);
-	      break;
-	  }
-	};
-	
-	module.exports = FlashcardStore;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_FLASHCARDS: "RECEIVE_FLASHCARDS",
-	  RECEIVE_FLASHCARD: "RECEIVE_FLASHCARD",
-	  REMOVE_FLASHCARD: "REMOVE_FLASHCARD"
-	};
-
-/***/ },
-/* 289 */
-/***/ function(module, exports) {
-
-	var Util = {
-	  shuffle: function (cards) {
-	    var cardsWithSeeds = {};
-	    for (var i = 0; i < cards.length; i++) {
-	      cardsWithSeeds[Math.random()] = cards[i];
-	    }
-	
-	    var orderedSeeds = Util.quickSort(Object.keys(cardsWithSeeds));
-	    var shuffledCards = [];
-	    for (var i = 0; i < orderedSeeds.length; i++) {
-	      var nextCard = cardsWithSeeds[orderedSeeds[i]];
-	
-	      shuffledCards.push(nextCard);
-	    }
-	
-	    return shuffledCards;
-	  },
-	
-	  quickSort: function (arr) {
-	    if (arr.length <= 1) {
-	      return arr;
-	    }
-	
-	    var pivot = arr[0];
-	    var lessThanPivot = [];
-	    var greaterThanPivot = [];
-	
-	    for (var i = 1; i < arr.length; i++) {
-	      if (arr[i] < pivot) {
-	        lessThanPivot.push(arr[i]);
-	      } else {
-	        greaterThanPivot.push(arr[i]);
-	      }
-	    }
-	
-	    return Util.quickSort(lessThanPivot).concat(pivot).concat(Util.quickSort(greaterThanPivot));
-	  }
-	};
-	
-	module.exports = Util;
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var FlashcardApiUtil = __webpack_require__(291);
-	module.exports = {
-	  fetchFlashcards: function (deckId) {
-	    FlashcardApiUtil.fetchFlashcards(deckId);
-	  },
-	
-	  fetchAFlashcard: function (id) {
-	    FlashcardApiUtil.fetchAFlashcard(id);
-	  },
-	
-	  createFlashcard: function (flashcard, deckId) {
-	    FlashcardApiUtil.createFlashcard(flashcard, deckId);
-	  },
-	
-	  editFlashcard: function (flashcard) {
-	    FlashcardApiUtil.editFlashcard(flashcard);
-	  },
-	
-	  destroyFlashcard: function (id) {
-	    FlashcardApiUtil.destroyFlashcard(id);
-	  }
-	};
-
-/***/ },
-/* 291 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(288);
-	
-	module.exports = {
-	  fetchFlashcards: function (deckId) {
-	    $.ajax({
-	      url: "/api/decks/" + deckId + "/flashcards",
-	      type: "GET",
-	      success: function (flashcards) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARDS,
-	          flashcards: flashcards
-	        });
-	      }
-	    });
-	  },
-	
-	  fetchAFlashcard: function (id) {
-	    $.ajax({
-	      url: 'api/flashcards/' + id,
-	      type: 'GET',
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  createFlashcard: function (flashcard, deckId) {
-	    $.ajax({
-	      url: 'api/flashcards',
-	      type: 'POST',
-	      data: { flashcard: flashcard, deck_id: deckId },
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  editFlashcard: function (flashcard) {
-	    $.ajax({
-	      url: 'api/flashcards/' + flashcard.id,
-	      type: 'PATCH',
-	      data: { flashcard: flashcard },
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  },
-	
-	  destroyFlashcard: function (id) {
-	    $.ajax({
-	      url: 'api/flashcards/' + id,
-	      type: 'DELETE',
-	      success: function (flashcard) {
-	        AppDispatcher.dispatch({
-	          actionType: FlashcardConstants.REMOVE_FLASHCARD,
-	          flashcard: flashcard
-	        });
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	var FlashcardIndexItem = React.createClass({
-	  displayName: 'FlashcardIndexItem',
-	
-	  render: function () {
-	    //TODO change the following link such that it goes to the flashcard show page
-	    return React.createElement(
-	      Link,
-	      { to: "/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId },
-	      React.createElement(
-	        'li',
-	        { className: 'Flashcard-Index-Item' },
-	        React.createElement(
-	          'p',
-	          null,
-	          this.props.grade
-	        ),
-	        React.createElement(
-	          'h5',
-	          null,
-	          this.props.front.slice(0, 12)
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardIndexItem;
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(287);
-	var FlashcardActions = __webpack_require__(290);
-	var Link = __webpack_require__(168).Link;
-	var Preview = __webpack_require__(294);
-	var Info = __webpack_require__(295);
-	var Options = __webpack_require__(296);
-	
-	var FlashcardShow = React.createClass({
-	  displayName: 'FlashcardShow',
-	
-	  //TODO go back and make it so the store fetches on load
-	  getInitialState: function () {
-	    return { card: FlashcardStore.find(this.props.params.cardId) };
-	  },
-	
-	  render: function () {
-	    var arrow = "<";
-	    var cards_url = "/decks/" + this.props.params.id + "/flashcards";
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'Flashcard-Show Parent-Component' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: cards_url },
-	          arrow
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Card'
-	        )
-	      ),
-	      React.createElement('div', { className: 'ClearSet' }),
-	      React.createElement(Preview, { card: this.state.card }),
-	      React.createElement(
-	        'div',
-	        { className: 'Not-Preview' },
-	        React.createElement(Info, { card: this.state.card }),
-	        React.createElement(Options, { cardId: this.props.params.cardId, deckId: this.props.params.id })
-	      ),
-	      React.createElement('div', { className: 'ClearSet' })
-	    );
-	  }
-	});
-	
-	module.exports = FlashcardShow;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Preview = React.createClass({
-	  displayName: "Preview",
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      "div",
-	      { className: "Preview" },
-	      React.createElement(
-	        "p",
-	        null,
-	        React.createElement(
-	          "div",
-	          { className: "Front" },
-	          this.props.card.front
-	        )
-	      ),
-	      React.createElement("div", { className: "Preview-Divider" }),
-	      React.createElement(
-	        "p",
-	        null,
-	        React.createElement(
-	          "div",
-	          { className: "Back" },
-	          this.props.card.back
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Preview;
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Info = React.createClass({
-	  displayName: "Info",
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      "div",
-	      { className: "Info" },
-	      React.createElement(
-	        "h4",
-	        { className: "Stat-Header" },
-	        "INFO"
-	      ),
-	      React.createElement(
-	        "ul",
-	        { className: "Stat-List" },
-	        React.createElement(
-	          "li",
-	          { className: "Statistic" },
-	          React.createElement(
-	            "p",
-	            { className: "StatTitle" },
-	            "Total number of Reviews"
-	          ),
-	          React.createElement(
-	            "p",
-	            { className: "Stat" },
-	            this.props.card.reviewTotal
-	          ),
-	          React.createElement("div", { className: "ClearSet" })
-	        ),
-	        React.createElement(
-	          "li",
-	          { className: "Statistic" },
-	          React.createElement(
-	            "p",
-	            { className: "StatTitle" },
-	            "Grade"
-	          ),
-	          React.createElement(
-	            "p",
-	            { className: "Stat" },
-	            this.props.card.grade
-	          ),
-	          React.createElement("div", { className: "ClearSet" })
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Info;
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(290);
-	var FlashcardStore = __webpack_require__(287);
-	
-	var Options = React.createClass({
-	  displayName: 'Options',
-	
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  flashcardStoreCB: function () {
-	    var deckId = this.props.deckId;
-	    this.context.router.push("/decks/" + deckId + "/flashcards");
-	  },
-	
-	  destroyCB: function (e) {
-	    e.preventDefault();
-	    FlashcardActions.destroyFlashcard(this.props.cardId);
-	  },
-	
-	  render: function () {
-	    var deckId = this.props.deckId;
-	    var cardId = this.props.cardId;
-	    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
-	    return React.createElement(
-	      'div',
-	      { className: 'Options' },
-	      React.createElement(
-	        Link,
-	        { to: editDeckUrl },
-	        'Edit'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.destroyCB },
-	        'Destroy'
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Options;
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Form = __webpack_require__(298);
-	var HeaderWithBack = __webpack_require__(299);
-	var Link = __webpack_require__(168).Link;
-	
-	NewCard = React.createClass({
-	  displayName: 'NewCard',
-	
-	
-	  render: function () {
-	    var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
-	    return React.createElement(
-	      'div',
-	      { className: 'Flashcard-Edit Parent-Component' },
-	      React.createElement(HeaderWithBack, { title: 'New Card', url: deckIndexUrl }),
-	      React.createElement(Form, { deckId: this.props.params.id })
-	    );
-	  }
-	});
-	
-	module.exports = NewCard;
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(290);
-	var FlashcardStore = __webpack_require__(287);
-	var Preview = __webpack_require__(294);
-	
-	var Form = React.createClass({
-	  displayName: 'Form',
-	
-	
-	  getInitialState: function () {
-	    return { front: "", back: "", cardSaved: false };
-	  },
-	
-	  componentDidMount: function () {
-	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	  },
-	
-	  flashcardStoreCB: function () {
-	    this.setState({ front: "", back: "", cardSaved: true });
-	    setTimeout(this.turnOffFlash, 3000);
-	  },
-	
-	  turnOffFlash: function () {
-	    this.setState({ cardSaved: false });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.eventToken.remove();
-	  },
-	
-	  changeFront: function (e) {
-	    var newFront = e.target.value;
-	    this.setState({ front: newFront });
-	  },
-	
-	  changeBack: function (e) {
-	    var newBack = e.target.value;
-	    this.setState({ back: newBack });
-	  },
-	
-	  submitCB: function (e) {
-	    e.preventDefault();
-	    FlashcardActions.createFlashcard({
-	      front: this.state.front,
-	      back: this.state.back
-	    }, this.props.deckId);
-	  },
-	
-	  render: function () {
-	
-	    var flash = "";
-	
-	    if (this.state.cardSaved) {
-	      flash = React.createElement(
-	        'div',
-	        { className: 'Flash' },
-	        'Card Saved'
-	      );
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'Form' },
-	      flash,
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.submitCB },
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Front'
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          React.createElement('textarea', { type: 'text',
-	            onChange: this.changeFront,
-	            className: 'FrontInput' })
-	        ),
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Back'
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          React.createElement('textarea', { type: 'text',
-	            onChange: this.changeBack,
-	            className: 'BackInput' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
-	      ),
-	      React.createElement(Preview, { card: this.state }),
-	      React.createElement('div', { className: 'ClearSet' })
-	    );
-	  }
-	});
-	
-	module.exports = Form;
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	HeaderWithBack = React.createClass({
-	  displayName: 'HeaderWithBack',
-	
-	  render: function () {
-	    var arrow = "<";
-	    return React.createElement(
-	      'div',
-	      { className: 'Header-With-Arrow' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: this.props.url },
-	          arrow
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          this.props.title
-	        )
-	      ),
-	      React.createElement('div', { className: 'ClearSet' })
-	    );
-	  }
-	});
-	
-	module.exports = HeaderWithBack;
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Form = __webpack_require__(301);
-	var HeaderWithBack = __webpack_require__(299);
-	var Link = __webpack_require__(168).Link;
-	
-	EditCard = React.createClass({
-	  displayName: 'EditCard',
-	
-	
-	  render: function () {
-	    var deckId = this.props.params.id;
-	    var cardId = this.props.params.cardId;
-	    var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
-	    return React.createElement(
-	      'div',
-	      { className: 'Flashcard-Edit Parent-Component' },
-	      React.createElement(HeaderWithBack, { title: 'Edit Card', url: cardShowUrl }),
-	      React.createElement(Form, { deckId: deckId, cardId: cardId })
-	    );
-	  }
-	});
-	
-	module.exports = EditCard;
-
-/***/ },
-/* 301 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(290);
-	var FlashcardStore = __webpack_require__(287);
-	var Preview = __webpack_require__(294);
-	
-	var Form = React.createClass({
-	  displayName: 'Form',
-	
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  getInitialState: function () {
-	    var card = FlashcardStore.find(this.props.cardId);
-	
-	    return { front: card.front, back: card.back };
-	  },
-	
-	  componentDidMount: function () {
-	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	  },
-	
-	  flashcardStoreCB: function () {
-	    var deckId = this.props.deckId;
-	    var cardId = this.props.cardId;
-	    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.eventToken.remove();
-	  },
-	
-	  changeFront: function (e) {
-	    var newFront = e.target.value;
-	    this.setState({ front: newFront });
-	  },
-	
-	  changeBack: function (e) {
-	    var newBack = e.target.value;
-	    this.setState({ back: newBack });
-	  },
-	
-	  submitCB: function (e) {
-	    e.preventDefault();
-	    FlashcardActions.editFlashcard({
-	      front: this.state.front,
-	      back: this.state.back,
-	      id: this.props.cardId
-	    });
-	  },
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'Form' },
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.submitCB },
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Front'
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          React.createElement('textarea', {
-	            onChange: this.changeFront,
-	            className: 'FrontInput',
-	            value: this.state.front })
-	        ),
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Back'
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          React.createElement('textarea', {
-	            onChange: this.changeBack,
-	            className: 'BackInput',
-	            value: this.state.back })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
-	      ),
-	      React.createElement(Preview, { card: this.state }),
-	      React.createElement('div', { className: 'ClearSet' })
-	    );
-	  }
-	});
-	
-	module.exports = Form;
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Recap = __webpack_require__(303);
-	var Front = __webpack_require__(304);
-	var Flipped = __webpack_require__(305);
-	var FlashcardStore = __webpack_require__(287);
-	var FlashcardActions = __webpack_require__(290);
-	var ReviewActions = __webpack_require__(306);
-	var DeckStore = __webpack_require__(267);
-	
-	var Review = React.createClass({
-	  displayName: 'Review',
-	
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  getInitialState: function () {
-	    return {
-	      cardIdx: 0,
-	      flipped: false,
-	      reviewSummary: {},
-	      deckName: DeckStore.find(this.props.params.id).name
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	    FlashcardActions.fetchFlashcards(this.props.params.id);
-	  },
-	
-	  flashcardStoreCB: function () {
-	    this.setState({ cards: FlashcardStore.drawCards(10) });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  backArrowCB: function (e) {
-	    e.preventDefault();
-	
-	    this.context.router.push("/decks/" + this.props.params.id);
-	    if (!this._reviewSummaryEmpty()) {
-	      this.shipGrades();
-	    }
-	    this.resetReviewState();
-	  },
-	
-	  flipCB: function () {
-	    this.setState({ flipped: true });
-	  },
-	
-	  gradeCB: function (grade) {
-	    var cardId = this.state.cards[this.state.cardIdx].id;
-	    this.state.reviewSummary[cardId] = grade;
-	    if (this.state.cardIdx === 9) {
-	      this.shipGrades();
-	    }
-	    console.log(this.state.reviewSummary);
-	    this.setState({ cardIdx: this.state.cardIdx + 1, flipped: false });
-	  },
-	
-	  continueCB: function () {
-	    this.resetReviewState();
-	  },
-	
-	  shipGrades: function () {
-	    ReviewActions.logReview({
-	      deck_id: this.props.params.id,
-	      review_grades: this.state.reviewSummary
-	    });
-	  },
-	
-	  resetReviewState: function () {
-	    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
-	  },
-	
-	  _reviewSummaryEmpty: function () {
-	    return Object.keys(this.state.reviewSummary).length === 0;
-	  },
-	
-	  render: function () {
-	    var arrow = "<";
-	    var title = "Review";
-	    var cardFront = "";
-	    var cardBack = "";
-	    if (this.state.cards && this.state.cardIdx < 10) {
-	      cardFront = this.state.cards[this.state.cardIdx].front;
-	      cardBack = this.state.cards[this.state.cardIdx].back;
-	    }
-	    if (this.state.cardIdx === 10) {
-	      title = "Recap";
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'Parent-Component Review' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          'button',
-	          { onClick: this.backArrowCB, className: 'BackLink' },
-	          arrow
-	        ),
-	        React.createElement(
-	          'p',
-	          { className: 'Title' },
-	          title
-	        )
-	      ),
-	      React.createElement(
-	        'h6',
-	        null,
-	        this.state.deckName
-	      ),
-	      React.createElement(Front, { showing: this.state.cardIdx < 10 && !this.state.flipped,
-	        cardFront: cardFront,
-	        flipCB: this.flipCB }),
-	      React.createElement(Flipped, { showing: this.state.cardIdx < 10 && this.state.flipped,
-	        cardFront: cardFront,
-	        cardBack: cardBack,
-	        gradeCB: this.gradeCB }),
-	      React.createElement(Recap, { showing: this.state.cardIdx === 10,
-	        continueCB: this.continueCB })
-	    );
-	  }
-	});
-	
-	module.exports = Review;
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Recap = React.createClass({
-	  displayName: "Recap",
-	
-	  render: function () {
-	    if (!this.props.showing) {
-	      return React.createElement("div", null);
-	    }
-	
-	    return React.createElement(
-	      "div",
-	      null,
-	      React.createElement(
-	        "div",
-	        { className: "Review-Grade" },
-	        React.createElement(
-	          "div",
-	          null,
-	          "Insert Grade Graph Here"
-	        )
-	      ),
-	      React.createElement(
-	        "div",
-	        { className: "Review-Info" },
-	        React.createElement(
-	          "h4",
-	          { className: "Stat-Header" },
-	          "Info"
-	        ),
-	        React.createElement(
-	          "ul",
-	          { className: "Stat-List" },
-	          React.createElement(
-	            "li",
-	            { className: "Statistic" },
-	            React.createElement(
-	              "p",
-	              { className: "StatTitle" },
-	              "Reviews per Day (average)"
-	            ),
-	            React.createElement(
-	              "p",
-	              { className: "Stat" },
-	              "Insert Total"
-	            ),
-	            React.createElement("div", { className: "ClearSet" })
-	          ),
-	          React.createElement(
-	            "li",
-	            { className: "Statistic" },
-	            React.createElement(
-	              "p",
-	              { className: "StatTitle" },
-	              "Reviews Today"
-	            ),
-	            React.createElement(
-	              "p",
-	              { className: "Stat" },
-	              "Insert Total"
-	            ),
-	            React.createElement("div", { className: "ClearSet" })
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        "button",
-	        { className: "Normal-Button", onClick: this.props.continueCB },
-	        "Continue"
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Recap;
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Front = React.createClass({
-	  displayName: "Front",
-	
-	  render: function () {
-	    if (!this.props.showing) {
-	      return React.createElement("div", null);
-	    }
-	    return React.createElement(
-	      "div",
-	      { className: "Front" },
-	      React.createElement("div", { className: "Spacer" }),
-	      React.createElement(
-	        "div",
-	        { className: "Card-Front" },
-	        this.props.cardFront
-	      ),
-	      React.createElement("div", { className: "Spacer" }),
-	      React.createElement(
-	        "button",
-	        { className: "Normal-Button", onClick: this.props.flipCB },
-	        "Flip"
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Front;
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Preview = __webpack_require__(294);
-	
-	var Flipped = React.createClass({
-	  displayName: 'Flipped',
-	
-	  render: function () {
-	    if (!this.props.showing) {
-	      return React.createElement('div', null);
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'Flipped' },
-	      React.createElement(Preview, { card: { front: this.props.cardFront, back: this.props.cardBack } }),
-	      React.createElement(
-	        'div',
-	        { className: 'Buttons' },
-	        React.createElement(
-	          'button',
-	          { className: 'Fail',
-	            onClick: this.props.gradeCB.bind(null, 0) },
-	          'Fail'
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'Hard',
-	            onClick: this.props.gradeCB.bind(null, 35) },
-	          'Hard'
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'Good',
-	            onClick: this.props.gradeCB.bind(null, 70) },
-	          'Good'
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'Easy',
-	            onClick: this.props.gradeCB.bind(null, 100) },
-	          'Easy'
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Flipped;
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ReviewApiUtil = __webpack_require__(307);
-	
-	module.exports = {
-	  logReview: function (reviewSummary) {
-	    ReviewApiUtil.create(reviewSummary);
-	  }
-	};
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(233);
-	var ReviewConstants = __webpack_require__(269);
-	
-	module.exports = {
-	  create: function (reviewSummary) {
-	    $.ajax({
-	      url: "/api/reviews",
-	      type: "POST",
-	      data: {
-	        deck_id: reviewSummary.deck_id,
-	        review_grades: reviewSummary.review_grades
-	      },
-	      success: function (reviewSummary) {
-	        AppDispatcher.dispatch({
-	          actionType: ReviewConstants.RECEIVE_REVIEW_SUMMARY,
-	          summary: reviewSummary
-	        });
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 308 */,
-/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35874,6 +33577,2304 @@
 	});
 	
 	module.exports = Test;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Footer = __webpack_require__(259);
+	var UserActions = __webpack_require__(230);
+	var UserStore = __webpack_require__(237);
+	var ProfilePage = React.createClass({
+	  displayName: 'ProfilePage',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  logoutCB: function (e) {
+	    e.preventDefault();
+	    UserActions.logout();
+	    this.context.router.push('auth');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Profile Parent-Component' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Profile'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'Stat-Header' },
+	        'Account'
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'Stat-List' },
+	        React.createElement(
+	          'li',
+	          { className: 'Statistic' },
+	          React.createElement(
+	            'p',
+	            { className: 'StatTitle' },
+	            'Username'
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'Stat' },
+	            UserStore.currentUser().username
+	          ),
+	          React.createElement('div', { className: 'ClearSet' })
+	        )
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.logoutCB, className: 'Cancel-Logout-Button' },
+	        'Log Out'
+	      ),
+	      React.createElement(Footer, null)
+	    );
+	  }
+	});
+	
+	module.exports = ProfilePage;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SearchBar = __webpack_require__(266);
+	var DeckIndex = __webpack_require__(267);
+	var Footer = __webpack_require__(259);
+	
+	var UserDecks = React.createClass({
+	  displayName: 'UserDecks',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Parent-Component' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'My Decks '
+	      ),
+	      React.createElement(SearchBar, null),
+	      React.createElement(
+	        'div',
+	        { className: 'Overflow-Test' },
+	        React.createElement(DeckIndex, null)
+	      ),
+	      React.createElement(Footer, null)
+	    );
+	  }
+	});
+	
+	module.exports = UserDecks;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var DecksSearchBar = React.createClass({
+	  displayName: "DecksSearchBar",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "Search-Container" },
+	      React.createElement(
+	        "label",
+	        { "for": "deck-search" },
+	        " Search:"
+	      ),
+	      React.createElement("input", { id: "deck-search", type: "text" })
+	    );
+	  }
+	});
+	
+	module.exports = DecksSearchBar;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DeckStore = __webpack_require__(268);
+	var DeckActions = __webpack_require__(271);
+	var DeckIndexItem = __webpack_require__(273);
+	
+	var DeckIndex = React.createClass({
+	  displayName: 'DeckIndex',
+	
+	
+	  getInitialState: function () {
+	    return { decks: DeckStore.all() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = DeckStore.addListener(this.deckStoreCB);
+	    DeckActions.fetchDecks();
+	  },
+	
+	  deckStoreCB: function () {
+	    this.setState({ decks: DeckStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	
+	    var deckList = React.createElement(
+	      'div',
+	      { className: 'Wrapper' },
+	      this.state.decks.map(function (deck) {
+	        return React.createElement(DeckIndexItem, { key: deck.id,
+	          id: deck.id,
+	          name: deck.name,
+	          totalCards: deck.cardTotal,
+	          grade: deck.grade });
+	      })
+	    );
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        deckList
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = DeckIndex;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var DeckConstants = __webpack_require__(269);
+	var ReviewConstants = __webpack_require__(270);
+	var hashHistory = __webpack_require__(168).hashHistory;
+	
+	var DeckStore = new Store(AppDispatcher);
+	var _decks = {};
+	
+	DeckStore.all = function () {
+	  var decks = [];
+	
+	  for (var id in _decks) {
+	    decks.push(_decks[id]);
+	  }
+	  return decks;
+	};
+	
+	DeckStore.find = function (id) {
+	  if (_decks[id]) {
+	    return $.extend({}, _decks[id]);
+	  }
+	};
+	
+	var receiveDecks = function (decks) {
+	  _decks = {};
+	
+	  decks.forEach(function (deck) {
+	    _decks[deck.id] = deck;
+	  });
+	  DeckStore.__emitChange();
+	};
+	
+	var receiveADeck = function (deck) {
+	  _decks[deck.id] = deck;
+	  DeckStore.__emitChange();
+	  //TODO refactor this into a callback in the new deck form, if possible
+	  hashHistory.push('/decks/' + deck.id);
+	};
+	
+	var removeDeck = function (deck) {
+	  delete _decks[deck.id];
+	  DeckStore.__emitChange();
+	};
+	
+	var receiveReviewResults = function (deck) {
+	  var deckToUpdate = _decks[deck.id];
+	  deckToUpdate["reviewTotal"] += 1;
+	  deckToUpdate["grade"] = deck.grade;
+	  DeckStore.__emitChange();
+	};
+	
+	DeckStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case DeckConstants.RECEIVE_DECKS:
+	      receiveDecks(payload.decks);
+	      break;
+	    case DeckConstants.RECEIVE_DECK:
+	      receiveADeck(payload.deck);
+	      break;
+	    case DeckConstants.REMOVE_DECK:
+	      removeDeck(payload.deck);
+	      break;
+	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
+	      receiveReviewResults(payload.summary.review.deck);
+	      break;
+	  }
+	};
+	
+	module.exports = DeckStore;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_DECKS: "RECEIVE_DECKS",
+	  RECEIVE_DECK: "RECEIVE_DECK",
+	  REMOVE_DECK: "REMOVE_DECK"
+	};
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_REVIEW_SUMMARY: "RECEIVE_REVIEW_SUMMARY"
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DeckApiUtil = __webpack_require__(272);
+	module.exports = {
+	  fetchDecks: function () {
+	    DeckApiUtil.fetchDecks();
+	  },
+	
+	  fetchADeck: function (id) {
+	    DeckApiUtil.fetchADeck(id);
+	  },
+	
+	  createDeck: function (deck) {
+	    DeckApiUtil.createDeck(deck);
+	  },
+	
+	  editDeck: function (deck) {
+	    DeckApiUtil.editDeck(deck);
+	  },
+	
+	  destroyDeck: function (id) {
+	    DeckApiUtil.destroyDeck(id);
+	  }
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DeckConstants = __webpack_require__(269);
+	var AppDispatcher = __webpack_require__(233);
+	
+	module.exports = {
+	  fetchDecks: function () {
+	    $.ajax({
+	      url: "/api/decks",
+	      type: "GET",
+	      success: function (decks) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECKS,
+	          decks: decks
+	        });
+	      }
+	    });
+	  },
+	
+	  fetchADeck: function (id) {
+	    $.ajax({
+	      url: 'api/decks/' + id,
+	      type: 'GET',
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  createDeck: function (deck) {
+	    $.ajax({
+	      url: 'api/decks',
+	      type: 'POST',
+	      data: { deck: deck },
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  editDeck: function (deck) {
+	    $.ajax({
+	      url: 'api/decks/' + deck.id,
+	      type: 'PATCH',
+	      data: { deck: deck },
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  destroyDeck: function (id) {
+	    $.ajax({
+	      url: 'api/decks/' + id,
+	      type: 'DELETE',
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: DeckConstants.REMOVE_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var DeckIndexItem = React.createClass({
+	  displayName: 'DeckIndexItem',
+	
+	  render: function () {
+	    return React.createElement(
+	      Link,
+	      { to: "decks/" + this.props.id },
+	      React.createElement(
+	        'li',
+	        { className: 'Deck-Index-Item' },
+	        React.createElement(
+	          'div',
+	          { className: 'Left-Side-Content' },
+	          React.createElement(
+	            'h5',
+	            null,
+	            this.props.name
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.totalCards
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'Grade' },
+	          this.props.grade
+	        ),
+	        React.createElement('div', { className: 'ClearSet' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = DeckIndexItem;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(275);
+	var Header = __webpack_require__(276);
+	
+	var NewDeck = React.createClass({
+	  displayName: 'NewDeck',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'NewDeck' },
+	      React.createElement(Header, null),
+	      React.createElement(Form, null)
+	    );
+	  }
+	});
+	
+	module.exports = NewDeck;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DeckActions = __webpack_require__(271);
+	var DeckStore = __webpack_require__(268);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    return { name: "", description: "" };
+	  },
+	
+	  changeName: function (e) {
+	    var newName = e.target.value;
+	    this.setState({ name: newName });
+	  },
+	
+	  changeDescription: function (e) {
+	    var newDescription = e.target.value;
+	    this.setState({ description: newDescription });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    DeckActions.createDeck({
+	      name: this.state.name,
+	      description: this.state.description
+	    });
+	
+	    //TODO redirect to deck show with callback in Deck store
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeName, className: 'NameInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Description',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', onChange: this.changeDescription, className: 'DescriptionInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var Header = React.createClass({
+	  displayName: 'Header',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Header' },
+	      React.createElement(
+	        Link,
+	        { to: '/dashboard', className: 'Cancel' },
+	        'Cancel'
+	      ),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'New Deck'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Header;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Content = __webpack_require__(278);
+	var Options = __webpack_require__(281);
+	var DeckHistory = __webpack_require__(280);
+	var Link = __webpack_require__(168).Link;
+	
+	var DeckShow = React.createClass({
+	  displayName: 'DeckShow',
+	
+	  render: function () {
+	    var arrow = "<";
+	    return React.createElement(
+	      'div',
+	      { className: 'DeckShow' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: '/decks', className: 'BackLink' },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'Title' },
+	          'Deck'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'BelowHeader' },
+	        React.createElement(Content, { deckId: this.props.params.id }),
+	        React.createElement(DeckHistory, null),
+	        React.createElement(Options, { deckId: this.props.params.id }),
+	        React.createElement('div', { className: 'ClearSet' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = DeckShow;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Info = __webpack_require__(279);
+	var History = __webpack_require__(280);
+	var DeckStore = __webpack_require__(268);
+	var DeckActions = __webpack_require__(271);
+	
+	var Content = React.createClass({
+	  displayName: 'Content',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    return { deck: null };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = DeckStore.addListener(this.storeCB);
+	    DeckActions.fetchADeck(parseInt(this.props.deckId));
+	  },
+	
+	  storeCB: function () {
+	    this.setState({ deck: DeckStore.find(parseInt(this.props.deckId)) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  reviewCB: function (e) {
+	    e.preventDefault();
+	    this.context.router.push("/decks/" + this.state.deck.id + "/review");
+	  },
+	
+	  render: function () {
+	    var deckName, cardTotal, grade;
+	
+	    if (this.state.deck) {
+	      deckName = this.state.deck.name;
+	      cardTotal = this.state.deck.cardTotal;
+	      grade = this.state.deck.grade;
+	    } else {
+	      deckName = "";
+	      cardTotal = 0;
+	      grade = 0;
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'ShowContent' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        deckName
+	      ),
+	      React.createElement(Info, { cardTotal: cardTotal,
+	        grade: grade }),
+	      React.createElement('div', { className: 'Divider' }),
+	      React.createElement(History, null),
+	      React.createElement('div', { className: 'ClearSet' }),
+	      React.createElement(
+	        'button',
+	        { className: 'Review', onClick: this.reviewCB },
+	        React.createElement(
+	          'div',
+	          { className: 'buttonText' },
+	          'Review'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Content;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Info = React.createClass({
+	  displayName: "Info",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "DeckInfo" },
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Info"
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "div",
+	          null,
+	          "insertTotal"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          this.props.cardTotal
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "div",
+	          null,
+	          this.props.grade,
+	          "%"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Grade"
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        "gradeByCardGraph"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Info;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var History = React.createClass({
+	  displayName: "History",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "DeckHistory" },
+	      React.createElement(
+	        "h4",
+	        { className: "Stat-Header" },
+	        "History"
+	      ),
+	      React.createElement(
+	        "ul",
+	        { className: "Stat-List" },
+	        React.createElement(
+	          "li",
+	          { className: "Statistic" },
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Reviews Today"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            "Insert Total"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        ),
+	        React.createElement(
+	          "li",
+	          { className: "Statistic" },
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Reviews per Day (average)"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            "Insert Total"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        ),
+	        React.createElement(
+	          "li",
+	          { className: "Statistic" },
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Total number of Review"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            "Insert Total"
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        "Insert weekly breakdown of Reviews"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = History;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	//TODO set link destinations to proper destinations
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Options' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Options'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: "/edit-deck/" + this.props.deckId },
+	            'Edit Deck'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: "/decks/" + this.props.deckId + "/flashcards" },
+	            'Cards'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Remove'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Options;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(283);
+	var Header = __webpack_require__(284);
+	
+	var EditDeck = React.createClass({
+	  displayName: 'EditDeck',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'EditDeck' },
+	      React.createElement(Header, { deckId: this.props.params.id }),
+	      React.createElement(Form, { deckId: this.props.params.id })
+	    );
+	  }
+	});
+	
+	module.exports = EditDeck;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DeckActions = __webpack_require__(271);
+	var DeckStore = __webpack_require__(268);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  getInitialState: function () {
+	    var deck = DeckStore.find(this.props.deckId);
+	    return { name: deck.name, description: deck.description };
+	  },
+	
+	  changeName: function (e) {
+	    var newName = e.target.value;
+	    this.setState({ name: newName });
+	  },
+	
+	  changeDescription: function (e) {
+	    var newDescription = e.target.value;
+	    this.setState({ description: newDescription });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    DeckActions.editDeck({
+	      name: this.state.name,
+	      description: this.state.description,
+	      id: this.props.deckId
+	    });
+	
+	    //TODO redirect to deck show with callback in Deck store
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeName,
+	            value: this.state.name,
+	            className: 'NameInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Description',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeDescription,
+	            value: this.state.description,
+	            className: 'DescriptionInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var Header = React.createClass({
+	  displayName: 'Header',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Header' },
+	      React.createElement(
+	        Link,
+	        { to: "/decks/" + this.props.deckId, className: 'Cancel' },
+	        'Cancel'
+	      ),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Edit Deck'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Header;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SearchBar = __webpack_require__(286);
+	var List = __webpack_require__(287);
+	var Link = __webpack_require__(168).Link;
+	
+	var FlashcardIndex = React.createClass({
+	  displayName: 'FlashcardIndex',
+	
+	
+	  render: function () {
+	    var arrow = "<";
+	    return React.createElement(
+	      'div',
+	      { className: 'Parent-Component Flashcard-Index' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: "/decks/" + this.props.params.id, className: 'Header-Link' },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Cards'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link' },
+	          'New'
+	        ),
+	        React.createElement('div', { className: 'ClearSet' })
+	      ),
+	      React.createElement(SearchBar, null),
+	      React.createElement(
+	        'div',
+	        { className: 'Overflow-Test' },
+	        React.createElement(List, { deckId: this.props.params.id })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardIndex;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var FlashcardsSearchBar = React.createClass({
+	  displayName: "FlashcardsSearchBar",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "Search-Container" },
+	      React.createElement(
+	        "label",
+	        { "for": "deck-search" },
+	        " Search:"
+	      ),
+	      React.createElement("input", { id: "deck-search", type: "text" })
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardsSearchBar;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardStore = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(291);
+	var FlashcardIndexItem = __webpack_require__(293);
+	
+	var FlashcardIndex = React.createClass({
+	  displayName: 'FlashcardIndex',
+	
+	
+	  getInitialState: function () {
+	    return { flashcards: [] };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    FlashcardActions.fetchFlashcards(this.props.deckId);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ flashcards: FlashcardStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	    var list = "";
+	    var deckId = this.props.deckId;
+	    if (this.state.flashcards.length !== 0) {
+	
+	      var list = React.createElement(
+	        'div',
+	        { className: 'Wrapper' },
+	        this.state.flashcards.map(function (flashcard) {
+	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
+	            cardId: flashcard.id,
+	            key: flashcard.id,
+	            front: flashcard.front,
+	            grade: "insertGrade",
+	            deckId: deckId });
+	        })
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'List-Div' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        list
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardIndex;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(238).Store;
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(289);
+	var ReviewConstants = __webpack_require__(270);
+	var Util = __webpack_require__(290);
+	
+	var FlashcardStore = new Store(AppDispatcher);
+	var _flashcards = {};
+	
+	FlashcardStore.all = function () {
+	  var flashcards = [];
+	
+	  for (var id in _flashcards) {
+	    flashcards.push(_flashcards[id]);
+	  }
+	  return flashcards;
+	};
+	
+	FlashcardStore.find = function (id) {
+	  if (_flashcards[id]) {
+	    return $.extend({}, _flashcards[id]);
+	  }
+	};
+	
+	FlashcardStore.drawCards = function (total) {
+	  var cards = [];
+	  var gradeInts = [0, 50, 60, 70, 80, 90, 100];
+	
+	  for (var i = 0; i < gradeInts.length - 1; i++) {
+	    var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1]);
+	
+	    for (var j = 0; j < shuffledCards.length; j++) {
+	      if (cards.length === total || cards.length === storeSize()) {
+	        return cards;
+	      }
+	
+	      cards.push(shuffledCards[j]);
+	    }
+	  }
+	
+	  return cards;
+	};
+	//TODO undo window, for testing only
+	shuffledFlashcardsByGrade = function (lower, upper) {
+	  var flashcards = [];
+	
+	  for (var id in _flashcards) {
+	    if (_flashcards[id].grade >= lower && _flashcards[id].grade <= upper) {
+	      flashcards.push(_flashcards[id]);
+	    }
+	  }
+	
+	  return Util.shuffle(flashcards);
+	};
+	
+	var storeSize = function () {
+	  return Object.keys(_flashcards).length;
+	};
+	
+	var receiveFlashcards = function (flashcards) {
+	  _flashcards = {};
+	
+	  flashcards.forEach(function (flashcard) {
+	    _flashcards[flashcard.id] = flashcard;
+	  });
+	  FlashcardStore.__emitChange();
+	};
+	
+	var receiveAFlashcard = function (flashcard) {
+	  _flashcards[flashcard.id] = flashcard;
+	  FlashcardStore.__emitChange();
+	};
+	
+	var removeFlashcard = function (flashcard) {
+	  delete _flashcards[flashcard.id];
+	  FlashcardStore.__emitChange();
+	};
+	
+	var receiveReviewResults = function (flashcards) {
+	  flashcards.forEach(function (card) {
+	    var flashcardToUpdate = _flashcards[card.id];
+	    flashcardToUpdate["grade"] = card.grade;
+	    flashcardToUpdate["reviewTotal"] += 1;
+	  });
+	  FlashcardStore.__emitChange();
+	};
+	
+	FlashcardStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FlashcardConstants.RECEIVE_FLASHCARDS:
+	      receiveFlashcards(payload.flashcards);
+	      break;
+	    case FlashcardConstants.RECEIVE_FLASHCARD:
+	      receiveAFlashcard(payload.flashcard);
+	      break;
+	    case FlashcardConstants.REMOVE_FLASHCARD:
+	      removeFlashcard(payload.flashcard);
+	      break;
+	    case ReviewConstants.RECEIVE_REVIEW_SUMMARY:
+	      receiveReviewResults(payload.summary.review.flashcards);
+	      break;
+	  }
+	};
+	
+	module.exports = FlashcardStore;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_FLASHCARDS: "RECEIVE_FLASHCARDS",
+	  RECEIVE_FLASHCARD: "RECEIVE_FLASHCARD",
+	  REMOVE_FLASHCARD: "REMOVE_FLASHCARD"
+	};
+
+/***/ },
+/* 290 */
+/***/ function(module, exports) {
+
+	var Util = {
+	  shuffle: function (cards) {
+	    var cardsWithSeeds = {};
+	    for (var i = 0; i < cards.length; i++) {
+	      cardsWithSeeds[Math.random()] = cards[i];
+	    }
+	
+	    var orderedSeeds = Util.quickSort(Object.keys(cardsWithSeeds));
+	    var shuffledCards = [];
+	    for (var i = 0; i < orderedSeeds.length; i++) {
+	      var nextCard = cardsWithSeeds[orderedSeeds[i]];
+	
+	      shuffledCards.push(nextCard);
+	    }
+	
+	    return shuffledCards;
+	  },
+	
+	  quickSort: function (arr) {
+	    if (arr.length <= 1) {
+	      return arr;
+	    }
+	
+	    var pivot = arr[0];
+	    var lessThanPivot = [];
+	    var greaterThanPivot = [];
+	
+	    for (var i = 1; i < arr.length; i++) {
+	      if (arr[i] < pivot) {
+	        lessThanPivot.push(arr[i]);
+	      } else {
+	        greaterThanPivot.push(arr[i]);
+	      }
+	    }
+	
+	    return Util.quickSort(lessThanPivot).concat(pivot).concat(Util.quickSort(greaterThanPivot));
+	  }
+	};
+	
+	module.exports = Util;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FlashcardApiUtil = __webpack_require__(292);
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    FlashcardApiUtil.fetchFlashcards(deckId);
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    FlashcardApiUtil.fetchAFlashcard(id);
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    FlashcardApiUtil.createFlashcard(flashcard, deckId);
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    FlashcardApiUtil.editFlashcard(flashcard);
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    FlashcardApiUtil.destroyFlashcard(id);
+	  }
+	};
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var FlashcardConstants = __webpack_require__(289);
+	
+	module.exports = {
+	  fetchFlashcards: function (deckId) {
+	    $.ajax({
+	      url: "/api/decks/" + deckId + "/flashcards",
+	      type: "GET",
+	      success: function (flashcards) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARDS,
+	          flashcards: flashcards
+	        });
+	      }
+	    });
+	  },
+	
+	  fetchAFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'GET',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  createFlashcard: function (flashcard, deckId) {
+	    $.ajax({
+	      url: 'api/flashcards',
+	      type: 'POST',
+	      data: { flashcard: flashcard, deck_id: deckId },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  editFlashcard: function (flashcard) {
+	    $.ajax({
+	      url: 'api/flashcards/' + flashcard.id,
+	      type: 'PATCH',
+	      data: { flashcard: flashcard },
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  },
+	
+	  destroyFlashcard: function (id) {
+	    $.ajax({
+	      url: 'api/flashcards/' + id,
+	      type: 'DELETE',
+	      success: function (flashcard) {
+	        AppDispatcher.dispatch({
+	          actionType: FlashcardConstants.REMOVE_FLASHCARD,
+	          flashcard: flashcard
+	        });
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	var FlashcardIndexItem = React.createClass({
+	  displayName: 'FlashcardIndexItem',
+	
+	  render: function () {
+	    //TODO change the following link such that it goes to the flashcard show page
+	    return React.createElement(
+	      Link,
+	      { to: "/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId },
+	      React.createElement(
+	        'li',
+	        { className: 'Flashcard-Index-Item' },
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.grade
+	        ),
+	        React.createElement(
+	          'h5',
+	          null,
+	          this.props.front.slice(0, 12)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardIndexItem;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardStore = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(291);
+	var Link = __webpack_require__(168).Link;
+	var Preview = __webpack_require__(295);
+	var Info = __webpack_require__(296);
+	var Options = __webpack_require__(297);
+	
+	var FlashcardShow = React.createClass({
+	  displayName: 'FlashcardShow',
+	
+	  //TODO go back and make it so the store fetches on load
+	  getInitialState: function () {
+	    return { card: FlashcardStore.find(this.props.params.cardId) };
+	  },
+	
+	  render: function () {
+	    var arrow = "<";
+	    var cards_url = "/decks/" + this.props.params.id + "/flashcards";
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Flashcard-Show Parent-Component' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: cards_url },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Card'
+	        )
+	      ),
+	      React.createElement('div', { className: 'ClearSet' }),
+	      React.createElement(Preview, { card: this.state.card }),
+	      React.createElement(
+	        'div',
+	        { className: 'Not-Preview' },
+	        React.createElement(Info, { card: this.state.card }),
+	        React.createElement(Options, { cardId: this.props.params.cardId, deckId: this.props.params.id })
+	      ),
+	      React.createElement('div', { className: 'ClearSet' })
+	    );
+	  }
+	});
+	
+	module.exports = FlashcardShow;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Preview = React.createClass({
+	  displayName: "Preview",
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "Preview" },
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement(
+	          "div",
+	          { className: "Front" },
+	          this.props.card.front
+	        )
+	      ),
+	      React.createElement("div", { className: "Preview-Divider" }),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement(
+	          "div",
+	          { className: "Back" },
+	          this.props.card.back
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Preview;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Info = React.createClass({
+	  displayName: "Info",
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "Info" },
+	      React.createElement(
+	        "h4",
+	        { className: "Stat-Header" },
+	        "INFO"
+	      ),
+	      React.createElement(
+	        "ul",
+	        { className: "Stat-List" },
+	        React.createElement(
+	          "li",
+	          { className: "Statistic" },
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Total number of Reviews"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            this.props.card.reviewTotal
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        ),
+	        React.createElement(
+	          "li",
+	          { className: "Statistic" },
+	          React.createElement(
+	            "p",
+	            { className: "StatTitle" },
+	            "Grade"
+	          ),
+	          React.createElement(
+	            "p",
+	            { className: "Stat" },
+	            this.props.card.grade
+	          ),
+	          React.createElement("div", { className: "ClearSet" })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Info;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	var FlashcardActions = __webpack_require__(291);
+	var FlashcardStore = __webpack_require__(288);
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  flashcardStoreCB: function () {
+	    var deckId = this.props.deckId;
+	    this.context.router.push("/decks/" + deckId + "/flashcards");
+	  },
+	
+	  destroyCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.destroyFlashcard(this.props.cardId);
+	  },
+	
+	  render: function () {
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
+	    return React.createElement(
+	      'div',
+	      { className: 'Options' },
+	      React.createElement(
+	        Link,
+	        { to: editDeckUrl },
+	        'Edit'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.destroyCB },
+	        'Destroy'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Options;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(299);
+	var HeaderWithBack = __webpack_require__(300);
+	var Link = __webpack_require__(168).Link;
+	
+	NewCard = React.createClass({
+	  displayName: 'NewCard',
+	
+	
+	  render: function () {
+	    var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
+	    return React.createElement(
+	      'div',
+	      { className: 'Flashcard-Edit Parent-Component' },
+	      React.createElement(HeaderWithBack, { title: 'New Card', url: deckIndexUrl }),
+	      React.createElement(Form, { deckId: this.props.params.id })
+	    );
+	  }
+	});
+	
+	module.exports = NewCard;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardActions = __webpack_require__(291);
+	var FlashcardStore = __webpack_require__(288);
+	var Preview = __webpack_require__(295);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  getInitialState: function () {
+	    return { front: "", back: "", cardSaved: false };
+	  },
+	
+	  componentDidMount: function () {
+	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ front: "", back: "", cardSaved: true });
+	    setTimeout(this.turnOffFlash, 3000);
+	  },
+	
+	  turnOffFlash: function () {
+	    this.setState({ cardSaved: false });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.eventToken.remove();
+	  },
+	
+	  changeFront: function (e) {
+	    var newFront = e.target.value;
+	    this.setState({ front: newFront });
+	  },
+	
+	  changeBack: function (e) {
+	    var newBack = e.target.value;
+	    this.setState({ back: newBack });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.createFlashcard({
+	      front: this.state.front,
+	      back: this.state.back
+	    }, this.props.deckId);
+	  },
+	
+	  render: function () {
+	
+	    var flash = "";
+	
+	    if (this.state.cardSaved) {
+	      flash = React.createElement(
+	        'div',
+	        { className: 'Flash' },
+	        'Card Saved'
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      flash,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Front'
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('textarea', { type: 'text',
+	            onChange: this.changeFront,
+	            className: 'FrontInput' })
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Back'
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('textarea', { type: 'text',
+	            onChange: this.changeBack,
+	            className: 'BackInput' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      ),
+	      React.createElement(Preview, { card: this.state }),
+	      React.createElement('div', { className: 'ClearSet' })
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(168).Link;
+	
+	HeaderWithBack = React.createClass({
+	  displayName: 'HeaderWithBack',
+	
+	  render: function () {
+	    var arrow = "<";
+	    return React.createElement(
+	      'div',
+	      { className: 'Header-With-Arrow' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: this.props.url },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.title
+	        )
+	      ),
+	      React.createElement('div', { className: 'ClearSet' })
+	    );
+	  }
+	});
+	
+	module.exports = HeaderWithBack;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(302);
+	var HeaderWithBack = __webpack_require__(300);
+	var Link = __webpack_require__(168).Link;
+	
+	EditCard = React.createClass({
+	  displayName: 'EditCard',
+	
+	
+	  render: function () {
+	    var deckId = this.props.params.id;
+	    var cardId = this.props.params.cardId;
+	    var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
+	    return React.createElement(
+	      'div',
+	      { className: 'Flashcard-Edit Parent-Component' },
+	      React.createElement(HeaderWithBack, { title: 'Edit Card', url: cardShowUrl }),
+	      React.createElement(Form, { deckId: deckId, cardId: cardId })
+	    );
+	  }
+	});
+	
+	module.exports = EditCard;
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashcardActions = __webpack_require__(291);
+	var FlashcardStore = __webpack_require__(288);
+	var Preview = __webpack_require__(295);
+	
+	var Form = React.createClass({
+	  displayName: 'Form',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    var card = FlashcardStore.find(this.props.cardId);
+	
+	    return { front: card.front, back: card.back };
+	  },
+	
+	  componentDidMount: function () {
+	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.eventToken.remove();
+	  },
+	
+	  changeFront: function (e) {
+	    var newFront = e.target.value;
+	    this.setState({ front: newFront });
+	  },
+	
+	  changeBack: function (e) {
+	    var newBack = e.target.value;
+	    this.setState({ back: newBack });
+	  },
+	
+	  submitCB: function (e) {
+	    e.preventDefault();
+	    FlashcardActions.editFlashcard({
+	      front: this.state.front,
+	      back: this.state.back,
+	      id: this.props.cardId
+	    });
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Form' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.submitCB },
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Front'
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('textarea', {
+	            onChange: this.changeFront,
+	            className: 'FrontInput',
+	            value: this.state.front })
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Back'
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('textarea', {
+	            onChange: this.changeBack,
+	            className: 'BackInput',
+	            value: this.state.back })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
+	      ),
+	      React.createElement(Preview, { card: this.state }),
+	      React.createElement('div', { className: 'ClearSet' })
+	    );
+	  }
+	});
+	
+	module.exports = Form;
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Recap = __webpack_require__(304);
+	var Front = __webpack_require__(305);
+	var Flipped = __webpack_require__(306);
+	var FlashcardStore = __webpack_require__(288);
+	var FlashcardActions = __webpack_require__(291);
+	var ReviewActions = __webpack_require__(307);
+	var DeckStore = __webpack_require__(268);
+	
+	var Review = React.createClass({
+	  displayName: 'Review',
+	
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  getInitialState: function () {
+	    return {
+	      cardIdx: 0,
+	      flipped: false,
+	      reviewSummary: {},
+	      deckName: DeckStore.find(this.props.params.id).name,
+	      cards: ["loading"]
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    FlashcardActions.fetchFlashcards(this.props.params.id);
+	  },
+	
+	  flashcardStoreCB: function () {
+	    this.setState({ cards: FlashcardStore.drawCards(10) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  backArrowCB: function (e) {
+	    e.preventDefault();
+	
+	    this.context.router.push("/decks/" + this.props.params.id);
+	    if (!this._reviewSummaryEmpty()) {
+	      this.shipGrades();
+	    }
+	    this.resetReviewState();
+	  },
+	
+	  flipCB: function () {
+	    this.setState({ flipped: true });
+	  },
+	
+	  gradeCB: function (grade) {
+	    var cardId = this.state.cards[this.state.cardIdx].id;
+	    this.state.reviewSummary[cardId] = grade;
+	    if (this.state.cardIdx === 9) {
+	      this.shipGrades();
+	    }
+	    console.log(this.state.reviewSummary);
+	    this.setState({ cardIdx: this.state.cardIdx + 1, flipped: false });
+	  },
+	
+	  continueCB: function () {
+	    this.resetReviewState();
+	  },
+	
+	  shipGrades: function () {
+	    ReviewActions.logReview({
+	      deck_id: this.props.params.id,
+	      review_grades: this.state.reviewSummary
+	    });
+	  },
+	
+	  resetReviewState: function () {
+	    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
+	  },
+	
+	  _reviewSummaryEmpty: function () {
+	    return Object.keys(this.state.reviewSummary).length === 0;
+	  },
+	
+	  render: function () {
+	    var arrow = "<";
+	    var title = "Review";
+	    var cardFront = "";
+	    var cardBack = "";
+	    var cardTotal = this.state.cards.length;
+	    if (this.state.cards && this.state.cardIdx < cardTotal) {
+	      cardFront = this.state.cards[this.state.cardIdx].front;
+	      cardBack = this.state.cards[this.state.cardIdx].back;
+	    }
+	    if (this.state.cardIdx === cardTotal) {
+	      title = "Recap";
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'Parent-Component Review' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.backArrowCB, className: 'BackLink' },
+	          arrow
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'Title' },
+	          title
+	        )
+	      ),
+	      React.createElement(
+	        'h6',
+	        null,
+	        this.state.deckName
+	      ),
+	      React.createElement(Front, { showing: this.state.cardIdx < cardTotal && !this.state.flipped,
+	        cardFront: cardFront,
+	        flipCB: this.flipCB }),
+	      React.createElement(Flipped, { showing: this.state.cardIdx < cardTotal && this.state.flipped,
+	        cardFront: cardFront,
+	        cardBack: cardBack,
+	        gradeCB: this.gradeCB }),
+	      React.createElement(Recap, { showing: this.state.cardIdx === cardTotal,
+	        continueCB: this.continueCB })
+	    );
+	  }
+	});
+	
+	module.exports = Review;
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Recap = React.createClass({
+	  displayName: "Recap",
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement("div", null);
+	    }
+	
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "div",
+	        { className: "Review-Grade" },
+	        React.createElement(
+	          "div",
+	          null,
+	          "Insert Grade Graph Here"
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "Review-Info" },
+	        React.createElement(
+	          "h4",
+	          { className: "Stat-Header" },
+	          "Info"
+	        ),
+	        React.createElement(
+	          "ul",
+	          { className: "Stat-List" },
+	          React.createElement(
+	            "li",
+	            { className: "Statistic" },
+	            React.createElement(
+	              "p",
+	              { className: "StatTitle" },
+	              "Reviews per Day (average)"
+	            ),
+	            React.createElement(
+	              "p",
+	              { className: "Stat" },
+	              "Insert Total"
+	            ),
+	            React.createElement("div", { className: "ClearSet" })
+	          ),
+	          React.createElement(
+	            "li",
+	            { className: "Statistic" },
+	            React.createElement(
+	              "p",
+	              { className: "StatTitle" },
+	              "Reviews Today"
+	            ),
+	            React.createElement(
+	              "p",
+	              { className: "Stat" },
+	              "Insert Total"
+	            ),
+	            React.createElement("div", { className: "ClearSet" })
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "button",
+	        { className: "Normal-Button", onClick: this.props.continueCB },
+	        "Continue"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Recap;
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Front = React.createClass({
+	  displayName: "Front",
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement("div", null);
+	    }
+	    return React.createElement(
+	      "div",
+	      { className: "Front" },
+	      React.createElement("div", { className: "Spacer" }),
+	      React.createElement(
+	        "div",
+	        { className: "Card-Front" },
+	        this.props.cardFront
+	      ),
+	      React.createElement("div", { className: "Spacer" }),
+	      React.createElement(
+	        "button",
+	        { className: "Normal-Button", onClick: this.props.flipCB },
+	        "Flip"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Front;
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Preview = __webpack_require__(295);
+	
+	var Flipped = React.createClass({
+	  displayName: 'Flipped',
+	
+	  render: function () {
+	    if (!this.props.showing) {
+	      return React.createElement('div', null);
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'Flipped' },
+	      React.createElement(Preview, { card: { front: this.props.cardFront, back: this.props.cardBack } }),
+	      React.createElement(
+	        'div',
+	        { className: 'Buttons' },
+	        React.createElement(
+	          'button',
+	          { className: 'Fail',
+	            onClick: this.props.gradeCB.bind(null, 0) },
+	          'Fail'
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'Hard',
+	            onClick: this.props.gradeCB.bind(null, 35) },
+	          'Hard'
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'Good',
+	            onClick: this.props.gradeCB.bind(null, 70) },
+	          'Good'
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'Easy',
+	            onClick: this.props.gradeCB.bind(null, 100) },
+	          'Easy'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Flipped;
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewApiUtil = __webpack_require__(308);
+	
+	module.exports = {
+	  logReview: function (reviewSummary) {
+	    ReviewApiUtil.create(reviewSummary);
+	  }
+	};
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var ReviewConstants = __webpack_require__(270);
+	
+	module.exports = {
+	  create: function (reviewSummary) {
+	    $.ajax({
+	      url: "/api/reviews",
+	      type: "POST",
+	      data: {
+	        deck_id: reviewSummary.deck_id,
+	        review_grades: reviewSummary.review_grades
+	      },
+	      success: function (reviewSummary) {
+	        AppDispatcher.dispatch({
+	          actionType: ReviewConstants.RECEIVE_REVIEW_SUMMARY,
+	          summary: reviewSummary
+	        });
+	      }
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

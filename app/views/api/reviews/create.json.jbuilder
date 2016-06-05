@@ -1,4 +1,3 @@
-
 json.review do
   json.flashcards do
     json.array! @flashcards do |card|
@@ -9,7 +8,7 @@ json.review do
   end
   json.deck do
     json.id @deck.id
-    json.grade @deck.grade
+    json.grade Deck.calculate_grade(@flashcards)
     json.reviewTotal @deck.review_total
   end
 end

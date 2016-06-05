@@ -1,5 +1,5 @@
 class Deck < ActiveRecord::Base
-  validates :name, :description, :owner_id, :review_total, :grade, presence: true
+  validates :name, :description, :owner_id, :review_total, presence: true
 
   belongs_to(
     :user,
@@ -19,14 +19,15 @@ class Deck < ActiveRecord::Base
     class_name: "Review"
   )
 
-  def update_grade
-    grade_sum = 0;
+  def self.calculate_grade(cards)
+    return 0.0 if cards.empty?
+    grade_total = cards.inject(0) { |total, card| card.grade + total }
+    grade_total / cards.length
+  end
 
-    cards.each { |card| grade_sum += card.grade }
-    self.grade = grade_sum / cards.length
+  def update_grade
     self.review_total += 1
     self.save
-
     self
   end
 end

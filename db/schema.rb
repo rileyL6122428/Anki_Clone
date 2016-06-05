@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 20160603202310) do
     t.integer  "review_total", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.float    "grade"
-    t.integer  "card_total"
   end
 
   add_index "decks", ["owner_id"], name: "index_decks_on_owner_id", using: :btree
