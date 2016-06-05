@@ -1,9 +1,13 @@
 class Api::ReviewsController < ApplicationController
 
+  #TODO, delete all reviews over a week old
   def index
-    @reviews = current_user.reviews
 
-    # decks = current_user.decks
+    user = User.where(id: current_user.id).includes(:reviews, :decks).first
+    @reviews = user.reviews
+    @reviewTotal = calculate_total(user) # NOTE, this cannot be calculated from
+                                         # the review table because reviews over
+                                         # a week old are destroyed
     render "api/reviews/index"
   end
 
@@ -22,6 +26,12 @@ class Api::ReviewsController < ApplicationController
 
 
   private
+
+  def calculate_total(user)
+    total = 0;
+    user.decks.each { |deck| total += deck.review_total }
+    total
+  end
 
   def update_card_and_deck_grades
     reviewed_deck = Deck.find(params[:deck_id])

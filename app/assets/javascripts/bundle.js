@@ -35916,10 +35916,10 @@
 	    $.ajax({
 	      url: "/api/reviews",
 	      type: "GET",
-	      success: function (reviews) {
+	      success: function (reviewInfo) {
 	        AppDispatcher.dispatch({
 	          actionType: ReviewConstants.RECEIVE_REVIEWS,
-	          reviews: reviews
+	          reviewInfo: reviewInfo
 	        });
 	      }
 	    });
@@ -35936,7 +35936,7 @@
 	
 	var ReviewStore = new Store(AppDispatcher);
 	var _reviews = {}; // NOTE, only holds reviews made in the past week
-	var reviewTotal = 0; // NOTE, actually holds users total reviews
+	var _reviewTotal = 0; // NOTE, actually holds users total reviews
 	//      (since account creation)
 	
 	ReviewStore.all = function () {
@@ -35966,10 +35966,11 @@
 	  }
 	};
 	
-	var receiveReviews = function (reviews) {
+	var receiveReviews = function (reviewInfo) {
+	  _reviewTotal = reviewInfo.total;
 	  _reviews = {};
-	
-	  reviews.forEach(function (review) {
+	  debugger;
+	  reviewInfo.reviews.forEach(function (review) {
 	    _reviews[review.id] = { createdAt: new Date(review.createdAt) };
 	  });
 	  ReviewStore.__emitChange();
@@ -35978,7 +35979,7 @@
 	ReviewStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ReviewConstants.RECEIVE_REVIEWS:
-	      receiveReviews(payload.reviews);
+	      receiveReviews(payload.reviewInfo);
 	      break;
 	  }
 	};

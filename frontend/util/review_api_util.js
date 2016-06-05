@@ -23,10 +23,10 @@ module.exports = {
     $.ajax({
       url: "/api/reviews",
       type: "GET",
-      success: function(reviews){
+      success: function(reviewInfo){
         AppDispatcher.dispatch({
           actionType: ReviewConstants.RECEIVE_REVIEWS,
-          reviews: reviews
+          reviewInfo: reviewInfo
         })
       }
     })
