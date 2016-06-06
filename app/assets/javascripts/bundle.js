@@ -34373,18 +34373,20 @@
 	  },
 	
 	  render: function () {
-	    var deckName, cardTotal, grade, gradeDistribution;
+	    var deckName, cardTotal, grade, gradeDistribution, reviewsToday, reviewsPerDay, reviewTotal;
 	
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
 	      cardTotal = this.state.deck.cardTotal;
 	      grade = this.state.deck.grade;
 	      gradeDistribution = this.state.deck.gradeDistribution;
+	      reviewsToday = this.state.deck.reviewsToday;
+	      reviewsPerDay = this.state.deck.reviewsPerDay;
+	      reviewTotal = this.state.deck.reviewTotal;
 	    } else {
 	      deckName = "";
-	      cardTotal = 0;
-	      grade = 0;
 	      gradeDistribution = [0, 0, 0, 0, 0, 0, 0];
+	      cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
 	    }
 	
 	    return React.createElement(
@@ -34399,7 +34401,9 @@
 	        grade: grade,
 	        gradeDistribution: gradeDistribution }),
 	      React.createElement('div', { className: 'Divider' }),
-	      React.createElement(History, null),
+	      React.createElement(History, { reviewsToday: reviewsToday,
+	        reviewsPerDay: reviewsPerDay,
+	        reviewTotal: reviewTotal }),
 	      React.createElement('div', { className: 'ClearSet' }),
 	      React.createElement(
 	        'button',
@@ -34504,7 +34508,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            "Insert Total"
+	            this.props.reviewsToday
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        ),
@@ -34519,7 +34523,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            "Insert Total"
+	            this.props.reviewsPerDay
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        ),
@@ -34534,7 +34538,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            "Insert Total"
+	            this.props.reviewTotal
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        )
@@ -35718,7 +35722,8 @@
 	      flipped: false,
 	      reviewSummary: {},
 	      deckName: DeckStore.find(this.props.params.id).name,
-	      cards: ["loading"]
+	      cards: ["loading"],
+	      gradesShipped: false
 	    };
 	  },
 	
@@ -35739,7 +35744,7 @@
 	    e.preventDefault();
 	
 	    this.context.router.push("/decks/" + this.props.params.id);
-	    if (!this._reviewSummaryEmpty()) {
+	    if (!this.state.gradesShipped) {
 	      this.shipGrades();
 	    }
 	    this.resetReviewState();
@@ -35750,13 +35755,16 @@
 	  },
 	
 	  gradeCB: function (grade) {
+	    var stateChanges = { cardIdx: this.state.cardIdx + 1, flipped: false };
 	    var cardId = this.state.cards[this.state.cardIdx].id;
 	    this.state.reviewSummary[cardId] = grade;
-	    if (this.state.cardIdx === 9) {
+	
+	    if (this.state.cardIdx === this.state.cards.length - 1) {
 	      this.shipGrades();
+	      stateChanges["gradesShipped"] = true;
 	    }
-	    console.log(this.state.reviewSummary);
-	    this.setState({ cardIdx: this.state.cardIdx + 1, flipped: false });
+	
+	    this.setState(stateChanges);
 	  },
 	
 	  continueCB: function () {
@@ -35771,7 +35779,12 @@
 	  },
 	
 	  resetReviewState: function () {
-	    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
+	    this.setState({
+	      cardIdx: 0,
+	      flipped: false,
+	      reviewSummary: {},
+	      gradesShipped: false
+	    });
 	  },
 	
 	  _reviewSummaryEmpty: function () {

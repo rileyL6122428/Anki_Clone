@@ -15,7 +15,7 @@ class Api::DecksController < ApplicationController
     # TODO change the following lookup to rely on current_user.id after
     # you have set up your front end
     # @decks = Deck.where(owner_id: params[:current_user_id])
-    @decks = Deck.where(owner_id: current_user.id).includes(:cards)
+    @decks = Deck.where(owner_id: current_user.id).includes(:cards, :reviews)
     render 'api/decks/index'
   end
 
@@ -40,7 +40,7 @@ class Api::DecksController < ApplicationController
   end
 
   def show
-    @deck = Deck.where(id: params[:id]).includes(:cards).first
+    @deck = Deck.where(id: params[:id]).includes(:cards, :reviews).first
     if @deck
       render 'api/decks/show'
     else

@@ -9,19 +9,19 @@ var History = React.createClass ({
 
         <li className="Statistic">
          <p className="StatTitle">Reviews Today</p>
-         <p className="Stat">Insert Total</p>
+         <p className="Stat">{ this.props.reviewsToday }</p>
          <div className="ClearSet" />
         </li>
 
         <li className="Statistic">
           <p className="StatTitle">Reviews per Day (average)</p>
-          <p className="Stat">Insert Total</p>
+          <p className="Stat">{ this.props.reviewsPerDay }</p>
           <div className="ClearSet" />
         </li>
 
         <li className="Statistic">
           <p className="StatTitle">Total number of Review</p>
-          <p className="Stat">Insert Total</p>
+          <p className="Stat">{ this.props.reviewTotal }</p>
           <div className="ClearSet" />
         </li>
 

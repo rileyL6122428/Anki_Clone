@@ -43,6 +43,17 @@ class Deck < ActiveRecord::Base
     return 6 if grade < 100
   end
 
+  def self.reviews_today(reviews)
+    todays_date = Time.now
+    todays_start = Time.new(todays_date.year, todays_date.month, todays_date.day)
+
+    reviews.select{ |review| review.created_at > todays_start }.length
+  end
+
+  def self.reviews_per_day(reviews)
+    reviews.length / 7
+  end
+
 
   def update_grade
     self.review_total += 1

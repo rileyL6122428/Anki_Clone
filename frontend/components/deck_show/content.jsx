@@ -33,18 +33,20 @@ var Content = React.createClass({
   },
 
   render: function () {
-    var deckName, cardTotal, grade, gradeDistribution;
+    var deckName, cardTotal, grade, gradeDistribution, reviewsToday, reviewsPerDay, reviewTotal;
 
     if(this.state.deck) {
       deckName = this.state.deck.name;
       cardTotal = this.state.deck.cardTotal;
       grade = this.state.deck.grade;
       gradeDistribution = this.state.deck.gradeDistribution;
+      reviewsToday = this.state.deck.reviewsToday;
+      reviewsPerDay = this.state.deck.reviewsPerDay;
+      reviewTotal = this.state.deck.reviewTotal;
     } else {
       deckName = "";
-      cardTotal = 0;
-      grade = 0;
       gradeDistribution = [0, 0, 0, 0, 0, 0, 0];
+      cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
     }
 
     return(
@@ -54,7 +56,10 @@ var Content = React.createClass({
               grade={grade}
               gradeDistribution={gradeDistribution}/>
         <div className="Divider"></div>
-        <History />
+        <History reviewsToday={reviewsToday}
+                 reviewsPerDay={ reviewsPerDay }
+                 reviewTotal={ reviewTotal }/>
+
         <div className="ClearSet" />
         <button className="Review" onClick={this.reviewCB}>
           <div className="buttonText">Review</div>

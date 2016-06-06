@@ -58,7 +58,6 @@ class Api::ReviewsController < ApplicationController
     six_days_ago = Time.now - 60 * 60 * 24 * 6
     cut_off = Time.new(six_days_ago.year, six_days_ago.month, six_days_ago.day)
     cut_off_string = cut_off.to_s.match(/\S+/).to_s
-    byebug
     Review.delete_all(["created_at < ?", cut_off])
   end
 

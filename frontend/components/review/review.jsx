@@ -19,7 +19,8 @@ var Review =  React.createClass({
       flipped: false,
       reviewSummary: {},
       deckName: DeckStore.find(this.props.params.id).name,
-      cards: ["loading"]
+      cards: ["loading"],
+      gradesShipped: false
     });
   },
 
@@ -40,7 +41,7 @@ var Review =  React.createClass({
     e.preventDefault();
 
     this.context.router.push("/decks/" + this.props.params.id);
-    if (!this._reviewSummaryEmpty()) { this.shipGrades(); }
+    if (!this.state.gradesShipped) { this.shipGrades(); }
     this.resetReviewState();
   },
 
@@ -49,11 +50,16 @@ var Review =  React.createClass({
   },
 
   gradeCB: function (grade) {
+    var stateChanges = { cardIdx: this.state.cardIdx + 1, flipped: false }
     var cardId = this.state.cards[this.state.cardIdx].id
     this.state.reviewSummary[cardId] = grade;
-    if (this.state.cardIdx === 9) { this.shipGrades () }
-    console.log(this.state.reviewSummary);
-    this.setState({ cardIdx: this.state.cardIdx + 1, flipped: false });
+
+    if (this.state.cardIdx === this.state.cards.length - 1) {
+      this.shipGrades();
+      stateChanges["gradesShipped"] = true;
+    }
+
+    this.setState(stateChanges);
   },
 
   continueCB: function() {
@@ -68,7 +74,12 @@ var Review =  React.createClass({
   },
 
   resetReviewState: function () {
-    this.setState({ cardIdx: 0, flipped: false, reviewSummary: {} });
+    this.setState({
+      cardIdx: 0,
+      flipped: false,
+      reviewSummary: {} ,
+      gradesShipped: false
+    });
   },
 
   _reviewSummaryEmpty: function() {
