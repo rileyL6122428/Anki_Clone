@@ -18,15 +18,15 @@ var gradeByPercentage = function (percentage) {
   if (percentage <= 100) { return "A"; }
 }
 
-RecapCanvas = class CanvasComponent extends React.Component {
-    componentDidMount() {
+RecapCanvas =  React.createClass({
+    componentDidMount: function() {
         this.updateCanvas();
     },
-    componentDidUpdate() {
+    componentDidUpdate: function() {
         this.updateCanvas();
     },
-    updateCanvas() {
-      const c = this.refs.canvas.getContext('2d');
+    updateCanvas: function() {
+      var c = this.refs.canvas.getContext('2d');
         // c.fillStyle = "red";
         // c.fillRect(0,0, 300, 300);
         // // draw children “components”
@@ -60,11 +60,11 @@ RecapCanvas = class CanvasComponent extends React.Component {
       c.font = "22px Sans Serif";
       c.fillText(""+ percentage + "%", centerX - 17, centerY - 10);
     },
-    render() {
+    render: function () {
          return (
              <canvas ref="canvas" width={200} height={200}/>
          );
     }
-}
+});
 
 module.exports = RecapCanvas;
