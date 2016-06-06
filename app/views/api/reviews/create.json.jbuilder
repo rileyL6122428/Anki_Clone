@@ -7,6 +7,9 @@ json.review do
     end
   end
   json.deck do
+    # TODO (refactor the following chunk into a deck partial )
+    # (you need to do this because you have the same chunk of code in ur
+    # show view)
     json.name @deck.name
     json.description @deck.description
     json.reviewTotal @deck.review_total

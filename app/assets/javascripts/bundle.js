@@ -33972,7 +33972,6 @@
 	var receiveADeck = function (deck) {
 	  _decks[deck.id] = deck;
 	  DeckStore.__emitChange();
-	  //TODO refactor this into a callback in the new deck form, if possible
 	  hashHistory.push('/decks/' + deck.id);
 	};
 	
@@ -34833,6 +34832,7 @@
 	var FlashcardStore = __webpack_require__(291);
 	var FlashcardActions = __webpack_require__(294);
 	var FlashcardIndexItem = __webpack_require__(296);
+	var GraphUtil = __webpack_require__(311);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -34864,11 +34864,12 @@
 	        'div',
 	        { className: 'Wrapper' },
 	        this.state.flashcards.map(function (flashcard) {
+	          var gradePercentage = flashcard.grade;
 	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
 	            cardId: flashcard.id,
 	            key: flashcard.id,
 	            front: flashcard.front,
-	            grade: "insertGrade",
+	            gradePercentage: gradePercentage,
 	            deckId: deckId });
 	        })
 	      );
@@ -35162,27 +35163,39 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
+	var GraphUtil = __webpack_require__(311);
 	
 	var FlashcardIndexItem = React.createClass({
 	  displayName: 'FlashcardIndexItem',
 	
 	  render: function () {
-	    //TODO change the following link such that it goes to the flashcard show page
+	
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    var showUrl = "/decks/" + deckId + "/flashcards/" + cardId;
+	
+	    var grade = GraphUtil.gradeByPercentage(this.props.gradePercentage);
+	    var color = GraphUtil.colorByPercentage(this.props.gradePercentage);
+	    var border = "border-top: 1px solid " + color;
+	    var styleHash = { backgroundColor: color };
+	
+	    var frontSample = this.props.front.slice(0, 12);
+	
 	    return React.createElement(
 	      Link,
-	      { to: "/decks/" + this.props.deckId + "/flashcards/" + this.props.cardId },
+	      { to: showUrl },
 	      React.createElement(
 	        'li',
 	        { className: 'Flashcard-Index-Item' },
 	        React.createElement(
 	          'p',
-	          null,
-	          this.props.grade
+	          { style: styleHash },
+	          grade
 	        ),
 	        React.createElement(
 	          'h5',
 	          null,
-	          this.props.front.slice(0, 12)
+	          frontSample
 	        )
 	      )
 	    );
@@ -35743,7 +35756,6 @@
 	  },
 	
 	  deckStoreCB: function () {
-	    //TODO sync up with deck store so you can get access to review stats on the deck
 	    this.setState({ deck: DeckStore.find(this.props.params.id) });
 	  },
 	
@@ -36043,99 +36055,103 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	
-	var colorByPercentage = function (percentage) {
-	  if (percentage < 50) {
-	    return "rgb(232, 11, 2)";
-	  }
-	  if (percentage < 60) {
-	    return "rgb(232, 52, 94)";
-	  }
-	  if (percentage < 70) {
-	    return "rgb(232, 102, 78)";
-	  }
-	  if (percentage < 80) {
-	    return "rgb(255, 210, 85)";
-	  }
-	  if (percentage < 90) {
-	    return "rgb(78, 164, 232)";
-	  }
-	  if (percentage <= 100) {
-	    return "rgb(72, 255, 111)";
-	  }
-	};
-	
-	var gradeByPercentage = function (percentage) {
-	  if (percentage < 50) {
-	    return "F";
-	  }
-	  if (percentage < 60) {
-	    return "E";
-	  }
-	  if (percentage < 70) {
-	    return "D";
-	  }
-	  if (percentage < 80) {
-	    return "C";
-	  }
-	  if (percentage < 90) {
-	    return "B";
-	  }
-	  if (percentage <= 100) {
-	    return "A";
-	  }
-	};
+	var GraphUtil = __webpack_require__(311);
 	
 	RecapCanvas = React.createClass({
-	  displayName: "RecapCanvas",
+	    displayName: 'RecapCanvas',
 	
-	  componentDidMount: function () {
-	    this.updateCanvas();
-	  },
-	  componentDidUpdate: function () {
-	    this.updateCanvas();
-	  },
-	  updateCanvas: function () {
-	    var c = this.refs.canvas.getContext('2d');
-	    // c.fillStyle = "red";
-	    // c.fillRect(0,0, 300, 300);
-	    // // draw children “components”
-	    // c.fillStyle = "blue"
-	    // c.font = "30px Sans Serif";
-	    // c.fillText("TEST", 5, 5);
+	    componentDidMount: function () {
+	        this.updateCanvas();
+	    },
+	    componentDidUpdate: function () {
+	        this.updateCanvas();
+	    },
+	    updateCanvas: function () {
+	        var c = this.refs.canvas.getContext('2d');
 	
-	    var percentage = this.props.percentage;
-	    var angle = 2 * Math.PI * percentage / 100 - 0.5 * Math.PI;
-	    var centerX = 100;
-	    var centerY = 100;
-	    var color = colorByPercentage(percentage);
-	    var grade = gradeByPercentage(percentage);
+	        var percentage = this.props.percentage;
+	        var angle = 2 * Math.PI * percentage / 100 - 0.5 * Math.PI;
+	        var centerX = 100;
+	        var centerY = 100;
+	        var color = graph_util.colorByPercentage(percentage);
+	        var grade = graph_util.gradeByPercentage(percentage);
 	
-	    c.strokeStyle = "#F5F5F5";
-	    c.lineWidth = 15;
-	    c.beginPath();
-	    c.arc(centerX, centerY, 57, -0.5 * Math.PI, 1.5 * Math.PI, false);
-	    c.stroke();
+	        c.strokeStyle = "#F5F5F5";
+	        c.lineWidth = 15;
+	        c.beginPath();
+	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, 1.5 * Math.PI, false);
+	        c.stroke();
 	
-	    c.strokeStyle = color;
-	    c.lineWidth = 13;
-	    c.beginPath();
-	    c.arc(centerX, centerY, 57, -0.5 * Math.PI, angle, false);
-	    c.stroke();
+	        c.strokeStyle = color;
+	        c.lineWidth = 13;
+	        c.beginPath();
+	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, angle, false);
+	        c.stroke();
 	
-	    c.fillStyle = color;
-	    c.font = "30px Sans Serif";
-	    c.fillText(grade, centerX - 10, centerY + 25);
+	        c.fillStyle = color;
+	        c.font = "30px Sans Serif";
+	        c.fillText(grade, centerX - 10, centerY + 25);
 	
-	    c.font = "22px Sans Serif";
-	    c.fillText("" + percentage + "%", centerX - 17, centerY - 10);
-	  },
-	  render: function () {
-	    return React.createElement("canvas", { ref: "canvas", width: 200, height: 200 });
-	  }
+	        c.font = "22px Sans Serif";
+	        c.fillText("" + percentage + "%", centerX - 17, centerY - 10);
+	    },
+	    render: function () {
+	        return React.createElement('canvas', { ref: 'canvas', width: 200, height: 200 });
+	    }
 	});
 	
 	module.exports = RecapCanvas;
+
+/***/ },
+/* 311 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  colorByPercentage: function (percentage) {
+	    if (percentage < 50) {
+	      return "rgb(232, 11, 2)";
+	    }
+	    if (percentage < 60) {
+	      return "rgb(232, 52, 94)";
+	    }
+	    if (percentage < 70) {
+	      return "rgb(232, 102, 78)";
+	    }
+	    if (percentage < 80) {
+	      return "rgb(255, 210, 85)";
+	    }
+	    if (percentage < 90) {
+	      return "rgb(78, 164, 232)";
+	    }
+	    if (percentage <= 100) {
+	      return "rgb(72, 255, 111)";
+	    }
+	  },
+	
+	  gradeByPercentage: function (percentage) {
+	    if (percentage == 0) {
+	      return "New";
+	    }
+	    if (percentage < 50) {
+	      return "F";
+	    }
+	    if (percentage < 60) {
+	      return "E";
+	    }
+	    if (percentage < 70) {
+	      return "D";
+	    }
+	    if (percentage < 80) {
+	      return "C";
+	    }
+	    if (percentage < 90) {
+	      return "B";
+	    }
+	    if (percentage <= 100) {
+	      return "A";
+	    }
+	  }
+	};
 
 /***/ }
 /******/ ]);

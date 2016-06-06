@@ -98,11 +98,8 @@
   height: 30px;
   margin: 0px;
   color: white;
-  background-color: purple;
+  
   width: 100%;
-  border-top: 1px solid purple;
-  border-right: 1px solid purple;
-  border-left: 1px solid purple;
 
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

@@ -33,7 +33,6 @@ var receiveDecks = function (decks) {
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
   DeckStore.__emitChange();
-  //TODO refactor this into a callback in the new deck form, if possible
   hashHistory.push('/decks/'+deck.id);
 
 }

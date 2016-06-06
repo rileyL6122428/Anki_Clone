@@ -35,7 +35,6 @@ var Review =  React.createClass({
   },
 
   deckStoreCB: function () {
-    //TODO sync up with deck store so you can get access to review stats on the deck
     this.setState({ deck: DeckStore.find(this.props.params.id) })
   },
 

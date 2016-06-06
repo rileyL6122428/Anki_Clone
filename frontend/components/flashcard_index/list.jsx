@@ -2,6 +2,7 @@ var React = require('react');
 var FlashcardStore = require('../../stores/flashcard_store');
 var FlashcardActions = require('../../actions/flashcard_actions');
 var FlashcardIndexItem = require('./index_item');
+var GraphUtil = require('../graphs/graph_util');
 
 var FlashcardIndex = React.createClass({
 
@@ -31,12 +32,13 @@ var FlashcardIndex = React.createClass({
         <div className="Wrapper">
         {
           this.state.flashcards.map(function(flashcard){
+            var gradePercentage = flashcard.grade;
             return(
               <FlashcardIndexItem key={flashcard.id}
               cardId={flashcard.id}
               key={flashcard.id}
               front={flashcard.front}
-              grade={"insertGrade"}
+              gradePercentage={ gradePercentage }
               deckId={deckId} />
             );
           })
