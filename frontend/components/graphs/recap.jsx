@@ -21,10 +21,10 @@ var gradeByPercentage = function (percentage) {
 RecapCanvas = class CanvasComponent extends React.Component {
     componentDidMount() {
         this.updateCanvas();
-    }
+    },
     componentDidUpdate() {
         this.updateCanvas();
-    }
+    },
     updateCanvas() {
       const c = this.refs.canvas.getContext('2d');
         // c.fillStyle = "red";
@@ -59,7 +59,7 @@ RecapCanvas = class CanvasComponent extends React.Component {
 
       c.font = "22px Sans Serif";
       c.fillText(""+ percentage + "%", centerX - 17, centerY - 10);
-    }
+    },
     render() {
          return (
              <canvas ref="canvas" width={200} height={200}/>

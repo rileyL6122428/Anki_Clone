@@ -18,14 +18,14 @@ var Review =  React.createClass({
       cardIdx: 0,
       flipped: false,
       reviewSummary: {},
-      deckName: DeckStore.find(this.props.params.id).name,
+      deck: DeckStore.find(this.props.params.id),
       cards: ["loading"],
       gradesShipped: false
     });
   },
 
   componentDidMount: function () {
-    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+    this.flashcardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
     FlashcardActions.fetchFlashcards(this.props.params.id);
   },
 
@@ -33,8 +33,13 @@ var Review =  React.createClass({
     this.setState({ cards: FlashcardStore.drawCards(10) });
   },
 
+  deckStoreCB: function () {
+    //TODO sync up with deck store so you can get access to review stats on the deck
+    this.setState({ deck: DeckStore.find(this.props.params.id) })
+  },
+
   componentWillUnmount: function () {
-    this.listenerToken.remove();
+    this.flashcardListenerToken.remove();
   },
 
   backArrowCB: function (e) {
@@ -119,7 +124,7 @@ var Review =  React.createClass({
 
         </h1>
 
-        <h6>{ this.state.deckName }</h6>
+        <h6>{ this.state.deck.name }</h6>
 
         <Front   showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
                  cardFront={ cardFront }
@@ -132,7 +137,8 @@ var Review =  React.createClass({
 
                <Recap   showing={ this.state.cardIdx === cardTotal }
                         continueCB={this.continueCB}
-                        reviewGrade={this._reviewGrade()}/>
+                        reviewGrade={this._reviewGrade()}
+                        deck={ this.state.deck }/>
 
       </div>
     );
