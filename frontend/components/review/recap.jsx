@@ -4,7 +4,6 @@ var RecapCanvas = require('../graphs/recap');
 var Recap =  React.createClass({
   render: function () {
     if (!this.props.showing) { return <div></div>; }
-      // debugger
     return (
       <div className="group Recap">
         <div className="Review-Grade" >

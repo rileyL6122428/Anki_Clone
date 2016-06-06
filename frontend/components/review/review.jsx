@@ -25,7 +25,8 @@ var Review =  React.createClass({
   },
 
   componentDidMount: function () {
-    this.flashcardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+    this.cardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+    this.deckListenerToken = DeckStore.addListener(this.deckStoreCB);
     FlashcardActions.fetchFlashcards(this.props.params.id);
   },
 
@@ -39,7 +40,8 @@ var Review =  React.createClass({
   },
 
   componentWillUnmount: function () {
-    this.flashcardListenerToken.remove();
+    this.cardListenerToken.remove();
+    this.deckListenerToken.remove();
   },
 
   backArrowCB: function (e) {

@@ -44,9 +44,7 @@ var removeDeck = function(deck){
 }
 
 var receiveReviewResults = function (deck) {
-  var deckToUpdate = _decks[deck.id];
-  deckToUpdate["reviewTotal"] += 1;
-  deckToUpdate["grade"] = deck.grade;
+  _decks[deck.id] = deck;
   DeckStore.__emitChange();
 }
 

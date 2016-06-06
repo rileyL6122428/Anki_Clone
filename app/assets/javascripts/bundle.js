@@ -33982,9 +33982,7 @@
 	};
 	
 	var receiveReviewResults = function (deck) {
-	  var deckToUpdate = _decks[deck.id];
-	  deckToUpdate["reviewTotal"] += 1;
-	  deckToUpdate["grade"] = deck.grade;
+	  _decks[deck.id] = deck;
 	  DeckStore.__emitChange();
 	};
 	
@@ -35735,7 +35733,8 @@
 	  },
 	
 	  componentDidMount: function () {
-	    this.flashcardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    this.cardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    this.deckListenerToken = DeckStore.addListener(this.deckStoreCB);
 	    FlashcardActions.fetchFlashcards(this.props.params.id);
 	  },
 	
@@ -35749,7 +35748,8 @@
 	  },
 	
 	  componentWillUnmount: function () {
-	    this.flashcardListenerToken.remove();
+	    this.cardListenerToken.remove();
+	    this.deckListenerToken.remove();
 	  },
 	
 	  backArrowCB: function (e) {
@@ -35885,7 +35885,6 @@
 	    if (!this.props.showing) {
 	      return React.createElement('div', null);
 	    }
-	    // debugger
 	    return React.createElement(
 	      'div',
 	      { className: 'group Recap' },
