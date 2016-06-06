@@ -19,15 +19,35 @@ class Deck < ActiveRecord::Base
     class_name: "Review"
   )
 
-  def self.calculate_grade(cards)
+  def self.grade_distribution(cards)
+    distribution = Array.new(7) { 0 }
+    cards.each do |card|
+      distribution[grade_distribution_idx(card.grade)] += 1
+    end
+    distribution
+  end
+
+  def self.grade(cards)
     return 0.0 if cards.empty?
     grade_total = cards.inject(0) { |total, card| card.grade + total }
     grade_total / cards.length
   end
+
+  def self.grade_distribution_idx(grade)
+    return 0 if grade == 0
+    return 1 if grade < 50
+    return 2 if grade < 60
+    return 3 if grade < 70
+    return 4 if grade < 80
+    return 5 if grade < 90
+    return 6 if grade < 100
+  end
+
 
   def update_grade
     self.review_total += 1
     self.save
     self
   end
+
 end

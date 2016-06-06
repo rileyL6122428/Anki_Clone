@@ -33402,29 +33402,6 @@
 	  displayName: 'DashboardDisplay',
 	
 	
-	  calculateModifiedPercentages: function () {
-	    var max = 0;
-	    this.props.dayTotals.forEach(function (dayTotal) {
-	      if (max < dayTotal) {
-	        max = dayTotal;
-	      }
-	    });
-	
-	    if (max === 0) {
-	      return [4, 4, 4, 4, 4, 4, 4];
-	    }
-	
-	    var percentages = [];
-	    //NOTE the modified percentage caps at 80 percent
-	    //     this is a result of the way bars are configues in the graph
-	    this.props.dayTotals.forEach(function (dayTotal) {
-	      var percentage = dayTotal / max * 80;
-	      percentage < 4 ? percentages.push(4) : percentages.push(percentage);
-	    });
-	
-	    return percentages;
-	  },
-	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -33435,7 +33412,6 @@
 	        'REVIEWS'
 	      ),
 	      React.createElement(TestGraph, {
-	        modifiedPercentages: this.calculateModifiedPercentages(),
 	        barTotals: this.props.dayTotals,
 	        barLabels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] })
 	    );
@@ -33454,10 +33430,35 @@
 	var Test = React.createClass({
 	  displayName: "Test",
 	
+	
+	  modifiedPercentages: function () {
+	    var max = 0;
+	    this.props.barTotals.forEach(function (barTotal) {
+	      if (max < barTotal) {
+	        max = barTotal;
+	      }
+	    });
+	
+	    if (max === 0) {
+	      return [4, 4, 4, 4, 4, 4, 4];
+	    }
+	
+	    var percentages = [];
+	    //NOTE the modified percentage caps at 80 percent
+	    //     this is a result of the way bars are configues in the graph
+	    this.props.barTotals.forEach(function (barTotal) {
+	      var percentage = barTotal / max * 80;
+	      percentage < 4 ? percentages.push(4) : percentages.push(percentage);
+	    });
+	
+	    return percentages;
+	  },
+	
 	  render: function () {
-	    var percentages = this.props.modifiedPercentages;
 	    var barTotals = this.props.barTotals;
 	    var barLabels = this.props.barLabels;
+	    var percentages = this.modifiedPercentages();
+	
 	    return React.createElement(
 	      "div",
 	      { className: "Test-Graph" },
@@ -33467,7 +33468,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar1",
 	            style: { height: percentages[0] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33482,7 +33483,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar2",
 	            style: { height: percentages[1] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33497,7 +33498,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar3",
 	            style: { height: percentages[2] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33512,7 +33513,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar4",
 	            style: { height: percentages[3] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33527,7 +33528,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar5",
 	            style: { height: percentages[4] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33542,7 +33543,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar6",
 	            style: { height: percentages[5] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33557,7 +33558,7 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          React.createElement("p", { className: "Bar",
+	          React.createElement("p", { className: "Bar Bar7",
 	            style: { height: percentages[6] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33575,37 +33576,37 @@
 	        { className: "Labels group" },
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label1" },
 	          barLabels[0]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label2" },
 	          barLabels[1]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label3" },
 	          barLabels[2]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label4" },
 	          barLabels[3]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label5" },
 	          barLabels[4]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label6" },
 	          barLabels[5]
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
+	          { className: "Label7" },
 	          barLabels[6]
 	        )
 	      )
@@ -34372,16 +34373,18 @@
 	  },
 	
 	  render: function () {
-	    var deckName, cardTotal, grade;
+	    var deckName, cardTotal, grade, gradeDistribution;
 	
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
 	      cardTotal = this.state.deck.cardTotal;
 	      grade = this.state.deck.grade;
+	      gradeDistribution = this.state.deck.gradeDistribution;
 	    } else {
 	      deckName = "";
 	      cardTotal = 0;
 	      grade = 0;
+	      gradeDistribution = [0, 0, 0, 0, 0, 0, 0];
 	    }
 	
 	    return React.createElement(
@@ -34393,7 +34396,8 @@
 	        deckName
 	      ),
 	      React.createElement(Info, { cardTotal: cardTotal,
-	        grade: grade }),
+	        grade: grade,
+	        gradeDistribution: gradeDistribution }),
 	      React.createElement('div', { className: 'Divider' }),
 	      React.createElement(History, null),
 	      React.createElement('div', { className: 'ClearSet' }),
@@ -34459,13 +34463,14 @@
 	          null,
 	          'Grade'
 	        )
-	      )
+	      ),
+	      React.createElement(GradeGraph, { barTotals: this.props.gradeDistribution,
+	        barLabels: ["New", "F", "E", "D", "C", "B", "A"] })
 	    );
 	  }
 	});
 	
 	module.exports = Info;
-	// <GradeGraph />
 
 /***/ },
 /* 283 */

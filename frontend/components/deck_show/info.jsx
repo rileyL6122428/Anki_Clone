@@ -16,10 +16,19 @@ var Info = React.createClass ({
           <p>Grade</p>
         </div>
 
+        <GradeGraph barTotals={ this.props.gradeDistribution }
+                    barLabels={[
+                      "New",
+                      "F",
+                      "E",
+                      "D",
+                      "C",
+                      "B",
+                      "A"
+                    ]} />
       </div>
     );
   }
 })
 
 module.exports = Info;
-// <GradeGraph />

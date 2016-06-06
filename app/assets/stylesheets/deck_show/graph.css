@@ -1,0 +1,65 @@
+.DeckShow num {
+  color: #616161;
+}
+
+.DeckShow p.Bar1 {
+  border: 1px solid rgb(56, 38, 134);
+  background-color: rgba(56, 38, 134, 0.7);
+}
+.DeckShow div.Label1 {
+  color: rgba(56, 38, 134, 0.7);
+}
+
+
+.DeckShow p.Bar2 {
+  border: 1px solid rgb(232, 11, 2);
+  background-color: rgba(232, 11, 2, 0.7);
+}
+.DeckShow div.Label2 {
+  color: rgba(232, 11, 2, .7);
+}
+
+
+.DeckShow p.Bar3 {
+  border: 1px solid rgb(232, 52, 94);
+  background-color: rgba(232, 52, 94, 0.7);
+}
+.DeckShow div.Label3 {
+  color: rgba(232, 52, 94, 0.7);
+}
+
+
+.DeckShow p.Bar4 {
+  border: 1px solid rgb(232, 102, 78);
+  background-color: rgba(232, 102, 78, 0.7);
+}
+.DeckShow div.Label4 {
+  color: rgba(232, 102, 78, 0.7);
+}
+
+
+.DeckShow p.Bar5 {
+  border: 1px solid rgb(255, 210, 85);
+  background-color: rgba(255, 210, 85, 0.7);
+}
+.DeckShow div.Label5 {
+  color: rgba(255, 210, 85, 0.7);
+}
+
+
+.DeckShow p.Bar6 {
+  border: 1px solid rgb(78, 164, 232);
+  background-color: rgba(78, 164, 232, 0.7);
+}
+.DeckShow div.Label6 {
+  color: rgba(78, 164, 232, 0.7);
+}
+
+
+.DeckShow p.Bar7 {
+  border: 1px solid rgb(72, 255, 111);
+  background-color: rgba(72, 255, 111, 0.7);
+}
+.DeckShow div.Label7 {
+  color: rgba(72, 255, 111, 0.7);
+}

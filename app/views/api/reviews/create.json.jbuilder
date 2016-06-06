@@ -8,7 +8,7 @@ json.review do
   end
   json.deck do
     json.id @deck.id
-    json.grade Deck.calculate_grade(@flashcards)
+    json.grade Deck.grade(@flashcards)
     json.reviewTotal @deck.review_total
   end
 end
