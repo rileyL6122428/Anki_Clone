@@ -29,7 +29,12 @@ var Content = React.createClass({
 
   reviewCB: function (e) {
     e.preventDefault();
-    this.context.router.push("/decks/" + this.state.deck.id + "/review");
+    if (this.state.deck.cardTotal > 0) {
+      this.context.router.push("/decks/" + this.state.deck.id + "/review");
+    } else {
+      this.context.router.push('decks/' + this.state.deck.id + '/new-flashcards');
+    }
+
   },
 
   render: function () {

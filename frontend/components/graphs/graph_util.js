@@ -1,5 +1,6 @@
 module.exports = {
   colorByPercentage: function (percentage) {
+    if (percentage == 0) { return "rgb(56, 38, 134)"}
     if (percentage < 50) { return "rgb(232, 11, 2)"; }
     if (percentage < 60) { return "rgb(232, 52, 94)"; }
     if (percentage < 70) { return "rgb(232, 102, 78)"; }

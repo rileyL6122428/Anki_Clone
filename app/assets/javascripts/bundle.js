@@ -61,8 +61,8 @@
 	var UserDecks = __webpack_require__(269);
 	var NewDeck = __webpack_require__(277);
 	var DeckShow = __webpack_require__(280);
-	var EditDeck = __webpack_require__(285);
-	var FlashcardIndex = __webpack_require__(288);
+	var EditDeck = __webpack_require__(284);
+	var FlashcardIndex = __webpack_require__(287);
 	var FlashcardShow = __webpack_require__(297);
 	var NewFlashcard = __webpack_require__(301);
 	var EditFlashcard = __webpack_require__(304);
@@ -75,8 +75,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(272);
 	window.DeckActions = __webpack_require__(274);
-	window.FlashcardStore = __webpack_require__(291);
-	window.FlashcardActions = __webpack_require__(294);
+	window.FlashcardStore = __webpack_require__(290);
+	window.FlashcardActions = __webpack_require__(293);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
@@ -34296,7 +34296,7 @@
 
 	var React = __webpack_require__(1);
 	var Content = __webpack_require__(281);
-	var Options = __webpack_require__(284);
+	var Options = __webpack_require__(282);
 	var DeckHistory = __webpack_require__(283);
 	var Link = __webpack_require__(168).Link;
 	
@@ -34341,7 +34341,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(282);
+	var Info = __webpack_require__(311);
 	var History = __webpack_require__(283);
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(274);
@@ -34373,7 +34373,11 @@
 	
 	  reviewCB: function (e) {
 	    e.preventDefault();
-	    this.context.router.push("/decks/" + this.state.deck.id + "/review");
+	    if (this.state.deck.cardTotal > 0) {
+	      this.context.router.push("/decks/" + this.state.deck.id + "/review");
+	    } else {
+	      this.context.router.push('decks/' + this.state.deck.id + '/new-flashcards');
+	    }
 	  },
 	
 	  render: function () {
@@ -34429,56 +34433,58 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var GradeGraph = __webpack_require__(263);
+	var Link = __webpack_require__(168).Link;
 	
-	var Info = React.createClass({
-	  displayName: 'Info',
+	//TODO set link destinations to proper destinations
+	
+	var Options = React.createClass({
+	  displayName: 'Options',
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'DeckInfo' },
+	      { className: 'Options' },
 	      React.createElement(
 	        'h3',
 	        null,
-	        'Info'
+	        'Options'
 	      ),
 	      React.createElement(
-	        'div',
+	        'ul',
 	        null,
 	        React.createElement(
-	          'p',
+	          'li',
 	          null,
-	          this.props.cardTotal
+	          React.createElement(
+	            Link,
+	            { to: "/edit-deck/" + this.props.deckId },
+	            'Edit Deck'
+	          )
 	        ),
 	        React.createElement(
-	          'div',
+	          'li',
 	          null,
-	          'Card Total'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'div',
-	          null,
-	          this.props.grade,
-	          '%'
+	          React.createElement(
+	            Link,
+	            { to: "/decks/" + this.props.deckId + "/flashcards" },
+	            'Cards'
+	          )
 	        ),
 	        React.createElement(
-	          'p',
+	          'li',
 	          null,
-	          'Grade'
+	          React.createElement(
+	            Link,
+	            { to: '/dashboard' },
+	            'Remove'
+	          )
 	        )
-	      ),
-	      React.createElement(GradeGraph, { barTotals: this.props.gradeDistribution,
-	        barLabels: ["New", "F", "E", "D", "C", "B", "A"] })
+	      )
 	    );
 	  }
 	});
 	
-	module.exports = Info;
+	module.exports = Options;
 
 /***/ },
 /* 283 */
@@ -34563,66 +34569,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Link = __webpack_require__(168).Link;
-	
-	//TODO set link destinations to proper destinations
-	
-	var Options = React.createClass({
-	  displayName: 'Options',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'Options' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Options'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: "/edit-deck/" + this.props.deckId },
-	            'Edit Deck'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: "/decks/" + this.props.deckId + "/flashcards" },
-	            'Cards'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Remove'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Options;
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Form = __webpack_require__(286);
-	var Header = __webpack_require__(287);
+	var Form = __webpack_require__(285);
+	var Header = __webpack_require__(286);
 	
 	var EditDeck = React.createClass({
 	  displayName: 'EditDeck',
@@ -34640,7 +34588,7 @@
 	module.exports = EditDeck;
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34720,7 +34668,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 287 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34750,12 +34698,12 @@
 	module.exports = Header;
 
 /***/ },
-/* 288 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(289);
-	var List = __webpack_require__(290);
+	var SearchBar = __webpack_require__(288);
+	var List = __webpack_require__(289);
 	var Link = __webpack_require__(168).Link;
 	
 	var FlashcardIndex = React.createClass({
@@ -34800,7 +34748,7 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 289 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34825,14 +34773,14 @@
 	module.exports = FlashcardsSearchBar;
 
 /***/ },
-/* 290 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(291);
-	var FlashcardActions = __webpack_require__(294);
-	var FlashcardIndexItem = __webpack_require__(296);
-	var GraphUtil = __webpack_require__(311);
+	var FlashcardStore = __webpack_require__(290);
+	var FlashcardActions = __webpack_require__(293);
+	var FlashcardIndexItem = __webpack_require__(295);
+	var GraphUtil = __webpack_require__(296);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -34890,14 +34838,14 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 291 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(292);
+	var FlashcardConstants = __webpack_require__(291);
 	var ReviewConstants = __webpack_require__(265);
-	var Util = __webpack_require__(293);
+	var Util = __webpack_require__(292);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -35000,7 +34948,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 292 */
+/* 291 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35010,7 +34958,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 292 */
 /***/ function(module, exports) {
 
 	var Util = {
@@ -35055,10 +35003,10 @@
 	module.exports = Util;
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(295);
+	var FlashcardApiUtil = __webpack_require__(294);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -35082,11 +35030,11 @@
 	};
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(292);
+	var FlashcardConstants = __webpack_require__(291);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -35158,12 +35106,12 @@
 	};
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var GraphUtil = __webpack_require__(311);
+	var GraphUtil = __webpack_require__(296);
 	
 	var FlashcardIndexItem = React.createClass({
 	  displayName: 'FlashcardIndexItem',
@@ -35205,12 +35153,66 @@
 	module.exports = FlashcardIndexItem;
 
 /***/ },
+/* 296 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  colorByPercentage: function (percentage) {
+	    if (percentage == 0) {
+	      return "rgb(56, 38, 134)";
+	    }
+	    if (percentage < 50) {
+	      return "rgb(232, 11, 2)";
+	    }
+	    if (percentage < 60) {
+	      return "rgb(232, 52, 94)";
+	    }
+	    if (percentage < 70) {
+	      return "rgb(232, 102, 78)";
+	    }
+	    if (percentage < 80) {
+	      return "rgb(255, 210, 85)";
+	    }
+	    if (percentage < 90) {
+	      return "rgb(78, 164, 232)";
+	    }
+	    if (percentage <= 100) {
+	      return "rgb(72, 255, 111)";
+	    }
+	  },
+	
+	  gradeByPercentage: function (percentage) {
+	    if (percentage == 0) {
+	      return "New";
+	    }
+	    if (percentage < 50) {
+	      return "F";
+	    }
+	    if (percentage < 60) {
+	      return "E";
+	    }
+	    if (percentage < 70) {
+	      return "D";
+	    }
+	    if (percentage < 80) {
+	      return "C";
+	    }
+	    if (percentage < 90) {
+	      return "B";
+	    }
+	    if (percentage <= 100) {
+	      return "A";
+	    }
+	  }
+	};
+
+/***/ },
 /* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(291);
-	var FlashcardActions = __webpack_require__(294);
+	var FlashcardStore = __webpack_require__(290);
+	var FlashcardActions = __webpack_require__(293);
 	var Link = __webpack_require__(168).Link;
 	var Preview = __webpack_require__(298);
 	var Info = __webpack_require__(299);
@@ -35364,8 +35366,8 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(294);
-	var FlashcardStore = __webpack_require__(291);
+	var FlashcardActions = __webpack_require__(293);
+	var FlashcardStore = __webpack_require__(290);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -35447,8 +35449,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(294);
-	var FlashcardStore = __webpack_require__(291);
+	var FlashcardActions = __webpack_require__(293);
+	var FlashcardStore = __webpack_require__(290);
 	var Preview = __webpack_require__(298);
 	
 	var Form = React.createClass({
@@ -35492,6 +35494,7 @@
 	      front: this.state.front,
 	      back: this.state.back
 	    }, this.props.deckId);
+	    this.setState({ front: "", back: "" });
 	  },
 	
 	  render: function () {
@@ -35523,7 +35526,8 @@
 	          null,
 	          React.createElement('textarea', { type: 'text',
 	            onChange: this.changeFront,
-	            className: 'FrontInput' })
+	            className: 'FrontInput',
+	            value: this.state.front })
 	        ),
 	        React.createElement(
 	          'h4',
@@ -35535,7 +35539,8 @@
 	          null,
 	          React.createElement('textarea', { type: 'text',
 	            onChange: this.changeBack,
-	            className: 'BackInput' })
+	            className: 'BackInput',
+	            value: this.state.back })
 	        ),
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
@@ -35617,8 +35622,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(294);
-	var FlashcardStore = __webpack_require__(291);
+	var FlashcardActions = __webpack_require__(293);
+	var FlashcardStore = __webpack_require__(290);
 	var Preview = __webpack_require__(298);
 	
 	var Form = React.createClass({
@@ -35719,10 +35724,10 @@
 
 	var React = __webpack_require__(1);
 	var Recap = __webpack_require__(307);
-	var Front = __webpack_require__(308);
-	var Flipped = __webpack_require__(309);
-	var FlashcardStore = __webpack_require__(291);
-	var FlashcardActions = __webpack_require__(294);
+	var Front = __webpack_require__(309);
+	var Flipped = __webpack_require__(310);
+	var FlashcardStore = __webpack_require__(290);
+	var FlashcardActions = __webpack_require__(293);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
 	
@@ -35888,7 +35893,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var RecapCanvas = __webpack_require__(310);
+	var RecapCanvas = __webpack_require__(308);
 	
 	var Recap = React.createClass({
 	  displayName: 'Recap',
@@ -35969,6 +35974,58 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var GraphUtil = __webpack_require__(296);
+	
+	RecapCanvas = React.createClass({
+	    displayName: 'RecapCanvas',
+	
+	    componentDidMount: function () {
+	        this.updateCanvas();
+	    },
+	    componentDidUpdate: function () {
+	        this.updateCanvas();
+	    },
+	    updateCanvas: function () {
+	        var c = this.refs.canvas.getContext('2d');
+	
+	        var percentage = this.props.percentage;
+	        var angle = 2 * Math.PI * percentage / 100 - 0.5 * Math.PI;
+	        var centerX = 100;
+	        var centerY = 100;
+	        var color = graph_util.colorByPercentage(percentage);
+	        var grade = graph_util.gradeByPercentage(percentage);
+	
+	        c.strokeStyle = "#F5F5F5";
+	        c.lineWidth = 15;
+	        c.beginPath();
+	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, 1.5 * Math.PI, false);
+	        c.stroke();
+	
+	        c.strokeStyle = color;
+	        c.lineWidth = 13;
+	        c.beginPath();
+	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, angle, false);
+	        c.stroke();
+	
+	        c.fillStyle = color;
+	        c.font = "30px Sans Serif";
+	        c.fillText(grade, centerX - 10, centerY + 25);
+	
+	        c.font = "22px Sans Serif";
+	        c.fillText("" + percentage + "%", centerX - 17, centerY - 10);
+	    },
+	    render: function () {
+	        return React.createElement('canvas', { ref: 'canvas', width: 200, height: 200 });
+	    }
+	});
+	
+	module.exports = RecapCanvas;
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	
 	var Front = React.createClass({
 	  displayName: "Front",
@@ -35999,7 +36056,7 @@
 	module.exports = Front;
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36051,107 +36108,60 @@
 	module.exports = Flipped;
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var GraphUtil = __webpack_require__(311);
+	var GradeGraph = __webpack_require__(263);
 	
-	RecapCanvas = React.createClass({
-	    displayName: 'RecapCanvas',
+	var Info = React.createClass({
+	  displayName: 'Info',
 	
-	    componentDidMount: function () {
-	        this.updateCanvas();
-	    },
-	    componentDidUpdate: function () {
-	        this.updateCanvas();
-	    },
-	    updateCanvas: function () {
-	        var c = this.refs.canvas.getContext('2d');
-	
-	        var percentage = this.props.percentage;
-	        var angle = 2 * Math.PI * percentage / 100 - 0.5 * Math.PI;
-	        var centerX = 100;
-	        var centerY = 100;
-	        var color = graph_util.colorByPercentage(percentage);
-	        var grade = graph_util.gradeByPercentage(percentage);
-	
-	        c.strokeStyle = "#F5F5F5";
-	        c.lineWidth = 15;
-	        c.beginPath();
-	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, 1.5 * Math.PI, false);
-	        c.stroke();
-	
-	        c.strokeStyle = color;
-	        c.lineWidth = 13;
-	        c.beginPath();
-	        c.arc(centerX, centerY, 57, -0.5 * Math.PI, angle, false);
-	        c.stroke();
-	
-	        c.fillStyle = color;
-	        c.font = "30px Sans Serif";
-	        c.fillText(grade, centerX - 10, centerY + 25);
-	
-	        c.font = "22px Sans Serif";
-	        c.fillText("" + percentage + "%", centerX - 17, centerY - 10);
-	    },
-	    render: function () {
-	        return React.createElement('canvas', { ref: 'canvas', width: 200, height: 200 });
-	    }
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'DeckInfo' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Info'
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.cardTotal
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Card Total'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          this.props.grade,
+	          '%'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Grade'
+	        )
+	      ),
+	      React.createElement(GradeGraph, { barTotals: this.props.gradeDistribution,
+	        barLabels: ["New", "F", "E", "D", "C", "B", "A"] })
+	    );
+	  }
 	});
 	
-	module.exports = RecapCanvas;
-
-/***/ },
-/* 311 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  colorByPercentage: function (percentage) {
-	    if (percentage < 50) {
-	      return "rgb(232, 11, 2)";
-	    }
-	    if (percentage < 60) {
-	      return "rgb(232, 52, 94)";
-	    }
-	    if (percentage < 70) {
-	      return "rgb(232, 102, 78)";
-	    }
-	    if (percentage < 80) {
-	      return "rgb(255, 210, 85)";
-	    }
-	    if (percentage < 90) {
-	      return "rgb(78, 164, 232)";
-	    }
-	    if (percentage <= 100) {
-	      return "rgb(72, 255, 111)";
-	    }
-	  },
-	
-	  gradeByPercentage: function (percentage) {
-	    if (percentage == 0) {
-	      return "New";
-	    }
-	    if (percentage < 50) {
-	      return "F";
-	    }
-	    if (percentage < 60) {
-	      return "E";
-	    }
-	    if (percentage < 70) {
-	      return "D";
-	    }
-	    if (percentage < 80) {
-	      return "C";
-	    }
-	    if (percentage < 90) {
-	      return "B";
-	    }
-	    if (percentage <= 100) {
-	      return "A";
-	    }
-	  }
-	};
+	module.exports = Info;
 
 /***/ }
 /******/ ]);

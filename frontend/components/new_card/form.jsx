@@ -43,7 +43,7 @@ var Form = React.createClass({
         back: this.state.back
       }, this.props.deckId
     );
-
+    this.setState({front: "", back: ""})
   },
 
   render: function () {
@@ -62,14 +62,16 @@ var Form = React.createClass({
           <label>
             <textarea type="text"
                       onChange={this.changeFront}
-                      className="FrontInput" />
+                      className="FrontInput"
+                      value={this.state.front} />
           </label>
 
           <h4>Back</h4>
           <label>
             <textarea type="text"
                       onChange={this.changeBack}
-                      className="BackInput" />
+                      className="BackInput"
+                      value={this.state.back}/>
           </label>
           <br/>
 
