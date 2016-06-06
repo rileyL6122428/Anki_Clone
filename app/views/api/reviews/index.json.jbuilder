@@ -5,4 +5,4 @@ json.reviews do
   end                                              #frontend
 end
 
-json.total @reviewTotal
+json.total @review_total

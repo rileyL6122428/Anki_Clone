@@ -4,7 +4,7 @@ var RecapCanvas = require('../graphs/recap');
 var Recap =  React.createClass({
   render: function () {
     if (!this.props.showing) { return <div></div>; }
-
+      // debugger
     return (
       <div className="group Recap">
         <div className="Review-Grade" >
@@ -18,13 +18,13 @@ var Recap =  React.createClass({
 
             <li className="Statistic">
               <p className="StatTitle">Reviews per Day (average)</p>
-              <p className="Stat">Insert Total</p>
+              <p className="Stat">{ this.props.deck.reviewsPerDay }</p>
               <div className="ClearSet" />
             </li>
 
             <li className="Statistic">
                <p className="StatTitle">Reviews Today</p>
-               <p className="Stat">Insert Total</p>
+               <p className="Stat">{ this.props.deck.reviewsToday }</p>
                <div className="ClearSet" />
             </li>
           </ul>

@@ -10,15 +10,22 @@ var DashboardInfo = React.createClass({
     return (total / 7);
   },
 
+  calcReviewsToday: function () {
+    var rightNow = new Date();
+    return this.props.dayTotals[rightNow.getDay()];
+  },
+
   render: function(){
+
     var reviewsPerDay = this.calcReviewsPerDay();
+    var reviewsToday = this.calcReviewsToday();
     return(
       <div className="Info">
         <h4>INFO</h4>
         <ul>
           <li>
             <p className="StatTitle">Reviews Today</p>
-            <p className="Stat">Insert Reviews Done Today</p>
+            <p className="Stat">{ reviewsToday }</p>
             <div className="ClearSet" />
           </li>
 

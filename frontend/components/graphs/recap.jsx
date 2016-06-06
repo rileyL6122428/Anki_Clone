@@ -38,8 +38,8 @@ RecapCanvas =  React.createClass({
       var angle = (2 * Math.PI * percentage / 100) - 0.5 * Math.PI;
       var centerX = 100;
       var centerY = 100;
-      var color = colorByPercentage(percentage)
-      var grade = gradeByPercentage(percentage)
+      var color = colorByPercentage(percentage);
+      var grade = gradeByPercentage(percentage);
 
       c.strokeStyle = "#F5F5F5";
       c.lineWidth = 15;

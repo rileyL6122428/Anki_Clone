@@ -28,6 +28,15 @@ class Api::ReviewsController < ApplicationController
     total
   end
 
+  def todays_review_total(user)
+    total = 0;
+    user.reviews.each do |review|
+      total += 1 if review.created_at.day == Date.new.day
+    end
+
+    total
+  end
+
   def update_card_and_deck_grades
     reviewed_deck = Deck.find(params[:deck_id])
     deck_cards = reviewed_deck.cards
@@ -57,17 +66,16 @@ class Api::ReviewsController < ApplicationController
   def destroy_reviews_over_a_week_old
     six_days_ago = Time.now - 60 * 60 * 24 * 6
     cut_off = Time.new(six_days_ago.year, six_days_ago.month, six_days_ago.day)
-    cut_off_string = cut_off.to_s.match(/\S+/).to_s
     Review.delete_all(["created_at < ?", cut_off])
   end
 
   def gather_up_review_data_for_view
     user = User.where(id: current_user.id).includes(:reviews, :decks).first
     @reviews = user.reviews
-    @reviewTotal = calculate_total(user)
-    # NOTE, this cannot be calculated from
-    # the review table because reviews over
-    # a week old are destroyed
+    @review_total = calculate_total(user)# NOTE this cannot be calculated from
+                                         # the review table because reviews over
+                                         # a week old are destroyed
+
   end
 
 end

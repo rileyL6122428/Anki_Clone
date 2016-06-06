@@ -33325,8 +33325,15 @@
 	    return total / 7;
 	  },
 	
+	  calcReviewsToday: function () {
+	    var rightNow = new Date();
+	    return this.props.dayTotals[rightNow.getDay()];
+	  },
+	
 	  render: function () {
+	
 	    var reviewsPerDay = this.calcReviewsPerDay();
+	    var reviewsToday = this.calcReviewsToday();
 	    return React.createElement(
 	      "div",
 	      { className: "Info" },
@@ -33349,7 +33356,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            "Insert Reviews Done Today"
+	            reviewsToday
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        ),
@@ -35878,7 +35885,7 @@
 	    if (!this.props.showing) {
 	      return React.createElement('div', null);
 	    }
-	
+	    // debugger
 	    return React.createElement(
 	      'div',
 	      { className: 'group Recap' },
@@ -35914,7 +35921,7 @@
 	            React.createElement(
 	              'p',
 	              { className: 'Stat' },
-	              'Insert Total'
+	              this.props.deck.reviewsPerDay
 	            ),
 	            React.createElement('div', { className: 'ClearSet' })
 	          ),
@@ -35929,7 +35936,7 @@
 	            React.createElement(
 	              'p',
 	              { className: 'Stat' },
-	              'Insert Total'
+	              this.props.deck.reviewsToday
 	            ),
 	            React.createElement('div', { className: 'ClearSet' })
 	          )
