@@ -1,13 +1,15 @@
 var React = require('react');
+var RecapCanvas = require('../graphs/recap');
 
 var Recap =  React.createClass({
   render: function () {
     if (!this.props.showing) { return <div></div>; }
 
     return (
-      <div>
+      <div className="group Recap">
         <div className="Review-Grade" >
-          <div>Insert Grade Graph Here</div>
+          <h4 className="Stat-Header">Grade</h4>
+          <RecapCanvas percentage={ this.props.reviewGrade }/>
         </div>
 
         <div className="Review-Info">
@@ -26,6 +28,7 @@ var Recap =  React.createClass({
                <div className="ClearSet" />
             </li>
           </ul>
+
         </div>
 
         <button className="Normal-Button" onClick={this.props.continueCB}>Continue</button>

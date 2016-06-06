@@ -1,13 +1,8 @@
 class Api::ReviewsController < ApplicationController
 
-  #TODO, delete all reviews over a week old
   def index
-
-    user = User.where(id: current_user.id).includes(:reviews, :decks).first
-    @reviews = user.reviews
-    @reviewTotal = calculate_total(user) # NOTE, this cannot be calculated from
-                                         # the review table because reviews over
-                                         # a week old are destroyed
+    destroy_reviews_over_a_week_old
+    gather_up_review_data_for_view
     render "api/reviews/index"
   end
 
@@ -57,6 +52,23 @@ class Api::ReviewsController < ApplicationController
       }
     end
     grades
+  end
+
+  def destroy_reviews_over_a_week_old
+    six_days_ago = Time.now - 60 * 60 * 24 * 6
+    cut_off = Time.new(six_days_ago.year, six_days_ago.month, six_days_ago.day)
+    cut_off_string = cut_off.to_s.match(/\S+/).to_s
+    byebug
+    Review.delete_all(["created_at < ?", cut_off])
+  end
+
+  def gather_up_review_data_for_view
+    user = User.where(id: current_user.id).includes(:reviews, :decks).first
+    @reviews = user.reviews
+    @reviewTotal = calculate_total(user)
+    # NOTE, this cannot be calculated from
+    # the review table because reviews over
+    # a week old are destroyed
   end
 
 end

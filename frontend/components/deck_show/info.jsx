@@ -7,8 +7,8 @@ var Info = React.createClass ({
       <div className="DeckInfo">
         <h3>Info</h3>
         <div>
-          <div>insertTotal</div>
           <p>{ this.props.cardTotal }</p>
+          <div>Card Total</div>
         </div>
 
         <div>

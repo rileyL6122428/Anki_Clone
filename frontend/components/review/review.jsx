@@ -75,6 +75,19 @@ var Review =  React.createClass({
     return (Object.keys(this.state.reviewSummary).length === 0);
   },
 
+  _reviewGrade: function () {
+
+    var gradeCount = Object.keys(this.state.reviewSummary).length;
+    if(gradeCount === 0) { return 0; }
+
+    var total = 0;
+    for (var id in this.state.reviewSummary) {
+      total += this.state.reviewSummary[id];
+    }
+
+    return (Math.round(total / gradeCount));
+  },
+
   render: function () {
     var arrow = "<"
     var title = "Review";
@@ -102,12 +115,13 @@ var Review =  React.createClass({
                  flipCB={ this.flipCB }/>
 
                <Flipped showing={ this.state.cardIdx < cardTotal && this.state.flipped }
-                 cardFront={ cardFront }
-                 cardBack={ cardBack }
-                 gradeCB={ this.gradeCB }/>
+                       cardFront={ cardFront }
+                       cardBack={ cardBack }
+                       gradeCB={ this.gradeCB }/>
 
                <Recap   showing={ this.state.cardIdx === cardTotal }
-                 continueCB={this.continueCB}/>
+                        continueCB={this.continueCB}
+                        reviewGrade={this._reviewGrade()}/>
 
       </div>
     );

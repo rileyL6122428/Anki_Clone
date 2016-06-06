@@ -1,3 +1,9 @@
+.group {
+  display: block;
+  content: "";
+  clear: both;
+}
+
 h1 {
   text-align: center;
   margin-top: 0px;
@@ -15,6 +21,10 @@ h4.Stat-Header{
   display: block;
   width: 90%;
   margin: auto;
+  margin-top: 20px;
+  padding-top: 7px;
+  height: 24px;
+  text-align: center;
 }
 
 ul.Stat-List {

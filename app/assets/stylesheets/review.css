@@ -80,16 +80,19 @@
 .Flipped p{
   height: 100%;
   position: relative;
+  margin-top: 23px;
+  margin-bottom: 13px;
 }
 
 .Flipped div.Front {
   /*height: 100%;*/
+  height: auto;
   position: absolute;
   bottom: 0;
   right: 5%;
   /*margin: auto;*/
   width:90%;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .Flipped div.Back {
@@ -163,4 +166,32 @@ button.Good {
 
 button.Easy {
   color: rgb(97, 174, 36);
+}
+
+.Recap {
+  display: block;
+  width: 960px;
+  margin: auto;
+}
+
+.Recap h4 {
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+h4.Stat-Header {
+  margin-top: 20px;
+}
+
+.Review-Grade {
+  display: block;
+  width: 475px;
+  float: left;
+}
+
+.Review-Info {
+  display: block;
+  width: 475px;
+  float: right;
 }
