@@ -1,4 +1,5 @@
 class Api::FlashcardsController < ApplicationController
+  #TODO sanitize Query inputs ??? IMPORTANT
   def create
     @flashcard = Flashcard.new(flashcard_params)
     @flashcard.deck_id = params[:deck_id]

@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_PUBLIC_DECKS: "RECEIVE_PUBLIC_DECKS"
+}

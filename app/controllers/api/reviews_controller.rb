@@ -1,5 +1,5 @@
 class Api::ReviewsController < ApplicationController
-
+  #TODO sanitize Query inputs ??? IMPORTANT
   def index
     destroy_reviews_over_a_week_old
     gather_up_review_data_for_view

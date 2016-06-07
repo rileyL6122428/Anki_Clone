@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
   # TODO check that command syntax lines up
-
+  #TODO sanitize Query inputs ??? IMPORTANT
   def create
 		@user = User.find_by_credentials(
       params[:user][:username],

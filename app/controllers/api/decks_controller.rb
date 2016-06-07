@@ -1,4 +1,6 @@
 class Api::DecksController < ApplicationController
+  #TODO sanitize Query inputs ??? IMPORTANT
+
   def create
     @deck = Deck.new(deck_params)
     @deck.review_total = 0;
