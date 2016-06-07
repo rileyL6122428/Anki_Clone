@@ -9,4 +9,5 @@ json.array! @public_decks do |deck|
        json.id card.id
      end
    end
+   json.cardTotal deck.cards.length
 end

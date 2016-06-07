@@ -67,6 +67,7 @@
 	var NewFlashcard = __webpack_require__(303);
 	var EditFlashcard = __webpack_require__(306);
 	var Review = __webpack_require__(308);
+	var PublicDeckBrowser = __webpack_require__(317);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -125,7 +126,8 @@
 	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId', component: FlashcardShow, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/new-flashcards', component: NewFlashcard, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId/edit', component: EditFlashcard, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'decks/:id/review', component: Review, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'decks/:id/review', component: Review, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'public-deck-index', component: PublicDeckBrowser, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -33238,7 +33240,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/dashboard' },
+	            { to: '/public-deck-index' },
 	            'Import Deck'
 	          )
 	        ),
@@ -34170,6 +34172,11 @@
 	  displayName: 'DeckIndexItem',
 	
 	  render: function () {
+	    var grade = "";
+	    if (this.props.grade) {
+	      grade = this.props.grade;
+	    }
+	
 	    return React.createElement(
 	      Link,
 	      { to: "decks/" + this.props.id },
@@ -34193,7 +34200,7 @@
 	        React.createElement(
 	          'p',
 	          { className: 'Grade' },
-	          this.props.grade
+	          grade
 	        ),
 	        React.createElement('div', { className: 'ClearSet' })
 	      )
@@ -36108,8 +36115,8 @@
 	        var angle = 2 * Math.PI * percentage / 100 - 0.5 * Math.PI;
 	        var centerX = 100;
 	        var centerY = 100;
-	        var color = graph_util.colorByPercentage(percentage);
-	        var grade = graph_util.gradeByPercentage(percentage);
+	        var color = GraphUtil.colorByPercentage(percentage);
+	        var grade = GraphUtil.gradeByPercentage(percentage);
 	
 	        c.strokeStyle = "#F5F5F5";
 	        c.lineWidth = 15;
@@ -36250,6 +36257,7 @@
 	  decks.forEach(function (deck) {
 	    _publicDecks[deck.id] = deck;
 	  });
+	  PublicDeckStore.__emitChange();
 	};
 	
 	PublicDeckStore.__onDispatch = function (payload) {
@@ -36305,6 +36313,115 @@
 	    });
 	  }
 	};
+
+/***/ },
+/* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Footer = __webpack_require__(259);
+	var SearchBar = __webpack_require__(270);
+	var DeckIndex = __webpack_require__(318);
+	var PublicDeckActions = __webpack_require__(315);
+	
+	var PublicDeckBrowse = React.createClass({
+	  displayName: 'PublicDeckBrowse',
+	
+	
+	  getInitialState: function () {
+	    return { query: "" };
+	  },
+	
+	  queryChangeCB: function (e) {
+	    e.preventDefault();
+	
+	    var query = e.target.value;
+	
+	    this.setState({ query: query });
+	    PublicDeckActions.search(query);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'Parent-Component' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Get Decks'
+	        ),
+	        React.createElement(SearchBar, { changeCB: this.queryChangeCB }),
+	        React.createElement(
+	          'div',
+	          { className: 'Overflow-Test' },
+	          React.createElement(DeckIndex, { query: this.state.query })
+	        ),
+	        React.createElement(Footer, null)
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = PublicDeckBrowse;
+
+/***/ },
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PublicDeckStore = __webpack_require__(313);
+	var DeckActions = __webpack_require__(315);
+	var DeckIndexItem = __webpack_require__(277);
+	
+	var DeckIndex = React.createClass({
+	  displayName: 'DeckIndex',
+	
+	
+	  getInitialState: function () {
+	    return { decks: [] };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = PublicDeckStore.addListener(this.deckStoreCB);
+	  },
+	
+	  deckStoreCB: function () {
+	    this.setState({ decks: PublicDeckStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	
+	    var deckList = React.createElement(
+	      'div',
+	      { className: 'Wrapper' },
+	      this.state.decks.map(function (deck) {
+	        return React.createElement(DeckIndexItem, { key: deck.id,
+	          id: deck.id,
+	          name: deck.name,
+	          totalCards: deck.cardTotal });
+	      })
+	    );
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        deckList
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = DeckIndex;
 
 /***/ }
 /******/ ]);

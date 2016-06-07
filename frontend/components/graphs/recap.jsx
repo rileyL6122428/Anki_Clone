@@ -10,14 +10,14 @@ RecapCanvas =  React.createClass({
     },
     updateCanvas: function() {
       var c = this.refs.canvas.getContext('2d');
-  
+
 
       var percentage = this.props.percentage;
       var angle = (2 * Math.PI * percentage / 100) - 0.5 * Math.PI;
       var centerX = 100;
       var centerY = 100;
-      var color = graph_util.colorByPercentage(percentage);
-      var grade = graph_util.gradeByPercentage(percentage);
+      var color = GraphUtil.colorByPercentage(percentage);
+      var grade = GraphUtil.gradeByPercentage(percentage);
 
       c.strokeStyle = "#F5F5F5";
       c.lineWidth = 15;

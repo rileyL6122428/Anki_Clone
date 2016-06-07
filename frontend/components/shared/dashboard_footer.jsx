@@ -10,7 +10,7 @@ var DashboardFooter = React.createClass({
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/decks">Decks</Link></li>
           <li><Link to="/new-deck">New Deck</Link></li>
-          <li><Link to="/dashboard">Import Deck</Link></li>
+          <li><Link to="/public-deck-index">Import Deck</Link></li>
           <li><Link to="/profile">Profile</Link></li>
         </ul>
       </div>

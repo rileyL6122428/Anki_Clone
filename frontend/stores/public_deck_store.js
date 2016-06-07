@@ -15,10 +15,11 @@ PublicDeckStore.all = function () {
 
 var receivePublicDecks = function (decks) {
   _publicDecks = {};
-  
+
   decks.forEach(function(deck){
     _publicDecks[deck.id] = deck
   });
+  PublicDeckStore.__emitChange();
 }
 
 PublicDeckStore.__onDispatch = function (payload) {
