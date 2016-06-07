@@ -8,7 +8,8 @@ var DashboardContent = React.createClass({
 
   getInitialState: function () {
     return({
-      dayTotals: ReviewStore.allByWeekDay(),
+      dayTotals: ReviewStore.allBySortedWeekDay(),
+      dayLabels: ReviewStore.dayLabels(),
       lifeTotal: ReviewStore.lifeTotal()
     });
   },
@@ -20,7 +21,7 @@ var DashboardContent = React.createClass({
 
   reviewStoreCB: function () {
     this.setState({
-      dayTotals: ReviewStore.allByWeekDay(),
+      dayTotals: ReviewStore.allBySortedWeekDay(),
       lifeTotal: ReviewStore.lifeTotal()
     });
   },
@@ -34,7 +35,8 @@ var DashboardContent = React.createClass({
       <div className="Content">
         <DashboardInfo dayTotals={ this.state.dayTotals }
                        lifeTotal = { this.state.lifeTotal} />
-        <DashboardDisplay dayTotals={ this.state.dayTotals }/>
+        <DashboardDisplay dayTotals={ this.state.dayTotals }
+                          dayLabels={ this.state.dayLabels}/>
         <div className="ClearSet" />
       </div>
     );

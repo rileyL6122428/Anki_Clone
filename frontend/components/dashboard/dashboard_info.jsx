@@ -7,7 +7,7 @@ var DashboardInfo = React.createClass({
     this.props.dayTotals.forEach(function(dayTotal){
       total += dayTotal;
     });
-    return (total / 7);
+    return Math.round (total / 7);
   },
 
   calcReviewsToday: function () {

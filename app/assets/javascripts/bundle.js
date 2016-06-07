@@ -33215,7 +33215,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/dashboard' },
+	            { className: 'Home-Icon', to: '/dashboard' },
 	            'Dashboard'
 	          )
 	        ),
@@ -33224,7 +33224,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/decks' },
+	            { className: 'Decks-Icon', to: '/decks' },
 	            'Decks'
 	          )
 	        ),
@@ -33233,7 +33233,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/new-deck' },
+	            { className: 'New-Decks-Icon', to: '/new-deck' },
 	            'New Deck'
 	          )
 	        ),
@@ -33242,7 +33242,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/public-deck-index' },
+	            { className: 'Import-Icon', to: '/public-deck-index' },
 	            'Import Deck'
 	          )
 	        ),
@@ -33251,7 +33251,7 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/profile' },
+	            { className: 'Profile-Icon', to: '/profile' },
 	            'Profile'
 	          )
 	        )
@@ -33278,7 +33278,8 @@
 	
 	  getInitialState: function () {
 	    return {
-	      dayTotals: ReviewStore.allByWeekDay(),
+	      dayTotals: ReviewStore.allBySortedWeekDay(),
+	      dayLabels: ReviewStore.dayLabels(),
 	      lifeTotal: ReviewStore.lifeTotal()
 	    };
 	  },
@@ -33290,7 +33291,7 @@
 	
 	  reviewStoreCB: function () {
 	    this.setState({
-	      dayTotals: ReviewStore.allByWeekDay(),
+	      dayTotals: ReviewStore.allBySortedWeekDay(),
 	      lifeTotal: ReviewStore.lifeTotal()
 	    });
 	  },
@@ -33305,7 +33306,8 @@
 	      { className: 'Content' },
 	      React.createElement(DashboardInfo, { dayTotals: this.state.dayTotals,
 	        lifeTotal: this.state.lifeTotal }),
-	      React.createElement(DashboardDisplay, { dayTotals: this.state.dayTotals }),
+	      React.createElement(DashboardDisplay, { dayTotals: this.state.dayTotals,
+	        dayLabels: this.state.dayLabels }),
 	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
@@ -33328,7 +33330,7 @@
 	    this.props.dayTotals.forEach(function (dayTotal) {
 	      total += dayTotal;
 	    });
-	    return total / 7;
+	    return Math.round(total / 7);
 	  },
 	
 	  calcReviewsToday: function () {
@@ -33426,7 +33428,7 @@
 	      ),
 	      React.createElement(TestGraph, {
 	        barTotals: this.props.dayTotals,
-	        barLabels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] })
+	        barLabels: this.props.dayLabels })
 	    );
 	  }
 	
@@ -33654,6 +33656,33 @@
 	  }
 	
 	  return reviews;
+	};
+	
+	ReviewStore.dayLabels = function () {
+	  var weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+	  var today = new Date();
+	
+	  var labels = [];
+	  for (var i = today.getDay() + 1; i < today.getDay() + 7; i++) {
+	    var dayIdx = i % 7;
+	    labels.push(weekDays[dayIdx]);
+	  }
+	
+	  labels.push("Today");
+	  return labels;
+	};
+	
+	ReviewStore.allBySortedWeekDay = function () {
+	  var dayTotals = ReviewStore.allByWeekDay();
+	  var today = new Date();
+	
+	  var sortedTotals = [];
+	  for (var i = today.getDay() + 1; i <= today.getDay() + 7; i++) {
+	    var dayIdx = i % 7;
+	    sortedTotals.push(dayTotals[dayIdx]);
+	  }
+	
+	  return sortedTotals;
 	};
 	
 	ReviewStore.allByWeekDay = function () {
@@ -34169,14 +34198,15 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
+	var GraphUtil = __webpack_require__(298);
 	
 	var DeckIndexItem = React.createClass({
 	  displayName: 'DeckIndexItem',
 	
 	  render: function () {
-	    var grade = "";
+	    var grade = "New";
 	    if (this.props.grade) {
-	      grade = this.props.grade;
+	      grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade);
 	    }
 	
 	    return React.createElement(
@@ -34193,6 +34223,7 @@
 	            null,
 	            this.props.name
 	          ),
+	          React.createElement('div', { className: 'Cards-Image' }),
 	          React.createElement(
 	            'p',
 	            null,
@@ -34201,7 +34232,8 @@
 	        ),
 	        React.createElement(
 	          'p',
-	          { className: 'Grade' },
+	          { className: 'Grade',
+	            style: { color: GraphUtil.colorByPercentage(this.props.grade) } },
 	          grade
 	        ),
 	        React.createElement('div', { className: 'ClearSet' })

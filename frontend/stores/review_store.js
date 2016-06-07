@@ -19,6 +19,34 @@ ReviewStore.all = function () {
   return(reviews);
 }
 
+ReviewStore.dayLabels = function () {
+  var weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  var today = new Date
+
+  var labels = [];
+  for (var i = today.getDay() + 1; i < today.getDay() + 7 ; i++) {
+    var dayIdx = i % 7;
+    labels.push(weekDays[dayIdx])
+  }
+
+  labels.push("Today")
+  return labels
+}
+
+ReviewStore.allBySortedWeekDay = function () {
+  var dayTotals = ReviewStore.allByWeekDay();
+  var today = new Date
+
+  var sortedTotals = [];
+  for (var i = today.getDay() + 1; i <= today.getDay() + 7 ; i++) {
+    var dayIdx = i % 7;
+    sortedTotals.push(dayTotals[dayIdx])
+  }
+
+  return sortedTotals;
+}
+
+
 ReviewStore.allByWeekDay = function () {
   // NOTE (idx 0 corresponds to sundeay total, idx 1 to Monday, ect...)
   var dayTotals = [0, 0, 0, 0, 0, 0, 0]

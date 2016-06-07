@@ -7,11 +7,11 @@ var DashboardFooter = React.createClass({
     return(
       <div className="Footer">
         <ul>
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/decks">Decks</Link></li>
-          <li><Link to="/new-deck">New Deck</Link></li>
-          <li><Link to="/public-deck-index">Import Deck</Link></li>
-          <li><Link to="/profile">Profile</Link></li>
+          <li><Link className="Home-Icon" to="/dashboard">Dashboard</Link></li>
+          <li><Link className="Decks-Icon" to="/decks">Decks</Link></li>
+          <li><Link className="New-Decks-Icon" to="/new-deck">New Deck</Link></li>
+          <li><Link className="Import-Icon" to="/public-deck-index">Import Deck</Link></li>
+          <li><Link className="Profile-Icon" to="/profile">Profile</Link></li>
         </ul>
       </div>
     );

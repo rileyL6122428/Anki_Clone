@@ -10,15 +10,7 @@ var DashboardDisplay = React.createClass({
       <h4>REVIEWS</h4>
       <TestGraph
           barTotals={this.props.dayTotals}
-          barLabels={[
-            "Sun",
-            "Mon",
-            "Tue",
-            "Wed",
-            "Thu",
-            "Fri",
-            "Sat"
-          ]} />
+          barLabels={this.props.dayLabels} />
       </div>
 
     );
