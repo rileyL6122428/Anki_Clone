@@ -11,11 +11,11 @@ ReviewProgressCircle =  React.createClass({
     updateCanvas: function() {
       var c = this.refs.canvas.getContext('2d');
 
-      c.fillStyle = "#ddd"
-      c.fillRect(0,0,20,20)
+      c.fillStyle = "#E5E5E5"
+      c.fillRect(0,0,30,30)
 
-      var centerX = 10;
-      var centerY = 10;
+      var centerX = 12;
+      var centerY = 12;
       var color = "#616161"
       var radius = 10;
       var completed = this.props.completedCards;
@@ -43,7 +43,7 @@ ReviewProgressCircle =  React.createClass({
 
     render: function () {
          return (
-             <canvas ref="canvas" width={20} height={20}/>
+             <canvas className="Progress-Circle" ref="canvas" width={24} height={24}/>
          );
     }
 });

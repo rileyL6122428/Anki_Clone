@@ -35974,10 +35974,12 @@
 	    var title = "Review";
 	    var cardFront = "";
 	    var cardBack = "";
+	    var totalCards = 1;
 	    var cardTotal = this.state.cards.length;
 	    if (this.state.cards && this.state.cardIdx < cardTotal) {
 	      cardFront = this.state.cards[this.state.cardIdx].front;
 	      cardBack = this.state.cards[this.state.cardIdx].back;
+	      totalCards = this.state.cards.length;
 	    }
 	    if (this.state.cardIdx === cardTotal) {
 	      title = "Recap";
@@ -35998,15 +36000,15 @@
 	          'p',
 	          { className: 'Title' },
 	          title
-	        ),
-	        React.createElement(ReviewProgressCircle, { completedCards: this.state.cardIdx,
-	          totalCards: this.state.card.length })
+	        )
 	      ),
 	      React.createElement(
 	        'h6',
 	        null,
 	        this.state.deck.name,
-	        ' '
+	        React.createElement(ReviewProgressCircle, { className: 'Progress-Circle',
+	          completedCards: this.state.cardIdx,
+	          totalCards: cardTotal })
 	      ),
 	      React.createElement(Front, { showing: this.state.cardIdx < cardTotal && !this.state.flipped,
 	        cardFront: cardFront,
@@ -36685,11 +36687,11 @@
 	    updateCanvas: function () {
 	        var c = this.refs.canvas.getContext('2d');
 	
-	        c.fillStyle = "#ddd";
-	        c.fillRect(0, 0, 20, 20);
+	        c.fillStyle = "#E5E5E5";
+	        c.fillRect(0, 0, 30, 30);
 	
-	        var centerX = 10;
-	        var centerY = 10;
+	        var centerX = 12;
+	        var centerY = 12;
 	        var color = "#616161";
 	        var radius = 10;
 	        var completed = this.props.completedCards;
@@ -36716,7 +36718,7 @@
 	    },
 	
 	    render: function () {
-	        return React.createElement('canvas', { ref: 'canvas', width: 20, height: 20 });
+	        return React.createElement('canvas', { className: 'Progress-Circle', ref: 'canvas', width: 24, height: 24 });
 	    }
 	});
 	

@@ -111,10 +111,12 @@ var Review =  React.createClass({
     var title = "Review";
     var cardFront = "";
     var cardBack = "";
+    var totalCards = 1;
     var cardTotal = this.state.cards.length
     if (this.state.cards && this.state.cardIdx < cardTotal) {
       cardFront = this.state.cards[this.state.cardIdx].front;
       cardBack = this.state.cards[this.state.cardIdx].back;
+      totalCards = this.state.cards.length;
     }
     if(this.state.cardIdx === cardTotal) { title = "Recap"; }
 
@@ -123,11 +125,13 @@ var Review =  React.createClass({
         <h1>
           <button onClick={this.backArrowCB} className="BackLink">{ arrow }</button>
           <p className="Title">{ title }</p>
-          <ReviewProgressCircle completedCards={ this.state.cardIdx }
-                                totalCards={ this.state.card.length } />
+
         </h1>
 
-        <h6>{ this.state.deck.name } </h6>
+        <h6>{ this.state.deck.name }
+          <ReviewProgressCircle className="Progress-Circle"
+                                completedCards={ this.state.cardIdx }
+                                totalCards={ cardTotal } /></h6>
 
         <Front   showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
                  cardFront={ cardFront }

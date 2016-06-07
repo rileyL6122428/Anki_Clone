@@ -31,6 +31,7 @@
 .Review h6 {
   color: #616161;
   background-color: #E5E5E5;
+  position: relative;
 
   margin-top: 0px;
   margin-bottom: 0px;
@@ -41,6 +42,11 @@
   height: 28px;
 
   font-size: 24px;
+}
+
+.Progress-Circle {
+  float: right;
+  margin: 2px 5px;
 }
 
 .Review .Front {
