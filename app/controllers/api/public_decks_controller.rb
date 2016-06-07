@@ -1,9 +1,10 @@
 class Api::PublicDecksController < ApplicationController
   def index
+    # byebug
     if params[:query].empty?
       @public_decks = []
     else
-      @public_decks = PublicDeck.where("name LIKE ?", params[:query]).includes(:cards)
+      @public_decks = PublicDeck.where("name LIKE ?", "%#{params[:query]}%").includes(:cards)
     end
   end
 

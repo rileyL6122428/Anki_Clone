@@ -81,6 +81,8 @@
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
 	window.ReviewStore = __webpack_require__(264);
+	window.PublicDeckStore = __webpack_require__(313);
+	window.PublicDeckActions = __webpack_require__(315);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -36220,6 +36222,89 @@
 	});
 	
 	module.exports = Flipped;
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var Store = __webpack_require__(238).Store;
+	var PublicDeckStore = new Store(AppDispatcher);
+	var SearchUtil = __webpack_require__(274);
+	var PublicDeckConstants = __webpack_require__(314);
+	
+	var _publicDecks = {};
+	
+	PublicDeckStore.all = function () {
+	  var publicDecks = [];
+	
+	  for (var id in _publicDecks) {
+	    publicDecks.push(_publicDecks[id]);
+	  }
+	  return publicDecks;
+	};
+	
+	var receivePublicDecks = function (decks) {
+	  _publicDecks = {};
+	
+	  decks.forEach(function (deck) {
+	    _publicDecks[deck.id] = deck;
+	  });
+	};
+	
+	PublicDeckStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PublicDeckConstants.RECEIVE_PUBLIC_DECKS:
+	      receivePublicDecks(payload.decks);
+	      break;
+	
+	  }
+	};
+	
+	module.exports = PublicDeckStore;
+
+/***/ },
+/* 314 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_PUBLIC_DECKS: "RECEIVE_PUBLIC_DECKS"
+	};
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PublicDeckUtil = __webpack_require__(316);
+	
+	module.exports = {
+	  search: function (query) {
+	    PublicDeckUtil.search(query);
+	  }
+	};
+
+/***/ },
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var PublicDeckConstants = __webpack_require__(314);
+	
+	module.exports = {
+	  search: function (query) {
+	    $.ajax({
+	      url: "/api/public_decks",
+	      type: "GET",
+	      data: { query: query },
+	      success: function (decks) {
+	        AppDispatcher.dispatch({
+	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
+	          decks: decks
+	        });
+	      }
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

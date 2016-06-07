@@ -1,19 +1,21 @@
 var AppDispatcher = require('../dispatcher/dispatcher');
-var Store = requiure('flux/util');
+var Store = require('flux/utils').Store;
 var PublicDeckStore = new Store(AppDispatcher);
 var SearchUtil = require('./index_search_util');
 var PublicDeckConstants = require('../constants/public_deck_constants');
 
 var _publicDecks = {};
 
-PublicDeckStore.findByName = function (input) {
-  if (input === "") { return []; }
-  return SearchUtil.search(_publicDecks, "name", input);
+PublicDeckStore.all = function () {
+  var publicDecks = [];
+
+  for(var id in _publicDecks) { publicDecks.push(_publicDecks[id]); }
+  return publicDecks;
 }
 
 var receivePublicDecks = function (decks) {
   _publicDecks = {};
-
+  
   decks.forEach(function(deck){
     _publicDecks[deck.id] = deck
   });
@@ -24,7 +26,7 @@ PublicDeckStore.__onDispatch = function (payload) {
     case PublicDeckConstants.RECEIVE_PUBLIC_DECKS:
       receivePublicDecks(payload.decks);
       break;
-    
+
   }
 
 }

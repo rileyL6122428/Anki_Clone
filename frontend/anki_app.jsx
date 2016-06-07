@@ -36,6 +36,8 @@ window.UserStore = require('./stores/user_store');
 window.UserActions = require('./actions/user_actions');
 window.ReviewActions = require('./actions/review_actions');
 window.ReviewStore = require('./stores/review_store');
+window.PublicDeckStore = require('./stores/public_deck_store')
+window.PublicDeckActions = require('./actions/public_deck_actions')
 
 var App = React.createClass({
   render: function (){
