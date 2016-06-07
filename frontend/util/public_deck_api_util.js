@@ -1,5 +1,6 @@
 var AppDispatcher = require("../dispatcher/dispatcher");
 var PublicDeckConstants = require('../constants/public_deck_constants');
+var DeckConstants = require('../constants/deck_constants');
 
 module.exports = {
   search: function (query) {
@@ -11,7 +12,7 @@ module.exports = {
         AppDispatcher.dispatch({
           actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
           decks: decks
-        })
+        });
       }
     })
   },
@@ -24,22 +25,23 @@ module.exports = {
         AppDispatcher.dispatch({
           actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECK,
           deck: deck
-        })
+        });
       }
     })
   },
 
 //TODO modify method below
-  download: function (id) {
+  download: function (id, reRoute) {
     $.ajax({
-      url: "/api/public_decks",
-      type: "GET",
-      data: { query: query },
-      success: function(decks){
+      url: "/api/decks",
+      type: "POST",
+      data: { download: true, id: id },
+      success: function(deck){
+        reRoute(deck.id);
         AppDispatcher.dispatch({
-          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
-          decks: decks
-        })
+          actionType: DeckConstants.RECEIVE_DECK,
+          deck: deck
+        });
       }
     })
   }

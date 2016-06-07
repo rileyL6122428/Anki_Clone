@@ -9,7 +9,7 @@ module.exports = {
     PublicDeckUtil.fetch(id);
   },
 
-  downloadDeck: function (id) {
-    PublicDeckUtil.download(id);
+  downloadDeck: function (id, reRoute) {
+    PublicDeckUtil.download(id, reRoute);
   }
 }

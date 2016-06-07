@@ -8,10 +8,10 @@ var PreviewInfo = React.createClass({
   render: function () {
 
     var description = "No description.";
-    var descriptionClass = "Empty-Description"
+    var descriptionClass = "Empty-Description Description"
     if(this.props.deck.description) {
       description = this.props.deck.description;
-      descriptionClass = "";
+      descriptionClass = "Description";
     }
 
     return(

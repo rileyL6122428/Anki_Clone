@@ -66,10 +66,10 @@ class Api::DecksController < ApplicationController
     #TODO finish this
     deck_to_download = PublicDeck.where(id: params[:id]).includes(:cards).first
     new_user_deck = Deck.new(deck_to_download.instantiation_params)
-    # new_user_deck.owner_id = current_user.id
-    new_user_deck.owner_id = 1 #NOTE for testing only
+    new_user_deck.owner_id = current_user.id
     new_user_deck.review_total = 0
     new_user_deck.save
+    
     new_flashcards_params = []
     deck_to_download.cards.each do |card|
       new_flashcards_params.push({

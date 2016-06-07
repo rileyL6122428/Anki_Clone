@@ -24,9 +24,6 @@
   clear: both;
 }
 
-
-
-
 .Download-Deck .Preview {
   display: block;
   /*width: 20%;*/
@@ -53,4 +50,53 @@ div.Preview {
   position: relative;
   /*margin: auto;*/
   border: 1px solid #ddd;
+}
+
+.Recap div.Description {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+
+.Recap div.Description {
+  color: #616161;
+  font-style: italic;
+}
+
+.Download-Deck div.Recap {
+  width: 100%;
+}
+
+.Download-Deck .Review-Grade {
+  display: block;
+  width: 50%;
+}
+
+.Download-Deck .Review-Info {
+  display: block;
+  width: 50%;
+}
+
+.Download-Deck .Normal-Button {
+  position: absolute;
+
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 90px;
+  text-align: center;
+
+  width: 100%;
+
+  float: center;
+  background-color: #FFFFFF;
+  opacity: .9;
+
+  border-top: 2px solid #25A3FC;
+
+  color: #25A3FC;
+  font-size: 20px;
+
+  margin: auto;
+
 }

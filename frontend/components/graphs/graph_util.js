@@ -17,5 +17,9 @@ module.exports = {
     if (percentage < 80) { return "C"; }
     if (percentage < 90) { return "B"; }
     if (percentage <= 100) { return "A"; }
+  },
+
+  angleByPercentageCompletion: function (cardsFinished, total) {
+    return (Math.PI * ( 2 * (cardsFinished / total) - 0.5 ))
   }
 }

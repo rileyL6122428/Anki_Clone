@@ -7,8 +7,12 @@ var PreviewInfo = require('./preview_info');
 
 var PublicDeckPreview = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function () {
-    var deck = PublicDeckStore.find(this.props.deckId);
+    var deck = PublicDeckStore.find(this.props.params.id);
     deck = deck ? deck : {cardPreview: [], name: "", description: ""}
     return({ deck: deck })
   },
@@ -28,6 +32,11 @@ var PublicDeckPreview = React.createClass({
 
   downloadDeckCB: function (e) {
     e.preventDefault();
+    PublicDeckActions.downloadDeck(this.props.params.id, this.reRouteCB);
+  },
+
+  reRouteCB: function (id) {
+    this.context.router.push('decks/' + id );
   },
 
   render: function () {
@@ -36,7 +45,8 @@ var PublicDeckPreview = React.createClass({
         <HeaderWithBack title="Download Deck" url="/public-deck-index"/>
         <PreviewList deck={ this.state.deck }/>
         <PreviewInfo deck={ this.state.deck }/>
-        <button onClick={ this.downloadDeckCB } />
+        <button className="Normal-Button"
+                Click={ this.downloadDeckCB }>Download</button>
       </div>
     )
   }

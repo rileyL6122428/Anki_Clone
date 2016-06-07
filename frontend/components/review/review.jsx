@@ -6,6 +6,7 @@ var FlashcardStore = require('../../stores/flashcard_store');
 var FlashcardActions = require('../../actions/flashcard_actions');
 var ReviewActions = require('../../actions/review_actions');
 var DeckStore = require('../../stores/deck_store');
+var ReviewProgressCircle = require('../graphs/review_progress_bar');
 
 var Review =  React.createClass({
 
@@ -122,10 +123,11 @@ var Review =  React.createClass({
         <h1>
           <button onClick={this.backArrowCB} className="BackLink">{ arrow }</button>
           <p className="Title">{ title }</p>
-
+          <ReviewProgressCircle completedCards={ this.state.cardIdx }
+                                totalCards={ this.state.card.length } />
         </h1>
 
-        <h6>{ this.state.deck.name }</h6>
+        <h6>{ this.state.deck.name } </h6>
 
         <Front   showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
                  cardFront={ cardFront }

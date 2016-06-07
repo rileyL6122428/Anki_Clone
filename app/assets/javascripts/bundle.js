@@ -35328,6 +35328,10 @@
 	    if (percentage <= 100) {
 	      return "A";
 	    }
+	  },
+	
+	  angleByPercentageCompletion: function (cardsFinished, total) {
+	    return Math.PI * (2 * (cardsFinished / total) - 0.5);
 	  }
 	};
 
@@ -35859,6 +35863,7 @@
 	var FlashcardActions = __webpack_require__(295);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
+	var ReviewProgressCircle = __webpack_require__(323);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
@@ -35993,12 +35998,15 @@
 	          'p',
 	          { className: 'Title' },
 	          title
-	        )
+	        ),
+	        React.createElement(ReviewProgressCircle, { completedCards: this.state.cardIdx,
+	          totalCards: this.state.card.length })
 	      ),
 	      React.createElement(
 	        'h6',
 	        null,
-	        this.state.deck.name
+	        this.state.deck.name,
+	        ' '
 	      ),
 	      React.createElement(Front, { showing: this.state.cardIdx < cardTotal && !this.state.flipped,
 	        cardFront: cardFront,
@@ -36425,8 +36433,8 @@
 	    PublicDeckUtil.fetch(id);
 	  },
 	
-	  downloadDeck: function (id) {
-	    PublicDeckUtil.download(id);
+	  downloadDeck: function (id, reRoute) {
+	    PublicDeckUtil.download(id, reRoute);
 	  }
 	};
 
@@ -36436,6 +36444,7 @@
 
 	var AppDispatcher = __webpack_require__(233);
 	var PublicDeckConstants = __webpack_require__(316);
+	var DeckConstants = __webpack_require__(273);
 	
 	module.exports = {
 	  search: function (query) {
@@ -36466,15 +36475,16 @@
 	  },
 	
 	  //TODO modify method below
-	  download: function (id) {
+	  download: function (id, reRoute) {
 	    $.ajax({
-	      url: "/api/public_decks",
-	      type: "GET",
-	      data: { query: query },
-	      success: function (decks) {
+	      url: "/api/decks",
+	      type: "POST",
+	      data: { download: true, id: id },
+	      success: function (deck) {
+	        reRoute(deck.id);
 	        AppDispatcher.dispatch({
-	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
-	          decks: decks
+	          actionType: DeckConstants.RECEIVE_DECK,
+	          deck: deck
 	        });
 	      }
 	    });
@@ -36496,8 +36506,12 @@
 	  displayName: 'PublicDeckPreview',
 	
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
-	    var deck = PublicDeckStore.find(this.props.deckId);
+	    var deck = PublicDeckStore.find(this.props.params.id);
 	    deck = deck ? deck : { cardPreview: [], name: "", description: "" };
 	    return { deck: deck };
 	  },
@@ -36517,6 +36531,11 @@
 	
 	  downloadDeckCB: function (e) {
 	    e.preventDefault();
+	    PublicDeckActions.downloadDeck(this.props.params.id, this.reRouteCB);
+	  },
+	
+	  reRouteCB: function (id) {
+	    this.context.router.push('decks/' + id);
 	  },
 	
 	  render: function () {
@@ -36526,7 +36545,12 @@
 	      React.createElement(HeaderWithBack, { title: 'Download Deck', url: '/public-deck-index' }),
 	      React.createElement(PreviewList, { deck: this.state.deck }),
 	      React.createElement(PreviewInfo, { deck: this.state.deck }),
-	      React.createElement('button', { onClick: this.downloadDeckCB })
+	      React.createElement(
+	        'button',
+	        { className: 'Normal-Button',
+	          Click: this.downloadDeckCB },
+	        'Download'
+	      )
 	    );
 	  }
 	});
@@ -36584,10 +36608,10 @@
 	  render: function () {
 	
 	    var description = "No description.";
-	    var descriptionClass = "Empty-Description";
+	    var descriptionClass = "Empty-Description Description";
 	    if (this.props.deck.description) {
 	      description = this.props.deck.description;
-	      descriptionClass = "";
+	      descriptionClass = "Description";
 	    }
 	
 	    return React.createElement(
@@ -36640,6 +36664,63 @@
 	});
 	
 	module.exports = PreviewInfo;
+
+/***/ },
+/* 322 */,
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GraphUtil = __webpack_require__(298);
+	
+	ReviewProgressCircle = React.createClass({
+	    displayName: 'ReviewProgressCircle',
+	
+	    componentDidMount: function () {
+	        this.updateCanvas();
+	    },
+	    componentDidUpdate: function () {
+	        this.updateCanvas();
+	    },
+	    updateCanvas: function () {
+	        var c = this.refs.canvas.getContext('2d');
+	
+	        c.fillStyle = "#ddd";
+	        c.fillRect(0, 0, 20, 20);
+	
+	        var centerX = 10;
+	        var centerY = 10;
+	        var color = "#616161";
+	        var radius = 10;
+	        var completed = this.props.completedCards;
+	        var total = this.props.totalCards;
+	        var angle = GraphUtil.angleByPercentageCompletion(completed, total);
+	        var xArcProgressPoint = centerX + Math.cos(angle) * radius;
+	        var yArcProgressPoint = centerY + Math.sin(angle) * radius;
+	        var absStartAngle = -0.5 * Math.PI;
+	        var absEndAngle = 1.5 * Math.PI;
+	
+	        c.strokeStyle = color;
+	        c.fillStyle = color;
+	        c.lineWidth = 1;
+	        c.beginPath();
+	        c.moveTo(centerX, centerY - radius);
+	        c.lineTo(centerX, centerY);
+	        c.lineTo(xArcProgressPoint, yArcProgressPoint);
+	        c.arc(centerX, centerY, radius, angle, absEndAngle, false);
+	        c.fill();
+	
+	        c.beginPath();
+	        c.arc(centerX, centerY, radius, absStartAngle, absEndAngle, false);
+	        c.stroke();
+	    },
+	
+	    render: function () {
+	        return React.createElement('canvas', { ref: 'canvas', width: 20, height: 20 });
+	    }
+	});
+	
+	module.exports = ReviewProgressCircle;
 
 /***/ }
 /******/ ]);
