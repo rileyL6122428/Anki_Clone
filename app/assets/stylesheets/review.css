@@ -89,7 +89,10 @@
   margin-top: 23px;
   margin-bottom: 13px;
 }
-
+.Flipped .List-Center {
+  display: block;
+  height: 100%;
+}
 .Flipped div.Front {
   /*height: 100%;*/
   height: auto;

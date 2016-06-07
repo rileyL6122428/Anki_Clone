@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.Preview-List {
+.Download-Deck .Preview-List {
   display: block;
   /*margin: auto;*/
   /*width: 90%;*/
@@ -18,7 +18,7 @@
 }
 
 
-.Preview-List:after {
+.Download-Deck .Preview-List:after {
   display: block;
   content: "";
   clear: both;
@@ -45,20 +45,20 @@
 }
 
 
-div.Preview {
+.Download-Deck div.Preview {
   display: block;
   position: relative;
   /*margin: auto;*/
   border: 1px solid #ddd;
 }
 
-.Recap div.Description {
+.Download-Deck .Recap div.Description {
   display: block;
   width: 90%;
   margin: auto;
 }
 
-.Recap div.Description {
+ .Download-Deck.Recap div.Description {
   color: #616161;
   font-style: italic;
 }
