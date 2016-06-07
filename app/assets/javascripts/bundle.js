@@ -34805,6 +34805,15 @@
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
 	
+	  getInitialState: function () {
+	    return { query: "" };
+	  },
+	
+	  queryChangeCB: function (e) {
+	    e.preventDefault();
+	
+	    this.setState({ query: e.target.value });
+	  },
 	
 	  render: function () {
 	    var arrow = "<";
@@ -34831,11 +34840,11 @@
 	        ),
 	        React.createElement('div', { className: 'ClearSet' })
 	      ),
-	      React.createElement(SearchBar, null),
+	      React.createElement(SearchBar, { queryChangeCB: this.queryChangeCB }),
 	      React.createElement(
 	        'div',
 	        { className: 'Overflow-Test' },
-	        React.createElement(List, { deckId: this.props.params.id })
+	        React.createElement(List, { deckId: this.props.params.id, query: this.state.query })
 	      )
 	    );
 	  }
@@ -34861,7 +34870,7 @@
 	        { "for": "deck-search" },
 	        " Search:"
 	      ),
-	      React.createElement("input", { id: "deck-search", type: "text" })
+	      React.createElement("input", { id: "deck-search", type: "text", onChange: this.props.queryChangeCB })
 	    );
 	  }
 	});
@@ -34893,6 +34902,10 @@
 	
 	  flashcardStoreCB: function () {
 	    this.setState({ flashcards: FlashcardStore.all() });
+	  },
+	
+	  componentWillReceiveProps: function (props) {
+	    this.setState({ flashcards: FlashcardStore.findByFront(props.query) });
 	  },
 	
 	  componentWillUnmount: function () {
@@ -34941,6 +34954,7 @@
 	var AppDispatcher = __webpack_require__(233);
 	var FlashcardConstants = __webpack_require__(293);
 	var ReviewConstants = __webpack_require__(265);
+	var SearchUtil = __webpack_require__(274);
 	var Util = __webpack_require__(294);
 	
 	var FlashcardStore = new Store(AppDispatcher);
@@ -34959,6 +34973,10 @@
 	  if (_flashcards[id]) {
 	    return $.extend({}, _flashcards[id]);
 	  }
+	};
+	
+	FlashcardStore.findByFront = function (input) {
+	  return SearchUtil.search(_flashcards, "front", input);
 	};
 	
 	FlashcardStore.drawCards = function (total) {

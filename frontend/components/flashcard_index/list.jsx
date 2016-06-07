@@ -19,6 +19,10 @@ var FlashcardIndex = React.createClass({
     this.setState({ flashcards: FlashcardStore.all() });
   },
 
+  componentWillReceiveProps: function (props) {
+    this.setState({ flashcards: FlashcardStore.findByFront(props.query) })
+  },
+
   componentWillUnmount: function () {
     this.listenerToken.remove();
   },

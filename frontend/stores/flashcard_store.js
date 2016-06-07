@@ -2,6 +2,7 @@ var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher');
 var FlashcardConstants = require('../constants/flashcard_constants');
 var ReviewConstants = require('../constants/review_constants');
+var SearchUtil = require('./index_search_util');
 var Util = require('./flashcard_store_util');
 
 var FlashcardStore = new Store(AppDispatcher);
@@ -18,6 +19,10 @@ FlashcardStore.all = function () {
 
 FlashcardStore.find = function (id) {
   if(_flashcards[id]) { return $.extend({}, _flashcards[id]); }
+}
+
+FlashcardStore.findByFront = function (input) {
+  return SearchUtil.search(_flashcards, "front", input);
 }
 
 FlashcardStore.drawCards = function(total) {

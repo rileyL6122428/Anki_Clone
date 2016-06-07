@@ -4,7 +4,15 @@ var List = require('./list');
 var Link = require('react-router').Link;
 
 var FlashcardIndex = React.createClass({
+  getInitialState: function () {
+    return({ query: "" });
+  },
 
+  queryChangeCB: function (e) {
+    e.preventDefault();
+
+    this.setState({ query: e.target.value })
+  },
 
   render: function(){
     var arrow = "<"
@@ -16,9 +24,9 @@ var FlashcardIndex = React.createClass({
           <Link to={ "/decks/" + this.props.params.id + "/new-flashcards"} className="Header-Link">New</Link>
           <div className="ClearSet" />
         </h1>
-        <SearchBar />
+        <SearchBar queryChangeCB={ this.queryChangeCB }/>
         <div className="Overflow-Test">
-          <List deckId={this.props.params.id}/>
+          <List deckId={this.props.params.id } query={ this.state.query }/>
         </div>
 
       </div>
