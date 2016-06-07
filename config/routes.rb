@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy, :show]
     resources :decks, only: [:create, :destroy, :index, :update]
     resources :reviews, only: [:create, :index]
+    resources :public_decks, only: [:index, :show]
+
     resources :decks, only: [:show] do
       resources :flashcards, only: [:index]
     end

@@ -14,6 +14,7 @@ class Flashcard < ActiveRecord::Base
 
   def compute_new_grade(review_grade)
     previous_total_grade = self.grade
+    
     if previous_total_grade < review_grade
       0.85 * previous_total_grade + 0.15 * review_grade
     else

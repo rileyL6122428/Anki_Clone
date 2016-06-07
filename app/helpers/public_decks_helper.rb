@@ -1,0 +1,2 @@
+module PublicDecksHelper
+end
