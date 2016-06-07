@@ -13,12 +13,21 @@ PublicDeckStore.all = function () {
   return publicDecks;
 }
 
+PublicDeckStore.find = function(id) {
+  if(_publicDecks[id]) { return $.extend({}, _publicDecks[id]); }
+}
+
 var receivePublicDecks = function (decks) {
   _publicDecks = {};
 
   decks.forEach(function(deck){
-    _publicDecks[deck.id] = deck
+    _publicDecks[deck.id] = deck;
   });
+  PublicDeckStore.__emitChange();
+}
+
+var receiveAPublicDeck = function (deck) {
+  _publicDecks[deck.id] = deck;
   PublicDeckStore.__emitChange();
 }
 
@@ -26,6 +35,9 @@ PublicDeckStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case PublicDeckConstants.RECEIVE_PUBLIC_DECKS:
       receivePublicDecks(payload.decks);
+      break;
+    case PublicDeckConstants.RECEIVE_PUBLIC_DECK:
+      receiveAPublicDeck(payload.deck)
       break;
 
   }

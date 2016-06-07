@@ -31,6 +31,7 @@ var DeckIndex = React.createClass({
             return(
               <DeckIndexItem key={deck.id}
                              id={deck.id}
+                             urlFront={"public-decks/"}
                              name={deck.name}
                              totalCards={deck.cardTotal} />
             );

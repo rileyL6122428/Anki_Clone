@@ -46,6 +46,11 @@
   width: 100%;
 }
 
+.Flashcard-Show .Preview .List-Center{
+  display: block;
+  height: 100%;
+}
+
 .Flashcard-Show .Preview .Front {
   display: block;
   position: absolute;

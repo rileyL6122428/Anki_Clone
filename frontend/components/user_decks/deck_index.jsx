@@ -22,12 +22,9 @@ var DeckIndex = React.createClass({
     this.setState({ decks: DeckStore.findByName(props.query) });
   },
 
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
-  },
+  componentWillUnmount: function () { this.listenerToken.remove(); },
 
   render: function () {
-
     var deckList = (
       <div className="Wrapper">
         {
@@ -35,6 +32,7 @@ var DeckIndex = React.createClass({
             return(
               <DeckIndexItem key={deck.id}
                              id={deck.id}
+                             urlFront={"decks/"}
                              name={deck.name}
                              totalCards={deck.cardTotal}
                              grade={deck.grade} />

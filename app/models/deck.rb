@@ -1,5 +1,5 @@
 class Deck < ActiveRecord::Base
-  validates :name, :description, :owner_id, :review_total, presence: true
+  validates :name, :owner_id, :review_total, presence: true
 
   belongs_to(
     :user,

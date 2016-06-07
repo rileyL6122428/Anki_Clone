@@ -5,13 +5,15 @@ var Preview = React.createClass({
 
     return(
       <div className="Preview">
-        <p>
-          <div className="Front">{ this.props.card.front }</div>
-        </p>
+        <div className="List-Center">
+          <p>
+            <div className="Front">{ this.props.card.front }</div>
+          </p>
           <div className="Preview-Divider" />
-        <p >
-          <div className="Back">{ this.props.card.back }</div>
-        </p>
+          <p >
+            <div className="Back">{ this.props.card.back }</div>
+          </p>
+        </div>
       </div>
     );
   }

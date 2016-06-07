@@ -1,0 +1,56 @@
+.Download-Deck h2 {
+  text-align: center;
+  margin: 0px;
+
+  background-color: #E5E5E5;
+  color: #616161;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.Preview-List {
+  display: block;
+  /*margin: auto;*/
+  /*width: 90%;*/
+  width: 100%;
+  height: 280px;
+
+}
+
+
+.Preview-List:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+
+
+
+.Download-Deck .Preview {
+  display: block;
+  /*width: 20%;*/
+  height: 300px;
+  width: 15%;
+  float: left;
+  margin: calc(5.5% - 11px);
+  margin-bottom: 0px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.Download-Deck div.List-Center {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 27%;
+  /*margin-top: 100px;*/
+}
+
+
+div.Preview {
+  display: block;
+  position: relative;
+  /*margin: auto;*/
+  border: 1px solid #ddd;
+}

@@ -6,4 +6,8 @@ class PublicDeck < ActiveRecord::Base
     foreign_key: :deck_id,
     class_name: "PublicFlashcard"
   )
+
+  def instantiation_params
+    { name: name, description: description }
+  end
 end

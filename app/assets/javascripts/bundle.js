@@ -67,7 +67,8 @@
 	var NewFlashcard = __webpack_require__(303);
 	var EditFlashcard = __webpack_require__(306);
 	var Review = __webpack_require__(308);
-	var PublicDeckBrowser = __webpack_require__(317);
+	var PublicDeckBrowser = __webpack_require__(313);
+	var PublicDeckPreview = __webpack_require__(319);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -82,8 +83,8 @@
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
 	window.ReviewStore = __webpack_require__(264);
-	window.PublicDeckStore = __webpack_require__(313);
-	window.PublicDeckActions = __webpack_require__(315);
+	window.PublicDeckStore = __webpack_require__(315);
+	window.PublicDeckActions = __webpack_require__(317);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -127,7 +128,8 @@
 	    React.createElement(Route, { path: 'decks/:id/new-flashcards', component: NewFlashcard, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/flashcards/:cardId/edit', component: EditFlashcard, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks/:id/review', component: Review, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'public-deck-index', component: PublicDeckBrowser, onEnter: _ensureLoggedIn })
+	    React.createElement(Route, { path: 'public-deck-index', component: PublicDeckBrowser, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'public-decks/:id', component: PublicDeckPreview, onEnter: _ensureLoggedIn })
 	  )
 	);
 	
@@ -33924,13 +33926,13 @@
 	  },
 	
 	  render: function () {
-	
 	    var deckList = React.createElement(
 	      'div',
 	      { className: 'Wrapper' },
 	      this.state.decks.map(function (deck) {
 	        return React.createElement(DeckIndexItem, { key: deck.id,
 	          id: deck.id,
+	          urlFront: "decks/",
 	          name: deck.name,
 	          totalCards: deck.cardTotal,
 	          grade: deck.grade });
@@ -34179,7 +34181,7 @@
 	
 	    return React.createElement(
 	      Link,
-	      { to: "decks/" + this.props.id },
+	      { to: this.props.urlFront + this.props.id },
 	      React.createElement(
 	        'li',
 	        { className: 'Deck-Index-Item' },
@@ -35400,22 +35402,26 @@
 	      "div",
 	      { className: "Preview" },
 	      React.createElement(
-	        "p",
-	        null,
+	        "div",
+	        { className: "List-Center" },
 	        React.createElement(
-	          "div",
-	          { className: "Front" },
-	          this.props.card.front
-	        )
-	      ),
-	      React.createElement("div", { className: "Preview-Divider" }),
-	      React.createElement(
-	        "p",
-	        null,
+	          "p",
+	          null,
+	          React.createElement(
+	            "div",
+	            { className: "Front" },
+	            this.props.card.front
+	          )
+	        ),
+	        React.createElement("div", { className: "Preview-Divider" }),
 	        React.createElement(
-	          "div",
-	          { className: "Back" },
-	          this.props.card.back
+	          "p",
+	          null,
+	          React.createElement(
+	            "div",
+	            { className: "Back" },
+	            this.props.card.back
+	          )
 	        )
 	      )
 	    );
@@ -36234,95 +36240,11 @@
 /* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(233);
-	var Store = __webpack_require__(238).Store;
-	var PublicDeckStore = new Store(AppDispatcher);
-	var SearchUtil = __webpack_require__(274);
-	var PublicDeckConstants = __webpack_require__(314);
-	
-	var _publicDecks = {};
-	
-	PublicDeckStore.all = function () {
-	  var publicDecks = [];
-	
-	  for (var id in _publicDecks) {
-	    publicDecks.push(_publicDecks[id]);
-	  }
-	  return publicDecks;
-	};
-	
-	var receivePublicDecks = function (decks) {
-	  _publicDecks = {};
-	
-	  decks.forEach(function (deck) {
-	    _publicDecks[deck.id] = deck;
-	  });
-	  PublicDeckStore.__emitChange();
-	};
-	
-	PublicDeckStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case PublicDeckConstants.RECEIVE_PUBLIC_DECKS:
-	      receivePublicDecks(payload.decks);
-	      break;
-	
-	  }
-	};
-	
-	module.exports = PublicDeckStore;
-
-/***/ },
-/* 314 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_PUBLIC_DECKS: "RECEIVE_PUBLIC_DECKS"
-	};
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var PublicDeckUtil = __webpack_require__(316);
-	
-	module.exports = {
-	  search: function (query) {
-	    PublicDeckUtil.search(query);
-	  }
-	};
-
-/***/ },
-/* 316 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(233);
-	var PublicDeckConstants = __webpack_require__(314);
-	
-	module.exports = {
-	  search: function (query) {
-	    $.ajax({
-	      url: "/api/public_decks",
-	      type: "GET",
-	      data: { query: query },
-	      success: function (decks) {
-	        AppDispatcher.dispatch({
-	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
-	          decks: decks
-	        });
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 317 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var React = __webpack_require__(1);
 	var Footer = __webpack_require__(259);
 	var SearchBar = __webpack_require__(270);
-	var DeckIndex = __webpack_require__(318);
-	var PublicDeckActions = __webpack_require__(315);
+	var DeckIndex = __webpack_require__(314);
+	var PublicDeckActions = __webpack_require__(317);
 	
 	var PublicDeckBrowse = React.createClass({
 	  displayName: 'PublicDeckBrowse',
@@ -36368,12 +36290,12 @@
 	module.exports = PublicDeckBrowse;
 
 /***/ },
-/* 318 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(313);
-	var DeckActions = __webpack_require__(315);
+	var PublicDeckStore = __webpack_require__(315);
+	var DeckActions = __webpack_require__(317);
 	var DeckIndexItem = __webpack_require__(277);
 	
 	var DeckIndex = React.createClass({
@@ -36404,6 +36326,7 @@
 	      this.state.decks.map(function (deck) {
 	        return React.createElement(DeckIndexItem, { key: deck.id,
 	          id: deck.id,
+	          urlFront: "public-decks/",
 	          name: deck.name,
 	          totalCards: deck.cardTotal });
 	      })
@@ -36422,6 +36345,301 @@
 	});
 	
 	module.exports = DeckIndex;
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var Store = __webpack_require__(238).Store;
+	var PublicDeckStore = new Store(AppDispatcher);
+	var SearchUtil = __webpack_require__(274);
+	var PublicDeckConstants = __webpack_require__(316);
+	
+	var _publicDecks = {};
+	
+	PublicDeckStore.all = function () {
+	  var publicDecks = [];
+	
+	  for (var id in _publicDecks) {
+	    publicDecks.push(_publicDecks[id]);
+	  }
+	  return publicDecks;
+	};
+	
+	PublicDeckStore.find = function (id) {
+	  if (_publicDecks[id]) {
+	    return $.extend({}, _publicDecks[id]);
+	  }
+	};
+	
+	var receivePublicDecks = function (decks) {
+	  _publicDecks = {};
+	
+	  decks.forEach(function (deck) {
+	    _publicDecks[deck.id] = deck;
+	  });
+	  PublicDeckStore.__emitChange();
+	};
+	
+	var receiveAPublicDeck = function (deck) {
+	  _publicDecks[deck.id] = deck;
+	  PublicDeckStore.__emitChange();
+	};
+	
+	PublicDeckStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PublicDeckConstants.RECEIVE_PUBLIC_DECKS:
+	      receivePublicDecks(payload.decks);
+	      break;
+	    case PublicDeckConstants.RECEIVE_PUBLIC_DECK:
+	      receiveAPublicDeck(payload.deck);
+	      break;
+	
+	  }
+	};
+	
+	module.exports = PublicDeckStore;
+
+/***/ },
+/* 316 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_PUBLIC_DECKS: "RECEIVE_PUBLIC_DECKS",
+	  RECEIVE_PUBLIC_DECK: "RECEIVE_PUBLIC_DECK"
+	};
+
+/***/ },
+/* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PublicDeckUtil = __webpack_require__(318);
+	
+	module.exports = {
+	  search: function (query) {
+	    PublicDeckUtil.search(query);
+	  },
+	
+	  fetch: function (id) {
+	    PublicDeckUtil.fetch(id);
+	  },
+	
+	  downloadDeck: function (id) {
+	    PublicDeckUtil.download(id);
+	  }
+	};
+
+/***/ },
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(233);
+	var PublicDeckConstants = __webpack_require__(316);
+	
+	module.exports = {
+	  search: function (query) {
+	    $.ajax({
+	      url: "/api/public_decks",
+	      type: "GET",
+	      data: { query: query },
+	      success: function (decks) {
+	        AppDispatcher.dispatch({
+	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
+	          decks: decks
+	        });
+	      }
+	    });
+	  },
+	
+	  fetch: function (id) {
+	    $.ajax({
+	      url: "/api/public_decks/" + id,
+	      type: "GET",
+	      success: function (deck) {
+	        AppDispatcher.dispatch({
+	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECK,
+	          deck: deck
+	        });
+	      }
+	    });
+	  },
+	
+	  //TODO modify method below
+	  download: function (id) {
+	    $.ajax({
+	      url: "/api/public_decks",
+	      type: "GET",
+	      data: { query: query },
+	      success: function (decks) {
+	        AppDispatcher.dispatch({
+	          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
+	          decks: decks
+	        });
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PublicDeckStore = __webpack_require__(315);
+	var PublicDeckActions = __webpack_require__(317);
+	var HeaderWithBack = __webpack_require__(305);
+	var PreviewList = __webpack_require__(320);
+	var PreviewInfo = __webpack_require__(321);
+	
+	var PublicDeckPreview = React.createClass({
+	  displayName: 'PublicDeckPreview',
+	
+	
+	  getInitialState: function () {
+	    var deck = PublicDeckStore.find(this.props.deckId);
+	    deck = deck ? deck : { cardPreview: [], name: "", description: "" };
+	    return { deck: deck };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = PublicDeckStore.addListener(this.storeCB);
+	    PublicDeckActions.fetch(this.props.params.id);
+	  },
+	
+	  storeCB: function () {
+	    this.setState({ deck: PublicDeckStore.find(this.props.params.id) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  downloadDeckCB: function (e) {
+	    e.preventDefault();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Parent-Component Download-Deck' },
+	      React.createElement(HeaderWithBack, { title: 'Download Deck', url: '/public-deck-index' }),
+	      React.createElement(PreviewList, { deck: this.state.deck }),
+	      React.createElement(PreviewInfo, { deck: this.state.deck }),
+	      React.createElement('button', { onClick: this.downloadDeckCB })
+	    );
+	  }
+	});
+	
+	module.exports = PublicDeckPreview;
+
+/***/ },
+/* 320 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Preview = __webpack_require__(300);
+	
+	var PreviewList = React.createClass({
+	  displayName: 'PreviewList',
+	
+	
+	  render: function () {
+	    var cards = this.props.deck.cardPreview;
+	    var deckName = this.props.deck.name;
+	
+	    return React.createElement(
+	      'div',
+	      { className: '' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        deckName
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'Preview-List' },
+	        cards.map(function (card) {
+	          return React.createElement(Preview, { key: card.id, card: card });
+	        })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = PreviewList;
+
+/***/ },
+/* 321 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PublicDeckStore = __webpack_require__(315);
+	var PublicDeckStore = __webpack_require__(315);
+	var PreviewInfo = React.createClass({
+	  displayName: 'PreviewInfo',
+	
+	
+	  render: function () {
+	
+	    var description = "No description.";
+	    var descriptionClass = "Empty-Description";
+	    if (this.props.deck.description) {
+	      description = this.props.deck.description;
+	      descriptionClass = "";
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'group Recap' },
+	      React.createElement(
+	        'div',
+	        { className: 'Review-Grade' },
+	        React.createElement(
+	          'h4',
+	          { className: 'Stat-Header' },
+	          'Description'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: descriptionClass },
+	          description
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'Review-Info' },
+	        React.createElement(
+	          'h4',
+	          { className: 'Stat-Header' },
+	          'Info'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'Stat-List' },
+	          React.createElement(
+	            'li',
+	            { className: 'Statistic' },
+	            React.createElement(
+	              'p',
+	              { className: 'StatTitle' },
+	              'Cards'
+	            ),
+	            React.createElement(
+	              'p',
+	              { className: 'Stat' },
+	              this.props.deck.cardTotal
+	            ),
+	            React.createElement('div', { className: 'ClearSet' })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = PreviewInfo;
 
 /***/ }
 /******/ ]);

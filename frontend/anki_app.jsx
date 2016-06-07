@@ -22,6 +22,7 @@ var NewFlashcard = require('./components/new_card/new_card');
 var EditFlashcard = require('./components/edit_flashcard/edit_flashcard');
 var Review = require('./components/review/review');
 var PublicDeckBrowser = require('./components/public_deck_browser/public_deck_browser');
+var PublicDeckPreview = require('./components/public_deck_preview/public_deck_preview');
 
 
 //TODO move this and other auth related stuff somewhere else, if possible
@@ -76,6 +77,7 @@ var Router = (
       <Route path='decks/:id/flashcards/:cardId/edit' component={EditFlashcard} onEnter={_ensureLoggedIn} />
       <Route path='decks/:id/review' component={Review} onEnter={_ensureLoggedIn} />
       <Route path='public-deck-index' component={PublicDeckBrowser} onEnter={_ensureLoggedIn} />
+      <Route path='public-decks/:id' component={PublicDeckPreview} onEnter={_ensureLoggedIn} />
     </Route>
   </Router>
 )

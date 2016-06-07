@@ -15,4 +15,32 @@ module.exports = {
       }
     })
   },
+
+  fetch: function (id) {
+    $.ajax({
+      url: "/api/public_decks/" + id,
+      type: "GET",
+      success: function(deck){
+        AppDispatcher.dispatch({
+          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECK,
+          deck: deck
+        })
+      }
+    })
+  },
+
+//TODO modify method below
+  download: function (id) {
+    $.ajax({
+      url: "/api/public_decks",
+      type: "GET",
+      data: { query: query },
+      success: function(decks){
+        AppDispatcher.dispatch({
+          actionType: PublicDeckConstants.RECEIVE_PUBLIC_DECKS,
+          decks: decks
+        })
+      }
+    })
+  }
 }

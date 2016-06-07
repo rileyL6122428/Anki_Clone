@@ -5,9 +5,9 @@ var DeckIndexItem = React.createClass({
   render: function () {
     var grade = "";
     if (this.props.grade) { grade = this.props.grade }
-    
+
     return(
-      <Link to={"decks/" + this.props.id}>
+      <Link to={ this.props.urlFront + this.props.id }>
         <li className="Deck-Index-Item">
             <div className="Left-Side-Content" >
               <h5>{this.props.name}</h5>

@@ -41,7 +41,7 @@ li .Stat {
 
 li.Statistic {
   list-style-type: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #ddd;
   width: 90%;
   margin: auto;
 }
