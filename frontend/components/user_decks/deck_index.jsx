@@ -15,7 +15,11 @@ var DeckIndex = React.createClass({
   },
 
   deckStoreCB: function () {
-    this.setState({ decks: DeckStore.all() });
+    this.setState({ decks: DeckStore.findByName(this.props.query) });
+  },
+
+  componentWillReceiveProps: function (props) {
+    this.setState({ decks: DeckStore.findByName(props.query) });
   },
 
   componentWillUnmount: function () {

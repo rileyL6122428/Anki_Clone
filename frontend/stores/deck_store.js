@@ -3,6 +3,7 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 var DeckConstants = require('../constants/deck_constants');
 var ReviewConstants = require('../constants/review_constants');
 var hashHistory = require('react-router').hashHistory
+var SearchUtil = require('./index_search_util');
 
 var DeckStore = new Store(AppDispatcher);
 var _decks = {};
@@ -19,6 +20,10 @@ DeckStore.all = function () {
 
 DeckStore.find = function (id) {
   if(_decks[id]) { return $.extend({}, _decks[id]); }
+}
+
+DeckStore.findByName = function(input) {
+  return SearchUtil.search(_decks, "name", input);
 }
 
 var receiveDecks = function (decks) {
