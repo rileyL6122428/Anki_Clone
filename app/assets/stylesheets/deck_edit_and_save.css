@@ -11,6 +11,7 @@
   display: black;
   background-color: #f8f8f8;
 
+
   border-bottom: 1px solid #ddd;
 }
 
@@ -36,14 +37,21 @@
   display: block;
   width: 80%;
   margin: auto;
+
 }
 
 .NewDeck .Form h4, .EditDeck .Form h4 {
   position: relative;
   margin: auto;
-  width: 60%;
+  width: 80%;
+  height: 35px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-top: 5px;
 
-  margin-top: 10px;
+
+  text-align: center;
+  font-size: 24px;
 }
 
 
@@ -53,8 +61,8 @@
   border-left: 0px;
 
   display: block;
-  margin: 0;
-  width: 100%;
+  margin: auto;
+  width: 95%;
 
   padding-left: 10px;
 
@@ -75,16 +83,36 @@
   border-right: 0px;
   border-left: 0px;
   outline: 0;
-  color: red;
+  /*color: red;*/
 
-  border-bottom: 2px solid rgba(37,163,252, .4);
+  border-bottom: 2px solid rgba(37,163,252, .2);
+}
+
+label.Test-Label {
+  font-size: 24px;
+  position: absolute;
+  top: 0;
+}
+
+label.Label1 {
+
+}
+
+label.Label2 {
+
+}
+
+.NewDeck input[type=text]:focus + label, .EditDeck input[type=text]:focus + label{
+  color: #616161;
 }
 
 
-.NewDeck .Form label, .EditDeck .Form label {
+
+.NewDeck .Form div.Input-Label, .EditDeck .Form div.Input-Label {
   display: block;
+  position: relative;
   margin: auto;
-  width: 60%;
+  width: 80%;
 }
 
 

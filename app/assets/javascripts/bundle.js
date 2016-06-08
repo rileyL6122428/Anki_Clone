@@ -34399,19 +34399,33 @@
 	        'form',
 	        { onSubmit: this.submitCB },
 	        React.createElement(
-	          'label',
-	          null,
-	          'Name',
+	          'div',
+	          { className: 'Input-Label' },
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeName, className: 'NameInput' })
+	          React.createElement('input', { type: 'text', id: 'Test',
+	            onChange: this.changeName,
+	            placeholder: 'Enter Name Here',
+	            className: 'NameInput' }),
+	          React.createElement(
+	            'label',
+	            { className: 'Test-Label Label1', 'for': 'Test' },
+	            'Name'
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(
-	          'label',
-	          null,
-	          'Description',
+	          'div',
+	          { className: 'Input-Label' },
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', onChange: this.changeDescription, className: 'DescriptionInput' })
+	          React.createElement('input', { type: 'text',
+	            onChange: this.changeDescription,
+	            placeholder: 'Enter Description Here',
+	            className: 'DescriptionInput' }),
+	          React.createElement(
+	            'label',
+	            { className: 'Test-Label Label2', 'for': 'Test' },
+	            'Description'
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
@@ -34421,6 +34435,23 @@
 	});
 	
 	module.exports = Form;
+	
+	// <form onSubmit={this.submitCB}>
+	//   <label>Name
+	//     <br/>
+	//     <input type="text" onChange={this.changeName} className="NameInput" />
+	//   </label>
+	//   <br/>
+	//
+	//   <label>Description
+	//     <br/>
+	//     <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
+	//   </label>
+	//   <br/>
+	//
+	//   <input type="submit" value="Save" className="Save" />
+	//
+	// </form>
 
 /***/ },
 /* 281 */
@@ -34868,25 +34899,35 @@
 	        'form',
 	        { onSubmit: this.submitCB },
 	        React.createElement(
-	          'label',
-	          { className: 'Name-Label' },
-	          'Name',
+	          'div',
+	          { className: 'Input-Label' },
 	          React.createElement('br', null),
 	          React.createElement('input', { type: 'text', id: 'Test',
 	            onChange: this.changeName,
 	            value: this.state.name,
-	            className: 'NameInput' })
+	            placeholder: 'Enter Name Here',
+	            className: 'NameInput' }),
+	          React.createElement(
+	            'label',
+	            { className: 'Test-Label Label1', 'for': 'Test' },
+	            'Name'
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(
-	          'label',
-	          null,
-	          'Description',
+	          'div',
+	          { className: 'Input-Label' },
 	          React.createElement('br', null),
 	          React.createElement('input', { type: 'text',
 	            onChange: this.changeDescription,
 	            value: this.state.description,
-	            className: 'DescriptionInput' })
+	            placeholder: 'Enter Description Here',
+	            className: 'DescriptionInput' }),
+	          React.createElement(
+	            'label',
+	            { className: 'Test-Label Label2', 'for': 'Test' },
+	            'Description'
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })

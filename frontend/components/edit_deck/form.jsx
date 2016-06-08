@@ -35,22 +35,26 @@ var Form = React.createClass({
       <div className="Form">
         <h4>Info</h4>
         <form onSubmit={this.submitCB}>
-          <label className="Name-Label">Name
+          <div className="Input-Label">
             <br/>
             <input type="text" id="Test"
                    onChange={this.changeName}
                    value={this.state.name}
+                   placeholder="Enter Name Here"
                    className="NameInput" />
-          </label>
+                 <label className="Test-Label Label1" for="Test">Name</label>
+          </div>
           <br/>
 
-          <label>Description
+          <div className="Input-Label">
             <br/>
             <input type="text"
                    onChange={this.changeDescription}
                    value={this.state.description}
+                   placeholder="Enter Description Here"
                    className="DescriptionInput" />
-          </label>
+                 <label className="Test-Label Label2" for="Test">Description</label>
+         </div>
           <br/>
 
           <input type="submit" value="Save" className="Save" />

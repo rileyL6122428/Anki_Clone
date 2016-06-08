@@ -37,23 +37,30 @@ var Form = React.createClass({
     return(
       <div className="Form">
         <h4>Info</h4>
-        <form onSubmit={this.submitCB}>
-          <label>Name
+          <form onSubmit={this.submitCB}>
+            <div className="Input-Label">
+              <br/>
+              <input type="text" id="Test"
+                     onChange={this.changeName}
+                     placeholder="Enter Name Here"
+                     className="NameInput" />
+                   <label className="Test-Label Label1" for="Test">Name</label>
+            </div>
             <br/>
-            <input type="text" onChange={this.changeName} className="NameInput" />
-          </label>
-          <br/>
 
-          <label>Description
+            <div className="Input-Label">
+              <br/>
+              <input type="text"
+                     onChange={this.changeDescription}
+                     placeholder="Enter Description Here"
+                     className="DescriptionInput" />
+                   <label className="Test-Label Label2" for="Test">Description</label>
+           </div>
             <br/>
-            <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
-          </label>
-          <br/>
 
-          <input type="submit" value="Save" className="Save" />
+            <input type="submit" value="Save" className="Save" />
 
-        </form>
-
+          </form>
 
 
       </div>
@@ -62,3 +69,20 @@ var Form = React.createClass({
 });
 
 module.exports = Form;
+
+// <form onSubmit={this.submitCB}>
+//   <label>Name
+//     <br/>
+//     <input type="text" onChange={this.changeName} className="NameInput" />
+//   </label>
+//   <br/>
+//
+//   <label>Description
+//     <br/>
+//     <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
+//   </label>
+//   <br/>
+//
+//   <input type="submit" value="Save" className="Save" />
+//
+// </form>
