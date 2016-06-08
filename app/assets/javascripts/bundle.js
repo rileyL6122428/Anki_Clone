@@ -26007,7 +26007,7 @@
 	      { className: 'auth' },
 	      React.createElement(
 	        'h1',
-	        null,
+	        { className: 'group' },
 	        'AnkiClone'
 	      ),
 	      React.createElement(Greeting, { showing: this.state.currentPage === "greeting",
@@ -32998,7 +32998,7 @@
 	      React.createElement(
 	        'button',
 	        { onClick: this.props.acknowledgeErrorCB },
-	        'Ok'
+	        'OK'
 	      )
 	    );
 	  }
@@ -33021,7 +33021,10 @@
 	      formType: "Sign up",
 	      username: "",
 	      password: "",
-	      passwordConfirm: ""
+	      passwordConfirm: "",
+	      usernameSelected: false,
+	      passwordSelected: false,
+	      confirmSelected: false
 	    };
 	  },
 	
@@ -33056,14 +33059,54 @@
 	    });
 	  },
 	
+	  usernameFocusCB: function () {
+	    this.setState({ usernameSelected: true });
+	  },
+	
+	  usernameBlurCB: function () {
+	    this.setState({ usernameSelected: false });
+	  },
+	
+	  passwordFocusCB: function () {
+	    this.setState({ passwordSelected: true });
+	  },
+	
+	  passwordBlurCB: function () {
+	    this.setState({ passwordSelected: false });
+	  },
+	
+	  confirmFocusCB: function () {
+	    this.setState({ confirmSelected: true });
+	  },
+	
+	  confirmBlurCB: function () {
+	    this.setState({ confirmSelected: false });
+	  },
+	
 	  render: function () {
 	    if (!this.props.showing) {
 	      return React.createElement("div", null);
 	    }
+	
 	    var submitText = this.props.formType;
 	    var submitCB = submitText === "Log in" ? this._loginCB : this._signUpCB;
 	    var confirmPasswordInput = React.createElement("div", null);
 	
+	    var usernameInputClass = "Username-Icon";
+	    if (this.state.usernameSelected) {
+	      usernameInputClass = "Username-Icon-Blue";
+	    }
+	
+	    var passwordInputClass = "Password-Icon-1";
+	    if (this.state.passwordSelected) {
+	      passwordInputClass = "Password-Icon-1-Blue";
+	    }
+	
+	    var confirmInputClass = "Password-Icon-2";
+	    if (this.state.confirmSelected) {
+	      confirmInputClass = "Password-Icon-2-Blue";
+	    }
+	    // debugger
 	    if (submitText === "Sign up") {
 	      confirmPasswordInput = React.createElement(
 	        "div",
@@ -33071,10 +33114,14 @@
 	        React.createElement(
 	          "label",
 	          null,
-	          "Confirm:",
-	          React.createElement("input", { type: "text", onChange: this._confirmPasswordChange })
-	        ),
-	        React.createElement("br", null)
+	          React.createElement("input", { type: "text",
+	            placeholder: "Confirm Password",
+	            className: "Third-Auth-Input",
+	            onChange: this._confirmPasswordChange,
+	            onFocus: this.confirmFocusCB,
+	            onBlur: this.confirmBlurCB }),
+	          React.createElement("div", { className: confirmInputClass })
+	        )
 	      );
 	    }
 	
@@ -33087,19 +33134,25 @@
 	        React.createElement(
 	          "label",
 	          null,
-	          "Username:",
-	          React.createElement("input", { type: "text", onChange: this._usernameChange })
+	          React.createElement("input", { type: "text",
+	            placeholder: "Username",
+	            onChange: this._usernameChange,
+	            className: "First-Auth-Input",
+	            onFocus: this.usernameFocusCB,
+	            onBlur: this.usernameBlurCB }),
+	          React.createElement("div", { className: usernameInputClass })
 	        ),
-	        React.createElement("br", null),
-	        React.createElement("br", null),
 	        React.createElement(
 	          "label",
 	          null,
-	          "Password:",
-	          React.createElement("input", { type: "text", onChange: this._passwordChange })
+	          React.createElement("input", { type: "text",
+	            placeholder: "Password",
+	            onChange: this._passwordChange,
+	            className: "Second-Auth-Input",
+	            onFocus: this.passwordFocusCB,
+	            onBlur: this.passwordBlurCB }),
+	          React.createElement("div", { className: passwordInputClass })
 	        ),
-	        React.createElement("br", null),
-	        React.createElement("br", null),
 	        confirmPasswordInput,
 	        React.createElement(
 	          "button",
@@ -33124,40 +33177,40 @@
 	var React = __webpack_require__(1);
 	
 	var Greeting = React.createClass({
-	  displayName: 'Greeting',
+	  displayName: "Greeting",
 	
 	  render: function () {
 	
 	    if (!this.props.showing) {
-	      return React.createElement('div', null);
+	      return React.createElement("div", { className: "group" });
 	    }
 	
 	    return React.createElement(
-	      'div',
+	      "div",
 	      null,
 	      React.createElement(
-	        'h3',
+	        "h3",
 	        null,
-	        'Welcome!'
+	        "Welcome!"
 	      ),
 	      React.createElement(
-	        'p',
+	        "p",
 	        null,
-	        'If this is your first time using AnkiClone, choose \'Sign Up\' and create an account. It is free!'
+	        "If this is your first time using AnkiClone, choose 'Sign Up' and create an account. It is free!"
 	      ),
-	      React.createElement('br', null),
+	      React.createElement("br", null),
 	      React.createElement(
-	        'button',
+	        "button",
 	        { onClick: this.props.toSignUpCB },
-	        'Sign up'
+	        "Sign up"
 	      ),
-	      React.createElement('br', null),
+	      React.createElement("br", null),
 	      React.createElement(
-	        'button',
+	        "button",
 	        { onClick: this.props.toLogInCB },
-	        'Log in'
+	        "Log in"
 	      ),
-	      React.createElement('br', null)
+	      React.createElement("br", null)
 	    );
 	  }
 	});

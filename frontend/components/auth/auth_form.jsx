@@ -54,7 +54,7 @@ var AuthForm = React.createClass({
   render: function () {
     return(
       <div className="auth">
-        <h1>AnkiClone</h1>
+        <h1 className="group">AnkiClone</h1>
         <Greeting showing={ this.state.currentPage === "greeting" }
                   toSignUpCB={this.toSignUp}
                   toLogInCB={this.toLogIn} />

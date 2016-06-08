@@ -3,7 +3,7 @@ var React = require('react');
 var Greeting = React.createClass({
   render: function () {
 
-    if(!this.props.showing) { return<div></div>; }
+    if(!this.props.showing) { return<div className="group"></div>; }
 
     return (
       <div>

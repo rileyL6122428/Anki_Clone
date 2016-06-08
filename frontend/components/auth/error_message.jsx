@@ -28,7 +28,7 @@ var ErrorMessage = React.createClass({
         <p>{errorExplanation}</p>
         <br/>
         <p>{errorAdvice}</p>
-        <button onClick={this.props.acknowledgeErrorCB}>Ok</button>
+        <button onClick={this.props.acknowledgeErrorCB}>OK</button>
       </div>
     );
   }

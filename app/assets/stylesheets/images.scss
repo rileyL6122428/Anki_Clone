@@ -1,14 +1,118 @@
+
 .background {
   position: fixed;
   display: block;
   background-position: center center;
-  background-image: image-url('sky1.png');
+  background-image: image-url('ALgWRj4.jpg');
 
   background-size: cover;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+}
+.auth h1:before {
+  height: 60px;
+  width: 90px;
+  display: block;
+  // margin-top: 8px;
+  // margin-right: 10px;
+  // margin-left: 30px;
+  float: left;
+  background-image: image-url('Anki-Clone-Logo.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Username-Icon {
+  position: absolute;
+  height: 30px;
+  width: 40px;
+  display: block;
+
+  top: 45px;
+  left: 150px;
+  // float: left;
+  background-image: image-url('username_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth div.Username-Icon-Blue {
+  position: absolute;
+  height: 30px;
+  width: 40px;
+  display: block;
+
+  top: 45px;
+  left: 150px;
+  // float: left;
+  background-image: image-url('username_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "test";
+}
+
+.auth .Password-Icon-1 {
+  position: absolute;
+  height: 35px;
+  width: 30px;
+  display: block;
+
+  top: 100px;
+  left: 155px;
+  // float: left;
+  background-image: image-url('lock_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-1-Blue {
+  position: absolute;
+  height: 31px;
+  width: 27px;
+  display: block;
+
+  top: 100px;
+  left: 157px;
+  // float: left;
+  background-image: image-url('lock_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-2 {
+  position: absolute;
+  height: 35px;
+  width: 30px;
+  display: block;
+
+  top: 160px;
+  left: 155px;
+  // float: left;
+  background-image: image-url('lock_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-2-Blue {
+  position: absolute;
+  height: 31px;
+  width: 27px;
+  display: block;
+
+  top: 160px;
+  left: 157px;
+  // float: left;
+  background-image: image-url('lock_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
 }
 
 .Options div {
