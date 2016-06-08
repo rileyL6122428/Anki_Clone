@@ -1,4 +1,4 @@
-.NewDeck {
+.NewDeck, .EditDeck {
   position: absolute;;
   height: 100%;
   width: 100%;
@@ -7,34 +7,38 @@
   background-color: #FFFFFF;
 }
 
-.NewDeck .Header {
+.NewDeck .Header, .EditDeck .Header {
   display: black;
   background-color: #f8f8f8;
 
   border-bottom: 1px solid #ddd;
 }
 
-.NewDeck .Header h1 {
+.NewDeck .Header h1, .EditDeck .Header h1 {
   text-align: center;
   padding-top: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.NewDeck .Header .Cancel {
-  float: left;
+.NewDeck .Header .Cancel, .EditDeck .Header .Cancel {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+
+  font-size: 24px;
   color: red;
   text-decoration: none;
 }
 
-.NewDeck .Form {
+.NewDeck .Form, .EditDeck .Form {
   color: #25A3FC;
   display: block;
   width: 80%;
   margin: auto;
 }
 
-.NewDeck .Form h4 {
+.NewDeck .Form h4, .EditDeck .Form h4 {
   position: relative;
   margin: auto;
   width: 60%;
@@ -43,7 +47,7 @@
 }
 
 
-.NewDeck input[type=text] {
+.NewDeck input[type=text], .EditDeck input[type=text] {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
@@ -54,7 +58,7 @@
 
   padding-left: 10px;
 
-  border-bottom: 1px solid gray;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
 
   background-color: rgba(0,0,0,0);
   color: black;
@@ -64,25 +68,27 @@
   padding-top: 20px
 }
 
-.NewDeck input[type=text]:focus {
+
+
+.NewDeck input[type=text]:focus, .EditDeck input[type=text]:focus{
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
   outline: 0;
+  color: red;
 
-
-  border-bottom: 1px solid #25A3FC;
+  border-bottom: 2px solid rgba(37,163,252, .4);
 }
 
 
-.NewDeck .Form label {
+.NewDeck .Form label, .EditDeck .Form label {
   display: block;
   margin: auto;
   width: 60%;
 }
 
 
-.NewDeck .Form .Save {
+.NewDeck .Form .Save, .EditDeck .Form .Save {
 
   position: absolute;
 
@@ -93,10 +99,8 @@
 
   text-align: center;
 
-
   width: 100%;
 
-  /*line-height: 50px;*/
 
   float: center;
   background-color: #FFFFFF;

@@ -10,46 +10,38 @@
 }
 
 .Flashcard-Index a.Header-Link{
+  position: absolute;
   float: left;
-  width: 7%;
   text-decoration: none;
   color: rgb(37, 163, 252);
 }
 
-.Flashcard-Index p{
-  width: 80%;
+.Flashcard-Index a.Back{
+  left: 1%;
   float: left;
+  text-decoration: none;
+}
+
+.Flashcard-Index a.New{
+  top: 5px;
+  left: 94%;
+  float: left;
+  width: 60px;
+  text-decoration: none;
+}
+
+
+
+.Flashcard-Index p{
   display: block;
-  margin: 0px;
+  margin: auto;
+  margin-top: 5px;
 
   color: rgb(68, 68, 68);
 }
 
-/*.Flashcard-Index ul {
-  display: block;
-  height: 100px;
-  width: 100%;
-}
 
-.Flashcard-Index .Wrapper{
-
-  position: absolute;
-  height: 200px;
-  overflow-y: scroll;
-  height: 100%;
-  height: calc(100% - 1px);
-  width: 100%;
-
-
-}
-
-.Flashcard-Index-Item{
-  width: 50px;
-}*/
-
-/*COPIED CODE STARTS HERE*/
-
-.Wrapper{
+.Wrapper {
 
   position: absolute;
   height: 200px;
@@ -57,7 +49,6 @@
   height: 100%;
   height: calc(100% - 155px);
   width: 100%;
-
 
 }
 

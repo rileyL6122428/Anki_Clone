@@ -34250,25 +34250,25 @@
 	  colorByPercentage: function (percentage, opacity) {
 	    if (opacity) {
 	      if (percentage == 0) {
-	        return "rgba(56, 38, 134, 0.7)";
+	        return "rgba(56, 38, 134, " + opacity + ")";
 	      }
 	      if (percentage < 50) {
-	        return "rgba(232, 11, 2, 0.7)";
+	        return "rgba(232, 11, 2, " + opacity + ")";
 	      }
 	      if (percentage < 60) {
-	        return "rgba(232, 52, 94, 0.7)";
+	        return "rgba(232, 52, 94, " + opacity + ")";
 	      }
 	      if (percentage < 70) {
-	        return "rgba(232, 102, 78, 0.7)";
+	        return "rgba(232, 102, 78, " + opacity + ")";
 	      }
 	      if (percentage < 80) {
-	        return "rgba(255, 210, 85, 0.7)";
+	        return "rgba(255, 210, 85, " + opacity + ")";
 	      }
 	      if (percentage < 90) {
-	        return "rgba(78, 164, 232, 0.7)";
+	        return "rgba(78, 164, 232, " + opacity + ")";
 	      }
 	      if (percentage <= 100) {
-	        return "rgba(72, 255, 111, 0.7)";
+	        return "rgba(72, 255, 111, " + opacity + ")";
 	      }
 	    }
 	    if (percentage == 0) {
@@ -34869,10 +34869,10 @@
 	        { onSubmit: this.submitCB },
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'Name-Label' },
 	          'Name',
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
+	          React.createElement('input', { type: 'text', id: 'Test',
 	            onChange: this.changeName,
 	            value: this.state.name,
 	            className: 'NameInput' })
@@ -34959,7 +34959,7 @@
 	        null,
 	        React.createElement(
 	          Link,
-	          { to: "/decks/" + this.props.params.id, className: 'Header-Link' },
+	          { to: "/decks/" + this.props.params.id, className: 'Header-Link Back' },
 	          arrow
 	        ),
 	        React.createElement(
@@ -34969,7 +34969,7 @@
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link' },
+	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link New' },
 	          'New'
 	        ),
 	        React.createElement('div', { className: 'ClearSet' })
@@ -35374,7 +35374,7 @@
 	    var showUrl = "/decks/" + deckId + "/flashcards/" + cardId;
 	
 	    var grade = GraphUtil.gradeByPercentage(this.props.gradePercentage);
-	    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.8);
+	    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.7);
 	    var border = "border-top: 1px solid " + color;
 	    var styleHash = { backgroundColor: color, border: "1px solid " + color };
 	

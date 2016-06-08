@@ -19,9 +19,9 @@ var FlashcardIndex = React.createClass({
     return(
       <div className="Parent-Component Flashcard-Index">
         <h1>
-          <Link to={ "/decks/" + this.props.params.id } className="Header-Link">{ arrow }</Link>
+          <Link to={ "/decks/" + this.props.params.id } className="Header-Link Back">{ arrow }</Link>
           <p>Cards</p>
-          <Link to={ "/decks/" + this.props.params.id + "/new-flashcards"} className="Header-Link">New</Link>
+          <Link to={ "/decks/" + this.props.params.id + "/new-flashcards"} className="Header-Link New">New</Link>
           <div className="ClearSet" />
         </h1>
         <SearchBar queryChangeCB={ this.queryChangeCB }/>

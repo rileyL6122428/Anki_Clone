@@ -10,7 +10,7 @@ var FlashcardIndexItem = React.createClass({
     var showUrl = "/decks/" + deckId + "/flashcards/" + cardId;
 
     var grade = GraphUtil.gradeByPercentage(this.props.gradePercentage)
-    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.8)
+    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.7)
     var border = "border-top: 1px solid " + color;
     var styleHash = { backgroundColor:  color , border: "1px solid " + color };
 

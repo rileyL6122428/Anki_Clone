@@ -35,9 +35,9 @@ var Form = React.createClass({
       <div className="Form">
         <h4>Info</h4>
         <form onSubmit={this.submitCB}>
-          <label>Name
+          <label className="Name-Label">Name
             <br/>
-            <input type="text"
+            <input type="text" id="Test"
                    onChange={this.changeName}
                    value={this.state.name}
                    className="NameInput" />

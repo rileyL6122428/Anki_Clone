@@ -77,7 +77,6 @@
 }
 
 .Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
-
   border-top: 1px solid #ddd;
 }
 
@@ -89,10 +88,7 @@
   margin: auto;
   width:90%;
 
-  /*height: 18%;*/
-
   border: 2px dashed rgb(37, 163, 252);
-
 }
 
 .Flashcard-Edit .Preview .Back::before, .Flashcard-New .Preview .Back::before {
@@ -128,4 +124,5 @@
   color: #25A3FC;
   font-size: 20px;
 
+  z-index: 100;
 }
