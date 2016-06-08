@@ -64,15 +64,16 @@
 .Flashcard-Index-Item {
   display: block;
   float: left;
-  width: 100px;
-  height: 90px;
+  /*width: 100px;*/
+  width: 170px;
+  height: 200px;
 
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
-  border-bottom: 2px solid gray;
-  border-right: 2px solid gray;
+  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 3px 1px;
 
+  /*border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;*/
   border-radius: 5px;
+
 
   color: black;
 
@@ -81,25 +82,39 @@
 
 .Flashcard-Index-Item h5 {
   display: block;
-  width: 103px;
-  /*margin: 10px 5px;*/
+  position: relative;
+  width: 170px;
   margin: 0px;
   /*float: none;*/
-  height: 59px;
+  height: 168px;
   float: center;
   text-align: center;
+
 }
+
+.Flashcard-Index-Item div.Front-Sample {
+  display: block;
+  position: absolute;
+  top: 41%;
+
+  font-size: 18px;
+  font-weight: normal;
+  /*left: 10%;*/
+  width: 100%;
+
+}
+
+
 
 .Flashcard-Index-Item p {
   float: none;
 
   display: block;
 
-  height: 30px;
+  height: 25px;
   margin: 0px;
-  color: white;
-  
-  width: 100%;
+
+  width: 168px;
 
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -107,19 +122,38 @@
   text-align: right;
 }
 
-.Search-Container label {
+.Flashcard-Index-Item div.Grade {
+  display: block;
+  margin-right: 10px;
+
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
+
+  font-size: 20px;
+  color: white;
+}
+
+.Flashcard-Index div.Search-Container {
+  display: block;
+  height: 70px;
+  padding-top: 10px;
+  border-top: 1px solid gray;
+}
+
+.Flashcard-Index .Search-Container label {
   display: block;
   width: 6%;
   height: 40px;
   float: left;
 }
 
-.Search-Container input {
+.Flashcard-Index .Search-Container input {
   display: block;
   width: 92%;
+  margin-top: 100px;
+  /*margin: auto;*/
 }
 
-.Search-Container {
+.Flashcard-Index .Search-Container {
   display: block;
 
   border-top: 1px solid #ddd;

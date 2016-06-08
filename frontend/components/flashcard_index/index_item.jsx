@@ -10,17 +10,20 @@ var FlashcardIndexItem = React.createClass({
     var showUrl = "/decks/" + deckId + "/flashcards/" + cardId;
 
     var grade = GraphUtil.gradeByPercentage(this.props.gradePercentage)
-    var color = GraphUtil.colorByPercentage(this.props.gradePercentage)
+    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.8)
     var border = "border-top: 1px solid " + color;
-    var styleHash = { backgroundColor:  color };
+    var styleHash = { backgroundColor:  color , border: "1px solid " + color };
 
-    var frontSample = this.props.front.slice(0,12);
+    var frontSample = this.props.front;
+    if(this.props.front.length > 12 ) {
+      frontSample = this.props.front.slice(0,12) + "..."
+    }
 
     return(
       <Link to={showUrl}>
         <li className="Flashcard-Index-Item">
-            <p style={ styleHash }>{ grade }</p>
-            <h5>{ frontSample }</h5>
+            <p style={ styleHash }><div className="Grade">{ grade }</div></p>
+            <h5><div className="Front-Sample">{ frontSample }</div></h5>
         </li>
       </Link>
     )

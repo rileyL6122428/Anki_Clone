@@ -81,13 +81,16 @@ li.Icon {
   display: block;
   width: 40px;
   height: 40px;
-  margin-left: calc(25% - 200px);
-  margin-right: calc(25% - 200px);
+  // margin-left: calc(25% - 292px);
+  // margin-right: calc(25% - 292px);
+  // margin: auto;
   background-position: center center;
   background-size: cover;
 }
 
 li.Home-Icon {
+  position: absolute;
+  left: 15%;
   background-image: image-url('home_gray.png');
 }
 
@@ -96,6 +99,8 @@ li.Home-Icon {
 }
 
 li.Decks-Icon {
+  position: absolute;
+  left: 32.5%;
   background-image: image-url('decks_gray.png');
 }
 
@@ -104,6 +109,8 @@ li.Decks-Icon {
 }
 
 li.New-Decks-Icon {
+  position: absolute;
+  left: 50%;
   background-image: image-url('add_deck_gray.png');
 }
 
@@ -112,6 +119,8 @@ li.New-Decks-Icon {
 }
 
 li.Import-Icon {
+  position: absolute;
+  left: 67.5%;
   background-image: image-url('download_gray.png');
 }
 
@@ -121,6 +130,8 @@ li.Import-Icon {
 
 
 li.Profile-Icon {
+  position: absolute;
+  left: 85%;
   background-image: image-url('profile_gray.png');
 }
 

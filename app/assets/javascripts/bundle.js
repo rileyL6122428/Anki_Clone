@@ -34247,7 +34247,30 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  colorByPercentage: function (percentage) {
+	  colorByPercentage: function (percentage, opacity) {
+	    if (opacity) {
+	      if (percentage == 0) {
+	        return "rgba(56, 38, 134, 0.7)";
+	      }
+	      if (percentage < 50) {
+	        return "rgba(232, 11, 2, 0.7)";
+	      }
+	      if (percentage < 60) {
+	        return "rgba(232, 52, 94, 0.7)";
+	      }
+	      if (percentage < 70) {
+	        return "rgba(232, 102, 78, 0.7)";
+	      }
+	      if (percentage < 80) {
+	        return "rgba(255, 210, 85, 0.7)";
+	      }
+	      if (percentage < 90) {
+	        return "rgba(78, 164, 232, 0.7)";
+	      }
+	      if (percentage <= 100) {
+	        return "rgba(72, 255, 111, 0.7)";
+	      }
+	    }
 	    if (percentage == 0) {
 	      return "rgb(56, 38, 134)";
 	    }
@@ -34977,11 +35000,14 @@
 	      "div",
 	      { className: "Search-Container" },
 	      React.createElement(
-	        "label",
-	        { "for": "deck-search" },
-	        " Search:"
-	      ),
-	      React.createElement("input", { id: "deck-search", type: "text", onChange: this.props.queryChangeCB })
+	        "div",
+	        { className: "Mag-And-Bar" },
+	        React.createElement("div", { className: "Mag-Icon" }),
+	        React.createElement("input", { id: "deck-search",
+	          type: "text",
+	          placeholder: "Search",
+	          onChange: this.props.queryChangeCB })
+	      )
 	    );
 	  }
 	});
@@ -35348,11 +35374,14 @@
 	    var showUrl = "/decks/" + deckId + "/flashcards/" + cardId;
 	
 	    var grade = GraphUtil.gradeByPercentage(this.props.gradePercentage);
-	    var color = GraphUtil.colorByPercentage(this.props.gradePercentage);
+	    var color = GraphUtil.colorByPercentage(this.props.gradePercentage, 0.8);
 	    var border = "border-top: 1px solid " + color;
-	    var styleHash = { backgroundColor: color };
+	    var styleHash = { backgroundColor: color, border: "1px solid " + color };
 	
-	    var frontSample = this.props.front.slice(0, 12);
+	    var frontSample = this.props.front;
+	    if (this.props.front.length > 12) {
+	      frontSample = this.props.front.slice(0, 12) + "...";
+	    }
 	
 	    return React.createElement(
 	      Link,
@@ -35363,12 +35392,20 @@
 	        React.createElement(
 	          'p',
 	          { style: styleHash },
-	          grade
+	          React.createElement(
+	            'div',
+	            { className: 'Grade' },
+	            grade
+	          )
 	        ),
 	        React.createElement(
 	          'h5',
 	          null,
-	          frontSample
+	          React.createElement(
+	            'div',
+	            { className: 'Front-Sample' },
+	            frontSample
+	          )
 	        )
 	      )
 	    );
