@@ -6,6 +6,7 @@
 }
 
 .DeckShow h1 {
+  position: relative;
   display: block;
   background-color: #f8f8f8;
   height: 45px;
@@ -17,14 +18,15 @@
   /*height: 100%;*/
 }
 
-.DeckShow .BackLink {
-
+.DeckShow a.BackLink {
+  position: absolute;
+  left: 0;
   padding-left: 5px;
 
   color: #25A3FC;
 
   text-decoration: none;
-
+  margin-left: 5px;
   float: left;
 }
 

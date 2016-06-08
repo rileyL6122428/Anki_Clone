@@ -46,7 +46,7 @@ var PublicDeckPreview = React.createClass({
         <PreviewList deck={ this.state.deck }/>
         <PreviewInfo deck={ this.state.deck }/>
         <button className="Normal-Button"
-                Click={ this.downloadDeckCB }>Download</button>
+                onClick={ this.downloadDeckCB }>Download</button>
       </div>
     )
   }

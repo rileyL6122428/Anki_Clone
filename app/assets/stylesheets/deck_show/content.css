@@ -1,3 +1,30 @@
+div.Display-Stats {
+  display: block;
+  margin: 15px 60px 35px;
+}
+
+div.Card-Total-Display {
+display: block;
+float: left;
+}
+
+div.Grade-Display {
+  display: block;
+  float: right;
+}
+
+.DeckInfo p {
+  text-align: center;
+  margin: 0px 0px 0px;
+
+  font-size: 45px;
+}
+
+.DeckInfo div {
+  text-align: center;
+  color: #616161;
+}
+
 .ShowContent {
   display: block;
   position: relative;

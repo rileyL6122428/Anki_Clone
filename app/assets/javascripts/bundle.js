@@ -33884,16 +33884,24 @@
 	  displayName: "DecksSearchBar",
 	
 	
+	  onFocus: function (e) {
+	    debugger;
+	    e.target.value = "";
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      "div",
 	      { className: "Search-Container" },
 	      React.createElement(
-	        "label",
-	        { "for": "deck-search" },
-	        " Search:"
-	      ),
-	      React.createElement("input", { id: "deck-search", type: "text", onChange: this.props.changeCB })
+	        "div",
+	        { className: "Mag-And-Bar" },
+	        React.createElement("div", { className: "Mag-Icon" }),
+	        React.createElement("input", { id: "deck-search",
+	          type: "text",
+	          placeholder: "Search",
+	          onChange: this.props.changeCB })
+	      )
 	    );
 	  }
 	});
@@ -34517,7 +34525,7 @@
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
 	      cardTotal = this.state.deck.cardTotal;
-	      grade = this.state.deck.grade;
+	      grade = Math.round(this.state.deck.grade);
 	      gradeDistribution = this.state.deck.gradeDistribution;
 	      reviewsToday = this.state.deck.reviewsToday;
 	      reviewsPerDay = this.state.deck.reviewsPerDay;
@@ -34565,46 +34573,53 @@
 
 	var React = __webpack_require__(1);
 	var GradeGraph = __webpack_require__(263);
+	var GraphUtil = __webpack_require__(278);
 	
 	var Info = React.createClass({
 	  displayName: 'Info',
 	
 	  render: function () {
+	    var grade = this.props.grade;
+	    var displayGrade = grade + "% " + GraphUtil.gradeByPercentage(grade);
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'DeckInfo' },
 	      React.createElement(
-	        'h3',
-	        null,
+	        'h4',
+	        { className: 'Stat-Header' },
 	        'Info'
 	      ),
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'Display-Stats group' },
 	        React.createElement(
-	          'p',
-	          null,
-	          this.props.cardTotal
+	          'div',
+	          { className: 'Card-Total-Display' },
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.cardTotal
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            'Card Total'
+	          )
 	        ),
 	        React.createElement(
 	          'div',
-	          null,
-	          'Card Total'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'div',
-	          null,
-	          this.props.grade,
-	          '%'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Grade'
+	          { className: 'Grade-Display' },
+	          React.createElement(
+	            'p',
+	            { style: { color: GraphUtil.colorByPercentage(grade) } },
+	            displayGrade
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            'Grade'
+	          )
 	        )
 	      ),
 	      React.createElement(GradeGraph, { barTotals: this.props.gradeDistribution,
@@ -34681,11 +34696,6 @@
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        )
-	      ),
-	      React.createElement(
-	        "div",
-	        null,
-	        "Insert weekly breakdown of Reviews"
 	      )
 	    );
 	  }
@@ -34710,38 +34720,48 @@
 	      'div',
 	      { className: 'Options' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Options'
-	      ),
-	      React.createElement(
 	        'ul',
 	        null,
 	        React.createElement(
-	          'li',
-	          null,
+	          Link,
+	          { to: "/edit-deck/" + this.props.deckId },
 	          React.createElement(
-	            Link,
-	            { to: "/edit-deck/" + this.props.deckId },
-	            'Edit Deck'
+	            'li',
+	            { className: 'group' },
+	            React.createElement('div', { className: 'Edit-Icon' }),
+	            React.createElement(
+	              'div',
+	              { className: 'Option-Label' },
+	              'Edit Deck'
+	            )
 	          )
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
+	          Link,
+	          { to: "/decks/" + this.props.deckId + "/flashcards" },
 	          React.createElement(
-	            Link,
-	            { to: "/decks/" + this.props.deckId + "/flashcards" },
-	            'Cards'
+	            'li',
+	            { className: 'group' },
+	            React.createElement('div', { className: 'Card-Icon' }),
+	            React.createElement(
+	              'div',
+	              { className: 'Option-Label' },
+	              'Cards'
+	            )
 	          )
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
+	          Link,
+	          { to: '/dashboard' },
 	          React.createElement(
-	            Link,
-	            { to: '/dashboard' },
-	            'Remove'
+	            'li',
+	            { className: 'group' },
+	            React.createElement('div', { className: 'Remove-Icon' }),
+	            React.createElement(
+	              'div',
+	              { className: 'Option-Label' },
+	              'Remove'
+	            )
 	          )
 	        )
 	      )
@@ -36628,7 +36648,7 @@
 	      React.createElement(
 	        'button',
 	        { className: 'Normal-Button',
-	          Click: this.downloadDeckCB },
+	          onClick: this.downloadDeckCB },
 	        'Download'
 	      )
 	    );

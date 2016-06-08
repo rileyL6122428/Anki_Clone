@@ -1,10 +1,7 @@
 .Options {
   float: right;
   position: absolute;
-
   right: 0;
-
-
   background:  #f8f8f8;
   height: 100%;
 
@@ -16,6 +13,38 @@
 
 }
 
+.Options ul {
+  padding-left: 20px;
+}
+
+.Options ul:first-child {
+  /*margin-top: 20px;*/
+}
+
 .Options li {
+
+  padding: 10px 0px;
+  width:300px;
+
+  margin-right: 0px;
+
   list-style-type: none;
+}
+
+.Options a {
+  text-decoration: none;
+  color: #000000;
+
+  padding: 10px 0px;
+  width:200px;
+  border-bottom: 1px solid #ddd;
+
+  font-size: 20px;
+}
+
+.Options div.Option-Label {
+  width:165px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  margin-right: 0px;
 }

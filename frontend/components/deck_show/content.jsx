@@ -43,7 +43,7 @@ var Content = React.createClass({
     if(this.state.deck) {
       deckName = this.state.deck.name;
       cardTotal = this.state.deck.cardTotal;
-      grade = this.state.deck.grade;
+      grade = Math.round(this.state.deck.grade);
       gradeDistribution = this.state.deck.gradeDistribution;
       reviewsToday = this.state.deck.reviewsToday;
       reviewsPerDay = this.state.deck.reviewsPerDay;

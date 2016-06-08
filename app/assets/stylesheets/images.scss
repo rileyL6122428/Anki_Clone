@@ -11,6 +11,31 @@
   right: 0;
 }
 
+.Options div {
+  height: 25px;
+  width: 25px;
+
+  margin-right: 25px;
+
+  float: left;
+
+  background-position: center center;
+  background-size: cover;
+}
+
+.Options div.Edit-Icon {
+  background-image: image-url('edit-logo.png');
+}
+
+
+.Options div.Card-Icon {
+  background-image: image-url('cards.png');
+}
+
+.Options div.Remove-Icon {
+  background-image: image-url('remove.png');
+}
+
 div.Arrow-Right {
   height: 40px;
   width: 25px;
@@ -36,6 +61,20 @@ div.Arrow-Right {
   background-position: center center;
   background-size: cover;
 }
+
+div.Search-Container .Mag-And-Bar div:before {
+  height: 15px;
+  width: 15px;
+  margin-top: 8px;
+  margin-right: 10px;
+  // margin-left: 30px;
+  float: left;
+  background-image: image-url('magnify_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
 
 
 li.Icon {

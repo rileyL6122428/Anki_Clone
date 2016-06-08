@@ -24,10 +24,8 @@ var History = React.createClass ({
           <p className="Stat">{ this.props.reviewTotal }</p>
           <div className="ClearSet" />
         </li>
-
         </ul>
 
-        <div>Insert weekly breakdown of Reviews</div>
       </div>
     );
   }

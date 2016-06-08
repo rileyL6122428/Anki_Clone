@@ -1,31 +1,31 @@
 var React = require('react');
 var GradeGraph = require('../graphs/test');
+var GraphUtil = require('../graphs/graph_util');
 
 var Info = React.createClass ({
   render: function () {
+    var grade = this.props.grade
+    var displayGrade = grade + "% " + GraphUtil.gradeByPercentage(grade)
+
     return(
       <div className="DeckInfo">
-        <h3>Info</h3>
-        <div>
-          <p>{ this.props.cardTotal }</p>
-          <div>Card Total</div>
-        </div>
+        <h4 className="Stat-Header">Info</h4>
+        <div className="Display-Stats group">
+          <div className="Card-Total-Display">
+            <p>{ this.props.cardTotal }</p>
+            <div>Card Total</div>
+          </div>
 
-        <div>
-          <div>{ this.props.grade }%</div>
-          <p>Grade</p>
+          <div className="Grade-Display">
+            <p style={{color: GraphUtil.colorByPercentage(grade)}}>
+              { displayGrade }
+            </p>
+            <div>Grade</div>
+          </div>
         </div>
 
         <GradeGraph barTotals={ this.props.gradeDistribution }
-                    barLabels={[
-                      "New",
-                      "F",
-                      "E",
-                      "D",
-                      "C",
-                      "B",
-                      "A"
-                    ]} />
+                    barLabels={["New", "F", "E", "D", "C", "B", "A"]} />
       </div>
     );
   }

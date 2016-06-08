@@ -8,19 +8,27 @@ var Options = React.createClass ({
   render: function () {
     return(
       <div className="Options">
-        <h3>Options</h3>
         <ul>
-          <li>
-            <Link to={"/edit-deck/" + this.props.deckId}>Edit Deck</Link>
-          </li>
+          <Link to={"/edit-deck/" + this.props.deckId}>
+            <li className="group">
+              <div className="Edit-Icon"></div>
+              <div className="Option-Label">Edit Deck</div>
+            </li>
+          </Link>
 
-          <li>
-            <Link to={"/decks/" + this.props.deckId + "/flashcards"}>Cards</Link>
-          </li>
+          <Link to={"/decks/" + this.props.deckId + "/flashcards"}>
+            <li className="group">
+              <div className="Card-Icon"></div>
+              <div className="Option-Label">Cards</div>
+            </li>
+          </Link>
 
-          <li>
-            <Link to="/dashboard">Remove</Link>
-          </li>
+          <Link to="/dashboard">
+            <li className="group">
+              <div className="Remove-Icon"></div>
+              <div className="Option-Label">Remove</div>
+            </li>
+          </Link>
         </ul>
       </div>
     );
