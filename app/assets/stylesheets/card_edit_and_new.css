@@ -1,3 +1,14 @@
+.Flashcard-Edit div.List-Center, .Flashcard-New div.List-Center {
+  position: absolute;
+  display: block;
+  width: 48%;
+
+  left: 50%;
+  top: 30%;
+  height: 100%;
+  float: left;
+}
+
 .Flashcard-Edit, .Flashcard-New {
   text-align: center;
 }
@@ -28,9 +39,19 @@
   position: relative;
   text-align: center;
   display: block;
-  height:40%;
+  height:10%;
   width: 100%;
 }
+
+.Flashcard-Edit .Preview p.P-Back, .Flashcard-New .Preview p.P-Back {
+  position: relative;
+  text-align: center;
+  display: block;
+  height: 27px;
+  width: 100%;
+}
+
+
 
 .Flashcard-Edit .Preview .Front, .Flashcard-New .Preview .Front {
   display: block;
@@ -40,7 +61,7 @@
   margin: auto;
   width:90%;
 
-  height: 18%;
+  /*height: 30%;*/
 
   border: 2px dashed rgb(37, 163, 252);;
 }
@@ -55,15 +76,20 @@
   padding-left: 5px;
 }
 
+.Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
+
+  border-top: 1px solid #ddd;
+}
+
 .Flashcard-Edit .Preview .Back, .Flashcard-New .Preview .Back {
   display: block;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 5%;
   margin: auto;
   width:90%;
 
-  height: 18%;
+  /*height: 18%;*/
 
   border: 2px dashed rgb(37, 163, 252);
 

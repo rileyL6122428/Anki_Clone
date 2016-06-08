@@ -10,7 +10,7 @@ var Preview = React.createClass({
             <div className="Front">{ this.props.card.front }</div>
           </p>
           <div className="Preview-Divider" />
-          <p >
+          <p className="P-Back">
             <div className="Back">{ this.props.card.back }</div>
           </p>
         </div>

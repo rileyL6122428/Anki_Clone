@@ -60,7 +60,7 @@
 
 }
 
-div.Preview-Divider {
+.Flashcard-Show div.Preview-Divider {
   display: block;
   height: 1px;
   background-color: #ddd;
