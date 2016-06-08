@@ -21,7 +21,7 @@ var PublicDeckBrowse = React.createClass({
 
   render: function () {
     return (<div>
-      <div className="Parent-Component">
+      <div className="Parent-Component Import">
         <h1>Get Decks</h1>
         <SearchBar changeCB={ this.queryChangeCB }/>
         <div className="Overflow-Test">

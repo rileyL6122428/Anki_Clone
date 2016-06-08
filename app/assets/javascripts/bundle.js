@@ -59,16 +59,16 @@
 	var Dashboard = __webpack_require__(258);
 	var ProfilePage = __webpack_require__(268);
 	var UserDecks = __webpack_require__(269);
-	var NewDeck = __webpack_require__(278);
-	var DeckShow = __webpack_require__(281);
-	var EditDeck = __webpack_require__(286);
-	var FlashcardIndex = __webpack_require__(289);
+	var NewDeck = __webpack_require__(279);
+	var DeckShow = __webpack_require__(282);
+	var EditDeck = __webpack_require__(287);
+	var FlashcardIndex = __webpack_require__(290);
 	var FlashcardShow = __webpack_require__(299);
 	var NewFlashcard = __webpack_require__(303);
 	var EditFlashcard = __webpack_require__(306);
 	var Review = __webpack_require__(308);
-	var PublicDeckBrowser = __webpack_require__(313);
-	var PublicDeckPreview = __webpack_require__(319);
+	var PublicDeckBrowser = __webpack_require__(314);
+	var PublicDeckPreview = __webpack_require__(320);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -77,14 +77,14 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(272);
 	window.DeckActions = __webpack_require__(275);
-	window.FlashcardStore = __webpack_require__(292);
-	window.FlashcardActions = __webpack_require__(295);
+	window.FlashcardStore = __webpack_require__(293);
+	window.FlashcardActions = __webpack_require__(296);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
 	window.ReviewStore = __webpack_require__(264);
-	window.PublicDeckStore = __webpack_require__(315);
-	window.PublicDeckActions = __webpack_require__(317);
+	window.PublicDeckStore = __webpack_require__(316);
+	window.PublicDeckActions = __webpack_require__(318);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -33211,49 +33211,29 @@
 	        'ul',
 	        null,
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { className: 'Home-Icon', to: '/dashboard' },
-	            'Dashboard'
-	          )
+	          Link,
+	          { to: '/dashboard' },
+	          React.createElement('li', { className: 'Home-Icon Icon' })
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { className: 'Decks-Icon', to: '/decks' },
-	            'Decks'
-	          )
+	          Link,
+	          { to: '/decks' },
+	          React.createElement('li', { className: 'Decks-Icon Icon' })
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { className: 'New-Decks-Icon', to: '/new-deck' },
-	            'New Deck'
-	          )
+	          Link,
+	          { to: '/new-deck' },
+	          React.createElement('li', { className: 'New-Decks-Icon Icon' })
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { className: 'Import-Icon', to: '/public-deck-index' },
-	            'Import Deck'
-	          )
+	          Link,
+	          { to: '/public-deck-index' },
+	          React.createElement('li', { className: 'Import-Icon Icon' })
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { className: 'Profile-Icon', to: '/profile' },
-	            'Profile'
-	          )
+	          Link,
+	          { to: '/profile' },
+	          React.createElement('li', { className: 'Profile-Icon Icon' })
 	        )
 	      )
 	    );
@@ -33875,11 +33855,11 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'Parent-Component' },
+	      { className: 'Parent-Component Deck-Index' },
 	      React.createElement(
 	        'h1',
 	        null,
-	        'My Decks '
+	        'My Decks'
 	      ),
 	      React.createElement(SearchBar, { changeCB: this.queryChangeCB }),
 	      React.createElement(
@@ -34198,7 +34178,7 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var GraphUtil = __webpack_require__(298);
+	var GraphUtil = __webpack_require__(278);
 	
 	var DeckIndexItem = React.createClass({
 	  displayName: 'DeckIndexItem',
@@ -34209,6 +34189,7 @@
 	      grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade);
 	    }
 	
+	    var arrowRight = ">";
 	    return React.createElement(
 	      Link,
 	      { to: this.props.urlFront + this.props.id },
@@ -34223,18 +34204,27 @@
 	            null,
 	            this.props.name
 	          ),
-	          React.createElement('div', { className: 'Cards-Image' }),
 	          React.createElement(
-	            'p',
-	            null,
-	            this.props.totalCards
+	            'div',
+	            { className: 'group Card-Count' },
+	            React.createElement('div', { className: 'Cards-Image' }),
+	            React.createElement(
+	              'p',
+	              null,
+	              this.props.totalCards
+	            )
 	          )
 	        ),
 	        React.createElement(
 	          'p',
 	          { className: 'Grade',
 	            style: { color: GraphUtil.colorByPercentage(this.props.grade) } },
-	          grade
+	          React.createElement(
+	            'div',
+	            { className: 'Percentage' },
+	            grade
+	          ),
+	          React.createElement('div', { className: 'Arrow-Right' })
 	        ),
 	        React.createElement('div', { className: 'ClearSet' })
 	      )
@@ -34246,11 +34236,69 @@
 
 /***/ },
 /* 278 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  colorByPercentage: function (percentage) {
+	    if (percentage == 0) {
+	      return "rgb(56, 38, 134)";
+	    }
+	    if (percentage < 50) {
+	      return "rgb(232, 11, 2)";
+	    }
+	    if (percentage < 60) {
+	      return "rgb(232, 52, 94)";
+	    }
+	    if (percentage < 70) {
+	      return "rgb(232, 102, 78)";
+	    }
+	    if (percentage < 80) {
+	      return "rgb(255, 210, 85)";
+	    }
+	    if (percentage < 90) {
+	      return "rgb(78, 164, 232)";
+	    }
+	    if (percentage <= 100) {
+	      return "rgb(72, 255, 111)";
+	    }
+	  },
+	
+	  gradeByPercentage: function (percentage) {
+	    if (percentage == 0) {
+	      return "New";
+	    }
+	    if (percentage < 50) {
+	      return "F";
+	    }
+	    if (percentage < 60) {
+	      return "E";
+	    }
+	    if (percentage < 70) {
+	      return "D";
+	    }
+	    if (percentage < 80) {
+	      return "C";
+	    }
+	    if (percentage < 90) {
+	      return "B";
+	    }
+	    if (percentage <= 100) {
+	      return "A";
+	    }
+	  },
+	
+	  angleByPercentageCompletion: function (cardsFinished, total) {
+	    return Math.PI * (2 * (cardsFinished / total) - 0.5);
+	  }
+	};
+
+/***/ },
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(279);
-	var Header = __webpack_require__(280);
+	var Form = __webpack_require__(280);
+	var Header = __webpack_require__(281);
 	
 	var NewDeck = React.createClass({
 	  displayName: 'NewDeck',
@@ -34268,7 +34316,7 @@
 	module.exports = NewDeck;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34344,7 +34392,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34374,13 +34422,13 @@
 	module.exports = Header;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Content = __webpack_require__(282);
-	var Options = __webpack_require__(285);
-	var DeckHistory = __webpack_require__(284);
+	var Content = __webpack_require__(283);
+	var Options = __webpack_require__(286);
+	var DeckHistory = __webpack_require__(285);
 	var Link = __webpack_require__(168).Link;
 	
 	var DeckShow = React.createClass({
@@ -34420,12 +34468,12 @@
 	module.exports = DeckShow;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(283);
-	var History = __webpack_require__(284);
+	var Info = __webpack_require__(284);
+	var History = __webpack_require__(285);
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(275);
 	
@@ -34512,7 +34560,7 @@
 	module.exports = Content;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34568,7 +34616,7 @@
 	module.exports = Info;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34646,7 +34694,7 @@
 	module.exports = History;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34704,12 +34752,12 @@
 	module.exports = Options;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(287);
-	var Header = __webpack_require__(288);
+	var Form = __webpack_require__(288);
+	var Header = __webpack_require__(289);
 	
 	var EditDeck = React.createClass({
 	  displayName: 'EditDeck',
@@ -34727,7 +34775,7 @@
 	module.exports = EditDeck;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34807,7 +34855,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34837,12 +34885,12 @@
 	module.exports = Header;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(290);
-	var List = __webpack_require__(291);
+	var SearchBar = __webpack_require__(291);
+	var List = __webpack_require__(292);
 	var Link = __webpack_require__(168).Link;
 	
 	var FlashcardIndex = React.createClass({
@@ -34896,7 +34944,7 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34921,14 +34969,14 @@
 	module.exports = FlashcardsSearchBar;
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(292);
-	var FlashcardActions = __webpack_require__(295);
-	var FlashcardIndexItem = __webpack_require__(297);
-	var GraphUtil = __webpack_require__(298);
+	var FlashcardStore = __webpack_require__(293);
+	var FlashcardActions = __webpack_require__(296);
+	var FlashcardIndexItem = __webpack_require__(298);
+	var GraphUtil = __webpack_require__(278);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -34990,15 +35038,15 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(293);
+	var FlashcardConstants = __webpack_require__(294);
 	var ReviewConstants = __webpack_require__(265);
 	var SearchUtil = __webpack_require__(274);
-	var Util = __webpack_require__(294);
+	var Util = __webpack_require__(295);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -35105,7 +35153,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35115,7 +35163,7 @@
 	};
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports) {
 
 	var Util = {
@@ -35160,10 +35208,10 @@
 	module.exports = Util;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(296);
+	var FlashcardApiUtil = __webpack_require__(297);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -35187,11 +35235,11 @@
 	};
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(293);
+	var FlashcardConstants = __webpack_require__(294);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -35263,12 +35311,12 @@
 	};
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var GraphUtil = __webpack_require__(298);
+	var GraphUtil = __webpack_require__(278);
 	
 	var FlashcardIndexItem = React.createClass({
 	  displayName: 'FlashcardIndexItem',
@@ -35310,70 +35358,12 @@
 	module.exports = FlashcardIndexItem;
 
 /***/ },
-/* 298 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  colorByPercentage: function (percentage) {
-	    if (percentage == 0) {
-	      return "rgb(56, 38, 134)";
-	    }
-	    if (percentage < 50) {
-	      return "rgb(232, 11, 2)";
-	    }
-	    if (percentage < 60) {
-	      return "rgb(232, 52, 94)";
-	    }
-	    if (percentage < 70) {
-	      return "rgb(232, 102, 78)";
-	    }
-	    if (percentage < 80) {
-	      return "rgb(255, 210, 85)";
-	    }
-	    if (percentage < 90) {
-	      return "rgb(78, 164, 232)";
-	    }
-	    if (percentage <= 100) {
-	      return "rgb(72, 255, 111)";
-	    }
-	  },
-	
-	  gradeByPercentage: function (percentage) {
-	    if (percentage == 0) {
-	      return "New";
-	    }
-	    if (percentage < 50) {
-	      return "F";
-	    }
-	    if (percentage < 60) {
-	      return "E";
-	    }
-	    if (percentage < 70) {
-	      return "D";
-	    }
-	    if (percentage < 80) {
-	      return "C";
-	    }
-	    if (percentage < 90) {
-	      return "B";
-	    }
-	    if (percentage <= 100) {
-	      return "A";
-	    }
-	  },
-	
-	  angleByPercentageCompletion: function (cardsFinished, total) {
-	    return Math.PI * (2 * (cardsFinished / total) - 0.5);
-	  }
-	};
-
-/***/ },
 /* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(292);
-	var FlashcardActions = __webpack_require__(295);
+	var FlashcardStore = __webpack_require__(293);
+	var FlashcardActions = __webpack_require__(296);
 	var Link = __webpack_require__(168).Link;
 	var Preview = __webpack_require__(300);
 	var Info = __webpack_require__(301);
@@ -35531,8 +35521,8 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(295);
-	var FlashcardStore = __webpack_require__(292);
+	var FlashcardActions = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(293);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -35614,8 +35604,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(295);
-	var FlashcardStore = __webpack_require__(292);
+	var FlashcardActions = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(293);
 	var Preview = __webpack_require__(300);
 	
 	var Form = React.createClass({
@@ -35787,8 +35777,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(295);
-	var FlashcardStore = __webpack_require__(292);
+	var FlashcardActions = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(293);
 	var Preview = __webpack_require__(300);
 	
 	var Form = React.createClass({
@@ -35891,11 +35881,11 @@
 	var Recap = __webpack_require__(309);
 	var Front = __webpack_require__(311);
 	var Flipped = __webpack_require__(312);
-	var FlashcardStore = __webpack_require__(292);
-	var FlashcardActions = __webpack_require__(295);
+	var FlashcardStore = __webpack_require__(293);
+	var FlashcardActions = __webpack_require__(296);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
-	var ReviewProgressCircle = __webpack_require__(323);
+	var ReviewProgressCircle = __webpack_require__(313);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
@@ -36145,7 +36135,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var GraphUtil = __webpack_require__(298);
+	var GraphUtil = __webpack_require__(278);
 	
 	RecapCanvas = React.createClass({
 	    displayName: 'RecapCanvas',
@@ -36283,10 +36273,66 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var GraphUtil = __webpack_require__(278);
+	
+	ReviewProgressCircle = React.createClass({
+	    displayName: 'ReviewProgressCircle',
+	
+	    componentDidMount: function () {
+	        this.updateCanvas();
+	    },
+	    componentDidUpdate: function () {
+	        this.updateCanvas();
+	    },
+	    updateCanvas: function () {
+	        var c = this.refs.canvas.getContext('2d');
+	
+	        c.fillStyle = "#E5E5E5";
+	        c.fillRect(0, 0, 30, 30);
+	
+	        var centerX = 12;
+	        var centerY = 12;
+	        var color = "#616161";
+	        var radius = 10;
+	        var completed = this.props.completedCards;
+	        var total = this.props.totalCards;
+	        var angle = GraphUtil.angleByPercentageCompletion(completed, total);
+	        var xArcProgressPoint = centerX + Math.cos(angle) * radius;
+	        var yArcProgressPoint = centerY + Math.sin(angle) * radius;
+	        var absStartAngle = -0.5 * Math.PI;
+	        var absEndAngle = 1.5 * Math.PI;
+	
+	        c.strokeStyle = color;
+	        c.fillStyle = color;
+	        c.lineWidth = 1;
+	        c.beginPath();
+	        c.moveTo(centerX, centerY - radius);
+	        c.lineTo(centerX, centerY);
+	        c.lineTo(xArcProgressPoint, yArcProgressPoint);
+	        c.arc(centerX, centerY, radius, angle, absEndAngle, false);
+	        c.fill();
+	
+	        c.beginPath();
+	        c.arc(centerX, centerY, radius, absStartAngle, absEndAngle, false);
+	        c.stroke();
+	    },
+	
+	    render: function () {
+	        return React.createElement('canvas', { className: 'Progress-Circle', ref: 'canvas', width: 24, height: 24 });
+	    }
+	});
+	
+	module.exports = ReviewProgressCircle;
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var Footer = __webpack_require__(259);
 	var SearchBar = __webpack_require__(270);
-	var DeckIndex = __webpack_require__(314);
-	var PublicDeckActions = __webpack_require__(317);
+	var DeckIndex = __webpack_require__(315);
+	var PublicDeckActions = __webpack_require__(318);
 	
 	var PublicDeckBrowse = React.createClass({
 	  displayName: 'PublicDeckBrowse',
@@ -36311,7 +36357,7 @@
 	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'Parent-Component' },
+	        { className: 'Parent-Component Import' },
 	        React.createElement(
 	          'h1',
 	          null,
@@ -36332,12 +36378,12 @@
 	module.exports = PublicDeckBrowse;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(315);
-	var DeckActions = __webpack_require__(317);
+	var PublicDeckStore = __webpack_require__(316);
+	var DeckActions = __webpack_require__(318);
 	var DeckIndexItem = __webpack_require__(277);
 	
 	var DeckIndex = React.createClass({
@@ -36389,14 +36435,14 @@
 	module.exports = DeckIndex;
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
 	var Store = __webpack_require__(238).Store;
 	var PublicDeckStore = new Store(AppDispatcher);
 	var SearchUtil = __webpack_require__(274);
-	var PublicDeckConstants = __webpack_require__(316);
+	var PublicDeckConstants = __webpack_require__(317);
 	
 	var _publicDecks = {};
 	
@@ -36444,7 +36490,7 @@
 	module.exports = PublicDeckStore;
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -36453,10 +36499,10 @@
 	};
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PublicDeckUtil = __webpack_require__(318);
+	var PublicDeckUtil = __webpack_require__(319);
 	
 	module.exports = {
 	  search: function (query) {
@@ -36473,11 +36519,11 @@
 	};
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var PublicDeckConstants = __webpack_require__(316);
+	var PublicDeckConstants = __webpack_require__(317);
 	var DeckConstants = __webpack_require__(273);
 	
 	module.exports = {
@@ -36526,15 +36572,15 @@
 	};
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(315);
-	var PublicDeckActions = __webpack_require__(317);
+	var PublicDeckStore = __webpack_require__(316);
+	var PublicDeckActions = __webpack_require__(318);
 	var HeaderWithBack = __webpack_require__(305);
-	var PreviewList = __webpack_require__(320);
-	var PreviewInfo = __webpack_require__(321);
+	var PreviewList = __webpack_require__(321);
+	var PreviewInfo = __webpack_require__(322);
 	
 	var PublicDeckPreview = React.createClass({
 	  displayName: 'PublicDeckPreview',
@@ -36592,7 +36638,7 @@
 	module.exports = PublicDeckPreview;
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36629,12 +36675,12 @@
 	module.exports = PreviewList;
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(315);
-	var PublicDeckStore = __webpack_require__(315);
+	var PublicDeckStore = __webpack_require__(316);
+	var PublicDeckStore = __webpack_require__(316);
 	var PreviewInfo = React.createClass({
 	  displayName: 'PreviewInfo',
 	
@@ -36698,63 +36744,6 @@
 	});
 	
 	module.exports = PreviewInfo;
-
-/***/ },
-/* 322 */,
-/* 323 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GraphUtil = __webpack_require__(298);
-	
-	ReviewProgressCircle = React.createClass({
-	    displayName: 'ReviewProgressCircle',
-	
-	    componentDidMount: function () {
-	        this.updateCanvas();
-	    },
-	    componentDidUpdate: function () {
-	        this.updateCanvas();
-	    },
-	    updateCanvas: function () {
-	        var c = this.refs.canvas.getContext('2d');
-	
-	        c.fillStyle = "#E5E5E5";
-	        c.fillRect(0, 0, 30, 30);
-	
-	        var centerX = 12;
-	        var centerY = 12;
-	        var color = "#616161";
-	        var radius = 10;
-	        var completed = this.props.completedCards;
-	        var total = this.props.totalCards;
-	        var angle = GraphUtil.angleByPercentageCompletion(completed, total);
-	        var xArcProgressPoint = centerX + Math.cos(angle) * radius;
-	        var yArcProgressPoint = centerY + Math.sin(angle) * radius;
-	        var absStartAngle = -0.5 * Math.PI;
-	        var absEndAngle = 1.5 * Math.PI;
-	
-	        c.strokeStyle = color;
-	        c.fillStyle = color;
-	        c.lineWidth = 1;
-	        c.beginPath();
-	        c.moveTo(centerX, centerY - radius);
-	        c.lineTo(centerX, centerY);
-	        c.lineTo(xArcProgressPoint, yArcProgressPoint);
-	        c.arc(centerX, centerY, radius, angle, absEndAngle, false);
-	        c.fill();
-	
-	        c.beginPath();
-	        c.arc(centerX, centerY, radius, absStartAngle, absEndAngle, false);
-	        c.stroke();
-	    },
-	
-	    render: function () {
-	        return React.createElement('canvas', { className: 'Progress-Circle', ref: 'canvas', width: 24, height: 24 });
-	    }
-	});
-	
-	module.exports = ReviewProgressCircle;
 
 /***/ }
 /******/ ]);

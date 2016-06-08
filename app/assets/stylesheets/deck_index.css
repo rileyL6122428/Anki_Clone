@@ -4,13 +4,13 @@
 
 
 .Wrapper{
-
   position: absolute;
   height: 200px;
   overflow-y: scroll;
   height: 100%;
   height: calc(100% - 155px);
   width: 100%;
+  left: 5px;
   background-color: #FFFFFF;
 }
 
@@ -33,33 +33,52 @@
 .Deck-Index-Item .Left-Side-Content {
   display: block;
   float: left;
+  width: 40%;
 }
 
 .Deck-Index-Item h5 {
   display: block;
   width: 50%;
-  margin: 0px;
+  margin-top: 15px;
+  margin-left: 30px;
+  margin-right: 0px;
+  margin-bottom: 5px;
+
+  font-size: 18px;
+  font-weight: bold;
   /*float:left;*/
   /*margin: 10px 5px;*/
 }
 
+div.Card-Count {
+  display: block;
+  width: 100%;
+}
+
 .Deck-Index-Item p {
   display: block;
+  float: left;
   width: 25%;
 
-  margin: 0px;
+  margin-top: 10px;
+  margin-left: 5px;
 
-  /*height: 30px;*/
-  /*margin-right: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;*/
 }
 
 .Deck-Index-Item p.Grade {
   display: block;
-  width: 25%;
+  width: 40%;
   float: right;
-  margin: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+  font-size: 27px;
+}
+
+div.Percentage {
+  display: block;
+  float: left;
+  margin-top: 30px;
+  margin-left: 20%;
 }
 
 .Search-Container label {

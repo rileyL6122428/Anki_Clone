@@ -14,13 +14,13 @@ var UserDecks = React.createClass({
     this.setState({ query: e.target.value })
   },
 
-  render: function(){
+  render: function() {
     return(
-      <div className="Parent-Component">
-        <h1>My Decks </h1>
+      <div className="Parent-Component Deck-Index">
+        <h1>My Decks</h1>
         <SearchBar changeCB={ this.queryChangeCB }/>
         <div className="Overflow-Test">
-        <DeckIndex query={ this.state.query }/>
+          <DeckIndex query={ this.state.query }/>
         </div>
         <Footer />
       </div>

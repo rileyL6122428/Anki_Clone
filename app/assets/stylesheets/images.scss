@@ -3,9 +3,7 @@
   display: block;
   background-position: center center;
   background-image: image-url('sky1.png');
-  // -webkit-background-size: cover;
-  // -moz-background-size: cover;
-  // -o-background-size: cover;
+
   background-size: cover;
   top: 0;
   left: 0;
@@ -13,10 +11,81 @@
   right: 0;
 }
 
-div.Cards-Image {
+div.Arrow-Right {
   height: 40px;
-  width: 40px;
+  width: 25px;
+  margin-top: 25px;
+  margin-left: 0px;
+  margin-right: 10%;
+  float: right;
+
+  color: #25A3FC;
+
+  background-image: image-url('arrow_right.png');
+  background-position: center center;
+  background-size: cover;
+}
+
+.Deck-Index-Item div.Cards-Image {
+  height: 25px;
+  width: 25px;
+  margin-top: 5px;
+  margin-left: 30px;
+  float: left;
   background-image: image-url('cards.png');
   background-position: center center;
   background-size: cover;
+}
+
+
+li.Icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-left: calc(25% - 200px);
+  margin-right: calc(25% - 200px);
+  background-position: center center;
+  background-size: cover;
+}
+
+li.Home-Icon {
+  background-image: image-url('home_gray.png');
+}
+
+.DashBoard li.Home-Icon {
+  background-image: image-url('home_blue.png');
+}
+
+li.Decks-Icon {
+  background-image: image-url('decks_gray.png');
+}
+
+.Deck-Index li.Decks-Icon {
+  background-image: image-url('decks_blue.png');
+}
+
+li.New-Decks-Icon {
+  background-image: image-url('add_deck_gray.png');
+}
+
+.NewDeck li.New-Decks-Icon {
+  background-image: image-url('add_deck_blue.png');
+}
+
+li.Import-Icon {
+  background-image: image-url('download_gray.png');
+}
+
+.Import li.Import-Icon {
+    background-image: image-url('download_blue.png');
+}
+
+
+li.Profile-Icon {
+  background-image: image-url('profile_gray.png');
+}
+
+
+.Profile li.Profile-Icon {
+  background-image: image-url('profile_blue.png');
 }

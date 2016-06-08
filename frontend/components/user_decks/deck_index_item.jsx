@@ -9,18 +9,24 @@ var DeckIndexItem = React.createClass({
       grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade)
     }
 
+    var arrowRight = ">";
     return(
       <Link to={ this.props.urlFront + this.props.id }>
         <li className="Deck-Index-Item">
             <div className="Left-Side-Content" >
               <h5>{this.props.name}</h5>
-              <div className="Cards-Image"></div>
-            <p>{this.props.totalCards}</p>
+
+              <div className="group Card-Count">
+                <div className="Cards-Image"></div>
+                <p>{this.props.totalCards}</p>
+              </div>
             </div>
+
             <p className="Grade"
-               style={
-                 {color: GraphUtil.colorByPercentage(this.props.grade)}
-               }>{ grade }</p>
+               style={ {color: GraphUtil.colorByPercentage(this.props.grade) }}>
+               <div className="Percentage">{ grade }</div>
+                <div className="Arrow-Right"></div>
+            </p>
             <div className="ClearSet" />
         </li>
         </Link>
