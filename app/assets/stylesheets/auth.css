@@ -1,0 +1,113 @@
+.auth {
+  display: block;
+  height: 400px;
+  width: 640px;
+
+  position: absolute; /*it can be fixed too*/
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+
+  max-width:100%;
+  max-height:100%;
+  overflow:auto;
+
+  background-color: rgba(0,0,0,.6);
+  color: white;
+  text-align: center;
+
+  font-size: 20px;
+
+  /*position: absolute;*/
+ /*top: 50%;*/
+
+ border-radius: 15px;
+
+ /*transform: translateY(-50%);*/
+ /*transform: translateX(50%);*/
+}
+
+.auth h1 {
+  width: 400px;
+  margin: auto;
+
+  background: none;
+  border: none;
+
+  font-size: 55px;
+
+  padding-top: 40px;
+}
+
+.auth h3 {
+  font-size:  16px;
+  padding-top: 10px;
+}
+
+.auth p {
+  font-size: 14px;
+
+  width: 380px;
+  margin: 0 auto;
+}
+
+.auth button, .auth #submit {
+  background-color: rgba(0,0,0,0);
+  color: #0099ff;
+  border: none;
+
+  font-size: 20px;
+  padding-top: 30px;
+}
+
+.auth button:focus, .auth #submit:focus {
+  outline: 0;
+}
+
+.auth input[type=text] {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+
+  padding-left: 10px;
+
+  border-bottom: 1px solid gray;
+
+  background-color: rgba(0,0,0,0);
+  color: rgba(255, 255, 255, 1);
+
+  font-size: 20px;
+
+  padding-top: 20px
+}
+
+.auth input[type=text]:focus {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  outline: 0;
+
+  border-bottom: 1px solid blue;
+}
+
+
+.auth label {
+  width: 200px;
+  height: 60px;
+  padding-right: 12px;
+  margin-top: 30px;
+}
+
+#cancel {
+  color: red;
+}
+
+.auth_error {
+  display: block;
+  background-color: white;
+  position:fixed;
+  left:0;
+  right:0;
+
+  color: black;
+}
