@@ -4,7 +4,7 @@ var GraphUtil = require('../graphs/graph_util');
 
 var DeckIndexItem = React.createClass({
   render: function () {
-    var grade = "New";
+    var grade = this.props.import ? "" : "New"
     if (this.props.grade) {
       grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade)
     }

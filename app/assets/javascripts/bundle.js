@@ -34192,7 +34192,7 @@
 	  displayName: 'DeckIndexItem',
 	
 	  render: function () {
-	    var grade = "New";
+	    var grade = this.props.import ? "" : "New";
 	    if (this.props.grade) {
 	      grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade);
 	    }
@@ -36514,7 +36514,8 @@
 	          id: deck.id,
 	          urlFront: "public-decks/",
 	          name: deck.name,
-	          totalCards: deck.cardTotal });
+	          totalCards: deck.cardTotal,
+	          'import': true });
 	      })
 	    );
 	

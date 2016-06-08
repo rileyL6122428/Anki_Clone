@@ -33,7 +33,8 @@ var DeckIndex = React.createClass({
                              id={deck.id}
                              urlFront={"public-decks/"}
                              name={deck.name}
-                             totalCards={deck.cardTotal} />
+                             totalCards={deck.cardTotal}
+                             import={true}/>
             );
           })
         }
