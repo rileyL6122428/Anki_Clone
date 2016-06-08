@@ -12,7 +12,7 @@ var DashboardInfo = React.createClass({
 
   calcReviewsToday: function () {
     var rightNow = new Date();
-    return this.props.dayTotals[rightNow.getDay()];
+    return this.props.dayTotals[this.props.dayTotals.length - 1];
   },
 
   render: function(){
