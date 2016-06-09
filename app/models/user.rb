@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 
   # attr_reader :password
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+  # devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+  devise :omniauthable
 
   attr_accessor :email, :name, :password, :password_confirmation, :remember_me
 
@@ -34,6 +35,10 @@ class User < ActiveRecord::Base
 
     return nil if user.nil?
     user.is_password?(password) ? user : nil
+  end
+
+  def self.find_by_facebook_uid(uid)
+    User.find_by(facebook_uid: uid)
   end
 
   def is_password?(password)

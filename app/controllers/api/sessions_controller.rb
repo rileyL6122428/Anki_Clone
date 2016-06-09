@@ -3,14 +3,19 @@ class Api::SessionsController < ApplicationController
   #TODO sanitize Query inputs ??? IMPORTANT
   def create
     byebug
-		@user = User.find_by_credentials(
+
+    if request.env["omniauth.auth"]
+      handle_facebook_login
+    else
+      @user = User.find_by_credentials(
       params[:user][:username],
       params[:user][:password]
-    )
+      )
+    end
 		if @user
 			login_user!(@user)
-			render "api/users/show"
-
+			# render "api/users/show.json.jbuilder", status: 200
+      render "static_pages/root.html.erb"
 		else
 			@errors = ['invalid credentials']
 			render "api/shared/error", status: 401
@@ -37,4 +42,20 @@ class Api::SessionsController < ApplicationController
 			render "api/shared/error", status: 404
 		end
 	end
+
+  private
+  def handle_facebook_login
+    @user = User.find_by_facebook_uid(request.env["omniauth.auth"]["uid"])
+
+    unless @user
+      @user = User.new(
+        username: request.env["omniauth.auth"]["info"]["name"],
+        email: request.env["omniauth.auth"]["info"]["email"],
+        password: SecureRandom.urlsafe_base64(16),
+        facebook_uid: request.env["omniauth.auth"]["uid"]
+      )
+      byebug
+      @user.save
+    end
+  end
 end
