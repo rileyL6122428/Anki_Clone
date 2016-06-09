@@ -37,6 +37,12 @@ var AuthForm = React.createClass({
     this.setState({currentPage: "greeting"});
   },
 
+  _guestLoginCB: function (e) {
+    e.preventDefault()
+    // debugger
+    UserActions.guestLogin();
+  },
+
   toSignUp: function (e) {
     e.preventDefault();
     this.setState({currentPage: "form", formType: "Sign up"});
@@ -58,7 +64,8 @@ var AuthForm = React.createClass({
         <h1 className="group">AnkiClone</h1>
         <Greeting showing={ this.state.currentPage === "greeting" }
                   toSignUpCB={this.toSignUp}
-                  toLogInCB={this.toLogIn} />
+                  toLogInCB={this.toLogIn}
+                  guestLoginCB={this._guestLoginCB}/>
         <ErrorMessage hitAnError={this.state.authErrors}
                       acknowledgeErrorCB={this.acknowledgeErrorCB}
                       formType={this.state.formType}/>

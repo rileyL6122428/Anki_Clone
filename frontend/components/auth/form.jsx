@@ -48,6 +48,7 @@ var AForm = React.createClass({
     });
   },
 
+
   usernameFocusCB: function () {
     this.setState({ usernameSelected: true});
   },

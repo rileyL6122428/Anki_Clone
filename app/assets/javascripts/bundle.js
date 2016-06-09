@@ -25986,6 +25986,12 @@
 	    this.setState({ currentPage: "greeting" });
 	  },
 	
+	  _guestLoginCB: function (e) {
+	    e.preventDefault();
+	    // debugger
+	    UserActions.guestLogin();
+	  },
+	
 	  toSignUp: function (e) {
 	    e.preventDefault();
 	    this.setState({ currentPage: "form", formType: "Sign up" });
@@ -26012,7 +26018,8 @@
 	      ),
 	      React.createElement(Greeting, { showing: this.state.currentPage === "greeting",
 	        toSignUpCB: this.toSignUp,
-	        toLogInCB: this.toLogIn }),
+	        toLogInCB: this.toLogIn,
+	        guestLoginCB: this._guestLoginCB }),
 	      React.createElement(ErrorMessage, { hitAnError: this.state.authErrors,
 	        acknowledgeErrorCB: this.acknowledgeErrorCB,
 	        formType: this.state.formType }),
@@ -26055,9 +26062,11 @@
 				error: UserActions.handleError
 			});
 		},
+	
 		guestLogin: function () {
-			UserActions.login({ username: "guest", password: "password" });
+			UserActions.login({ username: "Guest", password: "password" });
 		},
+	
 		receiveCurrentUser: function (user) {
 			AppDispatcher.dispatch({
 				actionType: UserConstants.LOGIN,
@@ -33221,7 +33230,8 @@
 	      ),
 	      React.createElement(
 	        "button",
-	        { className: "Guest-Button" },
+	        { onClick: this.props.guestLoginCB,
+	          className: "Guest-Button" },
 	        " as Guest"
 	      )
 	    );

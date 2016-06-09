@@ -129,7 +129,6 @@ input[type=password].Third-Auth-Input {
   color: rgba(255, 255, 255, 1);
 
   font-size: 20px;
-
 }
 
 .auth input[type=text]:focus, .auth input[type=password]:focus {
