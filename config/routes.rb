@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/users/auth/facebook/callback', to: 'api/sessions#create'
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   namespace :api, defaults: {format: :json} do
     resource :user, only: [:create, :show]
     resource :session, only: [:create, :destroy, :show]

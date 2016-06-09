@@ -26019,7 +26019,12 @@
 	      React.createElement(AForm, {
 	        showing: this.state.currentPage === "form",
 	        formType: this.state.formType,
-	        cancelCB: this._cancelCB })
+	        cancelCB: this._cancelCB }),
+	      React.createElement(
+	        'a',
+	        { href: '/users/auth/facebook' },
+	        'TEst'
+	      )
 	    );
 	  }
 	});

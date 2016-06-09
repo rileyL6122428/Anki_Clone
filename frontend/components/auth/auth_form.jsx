@@ -65,6 +65,7 @@ var AuthForm = React.createClass({
           showing={ this.state.currentPage === "form" }
           formType={this.state.formType}
           cancelCB={this._cancelCB} />
+        <a href="/users/auth/facebook">TEst</a>
       </div>
     );
   }

@@ -1,5 +1,13 @@
 class User < ActiveRecord::Base
-  attr_reader :password
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  # attr_reader :password
+
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+
+  attr_accessor :email, :name, :password, :password_confirmation, :remember_me
+
 
   after_initialize :ensure_session_token
 
@@ -8,6 +16,7 @@ class User < ActiveRecord::Base
   validates :session_token, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
 
+  has_many :authorizations, :dependent => :destroy
   has_many(
     :decks,
     foreign_key: :owner_id,

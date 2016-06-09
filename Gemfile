@@ -1,5 +1,16 @@
 source 'https://rubygems.org'
 
+gem 'devise'
+
+# Gemfile
+gem 'omniauth'
+# providers
+gem 'omniauth-facebook'
+# gem 'omniauth-twitter'
+# gem 'omniauth-google'
+
+gem 'uuidtools'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -41,6 +52,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'letter_opener'
 end
 
 group :production do
