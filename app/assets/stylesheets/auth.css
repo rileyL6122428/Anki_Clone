@@ -13,8 +13,7 @@ a {
 
 button.Guest-Button {
   float: left;
-  margin-top: 4px;
-  padding-bottom: 0px;
+  margin-top: 2px;
 }
 
 .auth button:hover, .auth input[type=submit]:hover {
@@ -100,7 +99,7 @@ button.Guest-Button {
 }*/
 
 input[type=text].First-Auth-Input {
-  margin-top: 50px;
+  margin-top: 46px;
 }
 
 input[type=password].Second-Auth-Input {
@@ -119,7 +118,7 @@ input[type=password].Third-Auth-Input {
   margin-left: 70px;
   margin-right: 70px;
 
-  padding-top: 20px
+  /*padding-top: 20px;*/
   padding-left: 10px;
   /*padding-bottom: 10px*/
   padding-right: 0px;
