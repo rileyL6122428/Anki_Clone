@@ -194,7 +194,7 @@ li.Icon {
 
 li.Home-Icon {
   position: absolute;
-  left: 15%;
+  left: calc(15% - 20px);
   background-image: image-url('home_gray.png');
 }
 
@@ -204,7 +204,8 @@ li.Home-Icon {
 
 li.Decks-Icon {
   position: absolute;
-  left: 32.5%;
+  left: calc(32.5% - 20px);
+  height: 43px;
   background-image: image-url('decks_gray.png');
 }
 
@@ -214,7 +215,7 @@ li.Decks-Icon {
 
 li.New-Decks-Icon {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 20px);
   background-image: image-url('add_deck_gray.png');
 }
 
@@ -224,7 +225,7 @@ li.New-Decks-Icon {
 
 li.Import-Icon {
   position: absolute;
-  left: 67.5%;
+  left: calc(67.5% - 20px);
   background-image: image-url('download_gray.png');
 }
 
@@ -235,7 +236,8 @@ li.Import-Icon {
 
 li.Profile-Icon {
   position: absolute;
-  left: 85%;
+  left: calc(85% - 20px);
+  width: 41px;
   background-image: image-url('profile_gray.png');
 }
 

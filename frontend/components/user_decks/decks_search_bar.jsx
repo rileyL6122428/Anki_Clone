@@ -3,7 +3,6 @@ var React = require('react');
 var DecksSearchBar = React.createClass({
 
   onFocus: function (e) {
-    debugger
     e.target.value = ""
   },
 

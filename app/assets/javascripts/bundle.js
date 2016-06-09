@@ -33106,7 +33106,6 @@
 	    if (this.state.confirmSelected) {
 	      confirmInputClass = "Password-Icon-2-Blue";
 	    }
-	    // debugger
 	    if (submitText === "Sign up") {
 	      confirmPasswordInput = React.createElement(
 	        "div",
@@ -33217,8 +33216,13 @@
 	        React.createElement(
 	          "div",
 	          { className: "Facebook-Signup" },
-	          "Sign in with Facebook"
+	          "Sign in with Facebook /"
 	        )
+	      ),
+	      React.createElement(
+	        "button",
+	        { className: "Guest-Button" },
+	        " as Guest"
 	      )
 	    );
 	  }
@@ -33947,7 +33951,6 @@
 	
 	
 	  onFocus: function (e) {
-	    debugger;
 	    e.target.value = "";
 	  },
 	
@@ -34126,7 +34129,6 @@
 	module.exports = {
 	  search: function (collection, attribute, searchInput) {
 	    var matches = [];
-	    // debugger
 	    for (var key in collection) {
 	      var element = collection[key];
 	

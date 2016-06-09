@@ -1,7 +1,6 @@
 module.exports =  {
   search: function(collection, attribute, searchInput ) {
     var matches = [];
-    // debugger
     for(var key in collection) {
       var element =　collection[key];
 

@@ -87,7 +87,6 @@ var AForm = React.createClass({
 
     var confirmInputClass = "Password-Icon-2"
     if (this.state.confirmSelected) { confirmInputClass = "Password-Icon-2-Blue"}
-    // debugger
     if(submitText === "Sign up"){
       confirmPasswordInput = (
         <div>

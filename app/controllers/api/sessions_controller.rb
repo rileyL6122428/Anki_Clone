@@ -2,7 +2,6 @@ class Api::SessionsController < ApplicationController
   # TODO check that command syntax lines up
   #TODO sanitize Query inputs ??? IMPORTANT
   def create
-    byebug
 
     if request.env["omniauth.auth"]
       handle_facebook_login
@@ -55,7 +54,6 @@ class Api::SessionsController < ApplicationController
         password: SecureRandom.urlsafe_base64(16),
         facebook_uid: request.env["omniauth.auth"]["uid"]
       )
-      byebug
       @user.save
     end
   end

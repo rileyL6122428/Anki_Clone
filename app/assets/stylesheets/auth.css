@@ -3,14 +3,23 @@ a {
 }
 
 .auth div.Facebook-Signup {
-
+  float: left;
   text-decoration: none;
   color: #0099ff;
   margin-top: 35px;
-
+  margin-left: 175px;
   font-family: sans-serif;
 }
 
+button.Guest-Button {
+  float: left;
+  margin-top: 4px;
+  padding-bottom: 0px;
+}
+
+.auth button:hover, .auth input[type=submit]:hover {
+  cursor: pointer;
+}
 
 .auth {
   display: block;
@@ -82,7 +91,12 @@ a {
 
 .auth button:focus, .auth #submit:focus {
   outline: 0;
+
 }
+
+/*.auth button:hover {
+  cursor: pointer
+}*/
 
 input[type=text].First-Auth-Input {
   margin-top: 50px;
@@ -118,7 +132,7 @@ input[type=password].Third-Auth-Input {
 
 }
 
-.auth input[type=text]:focus {
+.auth input[type=text]:focus, .auth input[type=password]:focus {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
