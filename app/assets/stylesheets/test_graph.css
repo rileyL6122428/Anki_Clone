@@ -62,6 +62,7 @@
 .Labels {
   display: block;
   height: 80%;
+
 }
 
 .Labels div {
@@ -70,4 +71,5 @@
   width: 14%;
   height: 100%;
   text-align: center;
+  /*font-family: Roboto-Thin;*/
 }

@@ -5,6 +5,10 @@
   height: 100%;
 }
 
+.DeckShow h4 {
+  font-family: Roboto-Thin;
+}
+
 .DeckShow h1 {
   position: relative;
   display: block;

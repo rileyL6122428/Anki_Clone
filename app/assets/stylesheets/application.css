@@ -14,8 +14,15 @@
  *= require_self
  */
 
+ @font-face { font-family: Roboto; src: url('roboto/Roboto-Regular.ttf'); }
+ @font-face { font-family: Roboto-Condensed; src: url('roboto/RobotoCondensed-Regular.ttf'); }
+ @font-face { font-family: Roboto-Thin; src: url('roboto/Roboto-Thin.ttf'); }
+
  html {
-   /*background-image: url(sky1.png)*/
    height: 100%;
    width: 100%;
+ }
+
+ * {
+   font-family: Roboto;
  }

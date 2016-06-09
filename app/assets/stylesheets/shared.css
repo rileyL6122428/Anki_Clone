@@ -23,9 +23,12 @@ h4.Stat-Header{
   width: 95%;
   margin: auto;
   margin-top: 20px;
-  padding-top: 7px;
+  padding-top: 3px;
+  padding-bottom: 10px;
   height: 24px;
   text-align: center;
+  /*font-size: 24px;*/
+  /*font-family: Roboto-Thin;*/
 }
 
 ul.Stat-List {
