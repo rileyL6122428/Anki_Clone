@@ -26019,12 +26019,7 @@
 	      React.createElement(AForm, {
 	        showing: this.state.currentPage === "form",
 	        formType: this.state.formType,
-	        cancelCB: this._cancelCB }),
-	      React.createElement(
-	        'a',
-	        { href: '/users/auth/facebook' },
-	        'TEst'
-	      )
+	        cancelCB: this._cancelCB })
 	    );
 	  }
 	});
@@ -33119,7 +33114,7 @@
 	        React.createElement(
 	          "label",
 	          null,
-	          React.createElement("input", { type: "text",
+	          React.createElement("input", { type: "password",
 	            placeholder: "Confirm Password",
 	            className: "Third-Auth-Input",
 	            onChange: this._confirmPasswordChange,
@@ -33150,7 +33145,7 @@
 	        React.createElement(
 	          "label",
 	          null,
-	          React.createElement("input", { type: "text",
+	          React.createElement("input", { type: "password",
 	            placeholder: "Password",
 	            onChange: this._passwordChange,
 	            className: "Second-Auth-Input",
@@ -33215,7 +33210,16 @@
 	        { onClick: this.props.toLogInCB },
 	        "Log in"
 	      ),
-	      React.createElement("br", null)
+	      React.createElement("br", null),
+	      React.createElement(
+	        "a",
+	        { href: "/users/auth/facebook" },
+	        React.createElement(
+	          "div",
+	          { className: "Facebook-Signup" },
+	          "Sign in with Facebook"
+	        )
+	      )
 	    );
 	  }
 	});

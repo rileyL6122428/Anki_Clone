@@ -92,7 +92,7 @@ var AForm = React.createClass({
       confirmPasswordInput = (
         <div>
           <label>
-            <input type="text"
+            <input type="password"
                    placeholder="Confirm Password"
                    className="Third-Auth-Input"
                    onChange={this._confirmPasswordChange}
@@ -117,7 +117,7 @@ var AForm = React.createClass({
                  <div className={usernameInputClass}></div>
           </label>
           <label>
-            <input type="text"
+            <input type="password"
                    placeholder="Password"
                    onChange={this._passwordChange}
                    className="Second-Auth-Input"
