@@ -15,7 +15,7 @@ var Info = React.createClass({
 
         <li className="Statistic">
           <p className="StatTitle">Grade</p>
-          <p className="Stat">{ this.props.card.grade }</p>
+          <p className="Stat">{ Math.round(this.props.card.grade) + "%" }</p>
           <div className="ClearSet" />
         </li>
 

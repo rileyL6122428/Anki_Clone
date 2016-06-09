@@ -208,3 +208,7 @@ h4.Stat-Header {
   width: 475px;
   float: right;
 }
+
+.Review div.Preview-Divider {
+  border-top: 1px solid #ddd;
+}

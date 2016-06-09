@@ -35676,7 +35676,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "Stat" },
-	            this.props.card.grade
+	            Math.round(this.props.card.grade) + "%"
 	          ),
 	          React.createElement("div", { className: "ClearSet" })
 	        )
@@ -35728,7 +35728,7 @@
 	    var editDeckUrl = "decks/" + deckId + "/flashcards/" + cardId + "/edit";
 	    return React.createElement(
 	      'div',
-	      { className: 'Options' },
+	      { className: 'Options group' },
 	      React.createElement(
 	        Link,
 	        { to: editDeckUrl },

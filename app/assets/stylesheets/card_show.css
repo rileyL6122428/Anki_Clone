@@ -84,29 +84,51 @@
   float:none;
 }
 
-.Flashcard-Show .Not-Preview .Options {
+.Not-Preview .Options {
   display: block;
-  width: 45%;
-  height: 65%;
+  width: 200px;
+  height: 100px;
   border: 0px;
+  position: relative;
 
+  background-color: #FFFFFF;
 }
+
+.Not-Preview div.Options {
+  float: none;
+  margin: auto;
+  width: 700px;
+}
+
 
 .Flashcard-Show .Not-Preview a {
   display: block;
-  color: rgb(37, 163, 252);
   float: left;
-  margin-left: 30%;
+  width: 35px;
+  margin-left: 25%;
+  padding: 0px;
+
   text-decoration: none;
+  color: rgb(37, 163, 252);
+  border-bottom: 0px solid #ffffff;
 }
 
 .Flashcard-Show .Not-Preview button {
   display: block;
-  color: red;
   float:right;
-  margin-right: 30%;
+  
+  padding: 0px;
+  margin-right: 25%;
+
+  color: red;
+  background-color: #FFFFFF;
+
   outline: none;
   border: 0;
 
-  background-color: #f8f8f8;
+  font-size: 20px;
+}
+
+.Flashcard-Show .Not-Preview button:hover {
+  cursor: pointer;
 }
