@@ -19,6 +19,7 @@ var AuthForm = React.createClass({
 
   componentDidMount: function () {
     this.token = UserStore.addListener(this._handleChange)
+
   },
 
   componentWillUnmount: function () {

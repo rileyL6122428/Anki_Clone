@@ -15,7 +15,8 @@ class Api::SessionsController < ApplicationController
 		if @user
 			login_user!(@user)
 			# render "api/users/show.json.jbuilder", status: 200
-      render "static_pages/root.html.erb"
+      redirect_to "/#/dashboard"
+      # render "static_pages/root.html.erb"
 		else
 			@errors = ['invalid credentials']
 			render "api/shared/error", status: 401
