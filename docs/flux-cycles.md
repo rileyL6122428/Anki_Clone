@@ -37,15 +37,15 @@ store listeners are listed at the end.
 * `destroyNote`
   0. invoked from delete Deck button `onClick` in `DeckShow`
   0. `DELETE /api/Decks/:id` is called.
-  0. `removeDeck` is set as the callback.
+  0. user is redirected to the dashboard.
 
 ### Decks API Response Actions
 
-* `receiveAllDecks`
+* `receiveDecks`
   0. invoked from an API callback.
   0. `Deck` store updates `_decks` and emits change.
 
-* `receiveSingleDeck`
+* `receiveDeck`
   0. invoked from an API callback.
   0. `Deck` store updates `_decks[id]` and emits change.
 
@@ -55,8 +55,7 @@ store listeners are listed at the end.
 
 ### Store Listeners
 
-* `DeckIndex` component listens to `Deck` store.
-* `UserInfo (on dashboard)` component listens to `Deck` store.
+* `DeckIndex`, `DeckShow`, and `Review` listen to `DeckStore`.
 
 
 ## Flashcard Cycles
@@ -64,21 +63,26 @@ store listeners are listed at the end.
 ### Flashcards API Request Actions
 
 * `fetchFlashcards`
-  0. invoked from `FlashcardIndex` `didMount`
+  0. invoked from `FlashcardIndex` & `Review` on `didMount`
   0. `GET /api/decks/:id/flashcards` is called.
   0. `receiveFlashcards` is set as the callback.
 
-* `createFlashcard`
-  0. invoked from NewFlashcard save button `onClick`
-  0. `POST /api/decks/:id/flashcards` is called.
-  0. `receiveFlashcard` is set as the callback.
+* `fetchAFlashcard`
 
-* `deleteFlashcard`
+  *Note*: pending, will be implemented in flashcard show
+
+* `createFlashcard`
+  0. invoked from `Form` < `NewFlashcard` save button on `onClick`
+  0. `POST /api/decks/:id/flashcards` is called.
+  0. `flashcardStoreCB` (containing a 'clear state' call for the form)
+      is set as the callback.
+
+* `destroyFlashcard`
   0. invoked from `ShowFlashcard` delete button `onSubmit`
   0. `DELETE /api/flashcards/:id` is called.
-  0. `removeFlashcard` is set as the callback.
+  0. user is redirected to the dashboard.
 
-* `updateFlashcard`
+* `editFlashcard`
   0. invoked from save button in EditFlashcards `onClick`
   0. `DELETE /api/notebooks/:id` is called.
   0. `receiveFlashcard` is set as the callback.
@@ -99,41 +103,43 @@ store listeners are listed at the end.
 
 ### Store Listeners
 
-* `DeckShow`, `FlashcardIndex`, `FlashcardShow` components listens to `Notebook` store.
+* `Review`, `FlashcardIndex`, `FlashcardShow` components listens to
+  the `FlashcardStore`.
 
 
-## PublicDeckSearchSuggestion Cycles
+## PublicDeckBrowser Cycles
 
-* `fetchSearchSuggestions`
+* `search`
   0. invoked from `PublicDeckSearchBar` `onChange` when there is text
   0. `GET /api/public_decks` is called with `text` param.
-  0. `receiveSearchSuggestions` is set as the callback.
+  0. `deckStoreCB` with a call of 'set state to decks'
+     is set as the callback.
 
-* `receiveSearchSuggestions`
-  0. invoked from an API callback.
-  0. `SearchSuggestion` store updates `_suggestions` and emits change.
+* `fetch`
+  0. invoked from click on an index item in `DeckIndex` < `PublicDeckBrowser`.
+  0. `GET /api/public_decks/:id` is called with `id` params
+  0. `PublicDeck` store updates `_publicDecks` and emits change.
 
-* `removeSearchSuggestions`
-  0. invoked from `NoteSearchBar` `onChange` when empty
-  0. `SearchSuggestion` store resets `_suggestions` and emits change.
+* `downloadDeck`
+  0. invoked from `PublicDeckPreview` save button `onClick`
+  0. User is redirected to deck Show
 
 ### Store Listeners
 
-* `PublicDeckSearchBarSuggestions` component listens to `SearchSuggestion` store.
+* `PublicDeckBrowser` listens to `PublicDeckStore` store.
 
 
 ## Review Cycles
 
 ### Review API Request Actions
 
-* `updateGrades`
-  0. invoked from Review finish
-  0. `POST /api/decks/:id/review` is called.
-  0. `reviewUpdate` is set as the callback.
+* `logReview`
+  0. invoked from Review finish or early termination
+  0. `POST /api/reviews` is called.
+  0. CBs are placed with DeckStore and FlashcardStore to update state is set as
+     the callback.
 
-### Review API Request Actions
-
-* `reviewUpdate`
-  0. invoked from Api callback
-  0. Deckstore increments review count of `_decks[id]` and emits change AND
-     reviewed cards have their grades updated & emit change is called
+* `fetchReviews`
+  0. invoked upon entering `Dashboard`
+  0. `GET /api/reviews` is called
+  0. `reviewStoreCB` containing a set state call is set as the callback.

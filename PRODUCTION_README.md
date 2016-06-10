@@ -75,7 +75,7 @@ React components exist for each corresponding action in the app. Information
 needed for all components or user actions performed on a subcomponent are
 managed with flux cycles. Click the following link for specifics on the
 corresponding flux cycles:
-(flux cycles page currently not up to date)
+
 [Flux Cycles][flux-cycles]
 [flux-cycles]: ./docs/flux-cycles.md
 
@@ -83,15 +83,15 @@ corresponding flux cycles:
 
 Besides storing decks and flashcards, AnkiClone also lets users review/practice
 with their decks. This app has an intelligent review system that lets users both
-review quickly and tracks how well they are doing, adjusting card draws such
-that the user gets extra practice with cards for which they struggle with the
-most. Here is how it works:
+review quickly and track how well they are doing, adjusting card draws such
+that the user gets extra practice with cards they struggle with. Here is a
+breakdown of how the review system works:
 
 **Review Phase 1: Draw cards**
 
-When the user presses the review button at the bottom a of deck show page, they
-are redirected from the show component to the review component As the component
-is mounting, a call is made by the Flashcard Actions object to obtain all
+When the user presses the review button at the bottom of the deck show page, they
+are redirected to the review component. After the component mounts, a call is
+made by the Flashcard Actions object to obtain all
 flashcards corresponding to the deck from the server and send them to the
 Flashcard store. When the store receives the cards, it then draws ten cards and
 gives them to the review component per a callback placed in the store by the
@@ -101,31 +101,38 @@ Review component. The protocol for drawing cards is as follows:
    visited.
 2. If the number of cards in this range is equal to or greater than 10, return
    the drawn cards to the review component. Else, repeat step 1).
-3. If you have not already return (i. e. there are less than 10 cards in the
-   entire deck, return whatever has been drawn so far).
+3. If you have not already returned (i.e. there are less than 10 cards in the
+   deck, return whatever has been drawn so far).
 
-**Phase 2: Review and grade**
-Once the review component has the cards, it then lets the user flip through and
-grade their guessing performance after each flip. In order from left to right,
+Grade ranges are mapped as follows:
+
+ * [0, 50)   => F
+ * [50, 60)  => E
+ * [60, 70)  => D
+ * [70, 80)  => C
+ * [80, 90)  => B
+ * [90, 100] => A
+
+**Phase 2: Reviews and the Grade Report**
+Once the review component has the cards, it then lets the user flip through each
+card and grade their guessing performance. In order from left to right,
 the four grading buttons correspond to a review grade of 0, 35, 75, 100. As the
-user flips through the ten cards, AnkiClone compiles a report to send to the
-review controller upon finish or early termination of the review.
+user flips through the ten cards, AnkiClone compiles a report to be sent to the
+reviews controller upon finish or early termination of the review.
 
-**Phase 3: calculate new grade**
+**Phase 3: Calculate New Grades**
 Once the review report is sent, the controller updates each of the flashcards in
 the report by the following protocol:
 
-If flashcard.review_grade > flashcard.current
+IF (flashcard.review_grade > flashcard.current_grade)
   => New grade = 0.85 * (old grade) + 0.15 * (new grade)
-Else
+ELSE
   => New Grade = 0.15 * (old grade) + 0.85 * (new grade)
 
-This weighting scheme ensures that if the review grade of a card is worse than
-its previous grade, the card’s grade will drop quickly and the user is more
-likely to see that card in their reviews (per the card drawing protocol). If the
-review grade is greater than the old grade, then the card’s grade is raised
-marginally to ensure that the user gets lots of practice with the card before
-achieving a high total grade.
+This weighting scheme ensures that cards for which a users guesses poorly will
+quickly drop in grade. That grade is then only built up slowly upon correct
+guesses, meaning the Review component is more likely to draw it in further
+reviews.
 
 Once the review is finished, the controller sends the adjusted cards back to the
 frontend so that the flashcard store can update its flashcards.
@@ -134,31 +141,33 @@ frontend so that the flashcard store can update its flashcards.
 
 There is a table in the AnkiClone database for reviews. The table has columns
 for deck_id (each review belongs to a deck) and timestamps. The purpose of this
-table is to provide review frequency information for the dashboard bar graph and
-the deck show history stats. This is the only purpose of this table. Upon login,
-a request is made to the review controller that fetches all of the reviews for
-the front end after deleting all reviews from the table over a week old.
+table is to provide review frequency info for the dashboard bar graph and
+the deck show history section. This is the only purpose of this table. Upon
+login, a request is made to the review controller that fetches all of the
+reviews for the front end *after* deleting all reviews from the table over a
+week old. All other stats are taken directly from a stored attribute on a
+flashcard/ deck instance, or are calculated indirectly through database
+queries followed by some data manipulation.
 
 ###Deck Importing
 
 The last feature implemented in AnkiClone is public deck importing. On the
-public deck page, users can type in queries and search for decks by name. Each
-new letter typed into the search bar makes a get request through the public deck
-flux cycle to the database for all decks with names that partially match the
-query. Users can then see a preview of the deck and download any deck they want
-with a button press. For this project, importing simply copies a deck from the
-public deck table (basically a lighter version of the normal deck model) into
-the decks table with the appropriate owner_id. The corresponding public
-flashcards are also copied over to the flashcard table.
+public deck browser page, users can type in queries and search for decks by name.
+Each new letter typed into the search bar makes a get request through the public
+deck flux cycle to the database for all matching decks. Users can then see a
+preview of the deck by clicking on it in the browser. Clicking the download on
+the following page downloads the deck. For this project, importing simply copies
+a deck from the public deck table (a lighter version of the normal deck
+model) into the decks table with the appropriate owner_id. The corresponding
+public flashcards are also copied over to the flashcard table.
 
 ##New Features Queue
 
 Some features missing from this iteration of AnkiClone that will hopefully see
 implementation at a future date include:
 
-* A form for user profile alteration on the profile page
-* Send decks directly to other users
-* An fancy text editor for flashcard styling
-* A timer component to add extra depth to review grading
-* A larger Public deck data base that can be searched through with an infinite
-  scroll on the public deck browser page.
+* User profile modification
+* Direct deck exchange between users
+* Fancy text editing for flashcards
+* Timed grading (users will also graded on how long it takes to guess a card)
+* Larger Public Deck DataBase with an infinite scroll in the deck browser.
