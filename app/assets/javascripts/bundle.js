@@ -36648,7 +36648,6 @@
 	
 	var receivePublicDecks = function (decks) {
 	  _publicDecks = {};
-	
 	  decks.forEach(function (deck) {
 	    _publicDecks[deck.id] = deck;
 	  });
@@ -36787,7 +36786,8 @@
 	  },
 	
 	  storeCB: function () {
-	    this.setState({ deck: PublicDeckStore.find(this.props.params.id) });
+	    var deckId = parseInt(this.props.params.id);
+	    this.setState({ deck: PublicDeckStore.find(deckId) });
 	  },
 	
 	  componentWillUnmount: function () {

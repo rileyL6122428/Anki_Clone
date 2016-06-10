@@ -23,7 +23,8 @@ var PublicDeckPreview = React.createClass({
   },
 
   storeCB: function () {
-    this.setState({ deck: PublicDeckStore.find(this.props.params.id) })
+    var deckId = parseInt(this.props.params.id)
+    this.setState({ deck: PublicDeckStore.find(deckId) })
   },
 
   componentWillUnmount: function () {

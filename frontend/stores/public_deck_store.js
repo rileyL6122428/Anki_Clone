@@ -19,7 +19,6 @@ PublicDeckStore.find = function(id) {
 
 var receivePublicDecks = function (decks) {
   _publicDecks = {};
-
   decks.forEach(function(deck){
     _publicDecks[deck.id] = deck;
   });
