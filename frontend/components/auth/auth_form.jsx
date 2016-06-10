@@ -39,7 +39,6 @@ var AuthForm = React.createClass({
 
   _guestLoginCB: function (e) {
     e.preventDefault()
-    // debugger
     UserActions.guestLogin();
   },
 

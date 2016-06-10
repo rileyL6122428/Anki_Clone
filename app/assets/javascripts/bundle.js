@@ -25988,7 +25988,6 @@
 	
 	  _guestLoginCB: function (e) {
 	    e.preventDefault();
-	    // debugger
 	    UserActions.guestLogin();
 	  },
 	
@@ -35280,7 +35279,6 @@
 	
 	var receiveAFlashcard = function (flashcard) {
 	  _flashcards[flashcard.id] = flashcard;
-	  // debugger
 	  FlashcardStore.__emitChange();
 	};
 	
@@ -35426,7 +35424,6 @@
 	      url: 'api/flashcards/' + id,
 	      type: 'GET',
 	      success: function (flashcard) {
-	        // debugger
 	        AppDispatcher.dispatch({
 	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
 	          flashcard: flashcard
@@ -35562,7 +35559,6 @@
 	
 	  componentDidMount: function () {
 	    this.listenerToken = FlashcardStore.addListener(this.storeCB);
-	    // debugger
 	    FlashcardActions.fetchAFlashcard(this.props.params.cardId);
 	  },
 	

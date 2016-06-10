@@ -17,7 +17,6 @@ var FlashcardShow = React.createClass({
 
   componentDidMount: function () {
     this.listenerToken = FlashcardStore.addListener(this.storeCB);
-    // debugger
     FlashcardActions.fetchAFlashcard(this.props.params.cardId);
   },
 

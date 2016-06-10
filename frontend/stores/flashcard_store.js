@@ -70,7 +70,6 @@ var receiveFlashcards = function (flashcards) {
 
 var receiveAFlashcard = function (flashcard) {
   _flashcards[flashcard.id] = flashcard;
-  // debugger
   FlashcardStore.__emitChange();
 }
 
