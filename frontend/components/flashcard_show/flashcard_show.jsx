@@ -8,8 +8,25 @@ var Options = require('./options');
 
 var FlashcardShow = React.createClass({
   //TODO go back and make it so the store fetches on load
+  //STATS needed from card: reviewTotal, grade, front back
   getInitialState: function () {
-    return({card: FlashcardStore.find(this.props.params.cardId)});
+    var card = FlashcardStore.find(this.props.params.cardId);
+    if (!card) { card = { reviewTotal: 0, grade: 0, front: "", back: "" } }
+    return({card: card});
+  },
+
+  componentDidMount: function () {
+    this.listenerToken = FlashcardStore.addListener(this.storeCB);
+    // debugger
+    FlashcardActions.fetchAFlashcard(this.props.params.cardId);
+  },
+
+  storeCB: function () {
+    this.setState({ card: FlashcardStore.find(this.props.params.cardId) })
+  },
+
+  componentWillUnmount: function () {
+    this.listenerToken.remove();
   },
 
   render: function () {

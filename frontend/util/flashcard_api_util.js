@@ -20,6 +20,7 @@ module.exports = {
       url:'api/flashcards/' + id,
       type: 'GET',
       success: function (flashcard) {
+        // debugger
         AppDispatcher.dispatch({
           actionType: FlashcardConstants.RECEIVE_FLASHCARD,
           flashcard: flashcard

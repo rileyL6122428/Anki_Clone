@@ -35280,6 +35280,7 @@
 	
 	var receiveAFlashcard = function (flashcard) {
 	  _flashcards[flashcard.id] = flashcard;
+	  // debugger
 	  FlashcardStore.__emitChange();
 	};
 	
@@ -35383,6 +35384,7 @@
 	
 	  fetchAFlashcard: function (id) {
 	    FlashcardApiUtil.fetchAFlashcard(id);
+	    // debugger
 	  },
 	
 	  createFlashcard: function (flashcard, deckId) {
@@ -35424,6 +35426,7 @@
 	      url: 'api/flashcards/' + id,
 	      type: 'GET',
 	      success: function (flashcard) {
+	        // debugger
 	        AppDispatcher.dispatch({
 	          actionType: FlashcardConstants.RECEIVE_FLASHCARD,
 	          flashcard: flashcard
@@ -35548,8 +35551,27 @@
 	  displayName: 'FlashcardShow',
 	
 	  //TODO go back and make it so the store fetches on load
+	  //STATS needed from card: reviewTotal, grade, front back
 	  getInitialState: function () {
-	    return { card: FlashcardStore.find(this.props.params.cardId) };
+	    var card = FlashcardStore.find(this.props.params.cardId);
+	    if (!card) {
+	      card = { reviewTotal: 0, grade: 0, front: "", back: "" };
+	    }
+	    return { card: card };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listenerToken = FlashcardStore.addListener(this.storeCB);
+	    // debugger
+	    FlashcardActions.fetchAFlashcard(this.props.params.cardId);
+	  },
+	
+	  storeCB: function () {
+	    this.setState({ card: FlashcardStore.find(this.props.params.cardId) });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
 	  },
 	
 	  render: function () {
@@ -35697,7 +35719,6 @@
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
 	var FlashcardActions = __webpack_require__(296);
-	var FlashcardStore = __webpack_require__(293);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -35707,22 +35728,10 @@
 	    router: React.PropTypes.object.isRequired
 	  },
 	
-	  componentDidMount: function () {
-	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  flashcardStoreCB: function () {
-	    var deckId = this.props.deckId;
-	    this.context.router.push("/decks/" + deckId + "/flashcards");
-	  },
-	
 	  destroyCB: function (e) {
 	    e.preventDefault();
 	    FlashcardActions.destroyFlashcard(this.props.cardId);
+	    this.context.router.push("/decks/" + this.props.deckId + "/flashcards");
 	  },
 	
 	  render: function () {

@@ -1,7 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var FlashcardActions = require('../../actions/flashcard_actions');
-var FlashcardStore = require('../../stores/flashcard_store');
 
 var Options = React.createClass({
 
@@ -9,22 +8,10 @@ var Options = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
-  componentDidMount: function () {
-    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
-  },
-
-  componentWillUnmount: function () {
-    this.listenerToken.remove();
-  },
-
-  flashcardStoreCB: function () {
-    var deckId =  this.props.deckId
-    this.context.router.push("/decks/" + deckId + "/flashcards");
-  },
-
   destroyCB: function (e) {
     e.preventDefault();
     FlashcardActions.destroyFlashcard(this.props.cardId);
+    this.context.router.push("/decks/" + this.props.deckId + "/flashcards");
   },
 
   render: function () {
