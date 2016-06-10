@@ -35147,7 +35147,7 @@
 	
 	
 	  getInitialState: function () {
-	    return { flashcards: [] };
+	    return { flashcards: FlashcardStore.all() };
 	  },
 	
 	  componentDidMount: function () {

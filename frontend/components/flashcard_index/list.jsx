@@ -7,7 +7,7 @@ var GraphUtil = require('../graphs/graph_util');
 var FlashcardIndex = React.createClass({
 
   getInitialState: function () {
-    return({ flashcards: [] })
+    return({ flashcards: FlashcardStore.all() })
   },
 
   componentDidMount: function () {
