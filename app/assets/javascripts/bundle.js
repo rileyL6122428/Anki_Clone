@@ -35249,7 +35249,7 @@
 	    }
 	  }
 	
-	  return cards;
+	  return Util.shuffle(cards);
 	};
 	//TODO undo window, for testing only
 	shuffledFlashcardsByGrade = function (lower, upper) {
