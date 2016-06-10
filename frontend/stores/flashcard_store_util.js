@@ -4,7 +4,6 @@ var Util =  {
     for (var i = 0; i < cards.length; i++) {
       cardsWithSeeds[Math.random()] = cards[i];
     }
-
     var orderedSeeds = Util.quickSort(Object.keys(cardsWithSeeds));
     var shuffledCards = [];
     for (var i = 0; i < orderedSeeds.length; i++) {
@@ -12,7 +11,6 @@ var Util =  {
 
       shuffledCards.push(nextCard)
     }
-
     return shuffledCards;
   },
 

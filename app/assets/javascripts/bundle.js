@@ -35242,7 +35242,7 @@
 	
 	    for (var j = 0; j < shuffledCards.length; j++) {
 	      if (cards.length === total || cards.length === storeSize()) {
-	        return cards;
+	        return Util.shuffle(cards);
 	      }
 	
 	      cards.push(shuffledCards[j]);
@@ -35335,7 +35335,6 @@
 	    for (var i = 0; i < cards.length; i++) {
 	      cardsWithSeeds[Math.random()] = cards[i];
 	    }
-	
 	    var orderedSeeds = Util.quickSort(Object.keys(cardsWithSeeds));
 	    var shuffledCards = [];
 	    for (var i = 0; i < orderedSeeds.length; i++) {
@@ -35343,7 +35342,6 @@
 	
 	      shuffledCards.push(nextCard);
 	    }
-	
 	    return shuffledCards;
 	  },
 	

@@ -33,7 +33,9 @@ FlashcardStore.drawCards = function(total) {
     var shuffledCards = shuffledFlashcardsByGrade(gradeInts[i], gradeInts[i + 1])
 
     for (var j = 0; j < shuffledCards.length; j++) {
-      if (cards.length === total || cards.length === storeSize()) {return cards}
+      if (cards.length === total || cards.length === storeSize()) {
+        return Util.shuffle(cards)
+      }
 
       cards.push(shuffledCards[j]);
     }
