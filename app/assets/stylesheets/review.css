@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.Review button.BackLink {
+  position: absolute;
+}
+
 .Review h1 {
   display: block;
   position: relative;
@@ -161,6 +165,8 @@
   border-top: 3px solid;
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
+
+  font-size: 18px;
 }
 
 button.Fail {
