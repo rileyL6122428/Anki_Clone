@@ -33208,7 +33208,7 @@
 	      React.createElement("br", null),
 	      React.createElement(
 	        "button",
-	        { onClick: this.props.toSignUpCB },
+	        { className: "Sign-Up", onClick: this.props.toSignUpCB },
 	        "Sign up"
 	      ),
 	      React.createElement("br", null),

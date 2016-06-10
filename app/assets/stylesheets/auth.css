@@ -89,6 +89,10 @@ button.Guest-Button {
   padding-top: 30px;
 }
 
+.auth button.Sign-Up {
+  padding-top: 0px;
+}
+
 .auth button:focus, .auth #submit:focus {
   outline: 0;
 

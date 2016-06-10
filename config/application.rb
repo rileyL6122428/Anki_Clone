@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module SampleProjectProposalMaster
   class Application < Rails::Application
-
+    #NOTE this allows fonts to be sent to heroku
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     # Settings in config/environments/* take precedence over those specified here.

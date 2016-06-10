@@ -10,7 +10,7 @@ var Greeting = React.createClass({
       <h3>Welcome!</h3>
       <p>If this is your first time using AnkiClone, choose 'Sign Up'
         and create an account. It is free!</p><br/>
-      <button onClick={this.props.toSignUpCB}>Sign up</button><br/>
+      <button className="Sign-Up" onClick={this.props.toSignUpCB}>Sign up</button><br/>
       <button onClick={this.props.toLogInCB}>Log in</button><br/>
         <a href="/users/auth/facebook">
           <div className="Facebook-Signup" >Sign in with Facebook /</div>
