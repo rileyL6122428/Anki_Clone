@@ -69,7 +69,7 @@ class Api::DecksController < ApplicationController
     new_user_deck.owner_id = current_user.id
     new_user_deck.review_total = 0
     new_user_deck.save
-    
+
     new_flashcards_params = []
     deck_to_download.cards.each do |card|
       new_flashcards_params.push({
@@ -83,4 +83,5 @@ class Api::DecksController < ApplicationController
     Flashcard.create(new_flashcards_params)
     Deck.where(id: new_user_deck.id).includes(:cards).first
   end
+
 end

@@ -10,13 +10,15 @@ class Deck < ActiveRecord::Base
   has_many(
     :cards,
     foreign_key: :deck_id,
-    class_name: "Flashcard"
+    class_name: "Flashcard",
+    dependent: :destroy
   )
 
   has_many(
     :reviews,
     foreign_key: :deck_id,
-    class_name: "Review"
+    class_name: "Review",
+    dependent: :destroy
   )
 
   def self.grade_distribution(cards)
