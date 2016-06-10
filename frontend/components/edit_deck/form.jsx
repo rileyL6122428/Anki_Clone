@@ -27,7 +27,6 @@ var Form = React.createClass({
         id: this.props.deckId
       });
 
-    //TODO redirect to deck show with callback in Deck store
   },
 
   render: function () {

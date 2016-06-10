@@ -1,10 +1,16 @@
 var React = require('react');
 var Link = require('react-router').Link;
-
+var DeckActions = require('../../actions/deck_actions');
 
 //TODO set link destinations to proper destinations
 
+
+
 var Options = React.createClass ({
+
+  destroyDeck: function () {
+    DeckActions.destroyDeck(this.props.deckId);
+  },
   render: function () {
     return(
       <div className="Options">
@@ -23,7 +29,7 @@ var Options = React.createClass ({
             </li>
           </Link>
 
-          <Link to="/dashboard">
+          <Link onClick={this.destroyDeck} to="/dashboard">
             <li className="group">
               <div className="Remove-Icon"></div>
               <div className="Option-Label">Remove</div>

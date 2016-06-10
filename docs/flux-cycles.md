@@ -9,23 +9,33 @@ store listeners are listed at the end.
 
 ### Decks API Request Actions
 
-* `fetchAllDecks`
-  0. invoked from `DeckIndex` `didMount`
+*NOTE*: `comp1` < `comp2` denotes `comp1` as a subcomponent of `comp2`
+
+* `fetchDecks`
+  0. invoked from `DeckIndex` on `didMount`
   0. `GET /api/decks` is called.
-  0. `receiveAllDecks` is set as the callback.
+  0. `deckStoreCB` is set as the store callback. `deckStoreCB` contains method
+      calls to receive all decks from the
+      deck store.
+
+* `fetchADeck`
+  0. invoked from `Content` < `DeckShow` on `didMount`
+  0. `Get /api/decks/:id` is called.
+  0. `storeCB` is set as the callback. `storeCB` contains a method call to
+     `DeckStore#find`.
 
 * `createDeck`
-  0. invoked from save Deck button `onClick`
+  0. invoked from save button in `Form` < `NewDeck` on `onClick`
   0. `POST /api/decks` is called.
-  0. `receiveSingleDeck` is set as the callback.
+  0. user is redirected to deck show upon successful save.
 
 * `updateDeck`
-  0. invoked from `DeckEdit` `onSubmit`
-  0. `POST /api/decks` is called.
-  0. `receiveSingleDeck` is set as the callback.
+  0. invoked from save button n `Form` < `DeckEdit` on `onSubmit`
+  0. `PATCH /api/decks` is called.
+  0. user is redirected to deck show upon successful save.
 
 * `destroyNote`
-  0. invoked from delete Deck button `onClick`
+  0. invoked from delete Deck button `onClick` in `DeckShow`
   0. `DELETE /api/Decks/:id` is called.
   0. `removeDeck` is set as the callback.
 

@@ -34837,12 +34837,17 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
+	var DeckActions = __webpack_require__(275);
 	
 	//TODO set link destinations to proper destinations
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
 	
+	
+	  destroyDeck: function () {
+	    DeckActions.destroyDeck(this.props.deckId);
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -34880,7 +34885,7 @@
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: '/dashboard' },
+	          { onClick: this.destroyDeck, to: '/dashboard' },
 	          React.createElement(
 	            'li',
 	            { className: 'group' },
@@ -34956,8 +34961,6 @@
 	      description: this.state.description,
 	      id: this.props.deckId
 	    });
-	
-	    //TODO redirect to deck show with callback in Deck store
 	  },
 	
 	  render: function () {
