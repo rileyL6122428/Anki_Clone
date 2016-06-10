@@ -6,7 +6,6 @@ module.exports = {
 
   fetchAFlashcard: function (id) {
     FlashcardApiUtil.fetchAFlashcard(id);
-    // debugger
   },
 
   createFlashcard: function (flashcard, deckId) {
