@@ -48,7 +48,6 @@ class Deck < ActiveRecord::Base
   def self.reviews_today(reviews)
     todays_date = Time.now
     todays_start = Time.new(todays_date.year, todays_date.month, todays_date.day)
-
     reviews.select{ |review| review.created_at > todays_start }.length
   end
 
