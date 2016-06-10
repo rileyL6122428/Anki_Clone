@@ -145,9 +145,14 @@ table is to provide review frequency info for the dashboard bar graph and
 the deck show history section. This is the only purpose of this table. Upon
 login, a request is made to the review controller that fetches all of the
 reviews for the front end *after* deleting all reviews from the table over a
-week old. All other stats are taken directly from a stored attribute on a
+week old.
+
+All other stats are taken directly from a stored attribute on a
 flashcard/ deck instance, or are calculated indirectly through database
 queries followed by some data manipulation.
+
+*NOTE* All stats are derived from existing decks only. Deleting decks will
+modify stats accordingly.
 
 ###Deck Importing
 
