@@ -42,33 +42,25 @@
 
 
 .Wrapper {
-
   position: absolute;
   height: 200px;
   overflow-y: scroll;
   height: 100%;
   height: calc(100% - 155px);
   width: 100%;
-
 }
 
 .Flashcard-Index-Item {
   display: block;
   float: left;
-  /*width: 100px;*/
   width: 170px;
   height: 200px;
+  margin: 10px 20px;
 
   box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 3px 1px;
-
-  /*border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;*/
   border-radius: 5px;
 
-
   color: black;
-
-  margin: 10px 20px;
 }
 
 .Flashcard-Index-Item h5 {
@@ -94,8 +86,6 @@
   width: 100%;
 
 }
-
-
 
 li.Flashcard-Index-Item > div {
   float: none;

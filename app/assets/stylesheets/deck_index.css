@@ -65,7 +65,7 @@ div.Card-Count {
 
 }
 
-.Deck-Index-Item p.Grade {
+.Deck-Index-Item div.Grade {
   display: block;
   width: 40%;
   float: right;
@@ -73,6 +73,15 @@ div.Card-Count {
   margin-right: 0px;
   font-size: 27px;
 }
+
+/*.Deck-Index-Item p.Grade {
+  display: block;
+  width: 40%;
+  float: right;
+  margin-top: 0px;
+  margin-right: 0px;
+  font-size: 27px;
+}*/
 
 div.Percentage {
   display: block;

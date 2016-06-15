@@ -34313,7 +34313,7 @@
 	          )
 	        ),
 	        React.createElement(
-	          'p',
+	          'div',
 	          { className: 'Grade',
 	            style: { color: GraphUtil.colorByPercentage(this.props.grade) } },
 	          React.createElement(

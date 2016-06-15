@@ -22,11 +22,11 @@ var DeckIndexItem = React.createClass({
               </div>
             </div>
 
-            <p className="Grade"
+            <div className="Grade"
                style={ {color: GraphUtil.colorByPercentage(this.props.grade) }}>
                <div className="Percentage">{ grade }</div>
                 <div className="Arrow-Right"></div>
-            </p>
+            </div>
             <div className="ClearSet" />
         </li>
         </Link>

@@ -24,6 +24,6 @@
    font-family: Roboto;
  }
 
- a:hover, button:hover {
+ a:hover, button:hover, input[type=submit]:hover {
    cursor: pointer;
  }
