@@ -23,3 +23,7 @@
  * {
    font-family: Roboto;
  }
+
+ a:hover, button:hover {
+   cursor: pointer;
+ }
