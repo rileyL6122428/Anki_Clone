@@ -60,7 +60,7 @@ var Form = React.createClass({
                    className="FrontInput"
                    value={this.state.front}/>
           </label>
-          
+
           <h4>Back</h4>
           <label>
             <textarea
