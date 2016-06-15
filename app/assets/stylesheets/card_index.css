@@ -97,7 +97,7 @@
 
 
 
-.Flashcard-Index-Item p {
+li.Flashcard-Index-Item > div {
   float: none;
 
   display: block;

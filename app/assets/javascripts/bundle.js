@@ -35521,7 +35521,7 @@
 	        'li',
 	        { className: 'Flashcard-Index-Item' },
 	        React.createElement(
-	          'p',
+	          'div',
 	          { style: styleHash },
 	          React.createElement(
 	            'div',

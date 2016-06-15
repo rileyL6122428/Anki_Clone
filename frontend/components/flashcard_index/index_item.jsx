@@ -22,7 +22,7 @@ var FlashcardIndexItem = React.createClass({
     return(
       <Link to={showUrl}>
         <li className="Flashcard-Index-Item">
-            <p style={ styleHash }><div className="Grade">{ grade }</div></p>
+            <div style={ styleHash }><div className="Grade">{ grade }</div></div>
             <h5><div className="Front-Sample">{ frontSample }</div></h5>
         </li>
       </Link>
