@@ -4,7 +4,7 @@
   width: 48%;
 
   left: 50%;
-  top: 30%;
+  top: 40%;
   height: 100%;
   float: left;
 }
@@ -35,15 +35,15 @@
   font-size: 20px;
 }
 
-.Flashcard-Edit .Preview p, .Flashcard-New .Preview p {
+.Flashcard-Edit .Preview div.Section, .Flashcard-New .Preview div.Section {
   position: relative;
   text-align: center;
   display: block;
-  height:10%;
+  height:40px;
   width: 100%;
 }
 
-.Flashcard-Edit .Preview p.P-Back, .Flashcard-New .Preview p.P-Back {
+.Flashcard-Edit .Preview div.P-Back, .Flashcard-New .Preview div.P-Back {
   position: relative;
   text-align: center;
   display: block;
@@ -55,11 +55,12 @@
 
 .Flashcard-Edit .Preview .Front, .Flashcard-New .Preview .Front {
   display: block;
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0;
   right: 5%;
   margin: auto;
   width:90%;
+  height: 70%;
 
   /*height: 30%;*/
 
@@ -78,15 +79,18 @@
 
 .Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
   border-top: 1px solid #ddd;
+  margin-top: 6px;
 }
 
 .Flashcard-Edit .Preview .Back, .Flashcard-New .Preview .Back {
   display: block;
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0;
   right: 5%;
   margin: auto;
+  margin-top: 12px;
   width:90%;
+  height: 100%;
 
   border: 2px dashed rgb(37, 163, 252);
 }

@@ -38,7 +38,7 @@
   border-right: 1px solid #ddd;
 }
 
-.Flashcard-Show .Preview p {
+.Flashcard-Show .Preview div.Section {
   position: relative;
   text-align: center;
   display: block;
@@ -66,6 +66,8 @@
   background-color: #ddd;
   width: 94%;
   margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -116,7 +118,7 @@
 .Flashcard-Show .Not-Preview button {
   display: block;
   float:right;
-  
+
   padding: 0px;
   margin-right: 25%;
 

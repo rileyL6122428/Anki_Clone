@@ -38,7 +38,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  top: 27%;
+  top: 40%;
   /*margin-top: 100px;*/
 }
 
@@ -79,6 +79,8 @@
   border-top: 1px solid #ddd;
   width: 90%;
   margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .Download-Deck .Normal-Button {

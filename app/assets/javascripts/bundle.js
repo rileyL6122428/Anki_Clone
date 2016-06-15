@@ -35637,8 +35637,8 @@
 	        "div",
 	        { className: "List-Center" },
 	        React.createElement(
-	          "p",
-	          null,
+	          "div",
+	          { className: "Section" },
 	          React.createElement(
 	            "div",
 	            { className: "Front" },
@@ -35647,8 +35647,8 @@
 	        ),
 	        React.createElement("div", { className: "Preview-Divider" }),
 	        React.createElement(
-	          "p",
-	          { className: "P-Back" },
+	          "div",
+	          { className: "Section P-Back" },
 	          React.createElement(
 	            "div",
 	            { className: "Back" },
