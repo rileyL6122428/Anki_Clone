@@ -37,9 +37,9 @@
    "node": "5.7.0",
    "npm": "3.6.0"
   },
-  
+
 
   "scripts": {
-   "postinstall": "./node_modules/.bin/webpack"
+   
   }
 }
