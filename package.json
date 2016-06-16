@@ -37,7 +37,9 @@
    "node": "5.7.0",
    "npm": "3.6.0"
   },
-  "NODE_ENV": "production",
+  "scripts": {
+    "start": "NODE_ENV=production node ./app"
+  },
 
   "scripts": {
    "postinstall": "./node_modules/.bin/webpack"
