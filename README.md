@@ -121,9 +121,10 @@ Grade ranges are mapped as follows:
 Once the review component has the cards, it then lets the user flip through each
 card and grade their guessing performance.
 
-*Example Review GUESS & FLIP Pages*
+*Example Review GUESS Page*
 ![Review Guess Preview](https://raw.githubusercontent.com/rileyL6122428/Anki_Clone/master/docs/preview_images/review_guess_preview.png)
 
+*Example Review Grade Page*
 ![Review Flipped Preview](https://raw.githubusercontent.com/rileyL6122428/Anki_Clone/master/docs/preview_images/review_flipped_preview.png)
 
 In order from left to right,
