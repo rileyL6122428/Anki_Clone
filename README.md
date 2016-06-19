@@ -89,9 +89,13 @@ breakdown of how the review system works:
 
 **Review Phase 1: Draw cards**
 
-When the user presses the review button at the bottom of the deck show page, they
-are redirected to the review component. After the component mounts, a call is
-made by the Flashcard Actions object to obtain all
+When the user presses the review button at the bottom of the deck show page,
+
+*Example Deck Show/Dashboard*
+![Deck Show Preview](./docs/preview_images/deck_show_preview)
+
+they are redirected to the review component. After the component mounts, a call
+is made by the Flashcard Actions object to obtain all
 flashcards corresponding to the deck from the server and send them to the
 Flashcard store. When the store receives the cards, it then draws ten cards and
 gives them to the review component per a callback placed in the store by the
@@ -115,7 +119,14 @@ Grade ranges are mapped as follows:
 
 **Phase 2: Reviews and the Grade Report**
 Once the review component has the cards, it then lets the user flip through each
-card and grade their guessing performance. In order from left to right,
+card and grade their guessing performance.
+
+*Example Review GUESS & FLIP Pages*
+![Review Guess Preview](./docs/preview_images/review_guess_preview)
+
+![Review Flipped Preview](./docs/preview_images/review_flipped_preview)
+
+In order from left to right,
 the four grading buttons correspond to a review grade of 0, 35, 75, 100. As the
 user flips through the ten cards, AnkiClone compiles a report to be sent to the
 reviews controller upon finish or early termination of the review.
