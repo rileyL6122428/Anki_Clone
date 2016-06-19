@@ -33214,7 +33214,7 @@
 	      React.createElement("br", null),
 	      React.createElement(
 	        "button",
-	        { onClick: this.props.toLogInCB },
+	        { className: "Log-In", onClick: this.props.toLogInCB },
 	        "Log in"
 	      ),
 	      React.createElement("br", null),
@@ -33224,14 +33224,14 @@
 	        React.createElement(
 	          "div",
 	          { className: "Facebook-Signup" },
-	          "Sign in with Facebook /"
+	          "Sign in with Facebook"
 	        )
 	      ),
 	      React.createElement(
 	        "button",
 	        { onClick: this.props.guestLoginCB,
 	          className: "Guest-Button" },
-	        " as Guest"
+	        "Sign in as Guest"
 	      )
 	    );
 	  }

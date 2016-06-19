@@ -11,12 +11,12 @@ var Greeting = React.createClass({
       <p>If this is your first time using AnkiClone, choose 'Sign Up'
         and create an account. It is free!</p><br/>
       <button className="Sign-Up" onClick={this.props.toSignUpCB}>Sign up</button><br/>
-      <button onClick={this.props.toLogInCB}>Log in</button><br/>
+      <button className="Log-In" onClick={this.props.toLogInCB}>Log in</button><br/>
         <a href="/users/auth/facebook">
-          <div className="Facebook-Signup" >Sign in with Facebook /</div>
+          <div className="Facebook-Signup" >Sign in with Facebook</div>
         </a>
         <button onClick={this.props.guestLoginCB}
-                className="Guest-Button"> as Guest</button>
+                className="Guest-Button">Sign in as Guest</button>
       </div>
     );
   }
