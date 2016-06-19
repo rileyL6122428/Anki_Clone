@@ -118,6 +118,7 @@ Grade ranges are mapped as follows:
  * [90, 100] => A
 
 **Phase 2: Reviews and the Grade Report**
+
 Once the review component has the cards, it then lets the user flip through each
 card and grade their guessing performance.
 
@@ -127,12 +128,13 @@ card and grade their guessing performance.
 *Example Review Grade Page*
 ![Review Flipped Preview](https://raw.githubusercontent.com/rileyL6122428/Anki_Clone/master/docs/preview_images/review_flipped_preview.png)
 
-In order from left to right,
-the four grading buttons correspond to a review grade of 0, 35, 75, 100. As the
-user flips through the ten cards, AnkiClone compiles a report to be sent to the
-reviews controller upon finish or early termination of the review.
+In order from left to right, the four grading buttons correspond to a review
+grade of 0, 35, 75, 100. As the user flips through the ten cards, AnkiClone
+compiles a report to be sent to the reviews controller upon finish or early
+termination of the review.
 
 **Phase 3: Calculate New Grades**
+
 Once the review report is sent, the controller updates each of the flashcards in
 the report by the following protocol:
 
