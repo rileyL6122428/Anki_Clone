@@ -92,7 +92,7 @@ breakdown of how the review system works:
 When the user presses the review button at the bottom of the deck show page,
 
 *Example Deck Show/Dashboard*
-![Deck Show Preview](./docs/preview_images/deck_show_preview)
+![Deck Show Preview](https://raw.githubusercontent.com/rileyL6122428/Anki_Clone/master/docs/preview_images/deck_show_preview.png)
 
 they are redirected to the review component. After the component mounts, a call
 is made by the Flashcard Actions object to obtain all
