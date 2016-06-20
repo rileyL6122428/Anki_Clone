@@ -17,6 +17,10 @@
     "react-router": "^2.4.1",
     "webpack": "^1.13.1"
   },
+
+  "scripts": {
+   "heroku-postbuild": "webpack --config webpack.config.prod.js"
+ },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -38,8 +42,4 @@
    "npm": "3.6.0"
   },
 
-
-  "scripts": {
-   
-  }
 }
