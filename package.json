@@ -1,43 +1,38 @@
 {
-  "name": "Anki-Clone",
+  "name": "app_name",
   "version": "1.0.0",
   "description": "[Heroku link][heroku] **NB:** This should be a link to your production site",
-  "main": "webpack.config.js",
+  "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "test"
   },
-  "dependencies": {
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-react": "^6.5.0",
-    "flux": "^2.1.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-router": "^2.4.1",
-    "webpack": "^1.13.1"
-  },
-
-  
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-postbuild": "webpack --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rileyL6122428/Anki_Clone.git"
+    "url": "git+https://example.com.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rileyL6122428/Anki_Clone/issues"
+    "url": "example.com"
   },
-  "homepage": "https://github.com/rileyL6122428/Anki_Clone#readme",
-
+  "homepage": "example.com",
+  "dependencies": {
+    "babel-core": "^6.7.7",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.5.0",
+    "flux": "^2.1.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-router": "^2.3.0",
+    "webpack": "^1.13.0"
+  },
   "engines": {
-   "node": "5.7.0",
-   "npm": "3.6.0"
-  },
-
+    "node": "5.7.1",
+    "npm": "3.6.0"
+  }
 }
