@@ -2,6 +2,9 @@ var React = require('react');
 var GraphUtil = require('./graph_util');
 
 ReviewProgressCircle =  React.createClass({
+    getInitialState: function () {
+      return({firstRender: true})
+    },
     componentDidMount: function() {
         this.updateCanvas();
     },
@@ -10,6 +13,11 @@ ReviewProgressCircle =  React.createClass({
     },
     updateCanvas: function() {
       var c = this.refs.canvas.getContext('2d');
+
+      if(this.state.firstRender) {
+        c.scale(2, 2);
+        this.state.firstRender = false;
+      }
 
       c.fillStyle = "#E5E5E5"
       c.fillRect(0,0,30,30)
@@ -39,11 +47,12 @@ ReviewProgressCircle =  React.createClass({
       c.beginPath();
       c.arc(centerX, centerY, radius, absStartAngle, absEndAngle, false);
       c.stroke();
+
     },
 
     render: function () {
          return (
-             <canvas className="Progress-Circle" ref="canvas" width={24} height={24}/>
+             <canvas className="Progress-Circle" ref="canvas" width={48} height={48}/>
          );
     }
 });

@@ -8,7 +8,7 @@ var Recap =  React.createClass({
       <div className="group Recap">
         <div className="Review-Grade" >
           <h4 className="Stat-Header">Grade</h4>
-          <RecapCanvas percentage={ this.props.reviewGrade }/>
+          <RecapCanvas className="Recap-Circle" percentage={ this.props.reviewGrade }/>
         </div>
 
         <div className="Review-Info">

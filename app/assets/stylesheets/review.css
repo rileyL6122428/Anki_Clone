@@ -3,6 +3,16 @@
   text-align: center;
 }
 
+.Review-Grade canvas {
+  height: 200px;
+  width: 200px;
+}
+
+canvas.Progress-Circle {
+  height: 24px;
+  width: 24px;
+}
+
 .Review button.BackLink {
   position: absolute;
 }

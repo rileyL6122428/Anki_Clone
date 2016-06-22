@@ -5,9 +5,9 @@ RecapCanvas =  React.createClass({
     componentDidMount: function() {
         this.updateCanvas();
     },
-    componentDidUpdate: function() {
-        this.updateCanvas();
-    },
+    // componentDidUpdate: function() {
+    //     this.updateCanvas();
+    // },
     updateCanvas: function() {
       var c = this.refs.canvas.getContext('2d');
 
@@ -18,6 +18,8 @@ RecapCanvas =  React.createClass({
       var centerY = 100;
       var color = GraphUtil.colorByPercentage(percentage);
       var grade = GraphUtil.gradeByPercentage(percentage);
+
+      c.scale(3, 3)
 
       c.strokeStyle = "#F5F5F5";
       c.lineWidth = 15;
@@ -40,7 +42,7 @@ RecapCanvas =  React.createClass({
     },
     render: function () {
          return (
-             <canvas ref="canvas" width={200} height={200}/>
+             <canvas ref="canvas" width={600} height={600}/>
          );
     }
 });

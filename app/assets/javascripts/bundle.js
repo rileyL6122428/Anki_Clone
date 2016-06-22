@@ -36279,7 +36279,7 @@
 	          { className: 'Stat-Header' },
 	          'Grade'
 	        ),
-	        React.createElement(RecapCanvas, { percentage: this.props.reviewGrade })
+	        React.createElement(RecapCanvas, { className: 'Recap-Circle', percentage: this.props.reviewGrade })
 	      ),
 	      React.createElement(
 	        'div',
@@ -36348,9 +36348,9 @@
 	    componentDidMount: function () {
 	        this.updateCanvas();
 	    },
-	    componentDidUpdate: function () {
-	        this.updateCanvas();
-	    },
+	    // componentDidUpdate: function() {
+	    //     this.updateCanvas();
+	    // },
 	    updateCanvas: function () {
 	        var c = this.refs.canvas.getContext('2d');
 	
@@ -36360,6 +36360,8 @@
 	        var centerY = 100;
 	        var color = GraphUtil.colorByPercentage(percentage);
 	        var grade = GraphUtil.gradeByPercentage(percentage);
+	
+	        c.scale(3, 3);
 	
 	        c.strokeStyle = "#F5F5F5";
 	        c.lineWidth = 15;
@@ -36381,7 +36383,7 @@
 	        c.fillText("" + percentage + "%", centerX - 17, centerY - 10);
 	    },
 	    render: function () {
-	        return React.createElement('canvas', { ref: 'canvas', width: 200, height: 200 });
+	        return React.createElement('canvas', { ref: 'canvas', width: 600, height: 600 });
 	    }
 	});
 	
@@ -36483,6 +36485,9 @@
 	ReviewProgressCircle = React.createClass({
 	    displayName: 'ReviewProgressCircle',
 	
+	    getInitialState: function () {
+	        return { firstRender: true };
+	    },
 	    componentDidMount: function () {
 	        this.updateCanvas();
 	    },
@@ -36491,6 +36496,11 @@
 	    },
 	    updateCanvas: function () {
 	        var c = this.refs.canvas.getContext('2d');
+	
+	        if (this.state.firstRender) {
+	            c.scale(2, 2);
+	            this.state.firstRender = false;
+	        }
 	
 	        c.fillStyle = "#E5E5E5";
 	        c.fillRect(0, 0, 30, 30);
@@ -36523,7 +36533,7 @@
 	    },
 	
 	    render: function () {
-	        return React.createElement('canvas', { className: 'Progress-Circle', ref: 'canvas', width: 24, height: 24 });
+	        return React.createElement('canvas', { className: 'Progress-Circle', ref: 'canvas', width: 48, height: 48 });
 	    }
 	});
 	
