@@ -63,12 +63,12 @@
 	var DeckShow = __webpack_require__(282);
 	var EditDeck = __webpack_require__(287);
 	var FlashcardIndex = __webpack_require__(290);
-	var FlashcardShow = __webpack_require__(299);
-	var NewFlashcard = __webpack_require__(303);
-	var EditFlashcard = __webpack_require__(306);
-	var Review = __webpack_require__(308);
-	var PublicDeckBrowser = __webpack_require__(314);
-	var PublicDeckPreview = __webpack_require__(320);
+	var FlashcardShow = __webpack_require__(300);
+	var NewFlashcard = __webpack_require__(304);
+	var EditFlashcard = __webpack_require__(307);
+	var Review = __webpack_require__(309);
+	var PublicDeckBrowser = __webpack_require__(315);
+	var PublicDeckPreview = __webpack_require__(321);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -83,8 +83,8 @@
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
 	window.ReviewStore = __webpack_require__(264);
-	window.PublicDeckStore = __webpack_require__(316);
-	window.PublicDeckActions = __webpack_require__(318);
+	window.PublicDeckStore = __webpack_require__(317);
+	window.PublicDeckActions = __webpack_require__(319);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -35189,14 +35189,14 @@
 	var FlashcardActions = __webpack_require__(296);
 	var FlashcardIndexItem = __webpack_require__(298);
 	var GraphUtil = __webpack_require__(278);
-	var LoadingBar = __webpack_require__(323);
+	var LoadingBar = __webpack_require__(299);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
 	
 	
 	  getInitialState: function () {
-	    return { flashcards: FlashcardStore.all() };
+	    return { flashcards: FlashcardStore.all(), cardsReceived: false };
 	  },
 	
 	  componentDidMount: function () {
@@ -35205,7 +35205,7 @@
 	  },
 	
 	  flashcardStoreCB: function () {
-	    this.setState({ flashcards: FlashcardStore.all() });
+	    this.setState({ flashcards: FlashcardStore.all(), cardsReceived: true });
 	  },
 	
 	  componentWillReceiveProps: function (props) {
@@ -35214,12 +35214,13 @@
 	
 	  componentWillUnmount: function () {
 	    this.listenerToken.remove();
+	    this.state.cardsReceived = false;
 	  },
 	
 	  render: function () {
 	    var list = "";
 	    var deckId = this.props.deckId;
-	    if (this.state.flashcards.length !== 0) {
+	    if (this.state.cardsReceived) {
 	      // if(false) { NOTE for testing only
 	
 	      var list = React.createElement(
@@ -35590,12 +35591,75 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var GraphUtil = __webpack_require__(278);
+	
+	ReviewProgressCircle = React.createClass({
+	  displayName: 'ReviewProgressCircle',
+	
+	  getInitialState: function () {
+	    return { theta: 0 };
+	  },
+	  componentDidMount: function () {
+	    var self = this;
+	    this.state.drawToken = setInterval(function () {
+	      self.draw();
+	    }, 20);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.state.theta = 0;
+	    clearInterval(this.state.drawToken);
+	  },
+	
+	  // componentDidUpdate: function() {
+	  //     this.updateCanvas();
+	  // },
+	  draw: function () {
+	    var c = this.refs.canvas.getContext('2d');
+	    this.state.theta += 0.1;
+	
+	    c.clearRect(0, 0, 400, 400);
+	
+	    c.globalAlpha = 0.8;
+	    c.fillStyle = "black";
+	    GraphUtil.roundedSquare(c, 5, 15, 370, 385);
+	
+	    c.translate(190, 200);
+	    c.rotate(this.state.theta);
+	    c.strokeStyle = "#25A3FC";
+	    c.lineWidth = 15;
+	
+	    var incrementTotal = 60;
+	    for (var i = 0; i < incrementTotal; i++) {
+	      c.globalAlpha = 1 / incrementTotal * i;
+	      c.beginPath();
+	      c.arc(0, 0, 100, (i + GraphUtil.loadingOverlapOffset(i)) / (incrementTotal / 2) * Math.PI, (i + 1) / (incrementTotal / 2) * Math.PI, false);
+	      c.stroke();
+	    }
+	
+	    c.globalAlpha = 1;
+	    c.rotate(-this.state.theta);
+	    c.translate(-190, -200);
+	  },
+	
+	  render: function () {
+	    return React.createElement('canvas', { ref: 'canvas', width: 380, height: 380 });
+	  }
+	});
+	
+	module.exports = ReviewProgressCircle;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var FlashcardStore = __webpack_require__(293);
 	var FlashcardActions = __webpack_require__(296);
 	var Link = __webpack_require__(168).Link;
-	var Preview = __webpack_require__(300);
-	var Info = __webpack_require__(301);
-	var Options = __webpack_require__(302);
+	var Preview = __webpack_require__(301);
+	var Info = __webpack_require__(302);
+	var Options = __webpack_require__(303);
 	
 	var FlashcardShow = React.createClass({
 	  displayName: 'FlashcardShow',
@@ -35660,7 +35724,7 @@
 	module.exports = FlashcardShow;
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35715,7 +35779,7 @@
 	// </div>
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35774,7 +35838,7 @@
 	module.exports = Info;
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35819,12 +35883,12 @@
 	module.exports = Options;
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(304);
-	var HeaderWithBack = __webpack_require__(305);
+	var Form = __webpack_require__(305);
+	var HeaderWithBack = __webpack_require__(306);
 	var Link = __webpack_require__(168).Link;
 	
 	NewCard = React.createClass({
@@ -35845,13 +35909,13 @@
 	module.exports = NewCard;
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(296);
 	var FlashcardStore = __webpack_require__(293);
-	var Preview = __webpack_require__(300);
+	var Preview = __webpack_require__(301);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -35954,7 +36018,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35990,12 +36054,12 @@
 	module.exports = HeaderWithBack;
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(307);
-	var HeaderWithBack = __webpack_require__(305);
+	var Form = __webpack_require__(308);
+	var HeaderWithBack = __webpack_require__(306);
 	var Link = __webpack_require__(168).Link;
 	
 	EditCard = React.createClass({
@@ -36018,13 +36082,13 @@
 	module.exports = EditCard;
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(296);
 	var FlashcardStore = __webpack_require__(293);
-	var Preview = __webpack_require__(300);
+	var Preview = __webpack_require__(301);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36119,18 +36183,18 @@
 	module.exports = Form;
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Recap = __webpack_require__(309);
-	var Front = __webpack_require__(311);
-	var Flipped = __webpack_require__(312);
+	var Recap = __webpack_require__(310);
+	var Front = __webpack_require__(312);
+	var Flipped = __webpack_require__(313);
 	var FlashcardStore = __webpack_require__(293);
 	var FlashcardActions = __webpack_require__(296);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
-	var ReviewProgressCircle = __webpack_require__(313);
+	var ReviewProgressCircle = __webpack_require__(314);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
@@ -36295,11 +36359,11 @@
 	module.exports = Review;
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var RecapCanvas = __webpack_require__(310);
+	var RecapCanvas = __webpack_require__(311);
 	
 	var Recap = React.createClass({
 	  displayName: 'Recap',
@@ -36376,7 +36440,7 @@
 	module.exports = Recap;
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36430,7 +36494,7 @@
 	module.exports = RecapCanvas;
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36464,11 +36528,11 @@
 	module.exports = Front;
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Preview = __webpack_require__(300);
+	var Preview = __webpack_require__(301);
 	
 	var Flipped = React.createClass({
 	  displayName: 'Flipped',
@@ -36516,7 +36580,7 @@
 	module.exports = Flipped;
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36580,14 +36644,14 @@
 	module.exports = ReviewProgressCircle;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Footer = __webpack_require__(259);
 	var SearchBar = __webpack_require__(270);
-	var DeckIndex = __webpack_require__(315);
-	var PublicDeckActions = __webpack_require__(318);
+	var DeckIndex = __webpack_require__(316);
+	var PublicDeckActions = __webpack_require__(319);
 	
 	var PublicDeckBrowse = React.createClass({
 	  displayName: 'PublicDeckBrowse',
@@ -36633,12 +36697,12 @@
 	module.exports = PublicDeckBrowse;
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(316);
-	var DeckActions = __webpack_require__(318);
+	var PublicDeckStore = __webpack_require__(317);
+	var DeckActions = __webpack_require__(319);
 	var DeckIndexItem = __webpack_require__(277);
 	
 	var DeckIndex = React.createClass({
@@ -36691,14 +36755,14 @@
 	module.exports = DeckIndex;
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
 	var Store = __webpack_require__(238).Store;
 	var PublicDeckStore = new Store(AppDispatcher);
 	var SearchUtil = __webpack_require__(274);
-	var PublicDeckConstants = __webpack_require__(317);
+	var PublicDeckConstants = __webpack_require__(318);
 	
 	var _publicDecks = {};
 	
@@ -36745,7 +36809,7 @@
 	module.exports = PublicDeckStore;
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -36754,10 +36818,10 @@
 	};
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PublicDeckUtil = __webpack_require__(319);
+	var PublicDeckUtil = __webpack_require__(320);
 	
 	module.exports = {
 	  search: function (query) {
@@ -36774,11 +36838,11 @@
 	};
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var PublicDeckConstants = __webpack_require__(317);
+	var PublicDeckConstants = __webpack_require__(318);
 	var DeckConstants = __webpack_require__(273);
 	
 	module.exports = {
@@ -36827,15 +36891,15 @@
 	};
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(316);
-	var PublicDeckActions = __webpack_require__(318);
-	var HeaderWithBack = __webpack_require__(305);
-	var PreviewList = __webpack_require__(321);
-	var PreviewInfo = __webpack_require__(322);
+	var PublicDeckStore = __webpack_require__(317);
+	var PublicDeckActions = __webpack_require__(319);
+	var HeaderWithBack = __webpack_require__(306);
+	var PreviewList = __webpack_require__(322);
+	var PreviewInfo = __webpack_require__(323);
 	
 	var PublicDeckPreview = React.createClass({
 	  displayName: 'PublicDeckPreview',
@@ -36894,12 +36958,12 @@
 	module.exports = PublicDeckPreview;
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Preview = __webpack_require__(300);
+	var Preview = __webpack_require__(301);
 	
 	var PreviewList = React.createClass({
 	  displayName: 'PreviewList',
@@ -36931,12 +36995,12 @@
 	module.exports = PreviewList;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(316);
-	var PublicDeckStore = __webpack_require__(316);
+	var PublicDeckStore = __webpack_require__(317);
+	var PublicDeckStore = __webpack_require__(317);
 	var PreviewInfo = React.createClass({
 	  displayName: 'PreviewInfo',
 	
@@ -37000,69 +37064,6 @@
 	});
 	
 	module.exports = PreviewInfo;
-
-/***/ },
-/* 323 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GraphUtil = __webpack_require__(278);
-	
-	ReviewProgressCircle = React.createClass({
-	  displayName: 'ReviewProgressCircle',
-	
-	  getInitialState: function () {
-	    return { theta: 0 };
-	  },
-	  componentDidMount: function () {
-	    var self = this;
-	    this.state.drawToken = setInterval(function () {
-	      self.draw();
-	    }, 20);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.state.theta = 0;
-	    clearInterval(this.state.drawToken);
-	  },
-	
-	  // componentDidUpdate: function() {
-	  //     this.updateCanvas();
-	  // },
-	  draw: function () {
-	    var c = this.refs.canvas.getContext('2d');
-	    this.state.theta += 0.1;
-	
-	    c.clearRect(0, 0, 400, 400);
-	
-	    c.globalAlpha = 0.8;
-	    c.fillStyle = "black";
-	    GraphUtil.roundedSquare(c, 5, 15, 370, 385);
-	
-	    c.translate(190, 200);
-	    c.rotate(this.state.theta);
-	    c.strokeStyle = "#25A3FC";
-	    c.lineWidth = 15;
-	
-	    var incrementTotal = 60;
-	    for (var i = 0; i < incrementTotal; i++) {
-	      c.globalAlpha = 1 / incrementTotal * i;
-	      c.beginPath();
-	      c.arc(0, 0, 100, (i + GraphUtil.loadingOverlapOffset(i)) / (incrementTotal / 2) * Math.PI, (i + 1) / (incrementTotal / 2) * Math.PI, false);
-	      c.stroke();
-	    }
-	
-	    c.globalAlpha = 1;
-	    c.rotate(-this.state.theta);
-	    c.translate(-190, -200);
-	  },
-	
-	  render: function () {
-	    return React.createElement('canvas', { ref: 'canvas', width: 380, height: 380 });
-	  }
-	});
-	
-	module.exports = ReviewProgressCircle;
 
 /***/ }
 /******/ ]);

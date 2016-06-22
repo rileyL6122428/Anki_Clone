@@ -8,7 +8,7 @@ var LoadingBar = require('../graphs/loading_bar');
 var FlashcardIndex = React.createClass({
 
   getInitialState: function () {
-    return({ flashcards: FlashcardStore.all() })
+    return({ flashcards: FlashcardStore.all(), cardsReceived: false })
   },
 
   componentDidMount: function () {
@@ -17,7 +17,7 @@ var FlashcardIndex = React.createClass({
   },
 
   flashcardStoreCB: function () {
-    this.setState({ flashcards: FlashcardStore.all() });
+    this.setState({ flashcards: FlashcardStore.all() , cardsReceived: true});
   },
 
   componentWillReceiveProps: function (props) {
@@ -26,12 +26,13 @@ var FlashcardIndex = React.createClass({
 
   componentWillUnmount: function () {
     this.listenerToken.remove();
+    this.state.cardsReceived = false;
   },
 
   render: function () {
     var list = "";
     var deckId = this.props.deckId;
-    if(this.state.flashcards.length !== 0) {
+    if(this.state.cardsReceived) {
     // if(false) { NOTE for testing only
 
       var list = (
