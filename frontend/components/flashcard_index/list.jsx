@@ -3,6 +3,7 @@ var FlashcardStore = require('../../stores/flashcard_store');
 var FlashcardActions = require('../../actions/flashcard_actions');
 var FlashcardIndexItem = require('./index_item');
 var GraphUtil = require('../graphs/graph_util');
+var LoadingBar = require('../graphs/loading_bar');
 
 var FlashcardIndex = React.createClass({
 
@@ -31,6 +32,7 @@ var FlashcardIndex = React.createClass({
     var list = "";
     var deckId = this.props.deckId;
     if(this.state.flashcards.length !== 0) {
+    // if(false) { NOTE for testing only
 
       var list = (
         <div className="Wrapper">
@@ -49,16 +51,21 @@ var FlashcardIndex = React.createClass({
         }
         </div>
       );
+      return(
+        <div className="List-Div">
+          <ul>
+            {list}
+          </ul>
+        </div>
+      );
+    } else {
+      return (
+        <div className="Loading-Bar">
+          <LoadingBar/>
+        </div>
+      )
     }
 
-    return(
-      <div className="List-Div">
-        <ul>
-          {list}
-        </ul>
-      </div>
-
-    );
   }
 });
 

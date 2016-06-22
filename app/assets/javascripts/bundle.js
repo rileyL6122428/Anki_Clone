@@ -34409,6 +34409,39 @@
 	
 	  angleByPercentageCompletion: function (cardsFinished, total) {
 	    return Math.PI * (2 * (cardsFinished / total) - 0.5);
+	  },
+	
+	  loadingOverlapOffset: function (rotateIdx) {
+	    if (rotateIdx < 15) {
+	      return 0;
+	    } else if (rotateIdx < 30) {
+	      return -0.01;
+	    } else if (rotateIdx < 45) {
+	      return -0.018;
+	    } else if (rotateIdx < 60) {
+	      return -0.035;
+	    }
+	  },
+	
+	  roundedSquare: function (c, x, y, side) {
+	    c.beginPath();
+	    c.moveTo(x + side / 10, y + side / 10);
+	    c.arc(x + side / 10, y + side / 10, side / 10, Math.PI, 1.5 * Math.PI, false);
+	
+	    c.lineTo(x + 9 * side / 10, y);
+	    c.lineTo(x + 9 * side / 10, y + side / 10);
+	    c.arc(x + 9 * side / 10, y + side / 10, side / 10, 1.5 * Math.PI, 2 * Math.PI, false);
+	
+	    c.lineTo(x + side, y + side * 9 / 10);
+	    c.lineTo(x + 9 * side / 10, y + side * 9 / 10);
+	    c.arc(x + 9 * side / 10, y + side * 9 / 10, side / 10, 2 * Math.PI, 2.5 * Math.PI, false);
+	
+	    c.lineTo(x + side / 10, y + side);
+	    c.lineTo(x + side / 10, y + side * 9 / 10);
+	    c.arc(x + side / 10, y + side * 9 / 10, side / 10, 2.5 * Math.PI, 3 * Math.PI, false);
+	
+	    c.lineTo(x, y + side / 10);
+	    c.fill();
 	  }
 	};
 
@@ -35156,6 +35189,7 @@
 	var FlashcardActions = __webpack_require__(296);
 	var FlashcardIndexItem = __webpack_require__(298);
 	var GraphUtil = __webpack_require__(278);
+	var LoadingBar = __webpack_require__(323);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -35186,6 +35220,7 @@
 	    var list = "";
 	    var deckId = this.props.deckId;
 	    if (this.state.flashcards.length !== 0) {
+	      // if(false) { NOTE for testing only
 	
 	      var list = React.createElement(
 	        'div',
@@ -35200,17 +35235,22 @@
 	            deckId: deckId });
 	        })
 	      );
+	      return React.createElement(
+	        'div',
+	        { className: 'List-Div' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          list
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'Loading-Bar' },
+	        React.createElement(LoadingBar, null)
+	      );
 	    }
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'List-Div' },
-	      React.createElement(
-	        'ul',
-	        null,
-	        list
-	      )
-	    );
 	  }
 	});
 	
@@ -36960,6 +37000,69 @@
 	});
 	
 	module.exports = PreviewInfo;
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GraphUtil = __webpack_require__(278);
+	
+	ReviewProgressCircle = React.createClass({
+	  displayName: 'ReviewProgressCircle',
+	
+	  getInitialState: function () {
+	    return { theta: 0 };
+	  },
+	  componentDidMount: function () {
+	    var self = this;
+	    this.state.drawToken = setInterval(function () {
+	      self.draw();
+	    }, 20);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.state.theta = 0;
+	    clearInterval(this.state.drawToken);
+	  },
+	
+	  // componentDidUpdate: function() {
+	  //     this.updateCanvas();
+	  // },
+	  draw: function () {
+	    var c = this.refs.canvas.getContext('2d');
+	    this.state.theta += 0.1;
+	
+	    c.clearRect(0, 0, 400, 400);
+	
+	    c.globalAlpha = 0.8;
+	    c.fillStyle = "black";
+	    GraphUtil.roundedSquare(c, 5, 15, 370, 385);
+	
+	    c.translate(190, 200);
+	    c.rotate(this.state.theta);
+	    c.strokeStyle = "#25A3FC";
+	    c.lineWidth = 15;
+	
+	    var incrementTotal = 60;
+	    for (var i = 0; i < incrementTotal; i++) {
+	      c.globalAlpha = 1 / incrementTotal * i;
+	      c.beginPath();
+	      c.arc(0, 0, 100, (i + GraphUtil.loadingOverlapOffset(i)) / (incrementTotal / 2) * Math.PI, (i + 1) / (incrementTotal / 2) * Math.PI, false);
+	      c.stroke();
+	    }
+	
+	    c.globalAlpha = 1;
+	    c.rotate(-this.state.theta);
+	    c.translate(-190, -200);
+	  },
+	
+	  render: function () {
+	    return React.createElement('canvas', { ref: 'canvas', width: 380, height: 380 });
+	  }
+	});
+	
+	module.exports = ReviewProgressCircle;
 
 /***/ }
 /******/ ]);

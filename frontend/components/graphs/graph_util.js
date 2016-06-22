@@ -30,5 +30,33 @@ module.exports = {
 
   angleByPercentageCompletion: function (cardsFinished, total) {
     return (Math.PI * ( 2 * (cardsFinished / total) - 0.5 ))
+  },
+
+  loadingOverlapOffset: function (rotateIdx) {
+         if( rotateIdx < 15) { return  0    ; }
+    else if (rotateIdx < 30) { return -0.01 ; }
+    else if (rotateIdx < 45) { return -0.018; }
+    else if (rotateIdx < 60) { return -0.035; }
+  },
+
+  roundedSquare: function (c, x, y, side) {
+    c.beginPath();
+    c.moveTo(x + side / 10, y + side / 10)
+    c.arc(x + side / 10, y + side / 10, side / 10,  Math.PI, 1.5 * Math.PI, false);
+
+    c.lineTo(x + 9 * side / 10, y)
+    c.lineTo(x + 9 * side / 10, y + side / 10)
+    c.arc(x + 9 * side / 10, y + side / 10, side / 10, 1.5 * Math.PI, 2 * Math.PI, false);
+
+    c.lineTo(x + side , y + side * 9 / 10)
+    c.lineTo(x + 9 * side / 10, y + side * 9 / 10)
+    c.arc(x + 9 * side / 10, y + side * 9 / 10, side / 10, 2 * Math.PI, 2.5 * Math.PI, false);
+
+    c.lineTo(x + side / 10, y + side);
+    c.lineTo(x + side / 10 , y + side * 9 / 10);
+    c.arc(x + side / 10, y + side * 9 / 10, side / 10, 2.5 * Math.PI, 3 * Math.PI, false);
+
+    c.lineTo(x, y + side / 10)
+    c.fill();
   }
 }
