@@ -34319,6 +34319,10 @@
 	    if (this.props.grade) {
 	      grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade);
 	    }
+	    var name = this.props.name;
+	    if (name.length > 15) {
+	      name = name.slice(0, 14) + "...";
+	    }
 	
 	    var arrowRight = ">";
 	    return React.createElement(
@@ -34333,7 +34337,7 @@
 	          React.createElement(
 	            'h5',
 	            null,
-	            this.props.name
+	            name
 	          ),
 	          React.createElement(
 	            'div',
@@ -34521,18 +34525,6 @@
 	  getInitialState: function () {
 	    return { name: "", description: "" };
 	  },
-	
-	  // componentDidMount: function () {
-	  //   this.listenerToken = DeckStore.addListener(this.deckStoreCB);
-	  // },
-	  //
-	  // componentWillUnmount: function () {
-	  //   this.listenerToken.remove();
-	  // },
-	  //
-	  // deckStoreCB: function () {
-	  //   this.context.router.push("/decks/" + this.state.deck.id);
-	  // },
 	
 	  changeName: function (e) {
 	    var newName = e.target.value;

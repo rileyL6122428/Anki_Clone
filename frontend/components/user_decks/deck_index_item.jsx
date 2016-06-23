@@ -8,13 +8,15 @@ var DeckIndexItem = React.createClass({
     if (this.props.grade) {
       grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade)
     }
+    var name = this.props.name
+    if(name.length > 15){ name = name.slice(0, 14) + "..."}
 
     var arrowRight = ">";
     return(
       <Link to={ this.props.urlFront + this.props.id }>
         <li className="Deck-Index-Item">
             <div className="Left-Side-Content" >
-              <h5>{this.props.name}</h5>
+              <h5>{ name }</h5>
 
               <div className="group Card-Count">
                 <div className="Cards-Image"></div>
