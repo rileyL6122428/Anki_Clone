@@ -11,7 +11,7 @@ var Content = React.createClass({
   },
 
   getInitialState: function() {
-    return({ deck: null })
+    return({ deck: DeckStore.find(parseInt(this.props.deckId)) })
   },
 
   componentDidMount: function (){

@@ -20,7 +20,7 @@ var Info = React.createClass ({
             <p style={{color: GraphUtil.colorByPercentage(grade)}}>
               { displayGrade }
             </p>
-            <div>Grade</div>
+            <div>Mastery</div>
           </div>
         </div>
 

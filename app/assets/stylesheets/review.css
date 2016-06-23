@@ -11,6 +11,8 @@
 canvas.Progress-Circle {
   height: 24px;
   width: 24px;
+  position: absolute;
+  right: 0;
 }
 
 .Review button.BackLink {
