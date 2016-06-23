@@ -12,7 +12,8 @@
   display: block;
   width: 100%;
   margin: 0px;
-  float: left;
+  border-bottom: 0;
+  /*float: left;*/
 }
 
 .Flashcard-Index a.Header-Link{
@@ -121,9 +122,9 @@ li.Flashcard-Index-Item > div {
 
 .Flashcard-Index div.Search-Container {
   display: block;
-  height: 70px;
+  height: 30px;
   padding-top: 10px;
-  border-top: 1px solid gray;
+  /*border-top: 1px solid gray;*/
 }
 
 .Flashcard-Index .Search-Container label {
@@ -136,7 +137,7 @@ li.Flashcard-Index-Item > div {
 .Flashcard-Index .Search-Container input {
   display: block;
   width: 92%;
-  margin-top: 100px;
+  /*margin-top: 100px;*/
   /*margin: auto;*/
 }
 
