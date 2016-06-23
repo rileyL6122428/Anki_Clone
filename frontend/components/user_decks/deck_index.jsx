@@ -2,16 +2,22 @@ var React = require('react');
 var DeckStore = require('../../stores/deck_store');
 var DeckActions = require('../../actions/deck_actions');
 var DeckIndexItem = require('./deck_index_item');
+var LoadingBar = require('../graphs/loading_bar');
 
 var DeckIndex = React.createClass({
 
   getInitialState: function () {
-    return({ decks: DeckStore.all() })
+    return({ decks: DeckStore.all(), minimumLoadTimeFinished: false })
   },
 
   componentDidMount: function () {
     this.listenerToken = DeckStore.addListener(this.deckStoreCB);
     DeckActions.fetchDecks();
+
+    var self = this;
+    setTimeout(function() {
+      self.setState({minimumLoadTimeFinished: true})
+    }, 1000)
   },
 
   deckStoreCB: function () {
@@ -42,14 +48,17 @@ var DeckIndex = React.createClass({
       </div>
     );
 
-    return(
-      <div>
-        <ul>
-          {deckList}
-        </ul>
-      </div>
-
-    );
+    if(this.state.minimumLoadTimeFinished) {
+      return(
+        <div>
+          <ul>
+            {deckList}
+          </ul>
+        </div>
+      );
+    } else {
+      return(<div className="Loading-Bar"><LoadingBar/></div>);
+    }
   }
 });
 

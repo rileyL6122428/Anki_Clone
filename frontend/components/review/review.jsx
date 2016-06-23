@@ -4,12 +4,12 @@ var Front = require('./front');
 var Flipped = require('./flipped');
 var FlashcardStore = require('../../stores/flashcard_store');
 var FlashcardActions = require('../../actions/flashcard_actions');
+var DeckActions = require('../../actions/deck_actions');
 var ReviewActions = require('../../actions/review_actions');
 var DeckStore = require('../../stores/deck_store');
 var ReviewProgressCircle = require('../graphs/review_progress_bar');
 
 var Review =  React.createClass({
-
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -29,6 +29,7 @@ var Review =  React.createClass({
     this.cardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
     this.deckListenerToken = DeckStore.addListener(this.deckStoreCB);
     FlashcardActions.fetchFlashcards(this.props.params.id);
+    DeckActions.fetchADeck(this.props.params.id);
   },
 
   flashcardStoreCB: function () {
@@ -109,8 +110,7 @@ var Review =  React.createClass({
   render: function () {
     var arrow = "<"
     var title = "Review";
-    var cardFront = "";
-    var cardBack = "";
+    var cardFront = cardBack = deckName =  "";
     var totalCards = 1;
     var cardTotal = this.state.cards.length
     if (this.state.cards && this.state.cardIdx < cardTotal) {
@@ -119,7 +119,7 @@ var Review =  React.createClass({
       totalCards = this.state.cards.length;
     }
     if(this.state.cardIdx === cardTotal) { title = "Recap"; }
-
+    if(this.state.deck) { deckName = this.state.deck.name; }
     return (
       <div className="Parent-Component Review">
         <h1>
@@ -128,7 +128,7 @@ var Review =  React.createClass({
 
         </h1>
 
-        <h6>{ this.state.deck.name }
+        <h6>{ deckName }
           <ReviewProgressCircle className="Progress-Circle"
                                 completedCards={ this.state.cardIdx }
                                 totalCards={ cardTotal } /></h6>

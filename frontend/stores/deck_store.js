@@ -11,10 +11,7 @@ var _decks = {};
 
 DeckStore.all = function () {
   var decks = [];
-
-  for(var id in _decks) {
-    decks.push(_decks[id]);
-  }
+  for(var id in _decks) { decks.push(_decks[id]); }
   return(decks);
 }
 
@@ -38,7 +35,7 @@ var receiveDecks = function (decks) {
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
   DeckStore.__emitChange();
-  hashHistory.push('/decks/'+deck.id);
+
 
 }
 

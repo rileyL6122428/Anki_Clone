@@ -11,18 +11,22 @@ var Form = React.createClass({
 
   getInitialState: function () {
     var card = FlashcardStore.find(this.props.cardId);
-
-    return({ front: card.front, back: card.back });
+    cardFront = cardBack = "";
+    if(card) {
+      cardFront = card.Front;
+      cardBack = card.back;
+    }
+    return({ front: cardFront, back: cardBack });
   },
 
   componentDidMount: function () {
     this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+    FlashcardActions.fetchAFlashcard(this.props.cardId);
   },
 
   flashcardStoreCB: function () {
-    var deckId = this.props.deckId;
-    var cardId = this.props.cardId;
-    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
+    var card = FlashcardStore.find(this.props.cardId);
+    this.setState({ front: card.front, back: card.back });
   },
 
   componentWillUnmount: function () {
@@ -46,6 +50,10 @@ var Form = React.createClass({
         back: this.state.back,
         id: this.props.cardId
       });
+
+    var deckId = this.props.deckId;
+    var cardId = this.props.cardId;
+    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
   },
 
   render: function () {

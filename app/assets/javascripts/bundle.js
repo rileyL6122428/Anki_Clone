@@ -33990,18 +33990,24 @@
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(275);
 	var DeckIndexItem = __webpack_require__(277);
+	var LoadingBar = __webpack_require__(299);
 	
 	var DeckIndex = React.createClass({
 	  displayName: 'DeckIndex',
 	
 	
 	  getInitialState: function () {
-	    return { decks: DeckStore.all() };
+	    return { decks: DeckStore.all(), minimumLoadTimeFinished: false };
 	  },
 	
 	  componentDidMount: function () {
 	    this.listenerToken = DeckStore.addListener(this.deckStoreCB);
 	    DeckActions.fetchDecks();
+	
+	    var self = this;
+	    setTimeout(function () {
+	      self.setState({ minimumLoadTimeFinished: true });
+	    }, 1000);
 	  },
 	
 	  deckStoreCB: function () {
@@ -34030,15 +34036,23 @@
 	      })
 	    );
 	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'ul',
+	    if (this.state.minimumLoadTimeFinished) {
+	      return React.createElement(
+	        'div',
 	        null,
-	        deckList
-	      )
-	    );
+	        React.createElement(
+	          'ul',
+	          null,
+	          deckList
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'Loading-Bar' },
+	        React.createElement(LoadingBar, null)
+	      );
+	    }
 	  }
 	});
 	
@@ -34060,7 +34074,6 @@
 	
 	DeckStore.all = function () {
 	  var decks = [];
-	
 	  for (var id in _decks) {
 	    decks.push(_decks[id]);
 	  }
@@ -34089,7 +34102,6 @@
 	var receiveADeck = function (deck) {
 	  _decks[deck.id] = deck;
 	  DeckStore.__emitChange();
-	  hashHistory.push('/decks/' + deck.id);
 	};
 	
 	var removeDeck = function (deck) {
@@ -36109,18 +36121,22 @@
 	
 	  getInitialState: function () {
 	    var card = FlashcardStore.find(this.props.cardId);
-	
-	    return { front: card.front, back: card.back };
+	    cardFront = cardBack = "";
+	    if (card) {
+	      cardFront = card.Front;
+	      cardBack = card.back;
+	    }
+	    return { front: cardFront, back: cardBack };
 	  },
 	
 	  componentDidMount: function () {
 	    this.eventToken = FlashcardStore.addListener(this.flashcardStoreCB);
+	    FlashcardActions.fetchAFlashcard(this.props.cardId);
 	  },
 	
 	  flashcardStoreCB: function () {
-	    var deckId = this.props.deckId;
-	    var cardId = this.props.cardId;
-	    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
+	    var card = FlashcardStore.find(this.props.cardId);
+	    this.setState({ front: card.front, back: card.back });
 	  },
 	
 	  componentWillUnmount: function () {
@@ -36144,6 +36160,10 @@
 	      back: this.state.back,
 	      id: this.props.cardId
 	    });
+	
+	    var deckId = this.props.deckId;
+	    var cardId = this.props.cardId;
+	    this.context.router.push("/decks/" + deckId + "/flashcards/" + cardId);
 	  },
 	
 	  render: function () {
@@ -36201,13 +36221,13 @@
 	var Flipped = __webpack_require__(313);
 	var FlashcardStore = __webpack_require__(293);
 	var FlashcardActions = __webpack_require__(296);
+	var DeckActions = __webpack_require__(275);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
 	var ReviewProgressCircle = __webpack_require__(314);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
-	
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
@@ -36228,6 +36248,7 @@
 	    this.cardListenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
 	    this.deckListenerToken = DeckStore.addListener(this.deckStoreCB);
 	    FlashcardActions.fetchFlashcards(this.props.params.id);
+	    DeckActions.fetchADeck(this.props.params.id);
 	  },
 	
 	  flashcardStoreCB: function () {
@@ -36312,8 +36333,7 @@
 	  render: function () {
 	    var arrow = "<";
 	    var title = "Review";
-	    var cardFront = "";
-	    var cardBack = "";
+	    var cardFront = cardBack = deckName = "";
 	    var totalCards = 1;
 	    var cardTotal = this.state.cards.length;
 	    if (this.state.cards && this.state.cardIdx < cardTotal) {
@@ -36324,7 +36344,9 @@
 	    if (this.state.cardIdx === cardTotal) {
 	      title = "Recap";
 	    }
-	
+	    if (this.state.deck) {
+	      deckName = this.state.deck.name;
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'Parent-Component Review' },
@@ -36345,7 +36367,7 @@
 	      React.createElement(
 	        'h6',
 	        null,
-	        this.state.deck.name,
+	        deckName,
 	        React.createElement(ReviewProgressCircle, { className: 'Progress-Circle',
 	          completedCards: this.state.cardIdx,
 	          totalCards: cardTotal })
