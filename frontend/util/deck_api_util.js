@@ -35,7 +35,7 @@ module.exports = {
       data: { deck: deck },
       success: function(deck){
         AppDispatcher.dispatch({
-          actionType: DeckConstants.RECEIVE_DECK,
+          actionType: DeckConstants.RECEIVE_CREATED_DECK,
           deck: deck
         })
       }

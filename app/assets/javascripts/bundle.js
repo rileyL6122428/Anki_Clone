@@ -34116,6 +34116,11 @@
 	  DeckStore.__emitChange();
 	};
 	
+	var receiveACreatedDeck = function (deck) {
+	  receiveADeck(deck);
+	  hashHistory.push("/decks/" + deck.id);
+	};
+	
 	var removeDeck = function (deck) {
 	  delete _decks[deck.id];
 	  DeckStore.__emitChange();
@@ -34133,6 +34138,9 @@
 	      break;
 	    case DeckConstants.RECEIVE_DECK:
 	      receiveADeck(payload.deck);
+	      break;
+	    case DeckConstants.RECEIVE_CREATED_DECK:
+	      receiveACreatedDeck(payload.deck);
 	      break;
 	    case DeckConstants.REMOVE_DECK:
 	      removeDeck(payload.deck);
@@ -34152,7 +34160,9 @@
 	module.exports = {
 	  RECEIVE_DECKS: "RECEIVE_DECKS",
 	  RECEIVE_DECK: "RECEIVE_DECK",
+	  RECEIVE_CREATED_DECK: "RECEIVE_CREATED_DECK",
 	  REMOVE_DECK: "REMOVE_DECK"
+	
 	};
 
 /***/ },
@@ -34258,7 +34268,7 @@
 	      data: { deck: deck },
 	      success: function (deck) {
 	        AppDispatcher.dispatch({
-	          actionType: DeckConstants.RECEIVE_DECK,
+	          actionType: DeckConstants.RECEIVE_CREATED_DECK,
 	          deck: deck
 	        });
 	      }
@@ -34511,6 +34521,18 @@
 	  getInitialState: function () {
 	    return { name: "", description: "" };
 	  },
+	
+	  // componentDidMount: function () {
+	  //   this.listenerToken = DeckStore.addListener(this.deckStoreCB);
+	  // },
+	  //
+	  // componentWillUnmount: function () {
+	  //   this.listenerToken.remove();
+	  // },
+	  //
+	  // deckStoreCB: function () {
+	  //   this.context.router.push("/decks/" + this.state.deck.id);
+	  // },
 	
 	  changeName: function (e) {
 	    var newName = e.target.value;

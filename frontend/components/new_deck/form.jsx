@@ -13,6 +13,18 @@ var Form = React.createClass({
     return({ name: "", description: "" });
   },
 
+  // componentDidMount: function () {
+  //   this.listenerToken = DeckStore.addListener(this.deckStoreCB);
+  // },
+  //
+  // componentWillUnmount: function () {
+  //   this.listenerToken.remove();
+  // },
+  //
+  // deckStoreCB: function () {
+  //   this.context.router.push("/decks/" + this.state.deck.id);
+  // },
+
   changeName: function (e) {
     var newName = e.target.value
     this.setState({ name: newName })

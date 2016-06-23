@@ -35,8 +35,11 @@ var receiveDecks = function (decks) {
 var receiveADeck = function (deck) {
   _decks[deck.id] = deck;
   DeckStore.__emitChange();
+}
 
-
+var receiveACreatedDeck = function (deck) {
+  receiveADeck(deck);
+  hashHistory.push("/decks/" + deck.id);
 }
 
 var removeDeck = function(deck){
@@ -57,6 +60,9 @@ var receiveReviewResults = function (deck) {
      case DeckConstants.RECEIVE_DECK:
        receiveADeck(payload.deck);
        break;
+      case DeckConstants.RECEIVE_CREATED_DECK:
+        receiveACreatedDeck(payload.deck)
+        break;
      case DeckConstants.REMOVE_DECK:
        removeDeck(payload.deck);
        break;
