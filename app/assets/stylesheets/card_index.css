@@ -31,8 +31,9 @@
 
 .Flashcard-Index a.New{
   top: 5px;
-  left: 94%;
-  float: left;
+  right: 9px;
+  /*left: 94%;*/
+  /*float: left;*/
   width: 60px;
   text-decoration: none;
 }
