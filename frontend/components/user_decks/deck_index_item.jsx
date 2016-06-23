@@ -9,7 +9,7 @@ var DeckIndexItem = React.createClass({
       grade = Math.round(this.props.grade) + "% " + GraphUtil.gradeByPercentage(this.props.grade)
     }
     var name = this.props.name
-    if(name.length > 15){ name = name.slice(0, 14) + "..."}
+    if(name.length > 16){ name = name.slice(0, 13) + "..."}
 
     var arrowRight = ">";
     return(
@@ -20,7 +20,7 @@ var DeckIndexItem = React.createClass({
 
               <div className="group Card-Count">
                 <div className="Cards-Image"></div>
-                <p>{this.props.totalCards}</p>
+                <p>{ this.props.totalCards }</p>
               </div>
             </div>
 

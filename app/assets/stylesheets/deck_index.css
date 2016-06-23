@@ -38,6 +38,7 @@
   border-right: 3px solid rgba(0,0,0,0.2);
 
   margin: 10px 20px;
+  min-width: 420px;
 }
 
 .Deck-Index-Item .Left-Side-Content {
