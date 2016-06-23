@@ -116,7 +116,7 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { onEnter: directUser }),
-	    React.createElement(Route, { path: 'auth', component: AuthForm }),
+	    React.createElement(Route, { path: 'auth', component: AuthForm, onEnter: _checkLogInStatus }),
 	    React.createElement(Route, { path: 'dashboard', component: Dashboard, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'profile', component: ProfilePage, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'decks', component: UserDecks, onEnter: _ensureLoggedIn }),
@@ -148,6 +148,18 @@
 	
 	    if (!UserStore.currentUser()) {
 	      replace('/auth');
+	    }
+	    token.remove();
+	    asyncDoneCallback();
+	  });
+	}
+	
+	function _checkLogInStatus(nextState, replace, asyncDoneCallback) {
+	  UserActions.fetchCurrentUser();
+	  var token = UserStore.addListener(function () {
+	
+	    if (UserStore.currentUser()) {
+	      replace('/dashboard');
 	    }
 	    token.remove();
 	    asyncDoneCallback();

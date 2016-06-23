@@ -64,7 +64,7 @@ var Router = (
   <Router history={hashHistory} >
     <Route path='/' component={App} >
       <IndexRoute  onEnter={directUser}/>
-      <Route path='auth' component={AuthForm} />
+      <Route path='auth' component={AuthForm} onEnter={_checkLogInStatus}/>
       <Route path='dashboard' component={Dashboard} onEnter={_ensureLoggedIn} />
       <Route path='profile' component={ProfilePage} onEnter={_ensureLoggedIn} />
       <Route path='decks' component={UserDecks} onEnter={_ensureLoggedIn} />
@@ -96,6 +96,16 @@ function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
   var token = UserStore.addListener(function(){
 
     if( !UserStore.currentUser() ) { replace('/auth'); }
+    token.remove();
+    asyncDoneCallback();
+  });
+}
+
+function _checkLogInStatus(nextState, replace, asyncDoneCallback) {
+  UserActions.fetchCurrentUser();
+  var token = UserStore.addListener(function(){
+
+    if(UserStore.currentUser()) { replace('/dashboard'); }
     token.remove();
     asyncDoneCallback();
   });
