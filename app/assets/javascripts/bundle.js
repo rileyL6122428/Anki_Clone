@@ -35196,12 +35196,21 @@
 	
 	
 	  getInitialState: function () {
-	    return { flashcards: FlashcardStore.all(), cardsReceived: false };
+	    return {
+	      flashcards: FlashcardStore.all(),
+	      cardsReceived: false,
+	      minimumLoadTimeFinished: false
+	    };
 	  },
 	
 	  componentDidMount: function () {
 	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
 	    FlashcardActions.fetchFlashcards(this.props.deckId);
+	
+	    var self = this;
+	    setTimeout(function () {
+	      self.setState({ minimumLoadTimeFinished: true });
+	    }, 1000);
 	  },
 	
 	  flashcardStoreCB: function () {
@@ -35220,7 +35229,7 @@
 	  render: function () {
 	    var list = "";
 	    var deckId = this.props.deckId;
-	    if (this.state.cardsReceived) {
+	    if (this.state.cardsReceived && this.state.minimumLoadTimeFinished) {
 	      // if(false) { NOTE for testing only
 	
 	      var list = React.createElement(
