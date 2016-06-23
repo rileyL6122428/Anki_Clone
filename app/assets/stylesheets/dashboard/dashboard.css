@@ -1,5 +1,4 @@
 .DashBoard {
-
   text-align: center;
 }
 
@@ -26,8 +25,8 @@
 .DashBoard .Info {
 
   width: 50%;
-  height: 100%;
-
+  height: 230px;
+  min-width: 420px;
   float: left;
 
 }
@@ -59,9 +58,9 @@
   text-align: center;
 
   width: 50%;
-  height: 100%;
-
-  float: right;
+  height: 230px;
+  min-width: 420px;
+  float: left;
 }
 
 .Footer {
