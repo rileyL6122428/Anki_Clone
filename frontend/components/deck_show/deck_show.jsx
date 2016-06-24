@@ -22,7 +22,7 @@ var DeckShow = React.createClass({
      } else {
        self.setState({ windowCompressed: false });
      }
-   }, 1000);
+   }, 700);
   },
 
   render: function () {

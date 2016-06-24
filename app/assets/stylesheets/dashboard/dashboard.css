@@ -93,3 +93,12 @@
   padding-left: 2%;
   width: 97%;
 }
+
+.Compressed.DashBoard .Info, .Compressed.DashBoard .Display {
+  float: none;
+  margin: auto;
+}
+
+.Compressed.DashBoard .Display {
+  margin-top: 40px;
+}

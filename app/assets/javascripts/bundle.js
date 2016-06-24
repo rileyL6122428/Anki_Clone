@@ -33262,10 +33262,32 @@
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
 	
+	
+	  getInitialState: function () {
+	    return { windowCompressed: false };
+	  },
+	
+	  componentDidMount: function () {
+	
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 1025) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 700);
+	  },
+	
 	  render: function () {
+	    var compressionStatus = "";
+	    if (this.state.windowCompressed) {
+	      compressionStatus = "Compressed";
+	    }
+	
 	    return React.createElement(
 	      'div',
-	      { className: 'DashBoard' },
+	      { className: "DashBoard " + compressionStatus },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -34736,7 +34758,7 @@
 	      } else {
 	        self.setState({ windowCompressed: false });
 	      }
-	    }, 1000);
+	    }, 700);
 	  },
 	
 	  render: function () {
