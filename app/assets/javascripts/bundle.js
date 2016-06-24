@@ -36193,7 +36193,7 @@
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(297);
 	var FlashcardStore = __webpack_require__(294);
-	var Preview = __webpack_require__(301);
+	var EditPreview = __webpack_require__(324);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36287,7 +36287,7 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
 	      ),
-	      React.createElement(Preview, { card: this.state }),
+	      React.createElement(EditPreview, { card: this.state }),
 	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }
@@ -37199,6 +37199,57 @@
 	});
 	
 	module.exports = PreviewInfo;
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var EditPreview = React.createClass({
+	  displayName: "EditPreview",
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "Preview" },
+	      React.createElement(
+	        "div",
+	        { className: "List-Center" },
+	        React.createElement(
+	          "div",
+	          { className: "Section" },
+	          React.createElement(
+	            "div",
+	            { className: "Front" },
+	            React.createElement(
+	              "div",
+	              { className: "Preview-Text" },
+	              this.props.card.front
+	            )
+	          )
+	        ),
+	        React.createElement("div", { className: "Preview-Divider" }),
+	        React.createElement(
+	          "div",
+	          { className: "Section P-Back" },
+	          React.createElement(
+	            "div",
+	            { className: "Back" },
+	            React.createElement(
+	              "div",
+	              { className: "Preview-Text" },
+	              this.props.card.back
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = EditPreview;
 
 /***/ }
 /******/ ]);

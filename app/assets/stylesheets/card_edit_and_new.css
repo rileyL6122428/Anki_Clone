@@ -39,7 +39,7 @@
   position: relative;
   text-align: center;
   display: block;
-  height:40px;
+  /*height:40px;*/
   width: 100%;
 }
 
@@ -47,7 +47,7 @@
   position: relative;
   text-align: center;
   display: block;
-  height: 27px;
+  /*height: 27px;*/
   width: 100%;
 }
 
@@ -60,7 +60,7 @@
   right: 5%;
   margin: auto;
   width:90%;
-  height: 70%;
+  /*height: 70%;*/
 
   /*height: 30%;*/
 
@@ -90,7 +90,6 @@
   margin: auto;
   margin-top: 12px;
   width:90%;
-  height: 100%;
 
   border: 2px dashed rgb(37, 163, 252);
 }
@@ -129,4 +128,12 @@
   font-size: 20px;
 
   z-index: 100;
+}
+
+.Flashcard-Edit .Preview-Text {
+  min-height: 30px;
+}
+
+.Flashcard-Edit div.Preview-Divider {
+  margin-top: 14px;
 }

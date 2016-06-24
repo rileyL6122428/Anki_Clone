@@ -1,7 +1,7 @@
 var React = require('react');
 var FlashcardActions = require('../../actions/flashcard_actions');
 var FlashcardStore = require('../../stores/flashcard_store');
-var Preview = require('../flashcard_show/preview');
+var EditPreview = require('./edit_preview');
 
 var Form = React.createClass({
 
@@ -82,7 +82,7 @@ var Form = React.createClass({
 
         </form>
 
-        <Preview card={this.state}/>
+        <EditPreview card={this.state}/>
         <div className="ClearSet" />
       </div>
     )
