@@ -8,19 +8,19 @@ var Info = React.createClass ({
     var displayGrade = grade + "% " + GraphUtil.gradeByPercentage(grade)
 
     return(
-      <div className="DeckInfo">
+      <div className={"DeckInfo"}>
         <h4 className="Stat-Header">Info</h4>
         <div className="Display-Stats group">
           <div className="Card-Total-Display">
-            <p>{ this.props.cardTotal }</p>
-            <div>Card Total</div>
+            <p className="stat">{ this.props.cardTotal }</p>
+            <div className="label">Card Total</div>
           </div>
 
           <div className="Grade-Display">
-            <p style={{color: GraphUtil.colorByPercentage(grade)}}>
+            <p className="stat" style={{color: GraphUtil.colorByPercentage(grade)}}>
               { displayGrade }
             </p>
-            <div>Mastery</div>
+            <div className="label">Mastery</div>
           </div>
         </div>
 

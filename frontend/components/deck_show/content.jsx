@@ -25,6 +25,7 @@ var Content = React.createClass({
 
   componentWillUnmount: function () {
     this.listenerToken.remove();
+    clearInterval(this.intervalId);
   },
 
   reviewCB: function (e) {
@@ -54,13 +55,13 @@ var Content = React.createClass({
       cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
     }
 
+    // console.log(compressStatus);
     return(
       <div className="ShowContent">
         <h2>{deckName}</h2>
         <Info cardTotal={cardTotal}
               grade={grade}
               gradeDistribution={gradeDistribution}/>
-        <div className="Divider"></div>
         <History reviewsToday={reviewsToday}
                  reviewsPerDay={ reviewsPerDay }
                  reviewTotal={ reviewTotal }/>
@@ -73,5 +74,6 @@ var Content = React.createClass({
     );
   }
 });
+// <div className="Divider"></div>
 
 module.exports = Content;

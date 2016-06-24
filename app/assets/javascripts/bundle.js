@@ -34719,11 +34719,36 @@
 	var DeckShow = React.createClass({
 	  displayName: 'DeckShow',
 	
+	
+	  getInitialState: function () {
+	    return {
+	      deck: DeckStore.find(parseInt(this.props.deckId)),
+	      windowCompressed: false
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 1025) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 1000);
+	  },
+	
 	  render: function () {
+	    var compressStatus = "";
+	    if (this.state.windowCompressed) {
+	      var compressStatus = "Compressed";
+	    }
 	    var arrow = "<";
+	
 	    return React.createElement(
 	      'div',
-	      { className: 'DeckShow' },
+	      { className: "DeckShow " + compressStatus },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -34742,7 +34767,6 @@
 	        'div',
 	        { className: 'BelowHeader' },
 	        React.createElement(Content, { deckId: this.props.params.id }),
-	        React.createElement(DeckHistory, null),
 	        React.createElement(Options, { deckId: this.props.params.id }),
 	        React.createElement('div', { className: 'ClearSet' })
 	      )
@@ -34750,6 +34774,7 @@
 	  }
 	});
 	
+	// <DeckHistory />
 	module.exports = DeckShow;
 
 /***/ },
@@ -34785,6 +34810,7 @@
 	
 	  componentWillUnmount: function () {
 	    this.listenerToken.remove();
+	    clearInterval(this.intervalId);
 	  },
 	
 	  reviewCB: function (e) {
@@ -34813,6 +34839,7 @@
 	      cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
 	    }
 	
+	    // console.log(compressStatus);
 	    return React.createElement(
 	      'div',
 	      { className: 'ShowContent' },
@@ -34824,7 +34851,6 @@
 	      React.createElement(Info, { cardTotal: cardTotal,
 	        grade: grade,
 	        gradeDistribution: gradeDistribution }),
-	      React.createElement('div', { className: 'Divider' }),
 	      React.createElement(History, { reviewsToday: reviewsToday,
 	        reviewsPerDay: reviewsPerDay,
 	        reviewTotal: reviewTotal }),
@@ -34841,6 +34867,7 @@
 	    );
 	  }
 	});
+	// <div className="Divider"></div>
 	
 	module.exports = Content;
 
@@ -34861,7 +34888,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'DeckInfo' },
+	      { className: "DeckInfo" },
 	      React.createElement(
 	        'h4',
 	        { className: 'Stat-Header' },
@@ -34875,12 +34902,12 @@
 	          { className: 'Card-Total-Display' },
 	          React.createElement(
 	            'p',
-	            null,
+	            { className: 'stat' },
 	            this.props.cardTotal
 	          ),
 	          React.createElement(
 	            'div',
-	            null,
+	            { className: 'label' },
 	            'Card Total'
 	          )
 	        ),
@@ -34889,12 +34916,12 @@
 	          { className: 'Grade-Display' },
 	          React.createElement(
 	            'p',
-	            { style: { color: GraphUtil.colorByPercentage(grade) } },
+	            { className: 'stat', style: { color: GraphUtil.colorByPercentage(grade) } },
 	            displayGrade
 	          ),
 	          React.createElement(
 	            'div',
-	            null,
+	            { className: 'label' },
 	            'Mastery'
 	          )
 	        )
@@ -34917,9 +34944,10 @@
 	  displayName: "History",
 	
 	  render: function () {
+	    console.log(this.props.compressStatus);
 	    return React.createElement(
 	      "div",
-	      { className: "DeckHistory" },
+	      { className: "DeckHistory " + this.props.compressStatus },
 	      React.createElement(
 	        "h4",
 	        { className: "Stat-Header" },
@@ -35010,7 +35038,7 @@
 	          React.createElement(
 	            'li',
 	            { className: 'group' },
-	            React.createElement('div', { className: 'Edit-Icon' }),
+	            React.createElement('div', { className: 'Edit-Icon Icon' }),
 	            React.createElement(
 	              'div',
 	              { className: 'Option-Label' },
@@ -35024,7 +35052,7 @@
 	          React.createElement(
 	            'li',
 	            { className: 'group' },
-	            React.createElement('div', { className: 'Card-Icon' }),
+	            React.createElement('div', { className: 'Card-Icon Icon' }),
 	            React.createElement(
 	              'div',
 	              { className: 'Option-Label' },
@@ -35038,7 +35066,7 @@
 	          React.createElement(
 	            'li',
 	            { className: 'group' },
-	            React.createElement('div', { className: 'Remove-Icon' }),
+	            React.createElement('div', { className: 'Remove-Icon Icon' }),
 	            React.createElement(
 	              'div',
 	              { className: 'Option-Label' },

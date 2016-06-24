@@ -28,10 +28,10 @@ div.Grade-Display {
 .ShowContent {
   display: block;
   position: relative;
-  width: calc(100% - 275px);
+  width: 80%;
   height: 100%;
 
-  padding: 0px 3px 0px 0px;
+  /*padding: 0px 3px 0px 0px;*/
 
   background-color: #FFFFFF;
 /*TODO */
@@ -48,29 +48,28 @@ div.Grade-Display {
 }
 
 .DeckInfo {
-  /*color: red;*/
 
   display: block;
   float: left;
-  width: 48%;
+  width: 49%;
   margin: auto;
 
-  /*padding-right: 20px;*/
-  /*min-width: 410px;*/
+  min-width: 410px;
   height: 365px;
 }
 
 .DeckHistory {
 
   display: block;
-  float: right;
+  float: left;
 
   margin: auto;
 
-  width: 48%;
-  /*min-width: 410px;*/
+  width: 49%;
+  min-width: 410px;
   height: 255px;
 }
+
 
 .Divider {
   display: block;
@@ -127,4 +126,38 @@ div.Grade-Display {
 
   text-align: center;
   vertical-align: middle;
+}
+
+.Compressed div.DeckInfo, .Compressed div.DeckHistory{
+  float: none;
+  /*margin: 0 auto;*/
+}
+
+.Compressed .DeckInfo .stat {
+  font-size: 28px;
+}
+
+.Compressed .DeckInfo .label {
+  font-size: 14px;
+}
+
+.Compressed div.Display-Stats {
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+
+.Compressed div.DeckInfo {
+  height: 245px;
+}
+
+.Compressed div.Test-Graph {
+  padding-top: 5px;
+}
+
+.Compressed ul.Stat-List {
+  margin-top: 0;
+}
+
+.Compressed h4.Stat-Header {
+  margin-top: 15px;
 }

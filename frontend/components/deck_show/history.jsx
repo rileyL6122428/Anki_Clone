@@ -2,8 +2,9 @@ var React = require('react');
 
 var History = React.createClass ({
   render: function () {
+    console.log(this.props.compressStatus);
     return(
-      <div className="DeckHistory">
+      <div className={"DeckHistory " + this.props.compressStatus}>
         <h4 className="Stat-Header">History</h4>
         <ul className="Stat-List">
 

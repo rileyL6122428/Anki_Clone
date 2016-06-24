@@ -5,10 +5,33 @@ var DeckHistory = require('./history');
 var Link = require('react-router').Link;
 
 var DeckShow = React.createClass({
+
+  getInitialState: function() {
+    return({
+      deck: DeckStore.find(parseInt(this.props.deckId)),
+      windowCompressed: false
+    })
+  },
+
+  componentDidMount: function (){
+
+    var self = this;
+    this.intervalId = setInterval(function() {
+      if ($(window).width() < 1025) {
+       self.setState({ windowCompressed: true });
+     } else {
+       self.setState({ windowCompressed: false });
+     }
+   }, 1000);
+  },
+
   render: function () {
+    var compressStatus = "";
+    if(this.state.windowCompressed) { var compressStatus = "Compressed" }
     var arrow = "<";
+
     return(
-      <div className="DeckShow">
+      <div className={ "DeckShow " + compressStatus }>
         <h1>
           <Link to="/decks" className="BackLink">{arrow}</Link>
           <p className="Title">Deck</p>
@@ -16,7 +39,6 @@ var DeckShow = React.createClass({
 
         <div className="BelowHeader">
           <Content deckId={this.props.params.id}/>
-          <DeckHistory />
           <Options deckId={this.props.params.id} />
           <div className="ClearSet" />
         </div>
@@ -25,4 +47,5 @@ var DeckShow = React.createClass({
   }
 });
 
+// <DeckHistory />
 module.exports = DeckShow;

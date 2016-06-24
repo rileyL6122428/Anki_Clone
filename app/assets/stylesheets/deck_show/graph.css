@@ -8,6 +8,7 @@
 }
 .DeckShow div.Label1 {
   color: rgba(56, 38, 134, 0.7);
+  height:auto;
 }
 
 
@@ -17,6 +18,7 @@
 }
 .DeckShow div.Label2 {
   color: rgba(232, 11, 2, .7);
+  height:auto;
 }
 
 
@@ -26,6 +28,7 @@
 }
 .DeckShow div.Label3 {
   color: rgba(232, 52, 94, 0.7);
+  height:auto;
 }
 
 
@@ -35,6 +38,7 @@
 }
 .DeckShow div.Label4 {
   color: rgba(232, 102, 78, 0.7);
+  height:auto;
 }
 
 
@@ -44,6 +48,7 @@
 }
 .DeckShow div.Label5 {
   color: rgba(255, 210, 85, 0.7);
+  height:auto;
 }
 
 
@@ -53,6 +58,7 @@
 }
 .DeckShow div.Label6 {
   color: rgba(78, 164, 232, 0.7);
+  height:auto;
 }
 
 
@@ -62,4 +68,5 @@
 }
 .DeckShow div.Label7 {
   color: rgba(72, 255, 111, 0.7);
+  height:auto;
 }
