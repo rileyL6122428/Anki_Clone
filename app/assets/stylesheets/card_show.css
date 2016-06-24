@@ -99,7 +99,7 @@
 .Not-Preview div.Options {
   float: none;
   margin: auto;
-  width: 700px;
+  width: 100%;
 }
 
 
@@ -107,6 +107,7 @@
   display: block;
   float: left;
   width: 35px;
+
   margin-left: 25%;
   padding: 0px;
 
@@ -117,10 +118,10 @@
 
 .Flashcard-Show .Not-Preview button {
   display: block;
-  float:right;
+  float:left;
 
   padding: 0px;
-  margin-right: 25%;
+  margin-left: 25%;
 
   color: red;
   background-color: #FFFFFF;

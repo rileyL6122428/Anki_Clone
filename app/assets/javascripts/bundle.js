@@ -33271,12 +33271,12 @@
 	
 	    var self = this;
 	    this.intervalId = setInterval(function () {
-	      if ($(window).width() < 1025) {
+	      if ($(window).width() < 850) {
 	        self.setState({ windowCompressed: true });
 	      } else {
 	        self.setState({ windowCompressed: false });
 	      }
-	    }, 700);
+	    }, 200);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -34763,7 +34763,7 @@
 	      } else {
 	        self.setState({ windowCompressed: false });
 	      }
-	    }, 700);
+	    }, 200);
 	  },
 	
 	  componentWillUnmount: function () {
