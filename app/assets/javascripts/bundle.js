@@ -34839,7 +34839,6 @@
 	      cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
 	    }
 	
-	    // console.log(compressStatus);
 	    return React.createElement(
 	      'div',
 	      { className: 'ShowContent' },
@@ -34944,7 +34943,6 @@
 	  displayName: "History",
 	
 	  render: function () {
-	    console.log(this.props.compressStatus);
 	    return React.createElement(
 	      "div",
 	      { className: "DeckHistory " + this.props.compressStatus },

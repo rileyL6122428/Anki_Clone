@@ -55,7 +55,6 @@ var Content = React.createClass({
       cardTotal = grade = reviewsToday = reviewsPerDay = reviewTotal = 0;
     }
 
-    // console.log(compressStatus);
     return(
       <div className="ShowContent">
         <h2>{deckName}</h2>
