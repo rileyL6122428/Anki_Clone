@@ -36020,7 +36020,7 @@
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(297);
 	var FlashcardStore = __webpack_require__(294);
-	var Preview = __webpack_require__(301);
+	var NewPreview = __webpack_require__(324);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36114,7 +36114,7 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Save', className: 'Save' })
 	      ),
-	      React.createElement(Preview, { card: this.state }),
+	      React.createElement(NewPreview, { card: this.state }),
 	      React.createElement('div', { className: 'ClearSet' })
 	    );
 	  }

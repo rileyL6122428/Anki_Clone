@@ -130,10 +130,10 @@
   z-index: 100;
 }
 
-.Flashcard-Edit .Preview-Text {
+.Flashcard-Edit .Preview-Text, .Flashcard-New .Preview-Text {
   min-height: 30px;
 }
 
-.Flashcard-Edit div.Preview-Divider {
+.Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
   margin-top: 14px;
 }
