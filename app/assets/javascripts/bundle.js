@@ -37027,12 +37027,21 @@
 	  getInitialState: function () {
 	    var deck = PublicDeckStore.find(this.props.params.id);
 	    deck = deck ? deck : { cardPreview: [], name: "", description: "" };
-	    return { deck: deck };
+	    return { deck: deck, windowCompressed: false };
 	  },
 	
 	  componentDidMount: function () {
 	    this.listenerToken = PublicDeckStore.addListener(this.storeCB);
 	    PublicDeckActions.fetch(this.props.params.id);
+	
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 800) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 200);
 	  },
 	
 	  storeCB: function () {
@@ -37042,6 +37051,9 @@
 	
 	  componentWillUnmount: function () {
 	    this.listenerToken.remove();
+	
+	    var self = this;
+	    clearInterval(self.intervalId);
 	  },
 	
 	  downloadDeckCB: function (e) {
@@ -37054,12 +37066,20 @@
 	  },
 	
 	  render: function () {
+	    var compressStatus = "";
+	    if (this.state.windowCompressed) {
+	      compressStatus = "Compressed";
+	    }
 	    return React.createElement(
 	      'div',
-	      { className: 'Parent-Component Download-Deck' },
-	      React.createElement(HeaderWithBack, { title: 'Download Deck', url: '/public-deck-index' }),
-	      React.createElement(PreviewList, { deck: this.state.deck }),
-	      React.createElement(PreviewInfo, { deck: this.state.deck }),
+	      { className: "Parent-Component Download-Deck " + compressStatus },
+	      React.createElement(
+	        'div',
+	        { className: 'Wrapper' },
+	        React.createElement(HeaderWithBack, { title: 'Download Deck', url: '/public-deck-index' }),
+	        React.createElement(PreviewList, { deck: this.state.deck }),
+	        React.createElement(PreviewInfo, { deck: this.state.deck })
+	      ),
 	      React.createElement(
 	        'button',
 	        { className: 'Normal-Button',

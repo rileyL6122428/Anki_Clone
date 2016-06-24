@@ -1,3 +1,15 @@
+.Download-Deck .Wrapper{
+  position: absolute;
+  height: 800px;
+  /*min-height: 800px;*/
+  overflow-y: scroll;
+  /*height: 100%;*/
+  height: calc(100% - 90px);
+  width: 100%;
+  left: 0;
+  background-color: #FFFFFF;
+}
+
 .Download-Deck h2 {
   text-align: center;
   margin: 0px;
@@ -83,6 +95,8 @@
   margin-bottom: 5px;
 }
 
+
+
 .Download-Deck .Normal-Button {
   position: absolute;
 
@@ -105,4 +119,12 @@
 
   margin: auto;
 
+}
+
+.Compressed.Download-Deck div.Preview{
+  height: 200px;
+  width: 220px;
+  width: 30%;
+  margin-left: 12%;
+  margin-top: 10px;
 }

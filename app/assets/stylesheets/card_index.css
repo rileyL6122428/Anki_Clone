@@ -49,7 +49,7 @@
 }
 
 
-.Wrapper {
+.Flashcard-Index .Wrapper {
   position: absolute;
   height: 200px;
   overflow-y: scroll;

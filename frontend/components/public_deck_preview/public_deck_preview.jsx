@@ -14,12 +14,21 @@ var PublicDeckPreview = React.createClass({
   getInitialState: function () {
     var deck = PublicDeckStore.find(this.props.params.id);
     deck = deck ? deck : {cardPreview: [], name: "", description: ""}
-    return({ deck: deck })
+    return({ deck: deck , windowCompressed: false })
   },
 
   componentDidMount: function () {
     this.listenerToken = PublicDeckStore.addListener(this.storeCB);
     PublicDeckActions.fetch(this.props.params.id);
+
+    var self = this;
+    this.intervalId = setInterval(function() {
+      if ($(window).width() < 800) {
+       self.setState({ windowCompressed: true });
+     } else {
+       self.setState({ windowCompressed: false });
+     }
+   }, 200);
   },
 
   storeCB: function () {
@@ -29,6 +38,9 @@ var PublicDeckPreview = React.createClass({
 
   componentWillUnmount: function () {
     this.listenerToken.remove();
+
+    var self = this;
+    clearInterval(self.intervalId);
   },
 
   downloadDeckCB: function (e) {
@@ -41,11 +53,15 @@ var PublicDeckPreview = React.createClass({
   },
 
   render: function () {
+    var compressStatus = "";
+    if(this.state.windowCompressed) { compressStatus = "Compressed" }
     return(
-      <div className="Parent-Component Download-Deck">
-        <HeaderWithBack title="Download Deck" url="/public-deck-index"/>
-        <PreviewList deck={ this.state.deck }/>
-        <PreviewInfo deck={ this.state.deck }/>
+      <div className={"Parent-Component Download-Deck " + compressStatus }>
+        <div className="Wrapper">
+          <HeaderWithBack title="Download Deck" url="/public-deck-index"/>
+          <PreviewList deck={ this.state.deck }/>
+          <PreviewInfo deck={ this.state.deck }/>
+        </div>
         <button className="Normal-Button"
                 onClick={ this.downloadDeckCB }>Download</button>
       </div>
