@@ -25,6 +25,11 @@ var DeckShow = React.createClass({
    }, 700);
   },
 
+  componentWillUnmount: function () {
+    var self = this;
+    clearInterval(self.intervalId);
+  },
+
   render: function () {
     var compressStatus = "";
     if(this.state.windowCompressed) { var compressStatus = "Compressed" }

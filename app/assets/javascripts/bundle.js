@@ -33279,6 +33279,11 @@
 	    }, 700);
 	  },
 	
+	  componentWillUnmount: function () {
+	    var self = this;
+	    clearInterval(self.intervalId);
+	  },
+	
 	  render: function () {
 	    var compressionStatus = "";
 	    if (this.state.windowCompressed) {
@@ -34759,6 +34764,11 @@
 	        self.setState({ windowCompressed: false });
 	      }
 	    }, 700);
+	  },
+	
+	  componentWillUnmount: function () {
+	    var self = this;
+	    clearInterval(self.intervalId);
 	  },
 	
 	  render: function () {
