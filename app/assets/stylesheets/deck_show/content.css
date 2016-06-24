@@ -56,8 +56,8 @@ div.Grade-Display {
   margin: auto;
 
   /*padding-right: 20px;*/
-
-  height: 100%;
+  /*min-width: 410px;*/
+  height: 365px;
 }
 
 .DeckHistory {
@@ -67,8 +67,9 @@ div.Grade-Display {
 
   margin: auto;
 
-  height: 100%;
   width: 48%;
+  /*min-width: 410px;*/
+  height: 255px;
 }
 
 .Divider {

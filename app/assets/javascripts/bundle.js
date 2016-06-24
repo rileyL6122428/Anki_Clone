@@ -59,10 +59,10 @@
 	var Dashboard = __webpack_require__(258);
 	var ProfilePage = __webpack_require__(268);
 	var UserDecks = __webpack_require__(269);
-	var NewDeck = __webpack_require__(279);
-	var DeckShow = __webpack_require__(282);
-	var EditDeck = __webpack_require__(287);
-	var FlashcardIndex = __webpack_require__(290);
+	var NewDeck = __webpack_require__(280);
+	var DeckShow = __webpack_require__(283);
+	var EditDeck = __webpack_require__(288);
+	var FlashcardIndex = __webpack_require__(291);
 	var FlashcardShow = __webpack_require__(300);
 	var NewFlashcard = __webpack_require__(304);
 	var EditFlashcard = __webpack_require__(307);
@@ -77,8 +77,8 @@
 	//TESTING ONLY
 	window.DeckStore = __webpack_require__(272);
 	window.DeckActions = __webpack_require__(275);
-	window.FlashcardStore = __webpack_require__(293);
-	window.FlashcardActions = __webpack_require__(296);
+	window.FlashcardStore = __webpack_require__(294);
+	window.FlashcardActions = __webpack_require__(297);
 	window.UserStore = __webpack_require__(237);
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
@@ -34002,7 +34002,7 @@
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(275);
 	var DeckIndexItem = __webpack_require__(277);
-	var LoadingBar = __webpack_require__(299);
+	var LoadingBar = __webpack_require__(279);
 	
 	var DeckIndex = React.createClass({
 	  displayName: 'DeckIndex',
@@ -34488,8 +34488,71 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(280);
-	var Header = __webpack_require__(281);
+	var GraphUtil = __webpack_require__(278);
+	
+	ReviewProgressCircle = React.createClass({
+	  displayName: 'ReviewProgressCircle',
+	
+	  getInitialState: function () {
+	    return { theta: 0 };
+	  },
+	  componentDidMount: function () {
+	    var self = this;
+	    this.state.drawToken = setInterval(function () {
+	      self.draw();
+	    }, 20);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.state.theta = 0;
+	    clearInterval(this.state.drawToken);
+	  },
+	
+	  // componentDidUpdate: function() {
+	  //     this.updateCanvas();
+	  // },
+	  draw: function () {
+	    var c = this.refs.canvas.getContext('2d');
+	    this.state.theta += 0.1;
+	
+	    c.clearRect(0, 0, 400, 400);
+	
+	    c.globalAlpha = 0.8;
+	    c.fillStyle = "black";
+	    GraphUtil.roundedSquare(c, 5, 15, 370, 385);
+	
+	    c.translate(190, 200);
+	    c.rotate(this.state.theta);
+	    c.strokeStyle = "#25A3FC";
+	    c.lineWidth = 15;
+	
+	    var incrementTotal = 60;
+	    for (var i = 0; i < incrementTotal; i++) {
+	      c.globalAlpha = 1 / incrementTotal * i;
+	      c.beginPath();
+	      c.arc(0, 0, 100, (i + GraphUtil.loadingOverlapOffset(i)) / (incrementTotal / 2) * Math.PI, (i + 1) / (incrementTotal / 2) * Math.PI, false);
+	      c.stroke();
+	    }
+	
+	    c.globalAlpha = 1;
+	    c.rotate(-this.state.theta);
+	    c.translate(-190, -200);
+	  },
+	
+	  render: function () {
+	    return React.createElement('canvas', { ref: 'canvas', width: 380, height: 380 });
+	  }
+	});
+	
+	module.exports = ReviewProgressCircle;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Form = __webpack_require__(281);
+	var Header = __webpack_require__(282);
 	
 	var NewDeck = React.createClass({
 	  displayName: 'NewDeck',
@@ -34507,7 +34570,7 @@
 	module.exports = NewDeck;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34614,7 +34677,7 @@
 	// </form>
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34644,13 +34707,13 @@
 	module.exports = Header;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Content = __webpack_require__(283);
-	var Options = __webpack_require__(286);
-	var DeckHistory = __webpack_require__(285);
+	var Content = __webpack_require__(284);
+	var Options = __webpack_require__(287);
+	var DeckHistory = __webpack_require__(286);
 	var Link = __webpack_require__(168).Link;
 	
 	var DeckShow = React.createClass({
@@ -34690,12 +34753,12 @@
 	module.exports = DeckShow;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(284);
-	var History = __webpack_require__(285);
+	var Info = __webpack_require__(285);
+	var History = __webpack_require__(286);
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(275);
 	
@@ -34782,7 +34845,7 @@
 	module.exports = Content;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34845,7 +34908,7 @@
 	module.exports = Info;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34918,7 +34981,7 @@
 	module.exports = History;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34991,12 +35054,12 @@
 	module.exports = Options;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(288);
-	var Header = __webpack_require__(289);
+	var Form = __webpack_require__(289);
+	var Header = __webpack_require__(290);
 	
 	var EditDeck = React.createClass({
 	  displayName: 'EditDeck',
@@ -35014,7 +35077,7 @@
 	module.exports = EditDeck;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35102,7 +35165,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35132,12 +35195,12 @@
 	module.exports = Header;
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(291);
-	var List = __webpack_require__(292);
+	var SearchBar = __webpack_require__(292);
+	var List = __webpack_require__(293);
 	var Link = __webpack_require__(168).Link;
 	
 	var FlashcardIndex = React.createClass({
@@ -35191,7 +35254,7 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35219,15 +35282,15 @@
 	module.exports = FlashcardsSearchBar;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(293);
-	var FlashcardActions = __webpack_require__(296);
-	var FlashcardIndexItem = __webpack_require__(298);
+	var FlashcardStore = __webpack_require__(294);
+	var FlashcardActions = __webpack_require__(297);
+	var FlashcardIndexItem = __webpack_require__(299);
 	var GraphUtil = __webpack_require__(278);
-	var LoadingBar = __webpack_require__(299);
+	var LoadingBar = __webpack_require__(279);
 	
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
@@ -35305,15 +35368,15 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(294);
+	var FlashcardConstants = __webpack_require__(295);
 	var ReviewConstants = __webpack_require__(265);
 	var SearchUtil = __webpack_require__(274);
-	var Util = __webpack_require__(295);
+	var Util = __webpack_require__(296);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -35420,7 +35483,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35430,7 +35493,7 @@
 	};
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports) {
 
 	var Util = {
@@ -35473,10 +35536,10 @@
 	module.exports = Util;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(297);
+	var FlashcardApiUtil = __webpack_require__(298);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -35500,11 +35563,11 @@
 	};
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(294);
+	var FlashcardConstants = __webpack_require__(295);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -35576,7 +35639,7 @@
 	};
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35634,75 +35697,12 @@
 	module.exports = FlashcardIndexItem;
 
 /***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GraphUtil = __webpack_require__(278);
-	
-	ReviewProgressCircle = React.createClass({
-	  displayName: 'ReviewProgressCircle',
-	
-	  getInitialState: function () {
-	    return { theta: 0 };
-	  },
-	  componentDidMount: function () {
-	    var self = this;
-	    this.state.drawToken = setInterval(function () {
-	      self.draw();
-	    }, 20);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.state.theta = 0;
-	    clearInterval(this.state.drawToken);
-	  },
-	
-	  // componentDidUpdate: function() {
-	  //     this.updateCanvas();
-	  // },
-	  draw: function () {
-	    var c = this.refs.canvas.getContext('2d');
-	    this.state.theta += 0.1;
-	
-	    c.clearRect(0, 0, 400, 400);
-	
-	    c.globalAlpha = 0.8;
-	    c.fillStyle = "black";
-	    GraphUtil.roundedSquare(c, 5, 15, 370, 385);
-	
-	    c.translate(190, 200);
-	    c.rotate(this.state.theta);
-	    c.strokeStyle = "#25A3FC";
-	    c.lineWidth = 15;
-	
-	    var incrementTotal = 60;
-	    for (var i = 0; i < incrementTotal; i++) {
-	      c.globalAlpha = 1 / incrementTotal * i;
-	      c.beginPath();
-	      c.arc(0, 0, 100, (i + GraphUtil.loadingOverlapOffset(i)) / (incrementTotal / 2) * Math.PI, (i + 1) / (incrementTotal / 2) * Math.PI, false);
-	      c.stroke();
-	    }
-	
-	    c.globalAlpha = 1;
-	    c.rotate(-this.state.theta);
-	    c.translate(-190, -200);
-	  },
-	
-	  render: function () {
-	    return React.createElement('canvas', { ref: 'canvas', width: 380, height: 380 });
-	  }
-	});
-	
-	module.exports = ReviewProgressCircle;
-
-/***/ },
 /* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(293);
-	var FlashcardActions = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(294);
+	var FlashcardActions = __webpack_require__(297);
 	var Link = __webpack_require__(168).Link;
 	var Preview = __webpack_require__(301);
 	var Info = __webpack_require__(302);
@@ -35890,7 +35890,7 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(296);
+	var FlashcardActions = __webpack_require__(297);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -35960,8 +35960,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(296);
-	var FlashcardStore = __webpack_require__(293);
+	var FlashcardActions = __webpack_require__(297);
+	var FlashcardStore = __webpack_require__(294);
 	var Preview = __webpack_require__(301);
 	
 	var Form = React.createClass({
@@ -36133,8 +36133,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(296);
-	var FlashcardStore = __webpack_require__(293);
+	var FlashcardActions = __webpack_require__(297);
+	var FlashcardStore = __webpack_require__(294);
 	var Preview = __webpack_require__(301);
 	
 	var Form = React.createClass({
@@ -36245,8 +36245,8 @@
 	var Recap = __webpack_require__(310);
 	var Front = __webpack_require__(312);
 	var Flipped = __webpack_require__(313);
-	var FlashcardStore = __webpack_require__(293);
-	var FlashcardActions = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(294);
+	var FlashcardActions = __webpack_require__(297);
 	var DeckActions = __webpack_require__(275);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);

@@ -111,7 +111,7 @@ div.Percentage {
 .Search-Container input {
   display: block;
   height: 30px;
-  width: 96%;
+  width: calc(95% - 25px);
   border-radius: 5px;
   /*margin:auto;*/
   border: 0px;
