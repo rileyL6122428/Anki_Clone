@@ -65,10 +65,10 @@
 	var FlashcardIndex = __webpack_require__(291);
 	var FlashcardShow = __webpack_require__(300);
 	var NewFlashcard = __webpack_require__(304);
-	var EditFlashcard = __webpack_require__(307);
-	var Review = __webpack_require__(309);
-	var PublicDeckBrowser = __webpack_require__(315);
-	var PublicDeckPreview = __webpack_require__(321);
+	var EditFlashcard = __webpack_require__(308);
+	var Review = __webpack_require__(310);
+	var PublicDeckBrowser = __webpack_require__(316);
+	var PublicDeckPreview = __webpack_require__(322);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -83,8 +83,8 @@
 	window.UserActions = __webpack_require__(230);
 	window.ReviewActions = __webpack_require__(266);
 	window.ReviewStore = __webpack_require__(264);
-	window.PublicDeckStore = __webpack_require__(317);
-	window.PublicDeckActions = __webpack_require__(319);
+	window.PublicDeckStore = __webpack_require__(318);
+	window.PublicDeckActions = __webpack_require__(320);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -35993,7 +35993,7 @@
 
 	var React = __webpack_require__(1);
 	var Form = __webpack_require__(305);
-	var HeaderWithBack = __webpack_require__(306);
+	var HeaderWithBack = __webpack_require__(307);
 	var Link = __webpack_require__(168).Link;
 	
 	NewCard = React.createClass({
@@ -36020,7 +36020,7 @@
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(297);
 	var FlashcardStore = __webpack_require__(294);
-	var NewPreview = __webpack_require__(324);
+	var NewPreview = __webpack_require__(306);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36127,6 +36127,58 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	
+	var EditPreview = React.createClass({
+	  displayName: "EditPreview",
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "Preview" },
+	      React.createElement(
+	        "div",
+	        { className: "List-Center" },
+	        React.createElement(
+	          "div",
+	          { className: "Section" },
+	          React.createElement(
+	            "div",
+	            { className: "Front" },
+	            React.createElement(
+	              "div",
+	              { className: "Preview-Text" },
+	              this.props.card.front
+	            )
+	          )
+	        ),
+	        React.createElement("div", { className: "Preview-Divider" }),
+	        React.createElement(
+	          "div",
+	          { className: "Section P-Back" },
+	          React.createElement(
+	            "div",
+	            { className: "Back" },
+	            React.createElement(
+	              "div",
+	              { className: "Preview-Text" },
+	              this.props.card.back
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = EditPreview;
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
 	
 	HeaderWithBack = React.createClass({
@@ -36159,25 +36211,51 @@
 	module.exports = HeaderWithBack;
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(308);
-	var HeaderWithBack = __webpack_require__(306);
+	var Form = __webpack_require__(309);
+	var HeaderWithBack = __webpack_require__(307);
 	var Link = __webpack_require__(168).Link;
 	
 	EditCard = React.createClass({
 	  displayName: 'EditCard',
 	
 	
+	  getInitialState: function () {
+	    return { windowCompressed: false };
+	  },
+	
+	  componentDidMount: function () {
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 850) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 200);
+	  },
+	
+	  componentWillUnmount: function () {
+	    var self = this;
+	    clearInterval(self.intervalId);
+	  },
+	
 	  render: function () {
 	    var deckId = this.props.params.id;
 	    var cardId = this.props.params.cardId;
 	    var cardShowUrl = "/decks/" + deckId + "/flashcards/" + cardId;
+	
+	    var compressionStatus = "";
+	    if (this.state.windowCompressed) {
+	      compressionStatus = "Compressed";
+	    }
+	
 	    return React.createElement(
 	      'div',
-	      { className: 'Flashcard-Edit Parent-Component' },
+	      { className: "Flashcard-Edit Parent-Component " + compressionStatus },
 	      React.createElement(HeaderWithBack, { title: 'Edit Card', url: cardShowUrl }),
 	      React.createElement(Form, { deckId: deckId, cardId: cardId })
 	    );
@@ -36187,13 +36265,13 @@
 	module.exports = EditCard;
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var FlashcardActions = __webpack_require__(297);
 	var FlashcardStore = __webpack_require__(294);
-	var EditPreview = __webpack_require__(324);
+	var EditPreview = __webpack_require__(306);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36296,19 +36374,19 @@
 	module.exports = Form;
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Recap = __webpack_require__(310);
-	var Front = __webpack_require__(312);
-	var Flipped = __webpack_require__(313);
+	var Recap = __webpack_require__(311);
+	var Front = __webpack_require__(313);
+	var Flipped = __webpack_require__(314);
 	var FlashcardStore = __webpack_require__(294);
 	var FlashcardActions = __webpack_require__(297);
 	var DeckActions = __webpack_require__(275);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(272);
-	var ReviewProgressCircle = __webpack_require__(314);
+	var ReviewProgressCircle = __webpack_require__(315);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
@@ -36474,11 +36552,11 @@
 	module.exports = Review;
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var RecapCanvas = __webpack_require__(311);
+	var RecapCanvas = __webpack_require__(312);
 	
 	var Recap = React.createClass({
 	  displayName: 'Recap',
@@ -36555,7 +36633,7 @@
 	module.exports = Recap;
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36609,7 +36687,7 @@
 	module.exports = RecapCanvas;
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36643,7 +36721,7 @@
 	module.exports = Front;
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36695,7 +36773,7 @@
 	module.exports = Flipped;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36759,14 +36837,14 @@
 	module.exports = ReviewProgressCircle;
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Footer = __webpack_require__(259);
 	var SearchBar = __webpack_require__(270);
-	var DeckIndex = __webpack_require__(316);
-	var PublicDeckActions = __webpack_require__(319);
+	var DeckIndex = __webpack_require__(317);
+	var PublicDeckActions = __webpack_require__(320);
 	
 	var PublicDeckBrowse = React.createClass({
 	  displayName: 'PublicDeckBrowse',
@@ -36812,12 +36890,12 @@
 	module.exports = PublicDeckBrowse;
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(317);
-	var DeckActions = __webpack_require__(319);
+	var PublicDeckStore = __webpack_require__(318);
+	var DeckActions = __webpack_require__(320);
 	var DeckIndexItem = __webpack_require__(277);
 	
 	var DeckIndex = React.createClass({
@@ -36870,14 +36948,14 @@
 	module.exports = DeckIndex;
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
 	var Store = __webpack_require__(238).Store;
 	var PublicDeckStore = new Store(AppDispatcher);
 	var SearchUtil = __webpack_require__(274);
-	var PublicDeckConstants = __webpack_require__(318);
+	var PublicDeckConstants = __webpack_require__(319);
 	
 	var _publicDecks = {};
 	
@@ -36924,7 +37002,7 @@
 	module.exports = PublicDeckStore;
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -36933,10 +37011,10 @@
 	};
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PublicDeckUtil = __webpack_require__(320);
+	var PublicDeckUtil = __webpack_require__(321);
 	
 	module.exports = {
 	  search: function (query) {
@@ -36953,11 +37031,11 @@
 	};
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var PublicDeckConstants = __webpack_require__(318);
+	var PublicDeckConstants = __webpack_require__(319);
 	var DeckConstants = __webpack_require__(273);
 	
 	module.exports = {
@@ -37006,15 +37084,15 @@
 	};
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(317);
-	var PublicDeckActions = __webpack_require__(319);
-	var HeaderWithBack = __webpack_require__(306);
-	var PreviewList = __webpack_require__(322);
-	var PreviewInfo = __webpack_require__(323);
+	var PublicDeckStore = __webpack_require__(318);
+	var PublicDeckActions = __webpack_require__(320);
+	var HeaderWithBack = __webpack_require__(307);
+	var PreviewList = __webpack_require__(323);
+	var PreviewInfo = __webpack_require__(324);
 	
 	var PublicDeckPreview = React.createClass({
 	  displayName: 'PublicDeckPreview',
@@ -37093,7 +37171,7 @@
 	module.exports = PublicDeckPreview;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -37130,12 +37208,12 @@
 	module.exports = PreviewList;
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(317);
-	var PublicDeckStore = __webpack_require__(317);
+	var PublicDeckStore = __webpack_require__(318);
+	var PublicDeckStore = __webpack_require__(318);
 	var PreviewInfo = React.createClass({
 	  displayName: 'PreviewInfo',
 	
@@ -37199,57 +37277,6 @@
 	});
 	
 	module.exports = PreviewInfo;
-
-/***/ },
-/* 324 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var EditPreview = React.createClass({
-	  displayName: "EditPreview",
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      "div",
-	      { className: "Preview" },
-	      React.createElement(
-	        "div",
-	        { className: "List-Center" },
-	        React.createElement(
-	          "div",
-	          { className: "Section" },
-	          React.createElement(
-	            "div",
-	            { className: "Front" },
-	            React.createElement(
-	              "div",
-	              { className: "Preview-Text" },
-	              this.props.card.front
-	            )
-	          )
-	        ),
-	        React.createElement("div", { className: "Preview-Divider" }),
-	        React.createElement(
-	          "div",
-	          { className: "Section P-Back" },
-	          React.createElement(
-	            "div",
-	            { className: "Back" },
-	            React.createElement(
-	              "div",
-	              { className: "Preview-Text" },
-	              this.props.card.back
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = EditPreview;
 
 /***/ }
 /******/ ]);

@@ -1,10 +1,13 @@
 var React = require('react');
 
 var EditPreview = React.createClass({
+
+
+
   render: function () {
 
     return(
-      <div className="Preview">
+      <div className={ "Preview" }>
         <div className="List-Center">
           <div className="Section">
             <div className="Front">

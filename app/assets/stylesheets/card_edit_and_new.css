@@ -4,8 +4,8 @@
   width: 48%;
 
   left: 50%;
-  top: 40%;
-  height: 100%;
+  top: 37%;
+  /*height: 100%;*/
   float: left;
 }
 
@@ -136,4 +136,30 @@
 
 .Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
   margin-top: 14px;
+}
+
+ .Flashcard-Edit.Compressed div.Preview {
+  position: absolute;
+  right: 200%;
+}
+
+.Flashcard-Edit.Compressed form {
+ width: 100%;
+ height: 100%;
+ float: none;
+ margin: auto;
+}
+
+.Flashcard-Edit.Compressed textarea {
+  width: 90%;
+  margin: auto;
+}
+
+.Flashcard-Edit.Compressed h4 {
+ width: 90%;
+ /*height: 100%;*/
+ margin: auto;
+ margin-top: 10px;
+ margin-bottom: 10px;
+ float: none;
 }
