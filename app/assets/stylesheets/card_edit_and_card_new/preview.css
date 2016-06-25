@@ -1,0 +1,89 @@
+.Flashcard-Edit .Preview, .Flashcard-New .Preview {
+  display: block;
+  float: right;
+
+  width: 48%;
+  height: 100%;
+  font-size: 20px;
+}
+
+.Flashcard-Edit div.List-Center, .Flashcard-New div.List-Center {
+  position: absolute;
+  float: left;
+  display: block;
+  left: 50%;
+  top: 37%;
+
+  width: 48%;
+}
+
+.Flashcard-Edit .Preview div.Section, .Flashcard-New .Preview div.Section {
+  position: relative;
+  display: block;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.Flashcard-Edit .Preview .Front, .Flashcard-New .Preview .Front {
+  display: block;
+  bottom: 0;
+  right: 5%;
+
+  width:90%;
+
+  margin: auto;
+  border: 2px dashed rgb(37, 163, 252);;
+}
+
+.Flashcard-Edit .Preview .Front::before, .Flashcard-New .Preview .Front::before {
+  float: left;
+
+  padding-left: 5px;
+
+  text-align: left;
+  content: "front";
+
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
+  border-top: 1px solid #ddd;
+  margin-top: 14px;
+}
+
+.Flashcard-Edit .Preview .Back, .Flashcard-New .Preview .Back {
+  display: block;
+  bottom: 0;
+  right: 5%;
+  width:90%;
+
+  margin: auto;
+  margin-top: 12px;
+
+  border: 2px dashed rgb(37, 163, 252);
+}
+
+.Flashcard-Edit .Preview .Back::before, .Flashcard-New .Preview .Back::before {
+  float: left;
+
+  padding-left: 5px;
+
+  text-align: left;
+  content: "back";
+
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Edit .Preview div.P-Back, .Flashcard-New .Preview div.P-Back {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  text-align: center;
+}
+
+.Flashcard-Edit .Preview-Text, .Flashcard-New .Preview-Text {
+  min-height: 30px;
+}

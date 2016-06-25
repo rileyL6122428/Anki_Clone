@@ -1,0 +1,28 @@
+.Flashcard-Edit.Compressed div.Preview, .Flashcard-New.Compressed div.Preview {
+ position: absolute;
+ right: 200%;
+}
+
+.Flashcard-Edit.Compressed form, .Flashcard-New.Compressed form {
+  float: none;
+
+  width: 100%;
+  height: 100%;
+  
+  margin: auto;
+}
+
+.Flashcard-Edit.Compressed textarea, .Flashcard-New.Compressed textarea {
+ width: 90%;
+ margin: auto;
+}
+
+.Flashcard-Edit.Compressed h4, .Flashcard-New.Compressed h4 {
+  float: none;
+
+  width: 90%;
+
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
