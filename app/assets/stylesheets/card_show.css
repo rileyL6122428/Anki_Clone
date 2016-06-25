@@ -1,49 +1,60 @@
 .Flashcard-Show {
   display: block;
   position: relative;
+
   width: 100%;
   height: 100%;
 }
 
-  .Flashcard-Show h1 {
-    display: block;
-    width: 100%;
-    height: 50px;
-  }
+.Flashcard-Show h1 {
+  display: block;
+
+  width: 100%;
+  height: 50px;
+}
 
 .Flashcard-Show h1 a {
-  color: rgb(37, 163, 252);
-  width: 5%;
   float: left;
+
+  width: 5%;
+
   text-decoration: none;
+
+  color: rgb(37, 163, 252);
 }
 
 .Flashcard-Show h1 p {
-  color: rgb(68, 68, 68);
+  float: left;
+
+  width: 90%;
+
   margin: 0px;
   padding: 0px;
-  width: 90%;
-  float: left;
+
+  color: rgb(68, 68, 68);
 }
 
 .Flashcard-Show .Preview{
   display: block;
   position: relative;
+  float: left;
+
   height: 100%;
   width:50%;
 
-  float: left;
-  text-align: center;
-
   border-right: 1px solid #ddd;
+
+  text-align: center;
 }
 
 .Flashcard-Show .Preview div.Section {
   position: relative;
-  text-align: center;
   display: block;
+
   height:40%;
   width: 100%;
+
+  text-align: center;
 }
 
 .Flashcard-Show .Preview .List-Center{
@@ -54,44 +65,52 @@
 .Flashcard-Show .Preview .Front {
   display: block;
   position: absolute;
-  text-align: center;
   bottom: 0;
+
   width:100%;
 
+  text-align: center;
 }
 
 .Flashcard-Show div.Preview-Divider {
   display: block;
+
   height: 1px;
-  background-color: #ddd;
   width: 94%;
+
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  background-color: #ddd;
 }
 
 
 .Flashcard-Show .Not-Preview{
   display: block;
+  float: right;
+
   height: 100%;
   width:49%;
-  float: right;
 }
 
 .Flashcard-Show .Not-Preview .Info {
   display: block;
+  float:none;
+
   width: 100%;
   height:35%;
   border: 0px;
-  float:none;
 }
 
 .Not-Preview .Options {
   display: block;
+  position: relative;
+
   width: 200px;
   height: 100px;
+
   border: 0px;
-  position: relative;
 
   background-color: #FFFFFF;
 }
@@ -99,6 +118,7 @@
 .Not-Preview div.Options {
   float: none;
   margin: auto;
+
   width: 100%;
 }
 
@@ -106,30 +126,31 @@
 .Flashcard-Show .Not-Preview a {
   display: block;
   float: left;
+
   width: 35px;
 
   margin-left: 25%;
   padding: 0px;
+  border-bottom: 0px solid #ffffff;
 
   text-decoration: none;
+
   color: rgb(37, 163, 252);
-  border-bottom: 0px solid #ffffff;
 }
 
 .Flashcard-Show .Not-Preview button {
   display: block;
   float:left;
 
-  padding: 0px;
   margin-left: 25%;
+  padding: 0px;
+  border: 0;
+  outline: none;
+
+  font-size: 20px;
 
   color: red;
   background-color: #FFFFFF;
-
-  outline: none;
-  border: 0;
-
-  font-size: 20px;
 }
 
 .Flashcard-Show .Not-Preview button:hover {

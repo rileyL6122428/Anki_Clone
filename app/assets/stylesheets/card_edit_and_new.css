@@ -1,12 +1,11 @@
 .Flashcard-Edit div.List-Center, .Flashcard-New div.List-Center {
   position: absolute;
+  float: left;
   display: block;
-  width: 48%;
-
   left: 50%;
   top: 37%;
-  /*height: 100%;*/
-  float: left;
+
+  width: 48%;
 }
 
 .Flashcard-Edit, .Flashcard-New {
@@ -15,6 +14,7 @@
 
 .Flashcard-Edit .Form, .Flashcard-New .Form {
   display: block;
+
   height: 100%;
   width: 100%;
 }
@@ -22,59 +22,60 @@
 .Flashcard-Edit form, .Flashcard-New form {
   position: relative;
   display: block;
+  float: left;
+
   width: 48%;
   height: 100%;
-  float: left;
 }
 
 .Flashcard-Edit .Preview, .Flashcard-New .Preview {
   display: block;
+  float: right;
+
   width: 48%;
   height: 100%;
-  float: right;
   font-size: 20px;
 }
 
 .Flashcard-Edit .Preview div.Section, .Flashcard-New .Preview div.Section {
   position: relative;
-  text-align: center;
   display: block;
-  /*height:40px;*/
+
   width: 100%;
+
+  text-align: center;
 }
 
 .Flashcard-Edit .Preview div.P-Back, .Flashcard-New .Preview div.P-Back {
-  position: relative;
-  text-align: center;
   display: block;
-  /*height: 27px;*/
+  position: relative;
   width: 100%;
+
+  text-align: center;
 }
 
 
 
 .Flashcard-Edit .Preview .Front, .Flashcard-New .Preview .Front {
   display: block;
-  /*position: absolute;*/
   bottom: 0;
   right: 5%;
-  margin: auto;
+
   width:90%;
-  /*height: 70%;*/
 
-  /*height: 30%;*/
-
+  margin: auto;
   border: 2px dashed rgb(37, 163, 252);;
 }
 
 .Flashcard-Edit .Preview .Front::before, .Flashcard-New .Preview .Front::before {
-  text-align: left;
   float: left;
 
-  color: rgb(37, 163, 252);
+  padding-left: 5px;
+
+  text-align: left;
   content: "front";
 
-  padding-left: 5px;
+  color: rgb(37, 163, 252);
 }
 
 .Flashcard-Edit div.Preview-Divider, .Flashcard-New div.Preview-Divider {
@@ -84,32 +85,35 @@
 
 .Flashcard-Edit .Preview .Back, .Flashcard-New .Preview .Back {
   display: block;
-  /*position: absolute;*/
   bottom: 0;
   right: 5%;
+  width:90%;
+
   margin: auto;
   margin-top: 12px;
-  width:90%;
 
   border: 2px dashed rgb(37, 163, 252);
 }
 
 .Flashcard-Edit .Preview .Back::before, .Flashcard-New .Preview .Back::before {
-  text-align: left;
   float: left;
-  color: rgb(37, 163, 252);
-  content: "back";
 
   padding-left: 5px;
+
+  text-align: left;
+  content: "back";
+
+  color: rgb(37, 163, 252);
 }
 
 .Flashcard-Edit textarea, .Flashcard-New textarea {
   display: block;
+
   width: 100%;
   height: 27%;
+
   text-align: top;
   font-size: 16px;
-  /*vertical-align: top;*/
 }
 
 .Flashcard-Edit input[type=submit], .Flashcard-New input[type=submit] {
@@ -117,17 +121,17 @@
   position: fixed;
   bottom: 0px;
   width: 100%;
-  color: purple;
   height: 65px;
 
-  background-color: #FFFFFF;
   opacity: .9;
   border-top: 2px solid #25A3FC;
+  z-index: 100;
 
-  color: #25A3FC;
   font-size: 20px;
 
-  z-index: 100;
+  background-color: #FFFFFF;
+  color: purple;
+  color: #25A3FC;
 }
 
 .Flashcard-Edit .Preview-Text, .Flashcard-New .Preview-Text {
@@ -156,10 +160,11 @@
 }
 
 .Flashcard-Edit.Compressed h4, .Flashcard-New.Compressed h4 {
+ float: none;
+
  width: 90%;
- /*height: 100%;*/
+ 
  margin: auto;
  margin-top: 10px;
  margin-bottom: 10px;
- float: none;
 }

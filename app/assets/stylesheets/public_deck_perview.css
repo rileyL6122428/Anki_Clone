@@ -1,23 +1,26 @@
 .Download-Deck .Wrapper{
   position: absolute;
+  left: 0;
+
   height: 800px;
-  /*min-height: 800px;*/
-  overflow-y: scroll;
-  /*height: 100%;*/
   height: calc(100% - 90px);
   width: 100%;
-  left: 0;
+
   background-color: #FFFFFF;
+
+  overflow-y: scroll;
 }
 
 .Download-Deck h2 {
-  text-align: center;
+  width: 100%;
+
   margin: 0px;
+  border: 1px solid #ddd;
+
+  text-align: center;
 
   background-color: #E5E5E5;
   color: #616161;
-  border: 1px solid #ddd;
-  width: 100%;
 }
 
 .Download-Deck .Preview-List {
@@ -30,41 +33,47 @@
 
 .Download-Deck .Preview-List:after {
   display: block;
-  content: "";
+
   clear: both;
+
+  content: "";
 }
 
 .Download-Deck .Preview {
   display: block;
-  /*width: 20%;*/
+  float: left;
+
   height: 270px;
   width: 15%;
-  float: left;
+
   margin: calc(5.5% - 11px);
   margin-bottom: 0px;
   margin-top: 50px;
+
   text-align: center;
 }
 
 .Download-Deck div.List-Center {
-  height: 100%;
-  width: 100%;
   position: absolute;
   top: 40%;
-  /*margin-top: 100px;*/
+
+  height: 100%;
+  width: 100%;
 }
 
 
 .Download-Deck div.Preview {
   display: block;
   position: relative;
-  /*margin: auto;*/
+
   border: 1px solid #ddd;
 }
 
 .Download-Deck .Recap div.Description {
   display: block;
+
   width: 90%;
+
   margin: auto;
 }
 
@@ -88,43 +97,43 @@
 }
 
 .Download-Deck div.Preview-Divider {
-  border-top: 1px solid #ddd;
   width: 90%;
+
   margin: auto;
   margin-top: 5px;
   margin-bottom: 5px;
+
+  border-top: 1px solid #ddd;
 }
 
 
 
 .Download-Deck .Normal-Button {
   position: absolute;
-
+  float: center;
   bottom: 0;
   left:0;
   right: 0;
-  height: 90px;
-  text-align: center;
 
+  height: 90px;
   width: 100%;
 
-  float: center;
-  background-color: #FFFFFF;
-  opacity: .9;
-
+  margin: auto;
   border-top: 2px solid #25A3FC;
 
-  color: #25A3FC;
   font-size: 20px;
+  text-align: center;
 
-  margin: auto;
-
+  background-color: #FFFFFF;
+  opacity: .9;
+  color: #25A3FC;
 }
 
 .Compressed.Download-Deck div.Preview{
   height: 200px;
   width: 220px;
   width: 30%;
+  
   margin-left: 12%;
   margin-top: 10px;
 }

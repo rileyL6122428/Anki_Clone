@@ -14,9 +14,9 @@ div.Grade-Display {
 }
 
 .DeckInfo p {
-  text-align: center;
   margin: 0px 0px 0px;
 
+  text-align: center;
   font-size: 45px;
 }
 
@@ -28,61 +28,58 @@ div.Grade-Display {
 .ShowContent {
   display: block;
   position: relative;
+  float: left;
+
   width: 80%;
   height: 100%;
 
-  /*padding: 0px 3px 0px 0px;*/
 
   background-color: #FFFFFF;
-/*TODO */
-  float: left;
 }
 
 .ShowContent h3 {
-  color: #616161;
-  background-color: #F5F5F5;
+  height: 18px;
+
   margin: 0px;
   border: 1px solid #ddd;
 
-  height: 18px;
+  color: #616161;
+  background-color: #F5F5F5;
 }
 
 .DeckInfo {
-
   display: block;
   float: left;
-  width: 49%;
-  margin: auto;
 
+  width: 49%;
   min-width: 410px;
   height: 365px;
+
+  margin: auto;
 }
 
 .DeckHistory {
-
   display: block;
   float: left;
-
-  margin: auto;
 
   width: 49%;
   min-width: 410px;
   height: 255px;
+
+  margin: auto;
 }
 
 
 .Divider {
   display: block;
   float: left;
+
   width: 2%;
   height: 96%;
-  border-right: 1px solid #ddd;
 
   margin: auto;
-  /*padding-left: 15px;
-  padding-right: 0px;*/
-
   padding: 0px;
+  border-right: 1px solid #ddd;
 
   background-color: #FFFFFF;
 }
@@ -94,35 +91,31 @@ div.Grade-Display {
 
 .Review {
   position: absolute;
-
+  float: center;
   bottom: 0;
   left:0;
   right: 0;
+
   height: 100px;
+  width: 100%;
+
 
   text-align: center;
 
-
-  width: 100%;
-
-  /*line-height: 50px;*/
-
-  float: center;
   background-color: #FFFFFF;
+  margin: auto;
   opacity: .9;
   border-color: #25A3FC;
-
-  border-left: 0px;
-
-  margin: auto;
+  border-left: 0;
 }
 
 .buttonText {
   position: relative;
 
+  padding-bottom: 40px;
+
   color: #25A3FC;
   font-size: 20px;
-  padding-bottom: 40px;
 
   text-align: center;
   vertical-align: middle;
@@ -130,7 +123,6 @@ div.Grade-Display {
 
 .Compressed div.DeckInfo, .Compressed div.DeckHistory{
   float: none;
-  /*margin: 0 auto;*/
 }
 
 .Compressed .DeckInfo .stat {

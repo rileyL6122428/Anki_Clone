@@ -4,25 +4,24 @@
 
 
 .background {
-  position: fixed;
   display: block;
-  background-position: center center;
-  background-image: image-url('ALgWRj4.jpg');
-
-  background-size: cover;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+
+  background-position: center center;
+  background-image: image-url('ALgWRj4.jpg');
+  background-size: cover;
 }
 .auth h1:before {
+  display: block;
+  float: left;
+
   height: 60px;
   width: 90px;
-  display: block;
-  // margin-top: 8px;
-  // margin-right: 10px;
-  // margin-left: 30px;
-  float: left;
+
   background-image: image-url('Anki-Clone-Logo.png');
   background-position: center center;
   background-size: cover;
@@ -30,14 +29,14 @@
 }
 
 .auth .Username-Icon {
-  position: absolute;
-  height: 30px;
-  width: 40px;
   display: block;
-
+  position: absolute;
   top: 45px;
   left: 160px;
-  // float: left;
+
+  height: 30px;
+  width: 40px;
+
   background-image: image-url('username_gray.png');
   background-position: center center;
   background-size: cover;
@@ -45,14 +44,14 @@
 }
 
 .auth div.Username-Icon-Blue {
-  position: absolute;
-  height: 30px;
-  width: 40px;
   display: block;
-
+  position: absolute;
   top: 45px;
   left: 160px;
-  // float: left;
+
+  height: 30px;
+  width: 40px;
+
   background-image: image-url('username_blue.png');
   background-position: center center;
   background-size: cover;
@@ -60,14 +59,14 @@
 }
 
 .auth .Password-Icon-1 {
-  position: absolute;
-  height: 35px;
-  width: 30px;
   display: block;
-
+  position: absolute;
   top: 100px;
   left: 165px;
-  // float: left;
+
+  height: 35px;
+  width: 30px;
+
   background-image: image-url('lock_gray.png');
   background-position: center center;
   background-size: cover;
@@ -75,14 +74,14 @@
 }
 
 .auth .Password-Icon-1-Blue {
-  position: absolute;
-  height: 31px;
-  width: 27px;
   display: block;
-
+  position: absolute;
   top: 100px;
   left: 167px;
-  // float: left;
+
+  height: 31px;
+  width: 27px;
+
   background-image: image-url('lock_blue.png');
   background-position: center center;
   background-size: cover;
@@ -90,14 +89,13 @@
 }
 
 .auth .Password-Icon-2 {
-  position: absolute;
-  height: 35px;
-  width: 30px;
   display: block;
-
+  position: absolute;
   top: 160px;
   left: 165px;
-  // float: left;
+
+  height: 35px;
+  width: 30px;
   background-image: image-url('lock_gray.png');
   background-position: center center;
   background-size: cover;
@@ -105,14 +103,13 @@
 }
 
 .auth .Password-Icon-2-Blue {
-  position: absolute;
-  height: 31px;
-  width: 27px;
   display: block;
-
+  position: absolute;
   top: 160px;
   left: 167px;
-  // float: left;
+
+  height: 31px;
+  width: 27px;
   background-image: image-url('lock_blue.png');
   background-position: center center;
   background-size: cover;
@@ -120,12 +117,12 @@
 }
 
 .Options div {
+  float: left;
+
   height: 25px;
   width: 25px;
 
   margin-right: 25px;
-
-  float: left;
 
   background-position: center center;
   background-size: cover;
@@ -145,12 +142,14 @@
 }
 
 div.Arrow-Right {
+  float: right;
+
   height: 40px;
   width: 25px;
+
   margin-top: 25px;
   margin-left: 0px;
   margin-right: 10%;
-  float: right;
 
   color: #25A3FC;
 
@@ -160,23 +159,28 @@ div.Arrow-Right {
 }
 
 .Deck-Index-Item div.Cards-Image {
+  float: left;
+
   height: 25px;
   width: 25px;
+
   margin-top: 5px;
   margin-left: 30px;
-  float: left;
+
   background-image: image-url('cards.png');
   background-position: center center;
   background-size: cover;
 }
 
 div.Search-Container .Mag-And-Bar div:before {
+  float: left;
+
   height: 15px;
   width: 15px;
+
   margin-top: 8px;
   margin-right: 10px;
-  // margin-left: 30px;
-  float: left;
+
   background-image: image-url('magnify_gray.png');
   background-position: center center;
   background-size: cover;
@@ -187,11 +191,10 @@ div.Search-Container .Mag-And-Bar div:before {
 
 li.Icon {
   display: block;
+
   width: 40px;
   height: 40px;
-  // margin-left: calc(25% - 292px);
-  // margin-right: calc(25% - 292px);
-  // margin: auto;
+
   background-position: center center;
   background-size: cover;
 }
@@ -199,6 +202,7 @@ li.Icon {
 li.Home-Icon {
   position: absolute;
   left: calc(15% - 20px);
+
   background-image: image-url('home_gray.png');
 }
 
@@ -209,7 +213,9 @@ li.Home-Icon {
 li.Decks-Icon {
   position: absolute;
   left: calc(32.5% - 20px);
+
   height: 43px;
+
   background-image: image-url('decks_gray.png');
 }
 
@@ -220,6 +226,7 @@ li.Decks-Icon {
 li.New-Decks-Icon {
   position: absolute;
   left: calc(50% - 20px);
+
   background-image: image-url('add_deck_gray.png');
 }
 
@@ -230,6 +237,7 @@ li.New-Decks-Icon {
 li.Import-Icon {
   position: absolute;
   left: calc(67.5% - 20px);
+
   background-image: image-url('download_gray.png');
 }
 
@@ -241,7 +249,9 @@ li.Import-Icon {
 li.Profile-Icon {
   position: absolute;
   left: calc(85% - 20px);
+
   width: 41px;
+  
   background-image: image-url('profile_gray.png');
 }
 

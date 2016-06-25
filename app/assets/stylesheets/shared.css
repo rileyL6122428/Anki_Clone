@@ -1,107 +1,102 @@
-
 .group {
   display: block;
-  content: "";
   clear: both;
+
+  content: "";
 }
 
 h1 {
-  text-align: center;
+  display: block;
+
+  height: 50px;
+
   margin-top: 0px;
   margin-bottom: 0px;
 
-  background-color: #f8f8f8;
-  display: block;
+  text-align: center;
 
   border-bottom: 1px solid #ddd;
-
-  height: 50px;
+  background-color: #f8f8f8;
 }
 
 h4.Stat-Header{
   display: block;
+
   width: 95%;
+  height: 24px;
+
   margin: auto;
   margin-top: 20px;
   padding-top: 3px;
   padding-bottom: 10px;
-  height: 24px;
+
   text-align: center;
-  /*font-size: 24px;*/
-  /*font-family: Roboto-Thin;*/
 }
 
 ul.Stat-List {
   padding: 0px;
 }
 
-
 li .StatTitle {
   float: left;
 }
+
 li .Stat {
   float: right;
 }
 
 li.Statistic {
-  list-style-type: none;
-  border-bottom: 1px solid #ddd;
   width: 90%;
+
   margin: auto;
+  border-bottom: 1px solid #ddd;
+
+  list-style-type: none;
 }
 
 .Parent-Component{
-  background-color: #FFFFFF;
-
   display: block;
-
   position: absolute;
+
   height: 100%;
   width: 100%;
+
+  background-color: #FFFFFF;
 }
 
 .Cancel-Logout-Button {
-
-  background-color: rgba(255,0,0,0);
   border: none;
   outline: none;
+
   color: red;
-
-}
-
-p.Stat{
-  /*padding-right: 5px;*/
-}
-
-
-
-.Overflow-Test {
-  /*height: 100%;
-  overflow: hidden;*/
-}
-
-.Header-With-Arrow {
-
+  background-color: rgba(255,0,0,0);
 }
 
 .Header-With-Arrow h1 {
   display: block;
+
   width: 100%;
   height: 50px;
 }
 
 .Header-With-Arrow h1 a {
-color: rgb(37, 163, 252);
-width: 5%;
-float: left;
-text-decoration: none;
+  float: left;
+
+  width: 5%;
+
+  text-decoration: none;
+
+  color: rgb(37, 163, 252);
 }
 
 .Header-With-Arrow h1 p {
-color: rgb(68, 68, 68);
-margin-top: 0px;
-margin-bottom: 0px;
-padding: 0px;
-width: 90%;
-float: left;
+  float: left;
+
+  width: 90%;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  
+  color: rgb(68, 68, 68);
 }

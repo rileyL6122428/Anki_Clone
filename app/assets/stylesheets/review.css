@@ -9,10 +9,11 @@
 }
 
 canvas.Progress-Circle {
-  height: 24px;
-  width: 24px;
   position: absolute;
   right: 0;
+
+  height: 24px;
+  width: 24px;
 }
 
 .Review button.BackLink {
@@ -26,38 +27,38 @@ canvas.Progress-Circle {
 
 .Review .Title {
   display: block;
-
-  /*float: left;*/
   margin: auto;
-
 }
 
 .Review h1 button {
   display: block;
-  color: #25A3FC;
-  background: none;
-  outline: none;
-  background-color: transparent;
-  border: none;
-  font-size: 30px;
   float: left;
+
   width: 5%;
+
+  border: none;
+  outline: none;
+
+  font-size: 30px;
+
+  background: none;
+  background-color: transparent;
+  color: #25A3FC;
 }
 
 .Review h6 {
-  color: #616161;
-  background-color: #E5E5E5;
   position: relative;
 
+  height: 28px;
   margin-top: 0px;
   margin-bottom: 0px;
-
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 
-  height: 28px;
-
   font-size: 24px;
+
+  color: #616161;
+  background-color: #E5E5E5;
 }
 
 .Progress-Circle {
@@ -72,11 +73,14 @@ canvas.Progress-Circle {
 
 .Review .Card-Front {
   display: block;
+
+  height: 10%;
+
   margin: auto;
+
+  font-size: 18px;
   text-align: center;
   vertical-align: middle;
-  font-size: 18px;
-  height: 10%;
 }
 
 .Review .Spacer {
@@ -84,44 +88,44 @@ canvas.Progress-Circle {
   height: 45%;
 }
 
-/*.Review .Preview {
-  display: block;
-  height: 100%;
-}*/
-
 .Flipped {
   height: calc(100% - 220px);
 }
 
 .Flipped .Preview{
   display: block;
+
   height: 50%;
+
   font-size: 18px;
 }
 
 .Flipped p{
-  height: 100%;
   position: relative;
+
+  height: 100%;
+
   margin-top: 23px;
   margin-bottom: 13px;
 }
 
 .Flipped .List-Center {
   display: block;
-  height: 100%;
-  width: 100%;
   position: absolute;
   top: 42%;
+
+  height: 100%;
+  width: 100%;
 }
 
 .Flipped div.Front {
-  /*height: 100%;*/
   height: auto;
   position: absolute;
   bottom: 0;
   right: 5%;
-  /*margin: auto;*/
+
   width:90%;
+
   margin-bottom: 15px;
 }
 
@@ -132,49 +136,47 @@ canvas.Progress-Circle {
 
 .Review .Normal-Button {
   position: absolute;
-
+  float: center;
   bottom: 0;
   left:0;
   right: 0;
-  height: 90px;
-  text-align: center;
 
   width: 100%;
-
-  float: center;
-  background-color: #FFFFFF;
-  opacity: .9;
-  /**/
-
-  border-top: 2px solid #25A3FC;
-
-  color: #25A3FC;
-  font-size: 20px;
+  height: 90px;
 
   margin: auto;
+  border-top: 2px solid #25A3FC;
+
+  font-size: 20px;
+  text-align: center;
+
+  background-color: #FFFFFF;
+  color: #25A3FC;
+  opacity: .9;
 
 }
 
 .Flipped .Buttons {
   position: absolute;
-
+  float: center;
   bottom: 0;
   left:0;
   right: 0;
-  height: 90px;
-  text-align: center;
-  width: 100%;
 
-  float: center;
+  height: 90px;
+  width: 100%;
+  text-align: center;
+
   background-color: #FFFFFF;
   opacity: .9;
 }
 
 .Flipped button {
   position: relative;
+
   width: 25%;
   height: 100%;
-  background: none;
+
   outline: none;
   background-color: transparent;
   border: none;
@@ -183,11 +185,12 @@ canvas.Progress-Circle {
   border-left: 1px solid #ddd;
 
   font-size: 18px;
+
+  background: none;
 }
 
 button.Fail {
  color: rgb(229, 64, 40);
-
 }
 
 button.Hard {
@@ -216,19 +219,20 @@ button.Easy {
 
 h4.Stat-Header {
   margin-top: 20px;
-  /*width:95%;*/
 }
 
 .Review-Grade {
   display: block;
-  width: 475px;
   float: left;
+
+  width: 475px;
 }
 
 .Review-Info {
   display: block;
-  width: 475px;
   float: right;
+
+  width: 475px;
 }
 
 .Review div.Preview-Divider {
@@ -237,6 +241,7 @@ h4.Stat-Header {
 
 .Review .Preview div.Front {
   position: relative;
-  width: 100%;
   right: 0;
+  
+  width: 100%;
 }
