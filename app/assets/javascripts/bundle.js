@@ -34795,8 +34795,7 @@
 	        'div',
 	        { className: 'BelowHeader' },
 	        React.createElement(Content, { deckId: this.props.params.id }),
-	        React.createElement(Options, { deckId: this.props.params.id }),
-	        React.createElement('div', { className: 'ClearSet' })
+	        React.createElement(Options, { deckId: this.props.params.id })
 	      )
 	    );
 	  }

@@ -1,0 +1,48 @@
+.Compressed div.DeckInfo, .Compressed div.DeckHistory{
+  float: none;
+}
+
+.Compressed .DeckInfo .stat {
+  font-size: 28px;
+}
+
+.Compressed .DeckInfo .label {
+  font-size: 14px;
+}
+
+.Compressed div.Display-Stats {
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+
+.Compressed div.DeckInfo {
+  height: 245px;
+}
+
+.Compressed div.Test-Graph {
+  padding-top: 5px;
+}
+
+.Compressed ul.Stat-List {
+  margin-top: 0;
+}
+
+.Compressed h4.Stat-Header {
+  margin-top: 15px;
+}
+
+.Compressed .Options ul {
+  padding-left: 8%;
+}
+
+.Compressed div.Option-Label {
+  width: 22%;
+
+  padding-bottom: 5px;
+
+  font-size: 15px;
+}
+
+.Compressed div.Icon {
+  margin-right: 3%;
+}

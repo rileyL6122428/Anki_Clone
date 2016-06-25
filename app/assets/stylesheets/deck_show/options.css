@@ -1,6 +1,5 @@
 .Options {
   float: right;
-  right: 0;
 
   height: 100%;
   width:20%;
@@ -41,16 +40,4 @@
   padding-bottom: 15px;
   margin-right: 0;
   border-bottom: 1px solid #ddd;
-}
-
-.Compressed div.Option-Label {
-  width: 22%;
-
-  padding-bottom: 5px;
-  
-  font-size: 15px;
-}
-
-.Compressed div.Icon {
-  margin-right: 5%;
 }

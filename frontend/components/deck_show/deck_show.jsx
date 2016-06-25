@@ -45,11 +45,11 @@ var DeckShow = React.createClass({
         <div className="BelowHeader">
           <Content deckId={this.props.params.id}/>
           <Options deckId={this.props.params.id} />
-          <div className="ClearSet" />
         </div>
       </div>
     );
   }
 });
+
 
 module.exports = DeckShow;
