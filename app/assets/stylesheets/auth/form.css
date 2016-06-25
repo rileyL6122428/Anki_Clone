@@ -1,0 +1,61 @@
+.auth input {
+  margin-left: 70px;
+  margin-right: 70px;
+  padding-left: 10px;
+  padding-right: 0px;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 1px solid gray;
+
+  font-size: 20px;
+
+  background-color: rgba(0,0,0,0);
+  color: rgba(255, 255, 255, 1);
+}
+
+.auth label {
+  width: 200px;
+  height: 60px;
+
+  margin-top: 30px;
+  padding-right: 12px;
+}
+
+.auth input[type=text]:focus, .auth input[type=password]:focus {
+  border: 0 0 0 1px;
+  outline: 0;
+
+  border-bottom: 1px solid rgba(37,163,252, .6);
+}
+
+input[type=text].First-Auth-Input {
+  margin-top: 46px;
+}
+
+input[type=password].Second-Auth-Input {
+  margin-top: 34px;
+}
+
+input[type=password].Third-Auth-Input {
+  margin-top: 34px;
+}
+
+.auth button, .auth #submit {
+  padding-top: 30px;
+  border: none;
+
+  font-size: 20px;
+
+  background-color: rgba(0,0,0,0);
+  color: #0099ff;
+}
+
+.auth button:focus, .auth #submit:focus {
+  outline: 0;
+}
+
+#cancel {
+  padding-left: 40px;
+  color: red;
+}

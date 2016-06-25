@@ -1,0 +1,22 @@
+.auth button.Log-In{
+  padding-top: 12px;
+}
+
+.auth button.Sign-Up {
+  padding-top: 0;
+}
+
+.auth button.Guest-Button {
+  margin-top: 19px;
+  padding-top: 0;
+}
+
+.auth div.Facebook-Signup {
+  margin-top: 16px;
+  margin-left: 51px;
+  margin-right: 45px;
+  
+  text-decoration: none;
+
+  color: #0099ff;
+}

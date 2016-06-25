@@ -1,0 +1,60 @@
+.auth button:hover, .auth input[type=submit]:hover {
+  cursor: pointer;
+}
+
+.auth {
+  display: block;
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+
+  height: 400px;
+  max-height:100%;
+  width: 640px;
+  max-width:100%;
+
+  margin:auto;
+  border-radius: 15px;
+  overflow:auto;
+
+  font-size: 20px;
+  text-align: center;
+
+  background-color: rgba(0,0,0,.6);
+  color: white;
+}
+
+.auth form {
+  position: relative;
+
+  width: 350px;
+
+  padding-left: 160px;
+}
+
+.auth h1 {
+  width: 360px;
+
+  margin: auto;
+  padding-top: 40px;
+  border: none;
+
+  font-size: 55px;
+
+  background: none;
+}
+
+.auth h3 {
+  padding-top: 10px;
+  font-size:  16px;
+}
+
+.auth p {
+  width: 380px;
+
+  margin: 0 auto;
+
+  font-size: 14px;
+}
