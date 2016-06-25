@@ -31,64 +31,64 @@ var Test = React.createClass({
 
           <div className="Bars group">
 
-            <div>
-              <p className="Bar Bar1"
+            <div className="Bar-Unit">
+              <div className="Bar Bar1"
                  style={{height: percentages[0] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[0]) + "%"}}>
                 <num>{ barTotals[0] }</num>
               </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar2"
+            <div className="Bar-Unit">
+              <div className="Bar Bar2"
                  style={{height: percentages[1] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[1]) + "%"}}>
                 <num>{ barTotals[1] }</num>
                 </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar3"
+            <div className="Bar-Unit">
+              <div className="Bar Bar3"
                  style={{height: percentages[2] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[2]) + "%"}}>
                 <num>{ barTotals[2] }</num>
                 </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar4"
+            <div className="Bar-Unit">
+              <div className="Bar Bar4"
                  style={{height: percentages[3] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[3]) + "%"}}>
                 <num>{ barTotals[3] }</num>
                 </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar5"
+            <div className="Bar-Unit">
+              <div className="Bar Bar5"
                  style={{height: percentages[4] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[4]) + "%"}}>
                 <num>{ barTotals[4] }</num>
                 </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar6"
+            <div className="Bar-Unit">
+              <div className="Bar Bar6"
                  style={{height: percentages[5] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[5]) + "%"}}>
                 <num>{ barTotals[5] }</num>
                 </wrapper>
             </div>
 
-            <div>
-              <p className="Bar Bar7"
+            <div className="Bar-Unit">
+              <div className="Bar Bar7"
                  style={{height: percentages[6] + "%"} }>
-              </p>
+              </div>
               <wrapper style={{height: (100 - percentages[6]) + "%"}}>
                 <num>{ barTotals[6] }</num>
                 </wrapper>

@@ -1,0 +1,9 @@
+.DashBoard .Display {
+  float: left;
+
+  width: 50%;
+  min-width: 420px;
+  height: 230px;
+
+  text-align: center;
+}

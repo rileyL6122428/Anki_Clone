@@ -4,7 +4,6 @@
 
   height: 100%;
   width:20%;
-  min-width: 150px;
 
   background:  #f8f8f8;
 }
@@ -27,9 +26,7 @@
 }
 
 .Options a {
-  width:200px;
-
-  padding: 10px 0px;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   font-size: 20px;
@@ -39,10 +36,10 @@
 }
 
 .Options div.Option-Label {
-  width:165px;
+  width:39%;
 
   padding-bottom: 15px;
-  margin-right: 0px;
+  margin-right: 0;
   border-bottom: 1px solid #ddd;
 }
 

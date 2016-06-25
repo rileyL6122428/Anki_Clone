@@ -23,7 +23,6 @@
 
 .DeckShow a.BackLink {
   position: absolute;
-  float: left;
   left: 0;
 
   padding-left: 5px;
@@ -34,16 +33,6 @@
   color: #25A3FC;
 }
 
-.DeckShow .Title {
-  display: block;
-
-  width: 100px;
-
-  margin: auto;
-
-  color: rgb(68, 68, 68);
-}
-
 .DeckShow h2 {
   width: 100%;
 
@@ -51,6 +40,7 @@
   border: 1px solid #ddd;
 
   text-align: center;
+  
   background-color: #E5E5E5;
   color: #616161;
 }
@@ -58,7 +48,7 @@
 .BelowHeader {
   display: block;
   position: relative;
-  
+
   height: 100%;
   width: 100%;
 }

@@ -39,7 +39,7 @@ var DeckShow = React.createClass({
       <div className={ "DeckShow " + compressStatus }>
         <h1>
           <Link to="/decks" className="BackLink">{arrow}</Link>
-          <p className="Title">Deck</p>
+          Deck
         </h1>
 
         <div className="BelowHeader">
@@ -52,5 +52,4 @@ var DeckShow = React.createClass({
   }
 });
 
-// <DeckHistory />
 module.exports = DeckShow;

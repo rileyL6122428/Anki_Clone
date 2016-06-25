@@ -33576,8 +33576,8 @@
 	        { className: "Bars group" },
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar1",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar1",
 	            style: { height: percentages[0] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33591,8 +33591,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar2",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar2",
 	            style: { height: percentages[1] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33606,8 +33606,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar3",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar3",
 	            style: { height: percentages[2] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33621,8 +33621,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar4",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar4",
 	            style: { height: percentages[3] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33636,8 +33636,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar5",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar5",
 	            style: { height: percentages[4] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33651,8 +33651,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar6",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar6",
 	            style: { height: percentages[5] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -33666,8 +33666,8 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          null,
-	          React.createElement("p", { className: "Bar Bar7",
+	          { className: "Bar-Unit" },
+	          React.createElement("div", { className: "Bar Bar7",
 	            style: { height: percentages[6] + "%" } }),
 	          React.createElement(
 	            "wrapper",
@@ -34789,11 +34789,7 @@
 	          { to: '/decks', className: 'BackLink' },
 	          arrow
 	        ),
-	        React.createElement(
-	          'p',
-	          { className: 'Title' },
-	          'Deck'
-	        )
+	        'Deck'
 	      ),
 	      React.createElement(
 	        'div',
@@ -34806,7 +34802,6 @@
 	  }
 	});
 	
-	// <DeckHistory />
 	module.exports = DeckShow;
 
 /***/ },

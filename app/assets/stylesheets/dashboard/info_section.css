@@ -1,0 +1,24 @@
+.DashBoard .Info {
+  float: left;
+
+  width: 50%;
+  min-width: 420px;
+  height: 230px;
+}
+
+.DashBoard ul {
+  width: 97%;
+  padding-left: 2%;
+}
+
+.DashBoard .Info li {
+  list-style-type: none;
+}
+
+.DashBoard .Info li .StatTitle {
+  float: left;
+}
+
+.DashBoard .Info li .Stat {
+  float: right;
+}
