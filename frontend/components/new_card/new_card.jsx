@@ -5,10 +5,33 @@ var Link = require('react-router').Link;
 
 NewCard = React.createClass({
 
+  getInitialState: function() {
+    return({ windowCompressed: false })
+  },
+
+  componentDidMount: function (){
+    var self = this;
+    this.intervalId = setInterval(function() {
+      if ($(window).width() < 850) {
+       self.setState({ windowCompressed: true });
+     } else {
+       self.setState({ windowCompressed: false });
+     }
+   }, 200);
+  },
+
+  componentWillUnmount: function () {
+    var self = this;
+    clearInterval(self.intervalId);
+  },
+
   render: function () {
+    var compressionStatus = "";
+    if(this.state.windowCompressed) { compressionStatus = "Compressed" }
+
     var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
     return(
-      <div className="Flashcard-Edit Parent-Component">
+      <div className={"Flashcard-New Parent-Component " + compressionStatus}>
         <HeaderWithBack title="New Card" url={deckIndexUrl} />
         <Form deckId={this.props.params.id}/>
       </div>

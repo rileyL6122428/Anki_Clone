@@ -36000,11 +36000,36 @@
 	  displayName: 'NewCard',
 	
 	
+	  getInitialState: function () {
+	    return { windowCompressed: false };
+	  },
+	
+	  componentDidMount: function () {
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 850) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 200);
+	  },
+	
+	  componentWillUnmount: function () {
+	    var self = this;
+	    clearInterval(self.intervalId);
+	  },
+	
 	  render: function () {
+	    var compressionStatus = "";
+	    if (this.state.windowCompressed) {
+	      compressionStatus = "Compressed";
+	    }
+	
 	    var deckIndexUrl = "decks/" + this.props.params.id + "/flashcards";
 	    return React.createElement(
 	      'div',
-	      { className: 'Flashcard-Edit Parent-Component' },
+	      { className: "Flashcard-New Parent-Component " + compressionStatus },
 	      React.createElement(HeaderWithBack, { title: 'New Card', url: deckIndexUrl }),
 	      React.createElement(Form, { deckId: this.props.params.id })
 	    );
