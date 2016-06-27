@@ -1,0 +1,9 @@
+.Flashcard-Index .Wrapper {
+  position: absolute;
+  left: 5%;
+
+  height: calc(100% - 155px);
+  width: 90%;
+
+  overflow-y: scroll;
+}

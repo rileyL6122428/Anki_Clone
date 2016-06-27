@@ -1,0 +1,62 @@
+.Flashcard-Index-Item {
+  display: block;
+  float: left;
+  width: 170px;
+  height: 200px;
+
+  margin: 10px 20px;
+  border-radius: 5px;
+
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 3px 1px;
+}
+
+.Flashcard-Index-Item h5 {
+  display: block;
+  position: relative;
+  float: center;
+
+  width: 170px;
+  height: 168px;
+
+  margin: 0px;
+
+  text-align: center;
+}
+
+.Flashcard-Index-Item div.Front-Sample {
+  display: block;
+  position: absolute;
+  top: 41%;
+
+  width: 100%;
+
+  font-size: 18px;
+  font-weight: normal;
+}
+
+li.Flashcard-Index-Item > div {
+  display: block;
+  float: none;
+
+  height: 25px;
+  width: 168px;
+
+  margin: 0px;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  text-align: right;
+}
+
+.Flashcard-Index-Item div.Grade {
+  display: block;
+
+  margin-right: 10px;
+
+  font-size: 20px;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
+
+  color: white;
+}

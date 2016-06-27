@@ -1,0 +1,9 @@
+.Flashcard-Index canvas {
+  width: 90px;
+}
+
+.Flashcard-Index .Loading-Bar {
+  width: 90px;
+  margin: auto;
+  margin-top: 80px;
+}

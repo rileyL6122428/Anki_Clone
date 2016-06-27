@@ -1,0 +1,30 @@
+.Flashcard-Index div.Search-Container {
+  display: block;
+
+  height: 30px;
+
+  padding-top: 10px;
+}
+
+.Flashcard-Index .Search-Container label {
+  display: block;
+  float: left;
+
+  width: 6%;
+  height: 40px;
+}
+
+.Flashcard-Index .Search-Container input {
+  display: block;
+  width: 92%;
+}
+
+.Flashcard-Index .Search-Container {
+  display: block;
+
+  width: 100%;
+
+  padding: 10px 0px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}

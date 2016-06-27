@@ -20,7 +20,7 @@ var FlashcardIndex = React.createClass({
       <div className="Parent-Component Flashcard-Index">
         <h1>
           <Link to={ "/decks/" + this.props.params.id } className="Header-Link Back">{ arrow }</Link>
-          <p>Cards</p>
+          Cards
           <Link to={ "/decks/" + this.props.params.id + "/new-flashcards"} className="Header-Link New">New</Link>
           <div className="ClearSet" />
         </h1>

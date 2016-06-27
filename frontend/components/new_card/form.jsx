@@ -56,7 +56,7 @@ var Form = React.createClass({
 
     return(
       <div className="Form">
-        { flash }
+        <div className="Flash">{ flash }</div>
         <form onSubmit={this.submitCB}>
           <h4>Front</h4>
           <label>

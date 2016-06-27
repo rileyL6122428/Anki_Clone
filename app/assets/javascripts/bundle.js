@@ -35281,11 +35281,7 @@
 	          { to: "/decks/" + this.props.params.id, className: 'Header-Link Back' },
 	          arrow
 	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Cards'
-	        ),
+	        'Cards',
 	        React.createElement(
 	          Link,
 	          { to: "/decks/" + this.props.params.id + "/new-flashcards", className: 'Header-Link New' },
@@ -36100,7 +36096,11 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'Form' },
-	      flash,
+	      React.createElement(
+	        'div',
+	        { className: 'Flash' },
+	        flash
+	      ),
 	      React.createElement(
 	        'form',
 	        { onSubmit: this.submitCB },

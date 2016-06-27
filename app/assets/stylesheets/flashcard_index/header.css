@@ -1,0 +1,34 @@
+.Flashcard-Index h1{
+  display: block;
+
+  width: 100%;
+
+  margin: 0px;
+  border-bottom: 0;
+}
+
+.Flashcard-Index a.Header-Link{
+  position: absolute;
+  float: left;
+
+  text-decoration: none;
+
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Index a.Back{
+  float: left;
+
+  left: 1%;
+
+  text-decoration: none;
+}
+
+.Flashcard-Index a.New{
+  top: 5px;
+  right: 9px;
+
+  width: 60px;
+
+  text-decoration: none;
+}
