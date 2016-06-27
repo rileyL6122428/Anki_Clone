@@ -2,7 +2,6 @@
   background-color: #FFFFFF;
 }
 
-
 .Deck-Index .Loading-Bar {
   width: 90px;
 
@@ -14,7 +13,7 @@
   width: 90px;
 }
 
-.Deck-Index .Wrapper{
+.Deck-Index .Wrapper, .Import .Wrapper{
   position: absolute;
   left: 5px;
 
