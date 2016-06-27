@@ -1,0 +1,23 @@
+.Options div {
+  float: left;
+
+  height: 25px;
+  width: 25px;
+
+  margin-right: 25px;
+
+  background-position: center center;
+  background-size: cover;
+}
+
+.Options div.Edit-Icon {
+  background-image: image-url('edit-logo.png');
+}
+
+.Options div.Card-Icon {
+  background-image: image-url('cards.png');
+}
+
+.Options div.Remove-Icon {
+  background-image: image-url('remove.png');
+}

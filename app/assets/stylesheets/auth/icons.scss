@@ -1,0 +1,100 @@
+.auth h1:before {
+  display: block;
+  float: left;
+
+  height: 60px;
+  width: 90px;
+
+  background-image: image-url('Anki-Clone-Logo.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Username-Icon {
+  display: block;
+  position: absolute;
+  top: 45px;
+  left: 160px;
+
+  height: 30px;
+  width: 40px;
+
+  background-image: image-url('username_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth div.Username-Icon-Blue {
+  display: block;
+  position: absolute;
+  top: 45px;
+  left: 160px;
+
+  height: 30px;
+  width: 40px;
+
+  background-image: image-url('username_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "test";
+}
+
+.auth .Password-Icon-1 {
+  display: block;
+  position: absolute;
+  top: 100px;
+  left: 165px;
+
+  height: 35px;
+  width: 30px;
+
+  background-image: image-url('lock_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-1-Blue {
+  display: block;
+  position: absolute;
+  top: 100px;
+  left: 167px;
+
+  height: 31px;
+  width: 27px;
+
+  background-image: image-url('lock_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-2 {
+  display: block;
+  position: absolute;
+  top: 160px;
+  left: 165px;
+
+  height: 35px;
+  width: 30px;
+  background-image: image-url('lock_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}
+
+.auth .Password-Icon-2-Blue {
+  display: block;
+  position: absolute;
+  top: 160px;
+  left: 167px;
+
+  height: 31px;
+  width: 27px;
+  background-image: image-url('lock_blue.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}

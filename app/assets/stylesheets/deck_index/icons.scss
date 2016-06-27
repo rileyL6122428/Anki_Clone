@@ -1,0 +1,30 @@
+div.Arrow-Right {
+  float: right;
+
+  height: 40px;
+  width: 25px;
+
+  margin-top: 25px;
+  margin-left: 0px;
+  margin-right: 10%;
+
+  color: #25A3FC;
+
+  background-image: image-url('arrow_right.png');
+  background-position: center center;
+  background-size: cover;
+}
+
+.Deck-Index-Item div.Cards-Image {
+  float: left;
+
+  height: 25px;
+  width: 25px;
+
+  margin-top: 5px;
+  margin-left: 30px;
+
+  background-image: image-url('cards.png');
+  background-position: center center;
+  background-size: cover;
+}

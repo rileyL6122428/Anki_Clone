@@ -1,0 +1,68 @@
+li.Icon {
+  display: block;
+
+  width: 40px;
+  height: 40px;
+
+  background-position: center center;
+  background-size: cover;
+}
+
+li.Home-Icon {
+  position: absolute;
+  left: calc(15% - 20px);
+
+  background-image: image-url('home_gray.png');
+}
+
+.DashBoard li.Home-Icon {
+  background-image: image-url('home_blue.png');
+}
+
+li.Decks-Icon {
+  position: absolute;
+  left: calc(32.5% - 20px);
+
+  height: 43px;
+
+  background-image: image-url('decks_gray.png');
+}
+
+.Deck-Index li.Decks-Icon {
+  background-image: image-url('decks_blue.png');
+}
+
+li.New-Decks-Icon {
+  position: absolute;
+  left: calc(50% - 20px);
+
+  background-image: image-url('add_deck_gray.png');
+}
+
+.NewDeck li.New-Decks-Icon {
+  background-image: image-url('add_deck_blue.png');
+}
+
+li.Import-Icon {
+  position: absolute;
+  left: calc(67.5% - 20px);
+
+  background-image: image-url('download_gray.png');
+}
+
+.Import li.Import-Icon {
+    background-image: image-url('download_blue.png');
+}
+
+li.Profile-Icon {
+  position: absolute;
+  left: calc(85% - 20px);
+
+  width: 41px;
+
+  background-image: image-url('profile_gray.png');
+}
+
+.Profile li.Profile-Icon {
+  background-image: image-url('profile_blue.png');
+}

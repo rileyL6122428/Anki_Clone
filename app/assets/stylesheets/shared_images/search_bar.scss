@@ -1,0 +1,14 @@
+div.Search-Container .Mag-And-Bar div:before {
+  float: left;
+
+  height: 15px;
+  width: 15px;
+
+  margin-top: 8px;
+  margin-right: 10px;
+
+  background-image: image-url('magnify_gray.png');
+  background-position: center center;
+  background-size: cover;
+  content: "";
+}

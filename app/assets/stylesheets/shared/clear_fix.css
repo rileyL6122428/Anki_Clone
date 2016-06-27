@@ -1,0 +1,6 @@
+.group {
+  display: block;
+  clear: both;
+
+  content: "";
+}

@@ -1,0 +1,13 @@
+h1 {
+  display: block;
+
+  height: 50px;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  text-align: center;
+
+  border-bottom: 1px solid #ddd;
+  background-color: #f8f8f8;
+}
