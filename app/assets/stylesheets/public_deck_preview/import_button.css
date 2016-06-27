@@ -1,0 +1,19 @@
+.Download-Deck .Normal-Button {
+  position: absolute;
+  bottom: 0;
+  left:0;
+  right: 0;
+
+  height: 90px;
+  width: 100%;
+
+  margin: auto;
+  border-top: 2px solid #25A3FC;
+
+  font-size: 20px;
+  text-align: center;
+
+  background-color: #FFFFFF;
+  opacity: .9;
+  color: #25A3FC;
+}

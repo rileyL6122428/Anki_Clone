@@ -1,0 +1,10 @@
+.Deck-Index .Loading-Bar {
+  width: 90px;
+
+  margin: auto;
+  margin-top: 80px;
+}
+
+.Deck-Index canvas {
+  width: 90px;
+}

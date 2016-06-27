@@ -1,0 +1,15 @@
+.Flashcard-Index {
+  background-color: #FFFFFF;
+}
+
+.Deck-Index .Wrapper, .Import .Wrapper{
+  position: absolute;
+  left: 5px;
+
+  width: 100%;
+  height: calc(100% - 175px);
+
+  background-color: #FFFFFF;
+
+  overflow-y: scroll;
+}

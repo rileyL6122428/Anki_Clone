@@ -1,0 +1,72 @@
+.Deck-Index-Item {
+  display: block;
+  float: left;
+
+  width: 45%;
+  min-width: 420px;
+  height: 90px;
+
+  margin: 10px 20px;
+  border-top: 1px solid rgba(0,0,0,0.15);
+  border-left: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 3px solid rgba(0,0,0,0.2);
+  border-right: 3px solid rgba(0,0,0,0.2);
+
+  color: black;
+}
+
+.Deck-Index-Item .Left-Side-Content {
+  display: block;
+  float: left;
+
+  width: 60%;
+}
+
+.Deck-Index-Item h5 {
+  display: block;
+
+  width: 50%;
+
+  margin-top: 15px;
+  margin-left: 30px;
+  margin-right: 0px;
+  margin-bottom: 5px;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+div.Card-Count {
+  display: block;
+  width: 100%;
+}
+
+.Deck-Index-Item p {
+  display: block;
+  float: left;
+
+  width: 25%;
+
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.Deck-Index-Item div.Grade {
+  display: block;
+  float: right;
+
+  width: 40%;
+
+  margin-top: 0px;
+  margin-right: 0px;
+
+  font-size: 27px;
+}
+
+div.Percentage {
+  display: block;
+  float: left;
+
+  margin-top: 25px;
+  margin-left: 20%;
+}
