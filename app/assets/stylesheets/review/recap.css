@@ -1,0 +1,29 @@
+.Recap {
+  display: block;
+  width: 960px;
+  margin: auto;
+}
+
+.Recap h4 {
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+h4.Stat-Header {
+  margin-top: 20px;
+}
+
+.Review-Grade {
+  display: block;
+  float: left;
+
+  width: 475px;
+}
+
+.Review-Info {
+  display: block;
+  float: right;
+
+  width: 475px;
+}

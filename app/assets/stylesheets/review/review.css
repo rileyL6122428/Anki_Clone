@@ -1,0 +1,49 @@
+.Review {
+  opacity: 1;
+  text-align: center;
+}
+
+.Review button.BackLink {
+  position: absolute;
+}
+
+.Review h1 {
+  display: block;
+  position: relative;
+}
+
+.Review .Title {
+  display: block;
+  margin: auto;
+}
+
+.Review h1 button {
+  display: block;
+  float: left;
+
+  width: 5%;
+
+  border: none;
+  outline: none;
+
+  font-size: 30px;
+
+  background: none;
+  background-color: transparent;
+  color: #25A3FC;
+}
+
+.Review h6 {
+  position: relative;
+
+  height: 28px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  font-size: 24px;
+
+  color: #616161;
+  background-color: #E5E5E5;
+}

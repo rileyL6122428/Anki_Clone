@@ -1,0 +1,12 @@
+.Review-Grade canvas {
+  height: 200px;
+  width: 200px;
+}
+
+canvas.Progress-Circle {
+  position: absolute;
+  right: 0;
+
+  height: 24px;
+  width: 24px;
+}

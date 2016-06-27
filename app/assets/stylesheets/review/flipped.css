@@ -1,0 +1,105 @@
+.Flipped {
+  height: calc(100% - 220px);
+}
+
+.Flipped .Preview{
+  display: block;
+
+  height: 50%;
+
+  font-size: 18px;
+}
+
+.Flipped p {
+  position: relative;
+
+  height: 100%;
+
+  margin-top: 23px;
+  margin-bottom: 13px;
+}
+
+.Flipped .List-Center {
+  display: block;
+  position: absolute;
+  top: 42%;
+
+  height: 100%;
+  width: 100%;
+}
+
+.Flipped div.Front {
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  right: 5%;
+
+  width:90%;
+
+  margin-bottom: 15px;
+}
+
+.Flipped div.Back {
+  height: 100%;
+  margin-top: 10px;
+}
+
+.Review div.Preview-Divider {
+  border-top: 1px solid #ddd;
+}
+
+.Review .Preview div.Front {
+  position: relative;
+  right: 0;
+
+  width: 100%;
+}
+
+.Flipped .Buttons {
+  position: absolute;
+  float: center;
+  bottom: 0;
+  left:0;
+  right: 0;
+
+  height: 90px;
+  width: 100%;
+  text-align: center;
+
+  background-color: #FFFFFF;
+  opacity: .9;
+}
+
+.Flipped button {
+  position: relative;
+
+  width: 25%;
+  height: 100%;
+
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-top: 3px solid;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+
+  font-size: 18px;
+
+  background: none;
+}
+
+button.Fail {
+ color: rgb(229, 64, 40);
+}
+
+button.Hard {
+  color: rgb(241, 141, 5);
+}
+
+button.Good {
+  color: rgb(0, 161, 203);
+}
+
+button.Easy {
+  color: rgb(97, 174, 36);
+}
