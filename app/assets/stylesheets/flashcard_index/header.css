@@ -3,7 +3,7 @@
 
   width: 100%;
 
-  margin: 0px;
+  margin: 0;
   border-bottom: 0;
 }
 
@@ -17,9 +17,7 @@
 }
 
 .Flashcard-Index a.Back{
-  float: left;
-
-  left: 1%;
+  left: 9px;
 
   text-decoration: none;
 }

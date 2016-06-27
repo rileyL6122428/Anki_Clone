@@ -35729,13 +35729,9 @@
 	          )
 	        ),
 	        React.createElement(
-	          'h5',
-	          null,
-	          React.createElement(
-	            'div',
-	            { className: 'Front-Sample' },
-	            frontSample
-	          )
+	          'div',
+	          { className: 'Front-Sample' },
+	          frontSample
 	        )
 	      )
 	    );

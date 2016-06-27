@@ -1,6 +1,7 @@
 .Flashcard-Index-Item {
   display: block;
   float: left;
+
   width: 170px;
   height: 200px;
 
@@ -11,26 +12,14 @@
   box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 3px 1px;
 }
 
-.Flashcard-Index-Item h5 {
-  display: block;
-  position: relative;
-  float: center;
-
-  width: 170px;
-  height: 168px;
-
-  margin: 0px;
-
-  text-align: center;
-}
-
 .Flashcard-Index-Item div.Front-Sample {
   display: block;
-  position: absolute;
-  top: 41%;
 
   width: 100%;
 
+  margin-top: 69px;
+
+  text-align: center;
   font-size: 18px;
   font-weight: normal;
 }

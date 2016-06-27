@@ -2,7 +2,7 @@
   position: absolute;
   left: 5%;
 
-  height: calc(100% - 155px);
+  height: calc(100% - 120px);
   width: 90%;
 
   overflow-y: scroll;
