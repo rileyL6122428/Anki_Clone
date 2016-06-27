@@ -1,0 +1,33 @@
+.NewDeck, .EditDeck {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  text-align: left;
+
+  background-color: #FFFFFF;
+}
+
+.NewDeck .Header, .EditDeck .Header {
+  display: black;
+
+  border-bottom: 1px solid #ddd;
+
+  background-color: #f8f8f8;
+}
+
+.NewDeck .Header h1, .EditDeck .Header h1 {
+  text-align: center;
+}
+
+.NewDeck .Header .Cancel, .EditDeck .Header .Cancel {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+
+  font-size: 24px;
+
+  color: red;
+  text-decoration: none;
+}
