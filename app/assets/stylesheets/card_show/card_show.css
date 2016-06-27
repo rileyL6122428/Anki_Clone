@@ -1,0 +1,25 @@
+.Flashcard-Show {
+  display: block;
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+.Flashcard-Show h1 {
+  display: block;
+
+  width: 100%;
+  height: 50px;
+}
+
+.Flashcard-Show h1 a {
+  position: absolute;
+  left: 0;
+
+  width: 5%;
+
+  text-decoration: none;
+
+  color: rgb(37, 163, 252);
+}

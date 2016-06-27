@@ -1,0 +1,69 @@
+.Flashcard-Show .Not-Preview{
+  display: block;
+  float: right;
+
+  height: 100%;
+  width:49%;
+}
+
+.Flashcard-Show .Not-Preview .Info {
+  display: block;
+  float:none;
+
+  width: 100%;
+  border: 0px;
+}
+
+.Not-Preview .Options {
+  display: block;
+  position: relative;
+
+  width: 200px;
+  height: 100px;
+
+  border: 0px;
+
+  background-color: #FFFFFF;
+}
+
+.Not-Preview div.Options {
+  float: none;
+  margin: auto;
+
+  width: 100%;
+}
+
+
+.Flashcard-Show .Not-Preview a {
+  display: block;
+  float: left;
+
+  width: 35px;
+
+  margin-left: 30%;
+  padding: 0px;
+  border-bottom: 0px solid #ffffff;
+
+  text-decoration: none;
+
+  color: rgb(37, 163, 252);
+}
+
+.Flashcard-Show .Not-Preview button {
+  display: block;
+  float:left;
+
+  margin-left: 25%;
+  padding: 0px;
+  border: 0;
+  outline: none;
+
+  font-size: 20px;
+
+  color: red;
+  background-color: #FFFFFF;
+}
+
+.Flashcard-Show .Not-Preview button:hover {
+  cursor: pointer;
+}

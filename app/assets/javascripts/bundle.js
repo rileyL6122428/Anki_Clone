@@ -35793,11 +35793,7 @@
 	          { to: cards_url },
 	          arrow
 	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Card'
-	        )
+	        'Card'
 	      ),
 	      React.createElement('div', { className: 'ClearSet' }),
 	      React.createElement(Preview, { card: this.state.card }),

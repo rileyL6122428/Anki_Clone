@@ -36,7 +36,7 @@ var FlashcardShow = React.createClass({
       <div className="Flashcard-Show Parent-Component">
         <h1>
           <Link to={ cards_url }>{ arrow }</Link>
-          <p>Card</p>
+          Card
         </h1>
         <div className="ClearSet" />
 

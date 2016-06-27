@@ -1,0 +1,50 @@
+.Flashcard-Show .Preview{
+  display: block;
+  position: relative;
+  float: left;
+
+  height: 100%;
+  width:50%;
+
+  border-right: 1px solid #ddd;
+
+  text-align: center;
+}
+
+.Flashcard-Show .Preview div.Section {
+  position: relative;
+  display: block;
+
+  height:40%;
+  width: 100%;
+
+  text-align: center;
+}
+
+.Flashcard-Show .Preview .List-Center{
+  display: block;
+  height: 100%;
+}
+
+.Flashcard-Show .Preview .Front {
+  display: block;
+  position: absolute;
+  bottom: 0;
+
+  width:100%;
+
+  text-align: center;
+}
+
+.Flashcard-Show div.Preview-Divider {
+  display: block;
+
+  height: 1px;
+  width: 94%;
+
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  background-color: #ddd;
+}
