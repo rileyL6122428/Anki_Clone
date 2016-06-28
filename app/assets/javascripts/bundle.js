@@ -35200,6 +35200,10 @@
 	  displayName: 'Form',
 	
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
 	    var deck = DeckStore.find(this.props.deckId);
 	    return { name: deck.name, description: deck.description };
@@ -35222,6 +35226,7 @@
 	      description: this.state.description,
 	      id: this.props.deckId
 	    });
+	    this.context.router.push("/decks/" + this.props.deckId);
 	  },
 	
 	  render: function () {

@@ -4,6 +4,10 @@ var DeckStore = require('../../stores/deck_store');
 
 var Form = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function () {
     var deck = DeckStore.find(this.props.deckId);
     return({ name: deck.name, description: deck.description });
@@ -26,7 +30,7 @@ var Form = React.createClass({
         description: this.state.description,
         id: this.props.deckId
       });
-
+      this.context.router.push("/decks/" + this.props.deckId);
   },
 
   render: function () {
