@@ -9,9 +9,11 @@
 }
 
 .Flashcard-Index div.Empty-Flashcard-Index-Statement {
+  margin-top: 30px;
   text-align: center;
 }
 
 div.Empty-Flashcard-Index-Statement p {
+  margin: 10px 0 0;
   color: gray;
 }
