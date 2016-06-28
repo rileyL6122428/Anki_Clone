@@ -5,7 +5,8 @@
 
 canvas.Progress-Circle {
   position: absolute;
-  right: 0;
+  top: 2px;
+  right: 2px;
 
   height: 24px;
   width: 24px;

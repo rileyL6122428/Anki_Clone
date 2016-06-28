@@ -2,10 +2,33 @@ var React = require('react');
 var RecapCanvas = require('../graphs/recap');
 
 var Recap =  React.createClass({
+  getInitialState: function() {
+    return({ windowCompressed: false })
+  },
+
+  componentDidMount: function (){
+
+    var self = this;
+    this.intervalId = setInterval(function() {
+      if ($(window).width() < 950) {
+       self.setState({ windowCompressed: true });
+     } else {
+       self.setState({ windowCompressed: false });
+     }
+   }, 200);
+  },
+
+  componentWillUnmount: function () {
+    var self = this;
+    clearInterval(self.intervalId);
+  },
+
   render: function () {
+    var compressionStatus = "";
+    if (this.state.windowCompressed) { compressionStatus = "Compressed" }
     if (!this.props.showing) { return <div></div>; }
     return (
-      <div className="group Recap">
+      <div className={ "group Recap " + compressionStatus }>
         <div className="Review-Grade" >
           <h4 className="Stat-Header">Grade</h4>
           <RecapCanvas className="Recap-Circle" percentage={ this.props.reviewGrade }/>

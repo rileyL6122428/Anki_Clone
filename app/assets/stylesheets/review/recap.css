@@ -27,3 +27,16 @@ h4.Stat-Header {
 
   width: 475px;
 }
+
+div.Recap.Compressed {
+  width: 100%;
+}
+
+div.Recap.Compressed div.Review-Grade, div.Recap.Compressed div.Review-Info {
+  float: none;
+  margin: auto;
+}
+
+div.Recap.Compressed div.Review-Grade {
+  height: 210px;
+}

@@ -36670,13 +36670,38 @@
 	var Recap = React.createClass({
 	  displayName: 'Recap',
 	
+	  getInitialState: function () {
+	    return { windowCompressed: false };
+	  },
+	
+	  componentDidMount: function () {
+	
+	    var self = this;
+	    this.intervalId = setInterval(function () {
+	      if ($(window).width() < 950) {
+	        self.setState({ windowCompressed: true });
+	      } else {
+	        self.setState({ windowCompressed: false });
+	      }
+	    }, 200);
+	  },
+	
+	  componentWillUnmount: function () {
+	    var self = this;
+	    clearInterval(self.intervalId);
+	  },
+	
 	  render: function () {
+	    var compressionStatus = "";
+	    if (this.state.windowCompressed) {
+	      compressionStatus = "Compressed";
+	    }
 	    if (!this.props.showing) {
 	      return React.createElement('div', null);
 	    }
 	    return React.createElement(
 	      'div',
-	      { className: 'group Recap' },
+	      { className: "group Recap " + compressionStatus },
 	      React.createElement(
 	        'div',
 	        { className: 'Review-Grade' },
