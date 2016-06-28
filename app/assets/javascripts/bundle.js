@@ -72,19 +72,7 @@
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
-	var userActions = __webpack_require__(230);
-	
-	//TESTING ONLY
-	window.DeckStore = __webpack_require__(272);
-	window.DeckActions = __webpack_require__(275);
-	window.FlashcardStore = __webpack_require__(294);
-	window.FlashcardActions = __webpack_require__(297);
-	window.UserStore = __webpack_require__(237);
-	window.UserActions = __webpack_require__(230);
-	window.ReviewActions = __webpack_require__(266);
-	window.ReviewStore = __webpack_require__(264);
-	window.PublicDeckStore = __webpack_require__(318);
-	window.PublicDeckActions = __webpack_require__(320);
+	var UserActions = __webpack_require__(230);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -34172,6 +34160,15 @@
 	
 	var DeckStore = new Store(AppDispatcher);
 	var _decks = {};
+	var _lastDeckId;
+	
+	DeckStore.setLastDeckId = function (id) {
+	  _lastDeckId = id;
+	};
+	
+	DeckStore.lastDeckId = function () {
+	  return _lastDeckId;
+	};
 	
 	DeckStore.all = function () {
 	  var decks = [];
@@ -34802,6 +34799,7 @@
 	var React = __webpack_require__(1);
 	var Content = __webpack_require__(284);
 	var Options = __webpack_require__(287);
+	var DeckStore = __webpack_require__(272);
 	var DeckHistory = __webpack_require__(286);
 	var Link = __webpack_require__(168).Link;
 	
@@ -35397,6 +35395,7 @@
 
 	var React = __webpack_require__(1);
 	var FlashcardStore = __webpack_require__(294);
+	var DeckStore = __webpack_require__(272);
 	var FlashcardActions = __webpack_require__(297);
 	var FlashcardIndexItem = __webpack_require__(299);
 	var GraphUtil = __webpack_require__(278);
@@ -35405,18 +35404,18 @@
 	var FlashcardIndex = React.createClass({
 	  displayName: 'FlashcardIndex',
 	
-	
 	  getInitialState: function () {
 	    return {
 	      flashcards: FlashcardStore.all(),
 	      cardsReceived: false,
-	      minimumLoadTimeFinished: false
+	      minimumLoadTimeFinished: this.loadNeeded()
 	    };
 	  },
 	
 	  componentDidMount: function () {
 	    this.listenerToken = FlashcardStore.addListener(this.flashcardStoreCB);
 	    FlashcardActions.fetchFlashcards(this.props.deckId);
+	    DeckStore.setLastDeckId(this.props.deckId);
 	
 	    var self = this;
 	    setTimeout(function () {
@@ -35437,34 +35436,75 @@
 	    this.state.cardsReceived = false;
 	  },
 	
-	  render: function () {
-	    var list = "";
-	    var deckId = this.props.deckId;
-	    if (this.state.cardsReceived && this.state.minimumLoadTimeFinished) {
-	      // if(false) { NOTE for testing only
+	  loadNeeded: function () {
 	
-	      var list = React.createElement(
-	        'div',
-	        { className: 'Wrapper' },
-	        this.state.flashcards.map(function (flashcard) {
-	          var gradePercentage = flashcard.grade;
-	          return React.createElement(FlashcardIndexItem, { key: flashcard.id,
-	            cardId: flashcard.id,
-	            key: flashcard.id,
-	            front: flashcard.front,
-	            gradePercentage: gradePercentage,
-	            deckId: deckId });
-	        })
-	      );
-	      return React.createElement(
-	        'div',
-	        { className: 'List-Div' },
+	    return DeckStore.lastDeckId() === this.props.deckId;
+	  },
+	
+	  generateList: function () {
+	    var deckId = this.props.deckId;
+	    return React.createElement(
+	      'div',
+	      { className: 'List-Div' },
+	      React.createElement(
+	        'ul',
+	        null,
 	        React.createElement(
-	          'ul',
-	          null,
-	          list
+	          'div',
+	          { className: 'Wrapper' },
+	          this.state.flashcards.map(function (flashcard) {
+	            return React.createElement(FlashcardIndexItem, { key: flashcard.id, cardId: flashcard.id,
+	              front: flashcard.front, gradePercentage: flashcard.grade,
+	              deckId: deckId });
+	          })
 	        )
-	      );
+	      )
+	    );
+	  },
+	
+	  noCards: function () {
+	    return this.state.cardsReceived && this.state.flashcards.length === 0;
+	  },
+	
+	  emptyList: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Empty-Flashcard-Index-Statement' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'You currently do not have any flashcards.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You can create new flashcards by pressing'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'the new button in the top right corender of'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'this screen.'
+	      )
+	    );
+	  },
+	
+	  list: function () {
+	    // debugger
+	    if (this.noCards()) {
+	      return this.emptyList();
+	    } else {
+	      return this.generateList();
+	    }
+	  },
+	
+	  render: function () {
+	    if (this.state.cardsReceived && this.state.minimumLoadTimeFinished) {
+	      return this.list();
 	    } else {
 	      return React.createElement(
 	        'div',

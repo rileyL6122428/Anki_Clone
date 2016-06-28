@@ -1,6 +1,7 @@
 var React = require('react');
 var Content = require('./content');
 var Options = require('./options');
+var DeckStore = require('../../stores/deck_store');
 var DeckHistory = require('./history');
 var Link = require('react-router').Link;
 

@@ -12,12 +12,10 @@ UserStore.login = function(user){
 };
 
 UserStore.currentUserSameAsLast = function () {
-  if(_lastUser) {
-    return _currentUser.username === _lastUser.username;
-  }
+  if(_lastUser) { return _currentUser.username === _lastUser.username; }
 }
 
-UserStore.logout = function(){
+UserStore.logout = function() {
   _lastUser = _currentUser;
   _currentUser = null;
   _errors = null;

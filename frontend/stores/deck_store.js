@@ -7,6 +7,15 @@ var SearchUtil = require('./index_search_util');
 
 var DeckStore = new Store(AppDispatcher);
 var _decks = {};
+var _lastDeckId;
+
+DeckStore.setLastDeckId = function (id) {
+  _lastDeckId = id;
+}
+
+DeckStore.lastDeckId = function () {
+  return _lastDeckId;
+}
 
 DeckStore.all = function () {
   var decks = [];

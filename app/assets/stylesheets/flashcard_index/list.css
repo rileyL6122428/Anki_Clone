@@ -7,3 +7,11 @@
 
   overflow-y: scroll;
 }
+
+.Flashcard-Index div.Empty-Flashcard-Index-Statement {
+  text-align: center;
+}
+
+div.Empty-Flashcard-Index-Statement p {
+  color: gray;
+}

@@ -27,19 +27,7 @@ var PublicDeckPreview = require('./components/public_deck_preview/public_deck_pr
 
 //TODO move this and other auth related stuff somewhere else, if possible
 var UserStore = require('./stores/user_store');
-var userActions = require('./actions/user_actions')
-
-//TESTING ONLY
-window.DeckStore = require('./stores/deck_store');
-window.DeckActions = require('./actions/deck_actions');
-window.FlashcardStore = require('./stores/flashcard_store');
-window.FlashcardActions = require('./actions/flashcard_actions');
-window.UserStore = require('./stores/user_store');
-window.UserActions = require('./actions/user_actions');
-window.ReviewActions = require('./actions/review_actions');
-window.ReviewStore = require('./stores/review_store');
-window.PublicDeckStore = require('./stores/public_deck_store')
-window.PublicDeckActions = require('./actions/public_deck_actions')
+var UserActions = require('./actions/user_actions')
 
 var App = React.createClass({
   render: function (){
