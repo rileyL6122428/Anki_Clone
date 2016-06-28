@@ -13,3 +13,13 @@
 
   overflow-y: scroll;
 }
+
+div.Empty-Deck-Index-Statement p {
+  color: gray;
+
+  text-align: center;
+}
+
+div.Empty-Deck-Index-Statement:first-child {
+  margin-top: 30px;
+}

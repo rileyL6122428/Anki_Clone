@@ -26084,17 +26084,20 @@
 				user: user
 			});
 		},
+	
 		handleError: function (error) {
 			AppDispatcher.dispatch({
 				actionType: UserConstants.ERROR,
 				errors: error.responseJSON.errors
 			});
 		},
+	
 		removeCurrentUser: function () {
 			AppDispatcher.dispatch({
 				actionType: UserConstants.LOGOUT
 			});
 		},
+	
 		logout: function () {
 			UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
 		}
@@ -26474,7 +26477,50 @@
 	
 	var UserStore = new Store(AppDispatcher);
 	
-	var _currentUser, _errors;
+	var _currentUser, _errors, _lastUser;
+	
+	UserStore.login = function (user) {
+	  _currentUser = user;
+	  _errors = null;
+	};
+	
+	UserStore.currentUserSameAsLast = function () {
+	  if (_lastUser) {
+	    return _currentUser.username === _lastUser.username;
+	  }
+	};
+	
+	UserStore.logout = function () {
+	  _lastUser = _currentUser;
+	  _currentUser = null;
+	  _errors = null;
+	};
+	
+	UserStore.lastUser = function () {
+	  if (_lastUser) {
+	    return $.extend({}, _lastUser);
+	  }
+	};
+	
+	UserStore.currentUser = function () {
+	  if (_currentUser) {
+	    return $.extend({}, _currentUser);
+	  }
+	};
+	
+	UserStore.configureCurrentUser = function () {
+	  _lastUser = _currentUser;
+	};
+	
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+	
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
 	
 	UserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
@@ -26489,32 +26535,6 @@
 	      break;
 	  }
 	  UserStore.__emitChange();
-	};
-	
-	UserStore.login = function (user) {
-	  _currentUser = user;
-	  _errors = null;
-	};
-	
-	UserStore.logout = function () {
-	  _currentUser = null;
-	  _errors = null;
-	};
-	
-	UserStore.currentUser = function () {
-	  if (_currentUser) {
-	    return $.extend({}, _currentUser);
-	  }
-	};
-	
-	UserStore.setErrors = function (errors) {
-	  _errors = errors;
-	};
-	
-	UserStore.errors = function () {
-	  if (_errors) {
-	    return [].slice.call(_errors);
-	  }
 	};
 	
 	module.exports = UserStore;
@@ -34026,6 +34046,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var UserStore = __webpack_require__(237);
 	var DeckStore = __webpack_require__(272);
 	var DeckActions = __webpack_require__(275);
 	var DeckIndexItem = __webpack_require__(277);
@@ -34034,9 +34055,12 @@
 	var DeckIndex = React.createClass({
 	  displayName: 'DeckIndex',
 	
-	
 	  getInitialState: function () {
-	    return { decks: DeckStore.all(), minimumLoadTimeFinished: false };
+	    return {
+	      decks: DeckStore.all(),
+	      minimumLoadTimeFinished: !this.loadNeeded(),
+	      decksGrabbedFromStore: false
+	    };
 	  },
 	
 	  componentDidMount: function () {
@@ -34050,7 +34074,10 @@
 	  },
 	
 	  deckStoreCB: function () {
-	    this.setState({ decks: DeckStore.findByName(this.props.query) });
+	    this.setState({
+	      decks: DeckStore.findByName(this.props.query),
+	      decksGrabbedFromStore: true
+	    });
 	  },
 	
 	  componentWillReceiveProps: function (props) {
@@ -34061,30 +34088,65 @@
 	    this.listenerToken.remove();
 	  },
 	
-	  render: function () {
-	    var deckList = React.createElement(
+	  loadNeeded: function () {
+	    if (UserStore.currentUserSameAsLast()) {
+	      return false;
+	    } else {
+	      UserStore.configureCurrentUser();
+	      return true;
+	    }
+	  },
+	
+	  deckList: function () {
+	    if (this.userHasDecks()) {
+	      return this.generateDeckList();
+	    } else {
+	      return this.emptyList();
+	    }
+	  },
+	
+	  emptyList: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'Empty-Deck-Index-Statement' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'You currently do not have any decks.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Press the plus sign below to add a deck.'
+	      )
+	    );
+	  },
+	
+	  generateDeckList: function () {
+	    return React.createElement(
 	      'div',
 	      { className: 'Wrapper' },
 	      this.state.decks.map(function (deck) {
-	        return React.createElement(DeckIndexItem, { key: deck.id,
-	          id: deck.id,
-	          urlFront: "decks/",
-	          name: deck.name,
-	          totalCards: deck.cardTotal,
+	        return React.createElement(DeckIndexItem, { key: deck.id, id: deck.id, urlFront: "decks/",
+	          name: deck.name, totalCards: deck.cardTotal,
 	          grade: deck.grade });
 	      })
 	    );
+	  },
 	
-	    if (this.state.minimumLoadTimeFinished) {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'ul',
-	          null,
-	          deckList
-	        )
-	      );
+	  userHasDecks: function () {
+	    return this.state.decksGrabbedFromStore && this.state.decks.length !== 0;
+	  },
+	
+	  readyToShowList: function () {
+	    return this.state.minimumLoadTimeFinished && this.state.decksGrabbedFromStore;
+	  },
+	
+	  render: function () {
+	    var deckList = this.generateDeckList();
+	
+	    if (this.readyToShowList()) {
+	      return this.deckList();
 	    } else {
 	      return React.createElement(
 	        'div',

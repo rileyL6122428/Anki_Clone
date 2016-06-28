@@ -23,7 +23,7 @@ var UserActions = {
 			error: UserActions.handleError
 		});
 	},
-	
+
 	guestLogin: function(){
 		UserActions.login({username: "Guest", password: "password"});
 	},
@@ -34,17 +34,20 @@ var UserActions = {
 			user: user
 		});
 	},
+
 	handleError: function(error) {
 		AppDispatcher.dispatch({
 			actionType: UserConstants.ERROR,
 			errors: error.responseJSON.errors
 		});
 	},
+
 	removeCurrentUser: function(){
 		AppDispatcher.dispatch({
 			actionType: UserConstants.LOGOUT,
 		});
 	},
+	
 	logout: function(){
 		UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
 	}

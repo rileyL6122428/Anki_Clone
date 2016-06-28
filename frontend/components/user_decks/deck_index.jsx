@@ -1,13 +1,17 @@
 var React = require('react');
+var UserStore = require('../../stores/user_store');
 var DeckStore = require('../../stores/deck_store');
 var DeckActions = require('../../actions/deck_actions');
 var DeckIndexItem = require('./deck_index_item');
 var LoadingBar = require('../graphs/loading_bar');
 
 var DeckIndex = React.createClass({
-
   getInitialState: function () {
-    return({ decks: DeckStore.all(), minimumLoadTimeFinished: false })
+    return({
+      decks: DeckStore.all(),
+      minimumLoadTimeFinished: !this.loadNeeded(),
+      decksGrabbedFromStore: false
+    })
   },
 
   componentDidMount: function () {
@@ -17,11 +21,14 @@ var DeckIndex = React.createClass({
     var self = this;
     setTimeout(function() {
       self.setState({minimumLoadTimeFinished: true})
-    }, 1000)
+    }, 1000);
   },
 
   deckStoreCB: function () {
-    this.setState({ decks: DeckStore.findByName(this.props.query) });
+    this.setState({
+      decks: DeckStore.findByName(this.props.query),
+      decksGrabbedFromStore: true
+    });
   },
 
   componentWillReceiveProps: function (props) {
@@ -30,34 +37,64 @@ var DeckIndex = React.createClass({
 
   componentWillUnmount: function () { this.listenerToken.remove(); },
 
-  render: function () {
-    var deckList = (
+  loadNeeded: function () {
+    if(UserStore.currentUserSameAsLast()) {
+      return false;
+    } else {
+      UserStore.configureCurrentUser()
+      return true;
+    }
+  },
+
+  deckList: function () {
+    if(this.userHasDecks()) {
+      return this.generateDeckList();
+    } else {
+      return this.emptyList();
+    }
+  },
+
+  emptyList: function () {
+    return (
+      <div className="Empty-Deck-Index-Statement">
+        <p>You currently do not have any decks.</p>
+        <p>Press the plus sign below to add a deck.</p>
+      </div>
+    );
+  },
+
+  generateDeckList: function () {
+    return (
       <div className="Wrapper">
         {
           this.state.decks.map(function(deck){
             return(
-              <DeckIndexItem key={deck.id}
-                             id={deck.id}
-                             urlFront={"decks/"}
-                             name={deck.name}
-                             totalCards={deck.cardTotal}
+              <DeckIndexItem key={deck.id} id={deck.id} urlFront={"decks/"}
+                             name={deck.name} totalCards={deck.cardTotal}
                              grade={deck.grade} />
             );
           })
         }
       </div>
-    );
+    )
+  },
 
-    if(this.state.minimumLoadTimeFinished) {
-      return(
-        <div>
-          <ul>
-            {deckList}
-          </ul>
-        </div>
-      );
+  userHasDecks: function () {
+    return (this.state.decksGrabbedFromStore && this.state.decks.length !== 0);
+  },
+
+  readyToShowList: function () {
+    return this.state.minimumLoadTimeFinished &&
+    this.state.decksGrabbedFromStore;
+  },
+
+  render: function () {
+    var deckList = this.generateDeckList();
+
+    if(this.readyToShowList()) {
+      return this.deckList();
     } else {
-      return(<div className="Loading-Bar"><LoadingBar/></div>);
+      return<div className="Loading-Bar"><LoadingBar/></div>;
     }
   }
 });

@@ -8,7 +8,6 @@ var SearchUtil = require('./index_search_util');
 var DeckStore = new Store(AppDispatcher);
 var _decks = {};
 
-
 DeckStore.all = function () {
   var decks = [];
   for(var id in _decks) { decks.push(_decks[id]); }
