@@ -16,12 +16,16 @@ var UserActions = {
 		});
 	},
 	login: function(user){
-		UserApiUtil.post({
-			url: "/api/session",
-			user: user,
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleError
-		});
+		// debugger
+		// if(user.username !== ""){
+
+			UserApiUtil.post({
+				url: "/api/session",
+				user: user,
+				success: UserActions.receiveCurrentUser,
+				error: UserActions.handleError
+			});
+		// }
 	},
 
 	guestLogin: function(){
@@ -29,13 +33,14 @@ var UserActions = {
 	},
 
 	receiveCurrentUser: function(user){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGIN,
-			user: user
-		});
+			AppDispatcher.dispatch({
+				actionType: UserConstants.LOGIN,
+				user: user
+			});
 	},
 
 	handleError: function(error) {
+		// debugger
 		AppDispatcher.dispatch({
 			actionType: UserConstants.ERROR,
 			errors: error.responseJSON.errors
@@ -47,7 +52,7 @@ var UserActions = {
 			actionType: UserConstants.LOGOUT,
 		});
 	},
-	
+
 	logout: function(){
 		UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
 	}

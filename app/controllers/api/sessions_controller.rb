@@ -34,11 +34,13 @@ class Api::SessionsController < ApplicationController
 	end
 
 	def show
+    # byebug
 		if current_user
 			@user = current_user
 			render "api/users/show"
 		else
-			@errors = nil
+			@errors = "session not found"
+			# render "api/shared/error" #, status: 404
 			render "api/shared/error", status: 404
 		end
 	end

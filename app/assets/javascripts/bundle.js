@@ -26054,12 +26054,16 @@
 			});
 		},
 		login: function (user) {
+			// debugger
+			// if(user.username !== ""){
+	
 			UserApiUtil.post({
 				url: "/api/session",
 				user: user,
 				success: UserActions.receiveCurrentUser,
 				error: UserActions.handleError
 			});
+			// }
 		},
 	
 		guestLogin: function () {
@@ -26074,6 +26078,7 @@
 		},
 	
 		handleError: function (error) {
+			// debugger
 			AppDispatcher.dispatch({
 				actionType: UserConstants.ERROR,
 				errors: error.responseJSON.errors
@@ -26130,6 +26135,7 @@
 			});
 		},
 		fetchCurrentUser: function (success, error) {
+			// debugger
 			$.ajax({
 				url: '/api/session',
 				method: 'get',
@@ -35500,7 +35506,6 @@
 	  },
 	
 	  list: function () {
-	    // debugger
 	    if (this.noCards()) {
 	      return this.emptyList();
 	    } else {
@@ -36139,7 +36144,7 @@
 	
 	  flashcardStoreCB: function () {
 	    this.setState({ front: "", back: "", cardSaved: true });
-	    setTimeout(this.turnOffFlash, 3000);
+	    this.state.timeOutId = setTimeout(this.turnOffFlash, 3000);
 	  },
 	
 	  turnOffFlash: function () {
@@ -36148,6 +36153,9 @@
 	
 	  componentWillUnmount: function () {
 	    this.eventToken.remove();
+	    if (this.state.timeOutId) {
+	      clearTimeout(this.state.timeOutId);
+	    }
 	  },
 	
 	  changeFront: function (e) {

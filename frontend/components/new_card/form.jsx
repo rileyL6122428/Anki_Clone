@@ -15,7 +15,7 @@ var Form = React.createClass({
 
   flashcardStoreCB: function () {
     this.setState({ front: "", back: "" , cardSaved: true });
-    setTimeout(this.turnOffFlash, 3000);
+    this.state.timeOutId = setTimeout(this.turnOffFlash, 3000);
   },
 
   turnOffFlash: function () {
@@ -24,6 +24,9 @@ var Form = React.createClass({
 
   componentWillUnmount: function () {
     this.eventToken.remove();
+    if(this.state.timeOutId) {
+      clearTimeout(this.state.timeOutId)
+    }
   },
 
   changeFront: function (e) {

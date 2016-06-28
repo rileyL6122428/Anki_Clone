@@ -79,7 +79,6 @@ var FlashcardIndex = React.createClass({
   },
 
   list: function () {
-    // debugger
     if(this.noCards()) {
       return this.emptyList();
     } else {
