@@ -36178,15 +36178,9 @@
 	  },
 	
 	  render: function () {
-	
-	    var flash = "";
-	
+	    var flash = " ";
 	    if (this.state.cardSaved) {
-	      flash = React.createElement(
-	        'div',
-	        { className: 'Flash' },
-	        'Card Saved'
-	      );
+	      flash = "Card Saved";
 	    }
 	
 	    return React.createElement(

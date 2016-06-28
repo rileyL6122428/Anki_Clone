@@ -50,12 +50,8 @@ var Form = React.createClass({
   },
 
   render: function () {
-
-    var flash = "";
-
-    if (this.state.cardSaved) {
-      flash = <div className="Flash">Card Saved</div>
-    }
+    var flash = " ";
+    if (this.state.cardSaved) { flash = "Card Saved" }
 
     return(
       <div className="Form">
