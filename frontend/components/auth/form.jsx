@@ -1,4 +1,5 @@
 var React = require('react');
+var UserActions = require('../../actions/user_actions');
 
 var AForm = React.createClass({
 

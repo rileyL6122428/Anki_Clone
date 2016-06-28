@@ -33039,9 +33039,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var UserActions = __webpack_require__(230);
 	
 	var AForm = React.createClass({
-	  displayName: "AForm",
+	  displayName: 'AForm',
 	
 	
 	  getInitialState: function () {
@@ -33113,12 +33114,12 @@
 	
 	  render: function () {
 	    if (!this.props.showing) {
-	      return React.createElement("div", null);
+	      return React.createElement('div', null);
 	    }
 	
 	    var submitText = this.props.formType;
 	    var submitCB = submitText === "Log in" ? this._loginCB : this._signUpCB;
-	    var confirmPasswordInput = React.createElement("div", null);
+	    var confirmPasswordInput = React.createElement('div', null);
 	
 	    var usernameInputClass = "Username-Icon";
 	    if (this.state.usernameSelected) {
@@ -33136,59 +33137,59 @@
 	    }
 	    if (submitText === "Sign up") {
 	      confirmPasswordInput = React.createElement(
-	        "div",
+	        'div',
 	        null,
 	        React.createElement(
-	          "label",
+	          'label',
 	          null,
-	          React.createElement("input", { type: "password",
-	            placeholder: "Confirm Password",
-	            className: "Third-Auth-Input",
+	          React.createElement('input', { type: 'password',
+	            placeholder: 'Confirm Password',
+	            className: 'Third-Auth-Input',
 	            onChange: this._confirmPasswordChange,
 	            onFocus: this.confirmFocusCB,
 	            onBlur: this.confirmBlurCB }),
-	          React.createElement("div", { className: confirmInputClass })
+	          React.createElement('div', { className: confirmInputClass })
 	        )
 	      );
 	    }
 	
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      React.createElement(
-	        "form",
+	        'form',
 	        { onSubmit: submitCB },
 	        React.createElement(
-	          "label",
+	          'label',
 	          null,
-	          React.createElement("input", { type: "text",
-	            placeholder: "Username",
+	          React.createElement('input', { type: 'text',
+	            placeholder: 'Username',
 	            onChange: this._usernameChange,
-	            className: "First-Auth-Input",
+	            className: 'First-Auth-Input',
 	            onFocus: this.usernameFocusCB,
 	            onBlur: this.usernameBlurCB }),
-	          React.createElement("div", { className: usernameInputClass })
+	          React.createElement('div', { className: usernameInputClass })
 	        ),
 	        React.createElement(
-	          "label",
+	          'label',
 	          null,
-	          React.createElement("input", { type: "password",
-	            placeholder: "Password",
+	          React.createElement('input', { type: 'password',
+	            placeholder: 'Password',
 	            onChange: this._passwordChange,
-	            className: "Second-Auth-Input",
+	            className: 'Second-Auth-Input',
 	            onFocus: this.passwordFocusCB,
 	            onBlur: this.passwordBlurCB }),
-	          React.createElement("div", { className: passwordInputClass })
+	          React.createElement('div', { className: passwordInputClass })
 	        ),
 	        confirmPasswordInput,
 	        React.createElement(
-	          "button",
-	          { id: "cancel", onClick: this.props.cancelCB },
-	          "Cancel"
+	          'button',
+	          { id: 'cancel', onClick: this.props.cancelCB },
+	          'Cancel'
 	        ),
-	        React.createElement("input", { disabled: this.state.password !== this.state.passwordConfirm && this.props.formType === "Sign up",
-	          type: "submit",
-	          id: "submit",
+	        React.createElement('input', { disabled: this.state.password !== this.state.passwordConfirm && this.props.formType === "Sign up",
+	          type: 'submit',
+	          id: 'submit',
 	          value: submitText })
 	      )
 	    );
