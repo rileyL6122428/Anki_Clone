@@ -11,7 +11,8 @@ var FlashcardIndex = React.createClass({
     return({
       flashcards: FlashcardStore.all(),
       cardsReceived: false,
-      minimumLoadTimeFinished: this.loadNeeded()
+      minimumLoadTimeFinished: this.loadNeeded(),
+      empty: false
     });
   },
 
@@ -27,7 +28,13 @@ var FlashcardIndex = React.createClass({
   },
 
   flashcardStoreCB: function () {
-    this.setState({ flashcards: FlashcardStore.all() , cardsReceived: true});
+    var cards = FlashcardStore.all()
+    var deckEmpty = (cards.length === 0);
+    this.setState({
+      flashcards: cards,
+      cardsReceived: true,
+      empty: deckEmpty
+    });
   },
 
   componentWillReceiveProps: function (props) {
@@ -40,7 +47,6 @@ var FlashcardIndex = React.createClass({
   },
 
   loadNeeded: function () {
-
     return DeckStore.lastDeckId() === this.props.deckId;
   },
 
@@ -63,9 +69,9 @@ var FlashcardIndex = React.createClass({
     );
   },
 
-  noCards: function () {
-    return this.state.cardsReceived && this.state.flashcards.length === 0;
-  },
+  // noCards: function () {
+  //   return this.state.cardsRe
+  // },
 
   emptyList: function () {
     return(
@@ -79,7 +85,7 @@ var FlashcardIndex = React.createClass({
   },
 
   list: function () {
-    if(this.noCards()) {
+    if(this.state.empty) {
       return this.emptyList();
     } else {
       return this.generateList();

@@ -10,7 +10,8 @@ var DeckIndex = React.createClass({
     return({
       decks: DeckStore.all(),
       minimumLoadTimeFinished: !this.loadNeeded(),
-      decksGrabbedFromStore: false
+      decksGrabbedFromStore: false,
+      empty: false
     })
   },
 
@@ -25,9 +26,11 @@ var DeckIndex = React.createClass({
   },
 
   deckStoreCB: function () {
+    var decks = DeckStore.findByName(this.props.query)
     this.setState({
-      decks: DeckStore.findByName(this.props.query),
-      decksGrabbedFromStore: true
+      decks: decks,
+      decksGrabbedFromStore: true,
+      empty: (decks.length === 0)
     });
   },
 
@@ -80,7 +83,7 @@ var DeckIndex = React.createClass({
   },
 
   userHasDecks: function () {
-    return (this.state.decksGrabbedFromStore && this.state.decks.length !== 0);
+    return !this.state.empty;
   },
 
   readyToShowList: function () {

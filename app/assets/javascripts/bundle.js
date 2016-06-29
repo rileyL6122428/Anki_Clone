@@ -34054,7 +34054,8 @@
 	    return {
 	      decks: DeckStore.all(),
 	      minimumLoadTimeFinished: !this.loadNeeded(),
-	      decksGrabbedFromStore: false
+	      decksGrabbedFromStore: false,
+	      empty: false
 	    };
 	  },
 	
@@ -34069,9 +34070,11 @@
 	  },
 	
 	  deckStoreCB: function () {
+	    var decks = DeckStore.findByName(this.props.query);
 	    this.setState({
-	      decks: DeckStore.findByName(this.props.query),
-	      decksGrabbedFromStore: true
+	      decks: decks,
+	      decksGrabbedFromStore: true,
+	      empty: decks.length === 0
 	    });
 	  },
 	
@@ -34130,7 +34133,7 @@
 	  },
 	
 	  userHasDecks: function () {
-	    return this.state.decksGrabbedFromStore && this.state.decks.length !== 0;
+	    return !this.state.empty;
 	  },
 	
 	  readyToShowList: function () {
@@ -35420,7 +35423,8 @@
 	    return {
 	      flashcards: FlashcardStore.all(),
 	      cardsReceived: false,
-	      minimumLoadTimeFinished: this.loadNeeded()
+	      minimumLoadTimeFinished: this.loadNeeded(),
+	      empty: false
 	    };
 	  },
 	
@@ -35436,7 +35440,13 @@
 	  },
 	
 	  flashcardStoreCB: function () {
-	    this.setState({ flashcards: FlashcardStore.all(), cardsReceived: true });
+	    var cards = FlashcardStore.all();
+	    var deckEmpty = cards.length === 0;
+	    this.setState({
+	      flashcards: cards,
+	      cardsReceived: true,
+	      empty: deckEmpty
+	    });
 	  },
 	
 	  componentWillReceiveProps: function (props) {
@@ -35449,7 +35459,6 @@
 	  },
 	
 	  loadNeeded: function () {
-	
 	    return DeckStore.lastDeckId() === this.props.deckId;
 	  },
 	
@@ -35474,9 +35483,9 @@
 	    );
 	  },
 	
-	  noCards: function () {
-	    return this.state.cardsReceived && this.state.flashcards.length === 0;
-	  },
+	  // noCards: function () {
+	  //   return this.state.cardsRe
+	  // },
 	
 	  emptyList: function () {
 	    return React.createElement(
@@ -35506,7 +35515,7 @@
 	  },
 	
 	  list: function () {
-	    if (this.noCards()) {
+	    if (this.state.empty) {
 	      return this.emptyList();
 	    } else {
 	      return this.generateList();
