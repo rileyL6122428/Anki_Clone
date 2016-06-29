@@ -10,7 +10,7 @@ var DeckIndex = React.createClass({
     return({
       decks: DeckStore.all(),
       minimumLoadTimeFinished: !this.loadNeeded(),
-      decksGrabbedFromStore: false,
+      decksGrabbedFromStore: !this.loadNeeded(),
       empty: false
     })
   },

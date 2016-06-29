@@ -34054,7 +34054,7 @@
 	    return {
 	      decks: DeckStore.all(),
 	      minimumLoadTimeFinished: !this.loadNeeded(),
-	      decksGrabbedFromStore: false,
+	      decksGrabbedFromStore: !this.loadNeeded(),
 	      empty: false
 	    };
 	  },
@@ -35422,8 +35422,8 @@
 	  getInitialState: function () {
 	    return {
 	      flashcards: FlashcardStore.all(),
-	      cardsReceived: false,
-	      minimumLoadTimeFinished: this.loadNeeded(),
+	      cardsReceived: !this.loadNeeded(),
+	      minimumLoadTimeFinished: !this.loadNeeded(),
 	      empty: false
 	    };
 	  },
@@ -35459,7 +35459,7 @@
 	  },
 	
 	  loadNeeded: function () {
-	    return DeckStore.lastDeckId() === this.props.deckId;
+	    return DeckStore.lastDeckId() !== this.props.deckId;
 	  },
 	
 	  generateList: function () {

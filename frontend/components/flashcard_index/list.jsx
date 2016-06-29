@@ -10,8 +10,8 @@ var FlashcardIndex = React.createClass({
   getInitialState: function () {
     return({
       flashcards: FlashcardStore.all(),
-      cardsReceived: false,
-      minimumLoadTimeFinished: this.loadNeeded(),
+      cardsReceived: !this.loadNeeded(),
+      minimumLoadTimeFinished: !this.loadNeeded(),
       empty: false
     });
   },
@@ -47,7 +47,7 @@ var FlashcardIndex = React.createClass({
   },
 
   loadNeeded: function () {
-    return DeckStore.lastDeckId() === this.props.deckId;
+    return DeckStore.lastDeckId() !== this.props.deckId;
   },
 
   generateList: function () {
