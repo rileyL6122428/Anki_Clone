@@ -1,0 +1,93 @@
+div.tour * {
+  margin: 0;
+  padding: 0;
+}
+
+div.tour {
+  display: block;
+  position:absolute;
+
+  width: 400px;
+
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+
+  background: white;
+
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+  z-index: 100;
+}
+
+div.tour p {
+  margin-top: 10px;
+}
+
+div.tour button {
+  width: 60px;
+
+  margin: 15px 30px 10px;
+  border: none;
+
+  font-size: 18px;
+  text-align: center;
+
+  background-color: rgba(0,0,0,0);
+}
+
+div.tour button:focus {
+  outline: 0;
+}
+
+div.tour button.next {
+  color: #25a3fc;
+}
+
+div.tour button.cancel {
+  color: red;
+}
+
+div.tour div.arrow {
+  position: absolute;
+
+  width: 0;
+  height: 0;
+}
+
+div.tour div.arrow.left, div.tour div.arrow.right {
+  top: 35%;
+
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+
+div.tour div.arrow.left {
+  left: -4.5%;
+  border-right: 20px solid white;
+}
+
+div.tour div.arrow.right {
+  right: -4.5%;
+  border-left: 20px solid white;
+}
+
+div.tour div.arrow.down, div.tour div.arrow.up {
+  right: 44%;
+
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+}
+
+div.tour div.arrow.up {
+  top: -10.5%;
+  border-bottom: 15px solid white;
+}
+
+div.tour div.arrow.down {
+  border-top: 20px solid white;
+}
+
+.DashBoard div.tour {
+  left: 50%;
+}

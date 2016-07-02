@@ -69,10 +69,6 @@ var FlashcardIndex = React.createClass({
     );
   },
 
-  // noCards: function () {
-  //   return this.state.cardsRe
-  // },
-
   emptyList: function () {
     return(
       <div className="Empty-Flashcard-Index-Statement">

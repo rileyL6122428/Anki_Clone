@@ -1,6 +1,8 @@
 var React = require('react');
 var Footer = require('../shared/dashboard_footer');
 var DashboardContent = require('./dashboard_content');
+var tourSteps = require('./tourSteps');
+var Tour = require('../shared/tour');
 
 var Dashboard = React.createClass({
 
@@ -9,7 +11,6 @@ var Dashboard = React.createClass({
   },
 
   componentDidMount: function (){
-
     var self = this;
     this.intervalId = setInterval(function() {
       if ($(window).width() < 850) {
@@ -34,6 +35,7 @@ var Dashboard = React.createClass({
         <h1>Dashboard</h1>
         <DashboardContent />
         <Footer/>
+        <Tour steps={ tourSteps } />
       </div>
     );
   }
