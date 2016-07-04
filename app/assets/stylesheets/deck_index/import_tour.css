@@ -1,0 +1,13 @@
+.Import div.tour button.cancel {
+  /*margin-left: 7%;*/
+}
+
+.Import div.tour.step0{
+  top: 68px;
+  left: 32%;
+}
+
+.Import div.tour.step1{
+  top: 98px;
+  left: 32%;
+}

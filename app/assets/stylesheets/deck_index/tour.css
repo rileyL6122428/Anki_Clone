@@ -1,0 +1,29 @@
+.DeckShow div.tour button.cancel {
+  /*margin-left: 7%;*/
+}
+
+.DeckShow div.tour.step0{
+  top: 68px;
+  left: 32%;
+}
+
+.DeckShow div.tour.step1{
+  top: 145px;
+  left: 2%;
+}
+
+.DeckShow div.tour.step2 {
+  top: 215px;
+  left: 10%;
+}
+
+.DeckShow div.tour.step3 {
+  top: 189px;
+  left: 2%;
+}
+
+.DeckShow div.tour.step4 {
+  /*top: 54%;*/
+  bottom: calc(0% + 70px);
+  left: 22.5%;
+}

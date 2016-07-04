@@ -1,0 +1,18 @@
+.Deck-Index div.tour button.cancel {
+  /*margin-left: 7%;*/
+}
+
+.Deck-Index div.tour.step0{
+  top: 68px;
+  left: 32%;
+}
+
+.Deck-Index div.tour.step1{
+  top: 100px;
+  left: 32%;
+}
+
+.Deck-Index div.tour.step2 {
+  top: 45px;
+  left: 32%;
+}

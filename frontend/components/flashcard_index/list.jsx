@@ -74,7 +74,7 @@ var FlashcardIndex = React.createClass({
       <div className="Empty-Flashcard-Index-Statement">
         <p>You currently do not have any flashcards.</p>
         <p>You can create new flashcards by pressing</p>
-        <p>the new button in the top right corender of</p>
+        <p>the new button in the top right corner of</p>
         <p>this screen.</p>
       </div>
     )

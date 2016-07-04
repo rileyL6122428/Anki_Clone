@@ -59,16 +59,16 @@
 	var Dashboard = __webpack_require__(258);
 	var ProfilePage = __webpack_require__(270);
 	var UserDecks = __webpack_require__(271);
-	var NewDeck = __webpack_require__(282);
-	var DeckShow = __webpack_require__(285);
-	var EditDeck = __webpack_require__(290);
-	var FlashcardIndex = __webpack_require__(293);
-	var FlashcardShow = __webpack_require__(302);
-	var NewFlashcard = __webpack_require__(306);
-	var EditFlashcard = __webpack_require__(310);
-	var Review = __webpack_require__(312);
-	var PublicDeckBrowser = __webpack_require__(318);
-	var PublicDeckPreview = __webpack_require__(324);
+	var NewDeck = __webpack_require__(283);
+	var DeckShow = __webpack_require__(286);
+	var EditDeck = __webpack_require__(292);
+	var FlashcardIndex = __webpack_require__(295);
+	var FlashcardShow = __webpack_require__(304);
+	var NewFlashcard = __webpack_require__(308);
+	var EditFlashcard = __webpack_require__(312);
+	var Review = __webpack_require__(314);
+	var PublicDeckBrowser = __webpack_require__(321);
+	var PublicDeckPreview = __webpack_require__(328);
 	
 	//TODO move this and other auth related stuff somewhere else, if possible
 	var UserStore = __webpack_require__(237);
@@ -33899,7 +33899,22 @@
 /* 268 */
 /***/ function(module, exports) {
 
-	module.exports = ["Welcome to AnkiClone, a smart flashcard app!" + "\n This is the dasboard page. Here you can view frequency information regarding deck reviews.", "This is the overview footer. You can navigate to different parts of the site by clicking any the icons."];
+	module.exports = [{
+	  text: "Welcome to AnkiClone, a smart flashcard app!" + "\n This is the dasboard page. Here you can view frequency information regarding deck reviews.",
+	  arrow: "none"
+	}, {
+	  text: "This is the overview footer. You can navigate to different parts of the site by clicking any of the icons.",
+	  arrow: "down"
+	}, {
+	  text: "From left to right, the icons link to the dashboard, user decks, deck creation, deck import, and profile pages",
+	  arrow: "down"
+	}, {
+	  text: "Feel free to click a link and explore!",
+	  arrow: "down"
+	}, {
+	  text: "Click cancel to turn off the site tour at any time",
+	  arrow: "none"
+	}];
 
 /***/ },
 /* 269 */
@@ -33923,11 +33938,25 @@
 	  },
 	
 	  tourFinished: function () {
-	    return this.state.stepIdx === this.state.steps.length;
+	    if (this.state.stepIdx === this.state.steps.length) {
+	      return this.queueNextTour();
+	    } else {
+	      return false;
+	    }
+	  },
+	
+	  queueNextTour: function () {
+	    if (this.state.steps !== this.props.steps) {
+	      this.state.steps = this.props.steps;
+	      this.state.stepIdx = 0;
+	      return false;
+	    } else {
+	      return true;
+	    }
 	  },
 	
 	  contents: function () {
-	    var paragraphs = this.state.steps[this.state.stepIdx].split("\n");
+	    var paragraphs = this.state.steps[this.state.stepIdx]["text"].split("\n");
 	
 	    return React.createElement(
 	      "div",
@@ -33945,7 +33974,7 @@
 	  tourbox: function () {
 	    return React.createElement(
 	      "div",
-	      { className: "step" + this.state.stepIdx + " tour" },
+	      { className: "step" + this.state.stepIdx + " tour " + this.props.extraClasses },
 	      this.contents(),
 	      React.createElement(
 	        "button",
@@ -33957,7 +33986,7 @@
 	        { onClick: this.nextCB, className: "next" },
 	        "Next"
 	      ),
-	      React.createElement("div", { className: "arrow down" })
+	      React.createElement("div", { className: "arrow " + this.state.steps[this.state.stepIdx]["arrow"] })
 	    );
 	  },
 	
@@ -34046,6 +34075,8 @@
 	var SearchBar = __webpack_require__(272);
 	var DeckIndex = __webpack_require__(273);
 	var Footer = __webpack_require__(259);
+	var tourSteps = __webpack_require__(282);
+	var Tour = __webpack_require__(269);
 	
 	var UserDecks = React.createClass({
 	  displayName: 'UserDecks',
@@ -34056,7 +34087,6 @@
 	
 	  queryChangeCB: function (e) {
 	    e.preventDefault();
-	
 	    this.setState({ query: e.target.value });
 	  },
 	
@@ -34075,7 +34105,8 @@
 	        { className: 'Overflow-Test' },
 	        React.createElement(DeckIndex, { query: this.state.query })
 	      ),
-	      React.createElement(Footer, null)
+	      React.createElement(Footer, null),
+	      React.createElement(Tour, { steps: tourSteps })
 	    );
 	  }
 	});
@@ -34723,11 +34754,26 @@
 
 /***/ },
 /* 282 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "This is the decks page!" + "\n Here you can view all of your decks.",
+	  arrow: "none"
+	}, {
+	  text: "Use the search bar at the top to filter decks by name.",
+	  arrow: "up"
+	}, {
+	  text: "Click any of the decks listed to view or review a deck",
+	  arrow: "none"
+	}];
+
+/***/ },
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(283);
-	var Header = __webpack_require__(284);
+	var Form = __webpack_require__(284);
+	var Header = __webpack_require__(285);
 	
 	var NewDeck = React.createClass({
 	  displayName: 'NewDeck',
@@ -34745,7 +34791,7 @@
 	module.exports = NewDeck;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34852,7 +34898,7 @@
 	// </form>
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34882,15 +34928,17 @@
 	module.exports = Header;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Content = __webpack_require__(286);
-	var Options = __webpack_require__(289);
+	var Content = __webpack_require__(287);
+	var Options = __webpack_require__(290);
 	var DeckStore = __webpack_require__(274);
-	var DeckHistory = __webpack_require__(288);
+	var DeckHistory = __webpack_require__(289);
 	var Link = __webpack_require__(168).Link;
+	var Tour = __webpack_require__(269);
+	var tourSteps = __webpack_require__(291);
 	
 	var DeckShow = React.createClass({
 	  displayName: 'DeckShow',
@@ -34945,7 +34993,8 @@
 	        { className: 'BelowHeader' },
 	        React.createElement(Content, { deckId: this.props.params.id }),
 	        React.createElement(Options, { deckId: this.props.params.id })
-	      )
+	      ),
+	      React.createElement(Tour, { steps: tourSteps })
 	    );
 	  }
 	});
@@ -34953,12 +35002,12 @@
 	module.exports = DeckShow;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Info = __webpack_require__(287);
-	var History = __webpack_require__(288);
+	var Info = __webpack_require__(288);
+	var History = __webpack_require__(289);
 	var DeckStore = __webpack_require__(274);
 	var DeckActions = __webpack_require__(277);
 	
@@ -35046,7 +35095,7 @@
 	module.exports = Content;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35109,7 +35158,7 @@
 	module.exports = Info;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35182,7 +35231,7 @@
 	module.exports = History;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35255,12 +35304,33 @@
 	module.exports = Options;
 
 /***/ },
-/* 290 */
+/* 291 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "Welcome to the deck view page!" + "\n You can do all sorts of things with a selected deck from this page.",
+	  arrow: "none"
+	}, {
+	  text: "The info section displays information related to the current deck's cards.",
+	  arrow: "up"
+	}, {
+	  text: "The mastery grade is the average percentage of all grades in the current deck. If none of the cards have been reviewed in a deck, the mastery will display new.",
+	  arrow: "up"
+	}, {
+	  text: "The graph below displays the breakdown of card grades in the deck.",
+	  arrow: "down"
+	}, {
+	  text: "Click this button to review the current deck." + "\n Up to 10 cards will be drawn at random. Cards with lower grades will have greater probability of being drawn.",
+	  arrow: "down"
+	}];
+
+/***/ },
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(291);
-	var Header = __webpack_require__(292);
+	var Form = __webpack_require__(293);
+	var Header = __webpack_require__(294);
 	
 	var EditDeck = React.createClass({
 	  displayName: 'EditDeck',
@@ -35278,7 +35348,7 @@
 	module.exports = EditDeck;
 
 /***/ },
-/* 291 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35371,7 +35441,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 292 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35401,12 +35471,12 @@
 	module.exports = Header;
 
 /***/ },
-/* 293 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchBar = __webpack_require__(294);
-	var List = __webpack_require__(295);
+	var SearchBar = __webpack_require__(296);
+	var List = __webpack_require__(297);
 	var Link = __webpack_require__(168).Link;
 	
 	var FlashcardIndex = React.createClass({
@@ -35456,7 +35526,7 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 294 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35484,14 +35554,14 @@
 	module.exports = FlashcardsSearchBar;
 
 /***/ },
-/* 295 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(296);
+	var FlashcardStore = __webpack_require__(298);
 	var DeckStore = __webpack_require__(274);
-	var FlashcardActions = __webpack_require__(299);
-	var FlashcardIndexItem = __webpack_require__(301);
+	var FlashcardActions = __webpack_require__(301);
+	var FlashcardIndexItem = __webpack_require__(303);
 	var GraphUtil = __webpack_require__(280);
 	var LoadingBar = __webpack_require__(281);
 	
@@ -35579,7 +35649,7 @@
 	      React.createElement(
 	        'p',
 	        null,
-	        'the new button in the top right corender of'
+	        'the new button in the top right corner of'
 	      ),
 	      React.createElement(
 	        'p',
@@ -35613,15 +35683,15 @@
 	module.exports = FlashcardIndex;
 
 /***/ },
-/* 296 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(238).Store;
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(297);
+	var FlashcardConstants = __webpack_require__(299);
 	var ReviewConstants = __webpack_require__(265);
 	var SearchUtil = __webpack_require__(276);
-	var Util = __webpack_require__(298);
+	var Util = __webpack_require__(300);
 	
 	var FlashcardStore = new Store(AppDispatcher);
 	var _flashcards = {};
@@ -35728,7 +35798,7 @@
 	module.exports = FlashcardStore;
 
 /***/ },
-/* 297 */
+/* 299 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35738,7 +35808,7 @@
 	};
 
 /***/ },
-/* 298 */
+/* 300 */
 /***/ function(module, exports) {
 
 	var Util = {
@@ -35781,10 +35851,10 @@
 	module.exports = Util;
 
 /***/ },
-/* 299 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FlashcardApiUtil = __webpack_require__(300);
+	var FlashcardApiUtil = __webpack_require__(302);
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
 	    FlashcardApiUtil.fetchFlashcards(deckId);
@@ -35808,11 +35878,11 @@
 	};
 
 /***/ },
-/* 300 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var FlashcardConstants = __webpack_require__(297);
+	var FlashcardConstants = __webpack_require__(299);
 	
 	module.exports = {
 	  fetchFlashcards: function (deckId) {
@@ -35884,7 +35954,7 @@
 	};
 
 /***/ },
-/* 301 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35938,16 +36008,16 @@
 	module.exports = FlashcardIndexItem;
 
 /***/ },
-/* 302 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardStore = __webpack_require__(296);
-	var FlashcardActions = __webpack_require__(299);
+	var FlashcardStore = __webpack_require__(298);
+	var FlashcardActions = __webpack_require__(301);
 	var Link = __webpack_require__(168).Link;
-	var Preview = __webpack_require__(303);
-	var Info = __webpack_require__(304);
-	var Options = __webpack_require__(305);
+	var Preview = __webpack_require__(305);
+	var Info = __webpack_require__(306);
+	var Options = __webpack_require__(307);
 	
 	var FlashcardShow = React.createClass({
 	  displayName: 'FlashcardShow',
@@ -36008,7 +36078,7 @@
 	module.exports = FlashcardShow;
 
 /***/ },
-/* 303 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36051,7 +36121,7 @@
 	module.exports = Preview;
 
 /***/ },
-/* 304 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36110,12 +36180,12 @@
 	module.exports = Info;
 
 /***/ },
-/* 305 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(168).Link;
-	var FlashcardActions = __webpack_require__(299);
+	var FlashcardActions = __webpack_require__(301);
 	
 	var Options = React.createClass({
 	  displayName: 'Options',
@@ -36155,12 +36225,12 @@
 	module.exports = Options;
 
 /***/ },
-/* 306 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(307);
-	var HeaderWithBack = __webpack_require__(309);
+	var Form = __webpack_require__(309);
+	var HeaderWithBack = __webpack_require__(311);
 	var Link = __webpack_require__(168).Link;
 	
 	NewCard = React.createClass({
@@ -36206,13 +36276,13 @@
 	module.exports = NewCard;
 
 /***/ },
-/* 307 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(299);
-	var FlashcardStore = __webpack_require__(296);
-	var NewPreview = __webpack_require__(308);
+	var FlashcardActions = __webpack_require__(301);
+	var FlashcardStore = __webpack_require__(298);
+	var NewPreview = __webpack_require__(310);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36316,7 +36386,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 308 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36368,7 +36438,7 @@
 	module.exports = EditPreview;
 
 /***/ },
-/* 309 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36404,12 +36474,12 @@
 	module.exports = HeaderWithBack;
 
 /***/ },
-/* 310 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Form = __webpack_require__(311);
-	var HeaderWithBack = __webpack_require__(309);
+	var Form = __webpack_require__(313);
+	var HeaderWithBack = __webpack_require__(311);
 	var Link = __webpack_require__(168).Link;
 	
 	EditCard = React.createClass({
@@ -36458,13 +36528,13 @@
 	module.exports = EditCard;
 
 /***/ },
-/* 311 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FlashcardActions = __webpack_require__(299);
-	var FlashcardStore = __webpack_require__(296);
-	var EditPreview = __webpack_require__(308);
+	var FlashcardActions = __webpack_require__(301);
+	var FlashcardStore = __webpack_require__(298);
+	var EditPreview = __webpack_require__(310);
 	
 	var Form = React.createClass({
 	  displayName: 'Form',
@@ -36567,26 +36637,28 @@
 	module.exports = Form;
 
 /***/ },
-/* 312 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Recap = __webpack_require__(313);
-	var Front = __webpack_require__(315);
-	var Flipped = __webpack_require__(316);
-	var FlashcardStore = __webpack_require__(296);
-	var FlashcardActions = __webpack_require__(299);
+	var Recap = __webpack_require__(315);
+	var Front = __webpack_require__(317);
+	var Flipped = __webpack_require__(318);
+	var FlashcardStore = __webpack_require__(298);
+	var FlashcardActions = __webpack_require__(301);
 	var DeckActions = __webpack_require__(277);
 	var ReviewActions = __webpack_require__(266);
 	var DeckStore = __webpack_require__(274);
-	var ReviewProgressCircle = __webpack_require__(317);
+	var ReviewProgressCircle = __webpack_require__(319);
+	var frontTourSteps = __webpack_require__(331);
+	var flippedTourSteps = __webpack_require__(332);
+	var recapTourSteps = __webpack_require__(333);
+	var Tour = __webpack_require__(269);
 	
 	var Review = React.createClass({
 	  displayName: 'Review',
 	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
+	  contextTypes: { router: React.PropTypes.object.isRequired },
 	
 	  getInitialState: function () {
 	    return {
@@ -36685,6 +36757,17 @@
 	    return Math.round(total / gradeCount);
 	  },
 	
+	  tour: function () {
+	    // debugger
+	    if (this.state.cardIdx === 0 && !this.state.flipped) {
+	      return React.createElement(Tour, { extraClasses: 'FrontTour', steps: frontTourSteps });
+	    } else if (this.state.cardIdx === 0 && this.state.flipped) {
+	      return React.createElement(Tour, { extraClasses: 'FlippedTour', steps: flippedTourSteps });
+	    } else if (this.state.gradesShipped) {
+	      return React.createElement(Tour, { extraClasses: 'RecapTour', steps: recapTourSteps });
+	    } else {}
+	  },
+	
 	  render: function () {
 	    var arrow = "<";
 	    var title = "Review";
@@ -36702,6 +36785,7 @@
 	    if (this.state.deck) {
 	      deckName = this.state.deck.name;
 	    }
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'Parent-Component Review' },
@@ -36737,7 +36821,8 @@
 	      React.createElement(Recap, { showing: this.state.cardIdx === cardTotal,
 	        continueCB: this.continueCB,
 	        reviewGrade: this._reviewGrade(),
-	        deck: this.state.deck })
+	        deck: this.state.deck }),
+	      this.tour()
 	    );
 	  }
 	});
@@ -36745,11 +36830,11 @@
 	module.exports = Review;
 
 /***/ },
-/* 313 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var RecapCanvas = __webpack_require__(314);
+	var RecapCanvas = __webpack_require__(316);
 	
 	var Recap = React.createClass({
 	  displayName: 'Recap',
@@ -36851,7 +36936,7 @@
 	module.exports = Recap;
 
 /***/ },
-/* 314 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36905,7 +36990,7 @@
 	module.exports = RecapCanvas;
 
 /***/ },
-/* 315 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36939,11 +37024,11 @@
 	module.exports = Front;
 
 /***/ },
-/* 316 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Preview = __webpack_require__(303);
+	var Preview = __webpack_require__(305);
 	
 	var Flipped = React.createClass({
 	  displayName: 'Flipped',
@@ -36991,7 +37076,7 @@
 	module.exports = Flipped;
 
 /***/ },
-/* 317 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -37055,18 +37140,20 @@
 	module.exports = ReviewProgressCircle;
 
 /***/ },
-/* 318 */
+/* 320 */,
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Footer = __webpack_require__(259);
 	var SearchBar = __webpack_require__(272);
-	var DeckIndex = __webpack_require__(319);
-	var PublicDeckActions = __webpack_require__(322);
+	var DeckIndex = __webpack_require__(322);
+	var PublicDeckActions = __webpack_require__(325);
+	var tourSteps = __webpack_require__(327);
+	var Tour = __webpack_require__(269);
 	
 	var PublicDeckBrowse = React.createClass({
 	  displayName: 'PublicDeckBrowse',
-	
 	
 	  getInitialState: function () {
 	    return { query: "" };
@@ -37099,7 +37186,8 @@
 	          { className: 'Overflow-Test' },
 	          React.createElement(DeckIndex, { query: this.state.query })
 	        ),
-	        React.createElement(Footer, null)
+	        React.createElement(Footer, null),
+	        React.createElement(Tour, { steps: tourSteps })
 	      )
 	    );
 	  }
@@ -37108,12 +37196,12 @@
 	module.exports = PublicDeckBrowse;
 
 /***/ },
-/* 319 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(320);
-	var DeckActions = __webpack_require__(322);
+	var PublicDeckStore = __webpack_require__(323);
+	var DeckActions = __webpack_require__(325);
 	var DeckIndexItem = __webpack_require__(279);
 	
 	var DeckIndex = React.createClass({
@@ -37166,14 +37254,14 @@
 	module.exports = DeckIndex;
 
 /***/ },
-/* 320 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
 	var Store = __webpack_require__(238).Store;
 	var PublicDeckStore = new Store(AppDispatcher);
 	var SearchUtil = __webpack_require__(276);
-	var PublicDeckConstants = __webpack_require__(321);
+	var PublicDeckConstants = __webpack_require__(324);
 	
 	var _publicDecks = {};
 	
@@ -37220,7 +37308,7 @@
 	module.exports = PublicDeckStore;
 
 /***/ },
-/* 321 */
+/* 324 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -37229,10 +37317,10 @@
 	};
 
 /***/ },
-/* 322 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PublicDeckUtil = __webpack_require__(323);
+	var PublicDeckUtil = __webpack_require__(326);
 	
 	module.exports = {
 	  search: function (query) {
@@ -37249,11 +37337,11 @@
 	};
 
 /***/ },
-/* 323 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(233);
-	var PublicDeckConstants = __webpack_require__(321);
+	var PublicDeckConstants = __webpack_require__(324);
 	var DeckConstants = __webpack_require__(275);
 	
 	module.exports = {
@@ -37302,15 +37390,27 @@
 	};
 
 /***/ },
-/* 324 */
+/* 327 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "Welcome to the deck import page!" + "\n From this page you can Import public archived decks into your own set of decks",
+	  arrow: "none"
+	}, {
+	  text: "To browse the public decks, type a letter into the search bar above.",
+	  arrow: "up"
+	}];
+
+/***/ },
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(320);
-	var PublicDeckActions = __webpack_require__(322);
-	var HeaderWithBack = __webpack_require__(309);
-	var PreviewList = __webpack_require__(325);
-	var PreviewInfo = __webpack_require__(326);
+	var PublicDeckStore = __webpack_require__(323);
+	var PublicDeckActions = __webpack_require__(325);
+	var HeaderWithBack = __webpack_require__(311);
+	var PreviewList = __webpack_require__(329);
+	var PreviewInfo = __webpack_require__(330);
 	
 	var PublicDeckPreview = React.createClass({
 	  displayName: 'PublicDeckPreview',
@@ -37389,12 +37489,12 @@
 	module.exports = PublicDeckPreview;
 
 /***/ },
-/* 325 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Preview = __webpack_require__(303);
+	var Preview = __webpack_require__(305);
 	
 	var PreviewList = React.createClass({
 	  displayName: 'PreviewList',
@@ -37426,12 +37526,12 @@
 	module.exports = PreviewList;
 
 /***/ },
-/* 326 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PublicDeckStore = __webpack_require__(320);
-	var PublicDeckStore = __webpack_require__(320);
+	var PublicDeckStore = __webpack_require__(323);
+	var PublicDeckStore = __webpack_require__(323);
 	var PreviewInfo = React.createClass({
 	  displayName: 'PreviewInfo',
 	
@@ -37495,6 +37595,42 @@
 	});
 	
 	module.exports = PreviewInfo;
+
+/***/ },
+/* 331 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "Welcome to your first review!" + "\n To review the current card, look at the shown card, guess the back, and press flip.",
+	  arrow: "none"
+	}];
+
+/***/ },
+/* 332 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "Did you guess correctly?" + "\n Based on you guessing performance, choose a review grade below.",
+	  arrow: "down"
+	}, {
+	  text: "If you forget how many cards are left in your review, check the progress pie.",
+	  arrow: "right"
+	}];
+
+/***/ },
+/* 333 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+	  text: "Congrats, you finished your first review!" + "\n The reviewed cards will have their grades modified based on your performance.",
+	  arrow: "none"
+	}, {
+	  text: "In general, receiving good grades in a review raises a card’s grade by only a little percentage. Receiving a poor grade decreases a card’s grade significantly. This ensures that AnkiClone draws difficult cards with greater frequency than easier cards.",
+	  arrow: "none"
+	}, {
+	  text: "That's all.",
+	  arrow: "none"
+	}];
 
 /***/ }
 /******/ ]);

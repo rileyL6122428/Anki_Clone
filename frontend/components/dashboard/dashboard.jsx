@@ -1,7 +1,7 @@
 var React = require('react');
 var Footer = require('../shared/dashboard_footer');
 var DashboardContent = require('./dashboard_content');
-var tourSteps = require('./tourSteps');
+var tourSteps = require('./tour_steps');
 var Tour = require('../shared/tour');
 
 var Dashboard = React.createClass({

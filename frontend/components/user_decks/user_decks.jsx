@@ -2,6 +2,8 @@ var React = require('react');
 var SearchBar = require('./decks_search_bar');
 var DeckIndex = require('./deck_index');
 var Footer = require('../shared/dashboard_footer');
+var tourSteps = require('./tour_steps');
+var Tour = require('../shared/tour');
 
 var UserDecks = React.createClass({
   getInitialState: function () {
@@ -10,7 +12,6 @@ var UserDecks = React.createClass({
 
   queryChangeCB: function (e) {
     e.preventDefault();
-
     this.setState({ query: e.target.value })
   },
 
@@ -23,6 +24,7 @@ var UserDecks = React.createClass({
           <DeckIndex query={ this.state.query }/>
         </div>
         <Footer />
+        <Tour steps={ tourSteps } />
       </div>
     )
   }

@@ -8,11 +8,13 @@ var DeckActions = require('../../actions/deck_actions');
 var ReviewActions = require('../../actions/review_actions');
 var DeckStore = require('../../stores/deck_store');
 var ReviewProgressCircle = require('../graphs/review_progress_bar');
+var frontTourSteps = require('./tour_steps/front_tour_steps');
+var flippedTourSteps = require('./tour_steps/flipped_tour_steps');
+var recapTourSteps = require('./tour_steps/recap_tour_steps');
+var Tour = require('../shared/tour');
 
 var Review =  React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+  contextTypes: { router: React.PropTypes.object.isRequired },
 
   getInitialState: function () {
     return({
@@ -85,7 +87,7 @@ var Review =  React.createClass({
     this.setState({
       cardIdx: 0,
       flipped: false,
-      reviewSummary: {} ,
+      reviewSummary: {},
       gradesShipped: false
     });
   },
@@ -107,6 +109,17 @@ var Review =  React.createClass({
     return (Math.round(total / gradeCount));
   },
 
+  tour: function() {
+    // debugger
+    if(this.state.cardIdx === 0 && !this.state.flipped ) {
+      return <Tour extraClasses="FrontTour" steps={ frontTourSteps } />
+    } else if(this.state.cardIdx === 0 && this.state.flipped) {
+      return <Tour extraClasses="FlippedTour" steps={ flippedTourSteps } />
+    } else if (this.state.gradesShipped) {
+      return <Tour extraClasses="RecapTour" steps={ recapTourSteps } />
+    } else {}
+  },
+
   render: function () {
     var arrow = "<"
     var title = "Review";
@@ -120,6 +133,7 @@ var Review =  React.createClass({
     }
     if(this.state.cardIdx === cardTotal) { title = "Recap"; }
     if(this.state.deck) { deckName = this.state.deck.name; }
+
     return (
       <div className="Parent-Component Review">
         <h1>
@@ -133,20 +147,20 @@ var Review =  React.createClass({
                                 completedCards={ this.state.cardIdx }
                                 totalCards={ cardTotal } /></h6>
 
-        <Front   showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
+          <Front showing={ this.state.cardIdx < cardTotal && !this.state.flipped }
                  cardFront={ cardFront }
                  flipCB={ this.flipCB }/>
 
-               <Flipped showing={ this.state.cardIdx < cardTotal && this.state.flipped }
-                       cardFront={ cardFront }
-                       cardBack={ cardBack }
-                       gradeCB={ this.gradeCB }/>
+          <Flipped showing={ this.state.cardIdx < cardTotal && this.state.flipped }
+                   cardFront={ cardFront }
+                   cardBack={ cardBack }
+                   gradeCB={ this.gradeCB }/>
 
-               <Recap   showing={ this.state.cardIdx === cardTotal }
-                        continueCB={this.continueCB}
-                        reviewGrade={this._reviewGrade()}
-                        deck={ this.state.deck }/>
-
+           <Recap showing={ this.state.cardIdx === cardTotal }
+                  continueCB={this.continueCB}
+                  reviewGrade={this._reviewGrade()}
+                  deck={ this.state.deck }/>
+           { this.tour() }
       </div>
     );
   }

@@ -1,0 +1,23 @@
+.Review div.tour button.cancel {
+  margin-left: 7%;
+}
+
+.Review div.tour.step0.FrontTour {
+  top: 68px;
+  left: 33%;
+}
+
+.Review div.tour.step0.FlippedTour{
+  bottom: 101px;
+  left: 32.5%;
+}
+
+.Review div.tour.step1.FlippedTour{
+  top: 10px;
+  right: 3%;
+}
+
+.Review div.tour.step0.RecapTour, .Review div.tour.step1.RecapTour, .Review div.tour.step2.RecapTour {
+  top: 68px;
+  left: 33%;
+}
