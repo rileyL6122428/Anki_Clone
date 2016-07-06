@@ -33928,7 +33928,15 @@
 	  },
 	
 	  componentDidMount: function () {
-	    // TourStore.resetTours();
+	    this.storeListenerId = TourStore.addListener(this.storeCB);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.storeListenerId.remove();
+	  },
+	
+	  storeCB: function () {
+	    this.setState({});
 	    var test = TourStore;
 	  },
 	
@@ -34024,7 +34032,7 @@
 	};
 	
 	TourStore.cancelTours = function () {
-	  for (var tourName in _finishedTours) {
+	  for (var tourName in TourConstants) {
 	    _finishedTours[tourName] = true;
 	  }
 	};
@@ -34052,7 +34060,11 @@
 	        _initialLogin = false;
 	      }
 	      break;
+	    case UserConstants.LOGIN:
+	      this.cancelTours();
+	      break;
 	  }
+	  this.__emitChange();
 	};
 	
 	module.exports = TourStore;

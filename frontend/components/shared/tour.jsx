@@ -8,8 +8,16 @@ var Tour = React.createClass({
   },
 
   componentDidMount: function () {
-    // TourStore.resetTours();
-    var test = TourStore;
+    this.storeListenerId = TourStore.addListener(this.storeCB);
+  },
+
+  componentWillUnmount: function () {
+    this.storeListenerId.remove();
+  },
+
+  storeCB: function () {
+    this.setState({});
+    var test = TourStore
   },
 
   nextCB: function () {

@@ -12,7 +12,7 @@ TourStore.checkOffTour = function (tourName) {
 };
 
 TourStore.cancelTours = function () {
-  for(var tourName in _finishedTours) {
+  for(var tourName in TourConstants) {
     _finishedTours[tourName] = true;
   }
 };
@@ -39,7 +39,11 @@ TourStore.__onDispatch = function (payload) {
         _initialLogin = false;
       }
       break;
+    case UserConstants.LOGIN:
+      this.cancelTours();
+      break;
   }
+  this.__emitChange();
 }
 
 module.exports = TourStore;
