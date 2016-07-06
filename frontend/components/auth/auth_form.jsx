@@ -1,14 +1,11 @@
 var React = require('react');
 var UserActions = require('../../actions/user_actions');
 var UserStore = require('../../stores/user_store');
-
-//COMPONENT
 var ErrorMessage = require('./error_message');
 var AForm = require('./form');
 var Greeting = require('./greeting.jsx');
 
 var AuthForm = React.createClass({
-
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -19,7 +16,6 @@ var AuthForm = React.createClass({
 
   componentDidMount: function () {
     this.token = UserStore.addListener(this._handleChange)
-
   },
 
   componentWillUnmount: function () {
@@ -27,7 +23,6 @@ var AuthForm = React.createClass({
   },
 
   _handleChange: function () {
-
     if(UserStore.currentUser()) { this.context.router.push("/dashboard"); }
     if(UserStore.errors()) {this.setState({authErrors: true})}
   },

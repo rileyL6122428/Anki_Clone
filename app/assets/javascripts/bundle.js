@@ -25945,15 +25945,12 @@
 	var React = __webpack_require__(1);
 	var UserActions = __webpack_require__(230);
 	var UserStore = __webpack_require__(237);
-	
-	//COMPONENT
 	var ErrorMessage = __webpack_require__(255);
 	var AForm = __webpack_require__(256);
 	var Greeting = __webpack_require__(257);
 	
 	var AuthForm = React.createClass({
 	  displayName: 'AuthForm',
-	
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
@@ -25972,7 +25969,6 @@
 	  },
 	
 	  _handleChange: function () {
-	
 	    if (UserStore.currentUser()) {
 	      this.context.router.push("/dashboard");
 	    }
@@ -33278,7 +33274,6 @@
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
 	
-	
 	  getInitialState: function () {
 	    return { windowCompressed: false };
 	  },
@@ -33935,7 +33930,6 @@
 	  componentDidMount: function () {
 	    // TourStore.resetTours();
 	    var test = TourStore;
-	    debugger;
 	  },
 	
 	  nextCB: function () {
@@ -33948,7 +33942,6 @@
 	
 	  tourFinished: function () {
 	    if (this.state.stepIdx === this.state.steps.length || TourStore.tourFinished(this.props.tourName)) {
-	      debugger;
 	      TourStore.checkOffTour(this.props.tourName);
 	      return this.queueNextTour();
 	    } else {
@@ -34028,7 +34021,6 @@
 	
 	TourStore.checkOffTour = function (tourName) {
 	  _finishedTours[tourName] = true;
-	  debugger;
 	};
 	
 	TourStore.cancelTours = function () {
@@ -34038,7 +34030,6 @@
 	};
 	
 	TourStore.resetTours = function () {
-	  debugger;
 	  for (var tourName in TourConstants) {
 	    _finishedTours[tourName] = false;
 	  }
@@ -34961,23 +34952,6 @@
 	});
 	
 	module.exports = Form;
-	
-	// <form onSubmit={this.submitCB}>
-	//   <label>Name
-	//     <br/>
-	//     <input type="text" onChange={this.changeName} className="NameInput" />
-	//   </label>
-	//   <br/>
-	//
-	//   <label>Description
-	//     <br/>
-	//     <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
-	//   </label>
-	//   <br/>
-	//
-	//   <input type="submit" value="Save" className="Save" />
-	//
-	// </form>
 
 /***/ },
 /* 287 */
@@ -35035,12 +35009,12 @@
 	  },
 	
 	  componentDidMount: function () {
-	
 	    var self = this;
 	    this.intervalId = setInterval(function () {
-	      if ($(window).width() < 1025) {
+	      if ($(window).width() < 1025 && !this.state.windowCompressed) {
 	        self.setState({ windowCompressed: true });
-	      } else {
+	      }
+	      if ($(window).width() >= 1025 && this.state.windowCompressed) {
 	        self.setState({ windowCompressed: false });
 	      }
 	    }, 200);
@@ -36327,9 +36301,10 @@
 	  componentDidMount: function () {
 	    var self = this;
 	    this.intervalId = setInterval(function () {
-	      if ($(window).width() < 850) {
+	      if ($(window).width() < 850 && !this.state.windowCompressed) {
 	        self.setState({ windowCompressed: true });
-	      } else {
+	      }
+	      if ($(window).width() >= 850 && this.state.windowCompressed) {
 	        self.setState({ windowCompressed: false });
 	      }
 	    }, 200);
@@ -36576,9 +36551,10 @@
 	  componentDidMount: function () {
 	    var self = this;
 	    this.intervalId = setInterval(function () {
-	      if ($(window).width() < 850) {
+	      if ($(window).width() < 850 && !this.state.windowCompressed) {
 	        self.setState({ windowCompressed: true });
-	      } else {
+	      }
+	      if ($(window).width() >= 850 && this.state.windowCompressed) {
 	        self.setState({ windowCompressed: false });
 	      }
 	    }, 200);
@@ -37534,7 +37510,6 @@
 	var PublicDeckPreview = React.createClass({
 	  displayName: 'PublicDeckPreview',
 	
-	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
 	  },
@@ -37551,9 +37526,10 @@
 	
 	    var self = this;
 	    this.intervalId = setInterval(function () {
-	      if ($(window).width() < 800) {
+	      if ($(window).width() < 800 && !this.state.windowCompressed) {
 	        self.setState({ windowCompressed: true });
-	      } else {
+	      }
+	      if ($(window).width() >= 800 && !this.state.windowCompressed) {
 	        self.setState({ windowCompressed: false });
 	      }
 	    }, 200);
@@ -37618,7 +37594,6 @@
 	var PreviewList = React.createClass({
 	  displayName: 'PreviewList',
 	
-	
 	  render: function () {
 	    var cards = this.props.deck.cardPreview;
 	    var deckName = this.props.deck.name;
@@ -37654,9 +37629,7 @@
 	var PreviewInfo = React.createClass({
 	  displayName: 'PreviewInfo',
 	
-	
 	  render: function () {
-	
 	    var description = "No description.";
 	    var descriptionClass = "Empty-Description Description";
 	    if (this.props.deck.description) {

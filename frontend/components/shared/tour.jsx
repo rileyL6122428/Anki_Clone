@@ -10,7 +10,6 @@ var Tour = React.createClass({
   componentDidMount: function () {
     // TourStore.resetTours();
     var test = TourStore;
-    debugger;
   },
 
   nextCB: function () {
@@ -23,7 +22,6 @@ var Tour = React.createClass({
 
   tourFinished: function () {
     if (this.state.stepIdx === this.state.steps.length || TourStore.tourFinished(this.props.tourName)) {
-      debugger
       TourStore.checkOffTour(this.props.tourName);
       return this.queueNextTour();
     } else {

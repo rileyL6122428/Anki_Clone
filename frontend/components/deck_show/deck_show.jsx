@@ -18,12 +18,12 @@ var DeckShow = React.createClass({
   },
 
   componentDidMount: function (){
-
     var self = this;
     this.intervalId = setInterval(function() {
-      if ($(window).width() < 1025) {
+      if ($(window).width() < 1025 && !this.state.windowCompressed) {
        self.setState({ windowCompressed: true });
-     } else {
+     }
+      if($(window).width() >= 1025 && this.state.windowCompressed) {
        self.setState({ windowCompressed: false });
      }
    }, 200);

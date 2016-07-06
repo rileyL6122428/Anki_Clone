@@ -17,7 +17,6 @@ var DeckIndex = React.createClass({
     this.setState({ decks: PublicDeckStore.all() });
   },
 
-
   componentWillUnmount: function () {
     this.listenerToken.remove();
   },

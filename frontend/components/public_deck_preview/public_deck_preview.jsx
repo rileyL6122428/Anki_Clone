@@ -6,7 +6,6 @@ var PreviewList = require('./preview_list');
 var PreviewInfo = require('./preview_info');
 
 var PublicDeckPreview = React.createClass({
-
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -23,9 +22,10 @@ var PublicDeckPreview = React.createClass({
 
     var self = this;
     this.intervalId = setInterval(function() {
-      if ($(window).width() < 800) {
+      if ($(window).width() < 800 && !this.state.windowCompressed) {
        self.setState({ windowCompressed: true });
-     } else {
+     }
+      if($(window).width() >= 800 && !this.state.windowCompressed) {
        self.setState({ windowCompressed: false });
      }
    }, 200);

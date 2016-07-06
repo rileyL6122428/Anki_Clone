@@ -2,11 +2,7 @@ var React = require('react');
 var PublicDeckStore = require('../../stores/public_deck_store');
 var PublicDeckStore = require('../../stores/public_deck_store');
 var PreviewInfo = React.createClass({
-
-
-
   render: function () {
-
     var description = "No description.";
     var descriptionClass = "Empty-Description Description"
     if(this.props.deck.description) {

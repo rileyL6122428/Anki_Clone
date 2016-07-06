@@ -12,9 +12,10 @@ EditCard = React.createClass({
   componentDidMount: function (){
     var self = this;
     this.intervalId = setInterval(function() {
-      if ($(window).width() < 850) {
+      if ($(window).width() < 850 && !this.state.windowCompressed) {
        self.setState({ windowCompressed: true });
-     } else {
+     }
+      if ($(window).width() >= 850 && this.state.windowCompressed) {
        self.setState({ windowCompressed: false });
      }
    }, 200);

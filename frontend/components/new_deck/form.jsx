@@ -69,20 +69,3 @@ var Form = React.createClass({
 });
 
 module.exports = Form;
-
-// <form onSubmit={this.submitCB}>
-//   <label>Name
-//     <br/>
-//     <input type="text" onChange={this.changeName} className="NameInput" />
-//   </label>
-//   <br/>
-//
-//   <label>Description
-//     <br/>
-//     <input type="text" onChange={this.changeDescription} className="DescriptionInput" />
-//   </label>
-//   <br/>
-//
-//   <input type="submit" value="Save" className="Save" />
-//
-// </form>

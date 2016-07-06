@@ -9,7 +9,6 @@ var _initialLogin = true;
 
 TourStore.checkOffTour = function (tourName) {
   _finishedTours[tourName] = true;
-  debugger
 };
 
 TourStore.cancelTours = function () {
@@ -19,7 +18,6 @@ TourStore.cancelTours = function () {
 };
 
 TourStore.resetTours = function () {
-  debugger
   for(var tourName in TourConstants) {
     _finishedTours[tourName] = false;
   }

@@ -6,7 +6,6 @@ var Tour = require('../shared/tour');
 var TourConstants = require('../../constants/tour_constants');
 
 var Dashboard = React.createClass({
-
   getInitialState: function() {
     return({ windowCompressed: false })
   },
