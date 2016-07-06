@@ -22,10 +22,10 @@ var PublicDeckPreview = React.createClass({
 
     var self = this;
     this.intervalId = setInterval(function() {
-      if ($(window).width() < 800 && !this.state.windowCompressed) {
+      if ($(window).width() < 800 && !self.state.windowCompressed) {
        self.setState({ windowCompressed: true });
      }
-      if($(window).width() >= 800 && !this.state.windowCompressed) {
+      if($(window).width() >= 800 && !self.state.windowCompressed) {
        self.setState({ windowCompressed: false });
      }
    }, 200);
