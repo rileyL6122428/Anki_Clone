@@ -16,16 +16,12 @@ var UserActions = {
 		});
 	},
 	login: function(user){
-		// debugger
-		// if(user.username !== ""){
-
 			UserApiUtil.post({
 				url: "/api/session",
 				user: user,
 				success: UserActions.receiveCurrentUser,
 				error: UserActions.handleError
 			});
-		// }
 	},
 
 	guestLogin: function(){
@@ -33,14 +29,15 @@ var UserActions = {
 	},
 
 	receiveCurrentUser: function(user){
+		var actionType = user.username === "Guest" ? UserConstants.LOGIN_GUEST : UserConstants.LOGIN;
+
 			AppDispatcher.dispatch({
-				actionType: UserConstants.LOGIN,
+				actionType: actionType,
 				user: user
 			});
 	},
 
 	handleError: function(error) {
-		// debugger
 		AppDispatcher.dispatch({
 			actionType: UserConstants.ERROR,
 			errors: error.responseJSON.errors

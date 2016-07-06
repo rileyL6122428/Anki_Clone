@@ -19,7 +19,6 @@ var UserApiUtil = {
 		});
 	},
 	fetchCurrentUser: function(success, error){
-		// debugger
 		$.ajax({
 			url: '/api/session',
 			method: 'get',

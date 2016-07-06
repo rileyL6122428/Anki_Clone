@@ -12,6 +12,7 @@ var frontTourSteps = require('./tour_steps/front_tour_steps');
 var flippedTourSteps = require('./tour_steps/flipped_tour_steps');
 var recapTourSteps = require('./tour_steps/recap_tour_steps');
 var Tour = require('../shared/tour');
+var TourConstants = require('../../constants/tour_constants');
 
 var Review =  React.createClass({
   contextTypes: { router: React.PropTypes.object.isRequired },
@@ -110,13 +111,12 @@ var Review =  React.createClass({
   },
 
   tour: function() {
-    // debugger
-    if(this.state.cardIdx === 0 && !this.state.flipped ) {
-      return <Tour extraClasses="FrontTour" steps={ frontTourSteps } />
+    if(this.state.cardIdx === 0 && !this.state.flipped) {
+      return <Tour extraClasses="FrontTour" steps={ frontTourSteps } tourName={ TourConstants.REVIEW_FRONT }/>
     } else if(this.state.cardIdx === 0 && this.state.flipped) {
-      return <Tour extraClasses="FlippedTour" steps={ flippedTourSteps } />
+      return <Tour extraClasses="FlippedTour" steps={ flippedTourSteps } tourName={ TourConstants.REVIEW_FLIPPED }/>
     } else if (this.state.gradesShipped) {
-      return <Tour extraClasses="RecapTour" steps={ recapTourSteps } />
+      return <Tour extraClasses="RecapTour" steps={ recapTourSteps } tourName={ TourConstants.REVIEW_RECAP }/>
     } else {}
   },
 

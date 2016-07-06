@@ -4,6 +4,7 @@ var DeckIndex = require('./deck_index');
 var Footer = require('../shared/dashboard_footer');
 var tourSteps = require('./tour_steps');
 var Tour = require('../shared/tour');
+var TourConstants = require('../../constants/tour_constants');
 
 var UserDecks = React.createClass({
   getInitialState: function () {
@@ -24,7 +25,7 @@ var UserDecks = React.createClass({
           <DeckIndex query={ this.state.query }/>
         </div>
         <Footer />
-        <Tour steps={ tourSteps } />
+        <Tour steps={ tourSteps } tourName={ TourConstants.DECK_INDEX }/>
       </div>
     )
   }

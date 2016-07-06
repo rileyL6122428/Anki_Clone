@@ -4,7 +4,8 @@ var SearchBar = require('../user_decks/decks_search_bar');
 var DeckIndex = require('./deck_index');
 var PublicDeckActions = require('../../actions/public_deck_actions');
 var tourSteps = require('./tour_steps');
-var Tour = require('../shared/tour')
+var Tour = require('../shared/tour');
+var TourConstants = require('../../constants/tour_constants');
 
 var PublicDeckBrowse = React.createClass({
   getInitialState: function () {
@@ -14,10 +15,10 @@ var PublicDeckBrowse = React.createClass({
   queryChangeCB: function (e) {
     e.preventDefault();
 
-    var query = e.target.value
+    var query = e.target.value;
 
-    this.setState({ query: query })
-    PublicDeckActions.search(query)
+    this.setState({ query: query });
+    PublicDeckActions.search(query);
   },
 
   render: function () {
@@ -30,7 +31,7 @@ var PublicDeckBrowse = React.createClass({
           <DeckIndex query={ this.state.query }/>
           </div>
           <Footer />
-          <Tour steps={ tourSteps } />
+          <Tour steps={ tourSteps } tourName={ TourConstants.DECK_IMPORT }/>
         </div>
       </div>
     );

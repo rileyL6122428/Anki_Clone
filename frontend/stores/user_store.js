@@ -44,6 +44,7 @@ UserStore.errors = function(){
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case "LOGIN":
+		case "LOGIN_GUEST":
     UserStore.login(payload.user);
     break;
     case "LOGOUT":

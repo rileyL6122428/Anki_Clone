@@ -1,8 +1,16 @@
 var React = require("react");
+var TourStore = require('../../stores/tour_store');
+var TourConstants = require('../../constants/tour_constants');
 
 var Tour = React.createClass({
   getInitialState: function () {
     return({ stepIdx: 0, steps: this.props.steps })
+  },
+
+  componentDidMount: function () {
+    // TourStore.resetTours();
+    var test = TourStore;
+    debugger;
   },
 
   nextCB: function () {
@@ -14,7 +22,9 @@ var Tour = React.createClass({
   },
 
   tourFinished: function () {
-    if (this.state.stepIdx === this.state.steps.length) {
+    if (this.state.stepIdx === this.state.steps.length || TourStore.tourFinished(this.props.tourName)) {
+      debugger
+      TourStore.checkOffTour(this.props.tourName);
       return this.queueNextTour();
     } else {
       return false;
@@ -57,6 +67,7 @@ var Tour = React.createClass({
   },
 
   render: function () {
+    // console.log(this.tourFinished());
     if(this.tourFinished()){
       return <div></div>;
     } else {

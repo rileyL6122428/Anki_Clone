@@ -6,6 +6,7 @@ var DeckHistory = require('./history');
 var Link = require('react-router').Link;
 var Tour = require('../shared/tour');
 var tourSteps = require('./tour_steps');
+var TourConstants = require('../../constants/tour_constants')
 
 var DeckShow = React.createClass({
 
@@ -49,7 +50,7 @@ var DeckShow = React.createClass({
           <Content deckId={this.props.params.id}/>
           <Options deckId={this.props.params.id} />
         </div>
-        <Tour steps={ tourSteps } /> 
+        <Tour steps={ tourSteps } tourName={ TourConstants.DECK_SHOW }/>
       </div>
     );
   }
