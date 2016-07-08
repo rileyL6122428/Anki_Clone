@@ -31,6 +31,10 @@ and backend and allows for speedy re-rendering handled by React.
 
 ###Authentication
 
+*Auth Page*
+
+![Auth Preview](https://raw.githubusercontent.com/rileyL6122428/Anki_Clone/master/docs/preview_images/auth_preview.png)
+
 *Normal Authentication*
 
 Users of the site are required to authenticate or sign up. Navigation to any
