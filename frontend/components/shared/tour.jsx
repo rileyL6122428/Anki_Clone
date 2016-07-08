@@ -41,7 +41,7 @@ var Tour = React.createClass({
     if( this.state.steps !== this.props.steps) {
       this.state.steps = this.props.steps;
       this.state.stepIdx = 0;
-      return false;
+      return true;
     } else {
       return true;
     }
@@ -73,7 +73,6 @@ var Tour = React.createClass({
   },
 
   render: function () {
-    // console.log(this.tourFinished());
     if(this.tourFinished()){
       return <div></div>;
     } else {

@@ -42,6 +42,9 @@ TourStore.__onDispatch = function (payload) {
     case UserConstants.LOGIN:
       this.cancelTours();
       break;
+    case UserConstants.LOGOUT:
+      _initialLogin = true;
+      break;
   }
   this.__emitChange();
 }

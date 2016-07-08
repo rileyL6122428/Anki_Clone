@@ -33252,7 +33252,7 @@
 	        "button",
 	        { onClick: this.props.guestLoginCB,
 	          className: "Guest-Button" },
-	        "Sign in as Guest"
+	        "Tour as Guest"
 	      )
 	    );
 	  }
@@ -33961,7 +33961,7 @@
 	    if (this.state.steps !== this.props.steps) {
 	      this.state.steps = this.props.steps;
 	      this.state.stepIdx = 0;
-	      return false;
+	      return true;
 	    } else {
 	      return true;
 	    }
@@ -34003,7 +34003,6 @@
 	  },
 	
 	  render: function () {
-	    // console.log(this.tourFinished());
 	    if (this.tourFinished()) {
 	      return React.createElement('div', null);
 	    } else {
@@ -34062,6 +34061,9 @@
 	      break;
 	    case UserConstants.LOGIN:
 	      this.cancelTours();
+	      break;
+	    case UserConstants.LOGOUT:
+	      _initialLogin = true;
 	      break;
 	  }
 	  this.__emitChange();
@@ -37215,7 +37217,7 @@
 /***/ function(module, exports) {
 
 	module.exports = [{
-	  text: "Welcome to your first review!" + "\n To review the current card, look at the shown card, guess the back, and press flip.",
+	  text: "Welcome to your first review!" + "\n To review the current card, look at the shown card, guess the back, and press flip." + " After you have flipped the card, grade your performance.",
 	  arrow: "none"
 	}];
 

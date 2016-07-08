@@ -8,7 +8,8 @@
 
 .DashBoard div.tour.step1, .DashBoard div.tour.step2, .DashBoard div.tour.step3{
   left: 32%;
-  bottom: 18%;
+  /*bottom: 18%;*/
+  bottom: 80px;
 }
 
 .DashBoard div.tour.step4 {

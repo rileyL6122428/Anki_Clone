@@ -52,7 +52,9 @@ var Review =  React.createClass({
     e.preventDefault();
 
     this.context.router.push("/decks/" + this.props.params.id);
-    if (!this.state.gradesShipped && Object.keys(this.state.reviewSummary).length > 0) { this.shipGrades(); }
+    if (!this.state.gradesShipped && Object.keys(this.state.reviewSummary).length > 0) {
+      this.shipGrades();
+    }
     this.resetReviewState();
   },
 

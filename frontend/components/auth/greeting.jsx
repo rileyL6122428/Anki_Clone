@@ -16,7 +16,7 @@ var Greeting = React.createClass({
           <div className="Facebook-Signup" >Sign in with Facebook</div>
         </a>
         <button onClick={this.props.guestLoginCB}
-                className="Guest-Button">Sign in as Guest</button>
+                className="Guest-Button">Tour as Guest</button>
       </div>
     );
   }
