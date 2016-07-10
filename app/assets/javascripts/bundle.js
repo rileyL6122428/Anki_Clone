@@ -143,15 +143,14 @@
 	}
 	
 	function _checkLogInStatus(nextState, replace, asyncDoneCallback) {
-	  UserActions.fetchCurrentUser();
-	  var token = UserStore.addListener(function () {
-	
-	    if (UserStore.currentUser()) {
-	      replace('/dashboard');
-	    }
-	    token.remove();
-	    asyncDoneCallback();
-	  });
+	  // UserActions.fetchCurrentUser();
+	  // var token = UserStore.addListener(function(){
+	  if (UserStore.currentUser()) {
+	    replace('/dashboard');
+	  }
+	  // token.remove();
+	  asyncDoneCallback();
+	  // });
 	}
 	
 	document.addEventListener('DOMContentLoaded', function () {
@@ -34104,6 +34103,7 @@
 	
 	  logoutCB: function (e) {
 	    e.preventDefault();
+	    UserStore.logout();
 	    UserActions.logout();
 	    this.context.router.push('auth');
 	  },

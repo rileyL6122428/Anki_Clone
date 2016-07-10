@@ -90,13 +90,14 @@ function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
 }
 
 function _checkLogInStatus(nextState, replace, asyncDoneCallback) {
-  UserActions.fetchCurrentUser();
-  var token = UserStore.addListener(function(){
-
-    if(UserStore.currentUser()) { replace('/dashboard'); }
-    token.remove();
+  // UserActions.fetchCurrentUser();
+  // var token = UserStore.addListener(function(){
+    if(UserStore.currentUser()) {
+      replace('/dashboard');
+    }
+    // token.remove();
     asyncDoneCallback();
-  });
+  // });
 }
 
 document.addEventListener('DOMContentLoaded', function(){

@@ -9,6 +9,7 @@ var ProfilePage = React.createClass({
 
   logoutCB: function (e) {
     e.preventDefault();
+    UserStore.logout();
     UserActions.logout();
     this.context.router.push('auth');
   },

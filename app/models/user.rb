@@ -51,14 +51,16 @@ class User < ActiveRecord::Base
   end
 
   def reset_session_token!
-    self.session_token = SecureRandom.urlsafe_base64(16)
-    self.save!
-    self.session_token
+    if self.username != "Guest"
+      self.session_token = SecureRandom.urlsafe_base64(16)
+      self.save!
+      self.session_token
+    end
   end
 
   private
 
   def ensure_session_token
-    self.session_token ||= SecureRandom.urlsafe_base64(16)
+    self.session_token ||= SecureRandom.urlsafe_base64(16) unless self.username == "Guest"
   end
 end

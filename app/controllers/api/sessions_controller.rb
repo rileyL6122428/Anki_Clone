@@ -2,20 +2,13 @@ class Api::SessionsController < ApplicationController
   # TODO check that command syntax lines up
   #TODO sanitize Query inputs ??? IMPORTANT
   def create
-
     if request.env["omniauth.auth"]
       handle_facebook_login
     else
-      @user = User.find_by_credentials(
-      params[:user][:username],
-      params[:user][:password]
-      )
+      @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
     end
 		if @user
-			login_user!(@user)
-			# render "api/users/show.json.jbuilder", status: 200
-      redirect_to "/#/dashboard"
-      # render "static_pages/root.html.erb"
+      handle_normal_login
 		else
 			@errors = ['invalid credentials']
 			render "api/shared/error", status: 401
@@ -44,6 +37,16 @@ class Api::SessionsController < ApplicationController
 	end
 
   private
+
+  def handle_normal_login
+    if @user.username == "Guest"
+      login_guest
+    else
+      login_user!(@user)
+    end
+    redirect_to "/#/dashboard"
+  end
+
   def handle_facebook_login
     @user = User.find_by_facebook_uid(request.env["omniauth.auth"]["uid"])
 
@@ -57,4 +60,5 @@ class Api::SessionsController < ApplicationController
       @user.save
     end
   end
+
 end
