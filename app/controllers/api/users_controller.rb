@@ -1,8 +1,9 @@
 class Api::UsersController < ApplicationController
-  before_action :require_no_user!
+
   #TODO sanitize Query inputs ??? IMPORTANT
   def create
     @user = User.new(user_params)
+
     if @user.save
       login_user!(@user)
       render 'api/users/show'

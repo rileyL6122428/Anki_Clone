@@ -25956,7 +25956,7 @@
 	  },
 	
 	  getInitialState: function () {
-	    return { currentPage: "greeting", formType: "Sign up", authErrors: false };
+	    return { currentPage: "greeting", formType: "Log in", authErrors: false };
 	  },
 	
 	  componentDidMount: function () {
@@ -32979,22 +32979,25 @@
 	var ErrorMessage = React.createClass({
 	  displayName: 'ErrorMessage',
 	
+	  getInitialState: function () {
+	    if (this.props.formType === "Log in") {
+	      return {
+	        errorCategory: "Authentication failed.",
+	        errorExplanation: "Check your username and password, then try again.",
+	        errorAdvice: "If this is your first time using AnkiClone, choose 'Sign Up' and create an account with a valid username"
+	      };
+	    } else {
+	      return {
+	        errorCategory: "Sign up failed.",
+	        errorExplanation: UserStore.errors()[0],
+	        errorAdvice: ""
+	      };
+	    }
+	  },
 	
 	  render: function () {
 	    if (!this.props.hitAnError) {
 	      return React.createElement('div', null);
-	    }
-	
-	    var errorCategory, errorExplanation, errorAdvice;
-	
-	    if (this.props.formType === "Log in") {
-	      errorCategory = "Authentication failed.";
-	      errorExplanation = "Check your username and password, then try again.";
-	      errorAdvice = "If this is your first time using AnkiClone, choose 'Sign Up' and create an account with a valid username";
-	    } else {
-	      errorCategory = "Sign up failed.";
-	      errorExplanation = UserStore.errors()[0];
-	      errorAdvice = "";
 	    }
 	
 	    return React.createElement(
@@ -33009,18 +33012,18 @@
 	      React.createElement(
 	        'p',
 	        null,
-	        errorCategory
+	        this.state.errorCategory
 	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        errorExplanation
+	        this.state.errorExplanation
 	      ),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'p',
 	        null,
-	        errorAdvice
+	        this.state.errorAdvice
 	      ),
 	      React.createElement(
 	        'button',

@@ -11,7 +11,7 @@ var AuthForm = React.createClass({
   },
 
   getInitialState: function () {
-    return({ currentPage: "greeting", formType: "Sign up", authErrors: false })
+    return({ currentPage: "greeting", formType: "Log in", authErrors: false })
   },
 
   componentDidMount: function () {

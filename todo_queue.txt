@@ -1,0 +1,6 @@
+refactor css using media queries &&
+refactor react components to better utilize life cycle methods
+
+component refactor marker
+
+make auth screen responsive

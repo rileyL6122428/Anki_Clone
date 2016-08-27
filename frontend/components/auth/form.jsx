@@ -30,8 +30,6 @@ var AForm = React.createClass({
     this.setState({ passwordConfirm: newPasswordConfirm })
   },
 
-
-
   _loginCB: function(e) {
     e.preventDefault();
     UserActions.login({
@@ -48,7 +46,6 @@ var AForm = React.createClass({
       password: this.state.password
     });
   },
-
 
   usernameFocusCB: function () {
     this.setState({ usernameSelected: true});
